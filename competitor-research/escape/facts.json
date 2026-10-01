@@ -1,0 +1,222 @@
+{
+  "company": "Escape (Escape Technologies SAS)",
+  "founded": "2020",
+  "founders": [
+    "Tristan Kalos (CEO)",
+    "Antoine Carossio (CTO)"
+  ],
+  "hq": "Paris, France",
+  "headcount": "~29 employees (per Y Combinator company page, 2026); LinkedIn/ZoomInfo listings for 'Escape'-named companies are ambiguous due to unrelated namesakes",
+  "funding_rounds": [
+    {
+      "round": "Seed",
+      "amount": "€3.6M (~$3.9M)",
+      "date": "2023-06",
+      "investors": ["IRIS (lead)", "Frst", "Y Combinator", "Irregular Expressions", "Tiny Supercomputers", "Kima Ventures", "angel investors (Philippe Langlois, Mehdi Medjaoui, Roxanne Varza)"]
+    },
+    {
+      "round": "Series A",
+      "amount": "$18M (€15.4M)",
+      "date": "2026-03-10",
+      "investors": ["Balderton Capital (lead)", "Uncorrelated Ventures", "IRIS", "Y Combinator"]
+    }
+  ],
+  "total_funding": "~$23-24M disclosed across 3 tranches (Crunchbase aggregate)",
+  "investors": [
+    "Balderton Capital",
+    "IRIS",
+    "Uncorrelated Ventures",
+    "Y Combinator",
+    "Frst",
+    "Irregular Expressions",
+    "Tiny Supercomputers",
+    "Kima Ventures"
+  ],
+  "products": [
+    {
+      "name": "Attack Surface Management (ASM)",
+      "description": "Continuous discovery and inventory of APIs, applications, and cloud assets using subdomain enumeration, AI-powered fingerprinting, and OSINT techniques."
+    },
+    {
+      "name": "Business-Logic-Aware DAST",
+      "description": "Agentless dynamic application security testing (no proxy/agent) with 140+ automated attack scenarios targeting OWASP API Top 10, BOLA/IDOR, access-control and business-logic flaws, plus native GraphQL testing (introspection, type-aware payloads, resolver testing)."
+    },
+    {
+      "name": "AI Pentesting",
+      "description": "Agentic, continuous penetration testing (launched ~July 2025) using a multi-agent architecture: a coordinator/orchestrator agent manages pentest state and delegates to specialized agents for assessment, reporting, and context handling within sandboxed tools."
+    }
+  ],
+  "features": [
+    {
+      "name": "GraphQL-native security testing",
+      "description": "Introspection-based schema analysis, type-aware payload generation, resolver testing.",
+      "how_it_works": "Uses feedback-driven API exploration rather than brute-force scanning to reach deeper application states."
+    },
+    {
+      "name": "Multi-user / role-based authorization testing",
+      "description": "Automatically tests authorization boundaries between different user roles to catch Broken Object Level Authorization (BOLA) and Broken Authentication.",
+      "how_it_works": "Simulates multiple authenticated sessions/roles against the same endpoints to detect permission boundary violations."
+    },
+    {
+      "name": "Incremental / CI-integrated scanning",
+      "description": "Scans only changed endpoints in pull requests, integrates with GitHub Actions, GitLab CI, Jenkins, Azure DevOps, Bitbucket, CircleCI.",
+      "how_it_works": "Public API and CLI trigger scans from CI pipelines; v3 API released August 2025."
+    },
+    {
+      "name": "Complex auth-flow support",
+      "description": "Handles OAuth 2.0, AWS Cognito, JWT, MFA-protected applications.",
+      "how_it_works": "unverified in detail beyond vendor/review claims"
+    },
+    {
+      "name": "graphql-armor (open source)",
+      "description": "Security middleware adding a protective layer to Apollo GraphQL Server / Yoga / Envelop servers.",
+      "how_it_works": "npm middleware package; reported 100,000+ weekly downloads."
+    }
+  ],
+  "pricing": "Not publicly listed. AWS Marketplace shows an Enterprise Plan with 3 capacity tiers (up to 15, 60, or 120 scanned applications), unlimited scan frequency, dedicated support; AWS Marketplace Private Offers available for negotiated pricing. A free tier for scanning a single API was also reported by a third-party review (AppSecSanta). Exact dollar figures: unverified.",
+  "customers": [
+    "Sorare",
+    "Shine (Société Générale online banking subsidiary)",
+    "Neo4j",
+    "BetterHelp (single-source, unverified)",
+    "PandaDoc (single-source, unverified)",
+    "CyberCube Analytics (single-source, unverified)",
+    "Arkose Labs (single-source, unverified)"
+  ],
+  "partners": [
+    "Wiz (technology/integration partner; won inaugural WIN Partner Award, July 2025)",
+    "AWS (Marketplace listings, ISV Accelerate Program member)"
+  ],
+  "key_metrics": [
+    {"metric": "Organizations secured within 6 months of 2023 launch", "value": "1,000+", "date": "2023", "source": "https://www.iris.vc/articles/escape-raises-eu3-6m-in-seed-to-secure-apis-at-every-development-stage"},
+    {"metric": "Security teams using platform", "value": "2,000+", "date": "2025-2026", "source": "https://www.securityweek.com/escape-raises-18-million-to-automate-pentesting/"},
+    {"metric": "Monthly security assessments run", "value": "300,000+", "date": "2026-03", "source": "https://siliconangle.com/2026/03/10/escape-raises-18m-expand-ai-agent-platform-offensive-security-testing/"},
+    {"metric": "Exposed APIs found (Fortune 1000 research)", "value": "28,500+", "date": "2024-11-20", "source": "https://www.helpnetsecurity.com/2024/12/12/exposed-apis-issues-video/"},
+    {"metric": "Vulnerabilities found (Fortune 1000 research)", "value": "98,800 total / 1,830 highly critical", "date": "2024-11-20", "source": "https://www.helpnetsecurity.com/2024/12/12/exposed-apis-issues-video/"},
+    {"metric": "Vulnerabilities found in AI/vibe-coded public apps", "value": "2,000+ vulnerabilities across 5,600 apps; 175 personal-data-exposure cases", "date": "2026-03", "source": "https://tech.eu/2026/03/10/escape-secures-18m-series-a-to-develop-ai-cybersecurity-agents/"},
+    {"metric": "G2 rating", "value": "5.0 / 5.0", "date": "2026", "source": "https://www.g2.com/products/escape/reviews"},
+    {"metric": "graphql-armor weekly npm downloads", "value": "100,000+", "date": "2026", "source": "https://appsecsanta.com/escape"},
+    {"metric": "GraphQL endpoints scanned in research", "value": "1,500+ endpoints, 46,000+ issues found, ~10% critical", "date": "2023", "source": "https://graphql.org/conf/2023/sessions/5bf24cd6483a63e62a2276fe38effb82/"}
+  ],
+  "research_highlights": [
+    {
+      "title": "GraphQL Security Vulnerabilities in the Wild",
+      "date": "2023",
+      "url": "https://www.youtube.com/watch?v=hyB2UKsEkqA",
+      "summary": "Talk by co-founders Antoine Carossio & Tristan Kalos at GraphQLConf 2023 presenting research scanning 1,500+ GraphQL endpoints, finding 46,000+ security issues/data leaks."
+    },
+    {
+      "title": "The State of API Exposure (Fortune 1000 research)",
+      "date": "2024-11-20",
+      "url": "https://www.helpnetsecurity.com/2024/12/12/exposed-apis-issues-video/",
+      "summary": "Large-scale scan finding 28,500+ exposed APIs and 98,800 vulnerabilities (1,830 highly critical) across Fortune 1000 organizations."
+    },
+    {
+      "title": "The API Secret Sprawl (State of API Security 2024)",
+      "date": "2024-02",
+      "url": "https://www.helpnetsecurity.com/2024/02/05/exposed-api-secrets/",
+      "summary": "Research on exposed API secrets/tokens affecting major tech companies."
+    },
+    {
+      "title": "CVE-2026-17059 (Keycloak PII disclosure)",
+      "date": "2026-07-24",
+      "url": "unverified (title identified via search, page not fetched)",
+      "summary": "Escape researcher 'Orionexe' found and reported a PII-disclosure bug in Keycloak's role/user endpoint; credited in the CVE."
+    }
+  ],
+  "leadership": [
+    {
+      "name": "Tristan Kalos",
+      "role": "Co-founder & CEO",
+      "background": "Software engineer / ML researcher at UC Berkeley; worked in San Francisco building chatbots/APIs; motivated by a client's database being hacked/ransomed (~2017-2018)."
+    },
+    {
+      "name": "Antoine Carossio",
+      "role": "Co-founder & CTO",
+      "background": "Former penetration tester / security engineer for the French Government and for Apple; open-source GraphQL security tool maintainer."
+    }
+  ],
+  "news_timeline": [
+    {"date": "2020", "headline": "Escape founded in Paris", "url": "https://nordicapis.com/speakers/tristan-kalos/"},
+    {"date": "2023 (Winter batch)", "headline": "Escape joins Y Combinator W23; Launch HN post", "url": "https://news.ycombinator.com/item?id=39215779"},
+    {"date": "2023-06", "headline": "Escape raises €3.6M ($3.9M) seed round led by IRIS", "url": "https://www.eu-startups.com/2023/06/fresh-out-of-y-combinator-paris-based-escape-raises-e3-6-million-in-seed-to-secure-apis-at-every-development-stage/"},
+    {"date": "2023-10", "headline": "Shine (Société Générale) case study published", "url": "https://securityboulevard.com/2023/10/case-study-how-escape-enhanced-shines-application-security/"},
+    {"date": "2023 (GraphQLConf)", "headline": "GraphQL Security Vulnerabilities in the Wild talk", "url": "https://graphql.org/conf/2023/sessions/5bf24cd6483a63e62a2276fe38effb82/"},
+    {"date": "2024-02", "headline": "State of API Security 2024 - The API Secret Sprawl research", "url": "https://www.helpnetsecurity.com/2024/02/05/exposed-api-secrets/"},
+    {"date": "2024-08", "headline": "Positioning piece: Escape vs traffic-based API security tools", "url": "https://securityboulevard.com/2024/08/reinventing-api-security-why-escape-is-better-than-traditional-traffic-based-tools/"},
+    {"date": "2024-11-20", "headline": "State of API Exposure Fortune 1000 research report released", "url": "https://www.helpnetsecurity.com/2024/12/12/exposed-apis-issues-video/"},
+    {"date": "2025-07", "headline": "Escape wins Wiz's inaugural WIN Partner Award", "url": "https://securityboulevard.com/2025/07/escape-honored-with-inaugural-wiz-integrations-win-partner-award/"},
+    {"date": "2025-07 (approx)", "headline": "AI Pentesting agentic product launched", "url": "https://www.trendhunter.com/trends/escape-ai-agents"},
+    {"date": "2025-08", "headline": "Public API v3 released", "url": "unverified (title identified via search only)"},
+    {"date": "2025-12", "headline": "Product update: pre-scan 'Test Configuration' feature", "url": "unverified (title identified via search only)"},
+    {"date": "2026-07", "headline": "Escape researcher credited on CVE-2026-17059 (Keycloak PII disclosure)", "url": "unverified (title identified via search only)"},
+    {"date": "2026-03-10", "headline": "Escape raises $18M ($15.4M€) Series A led by Balderton Capital", "url": "https://tech.eu/2026/03/10/escape-secures-18m-series-a-to-develop-ai-cybersecurity-agents/"}
+  ],
+  "sources": [
+    "https://tech.eu/2026/03/10/escape-secures-18m-series-a-to-develop-ai-cybersecurity-agents/",
+    "https://www.securityweek.com/escape-raises-18-million-to-automate-pentesting/",
+    "https://fintech.global/2026/03/10/escape-raises-18m-series-a-for-ai-offensive-security/",
+    "https://siliconangle.com/2026/03/10/escape-raises-18m-expand-ai-agent-platform-offensive-security-testing/",
+    "https://securityboulevard.com/2026/03/escape-raises-18m-series-a-to-replace-legacy-scanners-with-ai-agent-driven-discovery-pentesting-and-remediation/",
+    "https://www.crunchbase.com/organization/escape-b74e",
+    "https://www.crunchbase.com/organization/escape-technologies",
+    "https://www.crunchbase.com/organization/escape-tech",
+    "https://www.crunchbase.com/person/tristan-kalos",
+    "https://startupintros.com/orgs/escape",
+    "https://www.iris.vc/articles/escape-raises-eu3-6m-in-seed-to-secure-apis-at-every-development-stage",
+    "https://www.iris.vc/articles/escape-raises-18m-series-a-to-fight-ai-powered-cyberattacks-with-ai-agents",
+    "https://www.eu-startups.com/2023/06/fresh-out-of-y-combinator-paris-based-escape-raises-e3-6-million-in-seed-to-secure-apis-at-every-development-stage/",
+    "https://www.eu-startups.com/2026/03/yc-backed-escape-raises-e15-4m-series-a-led-by-balderton-for-its-ai-powered-offensive-security-engineering-platform/",
+    "https://bebeez.eu/2026/03/10/yc-backed-escape-raises-e15-4m-series-a-led-by-balderton-for-its-ai-offensive-security-engineering-platform/",
+    "https://www.balderton.com/news/escape-raises-18m-series-a-to-fight-ai-powered-cyberattacks-with-ai-agents/",
+    "https://www.gide.com/en/news-insights/gide-advises-escape-on-its-18-million-series-a-funding-round-led-by-balderton/",
+    "https://www.scworld.com/brief/escape-technologies-raises-18-million-for-ai-powered-security-platform",
+    "https://www.thesaasnews.com/news/escape-raises-18-million-in-series-a/",
+    "https://pitchbook.com/profiles/company/442610-29",
+    "https://www.cbinsights.com/company/escape",
+    "https://www.cbinsights.com/compare/escape-vs-traceable",
+    "https://www.ycombinator.com/companies/escape",
+    "https://www.ycombinator.com/launches/I4v-escape-secure-your-graphql-apis",
+    "https://news.ycombinator.com/item?id=39215779",
+    "https://appsecsanta.com/escape",
+    "https://www.g2.com/products/escape/reviews",
+    "https://aws.amazon.com/marketplace/pp/prodview-yffo3s4uoj7zs",
+    "https://aws.amazon.com/marketplace/pp/prodview-b5zhismdnjnpw",
+    "https://aws.amazon.com/marketplace/pp/prodview-botb7xtpafuxe",
+    "https://aws.amazon.com/marketplace/pp/prodview-2dwmxwuc3bf5g",
+    "https://aws.amazon.com/marketplace/reviews/reviews-list/prodview-botb7xtpafuxe",
+    "https://securityboulevard.com/2023/10/case-study-how-escape-enhanced-shines-application-security/",
+    "https://securityboulevard.com/2024/08/reinventing-api-security-why-escape-is-better-than-traditional-traffic-based-tools/",
+    "https://securityboulevard.com/2025/07/escape-honored-with-inaugural-wiz-integrations-win-partner-award/",
+    "https://securityboulevard.com/2026/04/top-xbow-alternatives-in-2026/",
+    "https://www.wiz.io/blog/celebrating-200-wiz-integrations",
+    "https://www.helpnetsecurity.com/2024/02/05/exposed-api-secrets/",
+    "https://www.helpnetsecurity.com/2024/12/12/exposed-apis-issues-video/",
+    "https://cyberflow.substack.com/p/offensive-security-market-map-the-rise-of-autonomous-hacking",
+    "https://firecompass.com/external-attack-surface-management/",
+    "https://www.gartner.com/reviews/market/api-protection",
+    "https://graphql.org/conf/2023/sessions/5bf24cd6483a63e62a2276fe38effb82/",
+    "https://graphql.org/conf/2023/speakers/tristan119/",
+    "https://graphql.org/conf/2023/speakers/antoine.carossio",
+    "https://www.youtube.com/watch?v=hyB2UKsEkqA",
+    "https://www.youtube.com/@escapetechhq",
+    "https://nordicapis.com/speakers/tristan-kalos/",
+    "https://sessionize.com/antoine-carossio/",
+    "https://apiworldcloudxdataweek2025.sched.com/speaker/tristan_kalos.28elzft0",
+    "https://startupsavant.com/startup-savant-podcast/episodes/escape",
+    "https://scalingdevtools.com/podcast/episodes/from-getting-hacked-to-cybersecurity-founders-with-antoine-carossio-and-tristan-kalos-from-escape-tech/transcript",
+    "https://www.trendhunter.com/trends/escape-ai-agents",
+    "https://github.com/Escape-Technologies",
+    "https://github.com/Escape-Technologies/graphql-armor",
+    "https://github.com/Escape-Technologies/graphinder",
+    "https://github.com/Escape-Technologies/goctopus",
+    "https://github.com/Escape-Technologies/awesome-graphql-security",
+    "https://github.com/Escape-Technologies/graphql-security-academy",
+    "https://www.welcometothejungle.com/fr/companies/escape/jobs/senior-security-researcher_paris",
+    "https://www.welcometothejungle.com/fr/companies/escape/jobs/security-researcher-mid-level_paris",
+    "https://www.welcometothejungle.com/fr/companies/escape/jobs/lead-security-researcher-ai-appsec_paris",
+    "https://www.welcometothejungle.com/fr/companies/escape/jobs/offensive-security-lead_paris",
+    "https://jobs.stationf.co/companies/escape-technologies-sas",
+    "https://jobs.ashbyhq.com/escape"
+  ]
+}

@@ -1,0 +1,409 @@
+{
+  "company": "FireCompass",
+  "founded": "2019",
+  "founders": [
+    "Bikash Barai",
+    "Arnab Chattopadhayay",
+    "Priyanka Aash",
+    "Nilanjan De",
+    "Ravi Mishra"
+  ],
+  "hq": "Boston, Massachusetts, USA (30 Newbury St Ste 3, Boston, MA 02116), with additional offices reported in Bengaluru, India and New York; some sources list Bengaluru as primary HQ — unverified which is authoritative",
+  "headcount": "unverified (estimates range from 11-50 per LinkedIn to ~87-92 per Tracxn/Crustdata as of mid-2026, and 51-200 per Wellfound)",
+  "funding_rounds": [
+    {
+      "round": "Seed",
+      "amount": "unverified (amount not disclosed)",
+      "date": "2021-04-28",
+      "investors": ["NetApp Excellerator"]
+    },
+    {
+      "round": "Series A",
+      "amount": "$7,000,000",
+      "date": "2023-03-06",
+      "investors": ["Cervin Ventures", "Athera Venture Partners", "Bharat Innovation Fund"]
+    },
+    {
+      "round": "Corporate/Venture Round",
+      "amount": "$20,000,000",
+      "date": "2025-09-03",
+      "investors": ["EC-Council"]
+    }
+  ],
+  "total_funding": "approximately $30,000,000-$30,500,000 (per Crunchbase/Tracxn)",
+  "investors": [
+    "NetApp Excellerator",
+    "Cervin Ventures",
+    "Athera Venture Partners",
+    "Bharat Innovation Fund",
+    "EC-Council"
+  ],
+  "products": [
+    {
+      "name": "External Attack Surface Management (EASM)",
+      "description": "Continuously indexes deep, dark, and surface web to map an organization's external digital footprint, shadow IT, exposed services and misconfigurations."
+    },
+    {
+      "name": "Continuous Automated Red Teaming (CART)",
+      "description": "Patented (USPTO) system that discovers attack surface, identifies attack frontiers, prioritizes and emulates multi-stage attacks, determines attack paths, and continuously learns to generate an AI-based security model."
+    },
+    {
+      "name": "Agentic AI Penetration Testing (Web/API/Infrastructure)",
+      "description": "AI agents autonomously discover assets, exploit vulnerabilities with proof-of-exploit validation, and chain findings into multi-stage attack paths (credential reuse, privilege escalation, lateral movement)."
+    },
+    {
+      "name": "FireCompass Explorer",
+      "description": "Freemium, credit-based self-serve product giving security teams immediate access to AI-powered autonomous pen testing for infrastructure, web apps, and APIs, launched Feb 5, 2026."
+    },
+    {
+      "name": "Continuous Threat Exposure Management (CTEM)",
+      "description": "Unifies exposure discovery, validation, and prioritization on a continuous cadence rather than point-in-time assessment."
+    },
+    {
+      "name": "Ransomware Attack Surface Testing (RAST)",
+      "description": "Named as one of three core capability pillars (with EASM and CART) in partner announcements; not independently detailed by outside sources."
+    }
+  ],
+  "features": [
+    {
+      "name": "Zero-knowledge/autonomous asset discovery",
+      "description": "Discovers external assets and shadow IT without requiring manual scoping.",
+      "how_it_works": "Automated reconnaissance techniques described as mimicking nation-state-actor recon methods across deep, dark, and surface web."
+    },
+    {
+      "name": "Proof-of-exploit validation",
+      "description": "Runs the actual exploit to prove a finding is real rather than relying on signature/heuristic matching, aiming for near-zero false positives.",
+      "how_it_works": "Combines frontier large language models with FireCompass's own purpose-built small language models (SLMs) plus thousands of pre-built attack playbooks."
+    },
+    {
+      "name": "Multi-stage attack chaining",
+      "description": "Chains individual findings (e.g., a web app vulnerability) into multi-stage attack paths reaching internal network footholds.",
+      "how_it_works": "Reinforcement learning plus AI/ML subsystems that emulate attacker behavior across stages: discovery, frontier identification, prioritization, path determination, continuous learning (per USPTO patent description)."
+    },
+    {
+      "name": "Credit-based freemium access (Explorer)",
+      "description": "Lowers barrier to entry versus traditional weeks-long procurement/pilot cycles.",
+      "how_it_works": "$2,000 in one-time free credits for self-serve use; $5,000-$10,000 in credits for white-glove enterprise pilots."
+    }
+  ],
+  "pricing": "unverified - no official public price list found; third-party aggregator estimates cite a range of roughly $450-$2,500 per application for automated penetration testing on a subscription model, with tiers driven by number of assets/services monitored; Explorer freemium tier launched Feb 2026 uses a credit system ($2,000 free; $5,000-$10,000 for enterprise pilots)",
+  "customers": [
+    "Sprint (pre-T-Mobile merger)",
+    "Security Innovation",
+    "Nykaa",
+    "Manthan",
+    "Larsen & Toubro (L&T)",
+    "Edelweiss"
+  ],
+  "partners": [
+    "Tech Mahindra",
+    "3i Infotech",
+    "EC-Council"
+  ],
+  "key_metrics": [
+    {
+      "metric": "HackerOne US country board ranking",
+      "value": "#3",
+      "date": "2026-07-28",
+      "source": "https://finance.yahoo.com/technology/ai/articles/ai-pentest-agent-reaches-hackerones-140000433.html"
+    },
+    {
+      "metric": "HackerOne highest critical reputation ranking",
+      "value": "#2",
+      "date": "2026-07-28",
+      "source": "https://finance.yahoo.com/technology/ai/articles/ai-pentest-agent-reaches-hackerones-140000433.html"
+    },
+    {
+      "metric": "HackerOne OWASP A01 (Injection) ranking",
+      "value": "#1",
+      "date": "2026-07-28",
+      "source": "https://www.business-standard.com/amp/content/press-releases-ani/firecompass-ai-agent-reaches-top-3-on-hackerones-signalling-a-new-era-of-ai-driven-cybersecurity-for-enterprises-126080700004_1.html"
+    },
+    {
+      "metric": "HackerOne 'Up and Comers' ranking",
+      "value": "#1",
+      "date": "2026-07-28",
+      "source": "https://www.business-standard.com/amp/content/press-releases-ani/firecompass-ai-agent-reaches-top-3-on-hackerones-signalling-a-new-era-of-ai-driven-cybersecurity-for-enterprises-126080700004_1.html"
+    },
+    {
+      "metric": "HackerOne experiment monthly budget",
+      "value": "$5,000/month (~$15,000 total over 3 months)",
+      "date": "2026-04 to 2026-06",
+      "source": "https://finance.yahoo.com/technology/ai/articles/ai-pentest-agent-reaches-hackerones-140000433.html"
+    },
+    {
+      "metric": "HackerOne reports submitted (Apr-Jun window)",
+      "value": "150",
+      "date": "2026",
+      "source": "https://finance.yahoo.com/technology/ai/articles/ai-pentest-agent-reaches-hackerones-140000433.html"
+    },
+    {
+      "metric": "HackerOne reports submitted (full experiment)",
+      "value": "204",
+      "date": "2026",
+      "source": "https://finance.yahoo.com/technology/ai/articles/ai-pentest-agent-reaches-hackerones-140000433.html"
+    },
+    {
+      "metric": "HackerOne reports accepted (triaged/resolved)",
+      "value": "19 (12.7%)",
+      "date": "2026",
+      "source": "https://finance.yahoo.com/technology/ai/articles/ai-pentest-agent-reaches-hackerones-140000433.html"
+    },
+    {
+      "metric": "XBEN benchmark score",
+      "value": "104/104 challenges solved (100%) - self-reported, limited independent corroboration",
+      "date": "2026",
+      "source": "https://cybersectools.com/compare/xbow-captcha-bypass-tool-vs-firecompass-ai-powered-pen-testing"
+    },
+    {
+      "metric": "PeerSpot CTEM category mindshare",
+      "value": "1.9% (up from 0.1% year-over-year)",
+      "date": "2026-08",
+      "source": "https://www.peerspot.com/products/firecompass-reviews"
+    },
+    {
+      "metric": "Glassdoor employee rating",
+      "value": "4.3/5 stars (73 reviews); 93% would recommend to a friend",
+      "date": "2026",
+      "source": "https://www.glassdoor.co.uk/Overview/Working-at-FireCompass-EI_IE1896905.11,22.htm"
+    },
+    {
+      "metric": "Total funding raised",
+      "value": "~$30-30.5 million",
+      "date": "2025-2026",
+      "source": "https://tracxn.com/d/companies/firecompass/__PwO86ry5mDP5xvi3S_aoIALwtDfuU5QyIROryq6liAE"
+    },
+    {
+      "metric": "Employee headcount (Tracxn)",
+      "value": "~87-92",
+      "date": "2026-07",
+      "source": "https://tracxn.com/d/companies/firecompass/__PwO86ry5mDP5xvi3S_aoIALwtDfuU5QyIROryq6liAE"
+    }
+  ],
+  "research_highlights": [
+    {
+      "title": "FireCompass AI Agent Reaches Top 3 on HackerOne, Signalling a New Era of AI-Driven Cybersecurity for Enterprises",
+      "date": "2026-07-28",
+      "url": "https://www.business-standard.com/amp/content/press-releases-ani/firecompass-ai-agent-reaches-top-3-on-hackerones-signalling-a-new-era-of-ai-driven-cybersecurity-for-enterprises-126080700004_1.html",
+      "summary": "Three-month live experiment (Apr-Jun 2026) running FireCompass AI agents on authorized HackerOne bug bounty programs with a $5,000/month budget, reaching top-3 leaderboard positions in several categories."
+    },
+    {
+      "title": "AI Pentest Agent Reaches HackerOne's Top 3 on a $5,000-a-Month Budget",
+      "date": "2026-07-28",
+      "url": "https://finance.yahoo.com/technology/ai/articles/ai-pentest-agent-reaches-hackerones-140000433.html",
+      "summary": "Republished coverage detailing methodology, safety controls (scope enforcement, non-destructive validation, rate/blast-radius limits), and submission statistics from the HackerOne experiment."
+    },
+    {
+      "title": "FireCompass Secures USPTO Patent for Continuous Automated Red Teaming (CART)",
+      "date": "unverified exact date (patent grant referenced circa 2023-2024)",
+      "url": "https://www.linkedin.com/posts/firecompass_automateredteaming-innovation-cybersecurity-activity-7120304719629029376-zx5M",
+      "summary": "USPTO patent granted for a system/method performing automated red teaming via coordinated subsystems for discovery, prioritization, multi-stage attack emulation, and continuous learning; inventors Bikash Barai, Arnab Chattopadhayay, Jitendra Chauhan."
+    },
+    {
+      "title": "XBEN Benchmark results (104/104)",
+      "date": "2026",
+      "url": "https://cybersectools.com/compare/xbow-captcha-bypass-tool-vs-firecompass-ai-powered-pen-testing",
+      "summary": "FireCompass's autonomous web application agent reportedly solved all 104 challenges in the XBEN benchmark, compared against professional human pentesters (best score 85%); self-reported claim relayed by a third-party comparison site."
+    }
+  ],
+  "leadership": [
+    {
+      "name": "Bikash Barai",
+      "role": "Co-Founder & CEO",
+      "background": "Previously founded iViZ Security (IDG Ventures-backed, acquired by Cigital/Synopsys); IIT Kharagpur graduate; multiple USPTO patents in network security/anti-spam; named to Fortune's India Top 40 Business Leaders Under 40."
+    },
+    {
+      "name": "Arnab Chattopadhayay",
+      "role": "Co-Founder, CTO / VP of Emerging Research",
+      "background": "Co-inventor on FireCompass's CART USPTO patent."
+    },
+    {
+      "name": "Priyanka Aash",
+      "role": "Co-Founder",
+      "background": "Co-founded CISO Platform (global CISO knowledge-sharing community); board member USISTEF; advisor to IoT startups."
+    },
+    {
+      "name": "Nilanjan De",
+      "role": "Former Co-Founder",
+      "background": "unverified - listed as a 2019 founder; current status unclear"
+    },
+    {
+      "name": "Ravi Mishra",
+      "role": "Former Co-Founder",
+      "background": "unverified - listed as a 2019 founder; current status unclear"
+    },
+    {
+      "name": "Jitendra Chauhan",
+      "role": "Head of R&D",
+      "background": "Co-inventor on the CART USPTO patent."
+    },
+    {
+      "name": "Somshubhro Pal Choudhury",
+      "role": "Board Member",
+      "background": "unverified beyond board membership listing"
+    },
+    {
+      "name": "Erik Laird",
+      "role": "VP - North America",
+      "background": "unverified"
+    },
+    {
+      "name": "Bruce Schneier",
+      "role": "Advisor",
+      "background": "Renowned security technologist/cryptographer, Harvard Kennedy School lecturer; publicly participated in a 'fireside chat' with CEO Bikash Barai on AI and offensive security."
+    }
+  ],
+  "news_timeline": [
+    {
+      "date": "2021-04-28",
+      "headline": "FireCompass closes seed round led by NetApp Excellerator",
+      "url": "https://www.crunchbase.com/funding_round/firecompass-seed--8b8b17cc"
+    },
+    {
+      "date": "2023-03-06",
+      "headline": "FireCompass raises $7M Series A led by Cervin Ventures and Athera Venture Partners",
+      "url": "https://www.cervinventures.com/news/firecompass-raises-7m-in-funding"
+    },
+    {
+      "date": "2023-08-24",
+      "headline": "3i Infotech forms strategic partnership with FireCompass",
+      "url": "https://itvarnews.techplusmedia.com/2023/08/24/3i-infotech-forms-strategic-partnership-with-firecompass-to-enhance-enterprise-security/"
+    },
+    {
+      "date": "2025-09-03",
+      "headline": "EC-Council invests $20M+ in FireCompass to scale offensive security with agentic AI",
+      "url": "https://www.securityweek.com/firecompass-raises-20-million-for-offensive-security-platform/"
+    },
+    {
+      "date": "2025-11 (approximate)",
+      "headline": "Tech Mahindra partners with FireCompass to launch Continuous Automated Red Teaming Assessment (CARTA)",
+      "url": "https://www.techmahindra.com/en-in/techm-partners-firecompass/"
+    },
+    {
+      "date": "2026-02-05",
+      "headline": "FireCompass launches Explorer, a credit-based freemium AI pentesting product",
+      "url": "https://natlawreview.com/press-releases/firecompass-launches-ai-agents-autonomous-web-and-api-penetration-testing"
+    },
+    {
+      "date": "2026-04 to 2026-06",
+      "headline": "FireCompass AI agent runs live on HackerOne bug bounty programs on a $5,000/month budget",
+      "url": "https://finance.yahoo.com/technology/ai/articles/ai-pentest-agent-reaches-hackerones-140000433.html"
+    },
+    {
+      "date": "2026-07-28",
+      "headline": "FireCompass AI Agent Reaches Top 3 on HackerOne, press release",
+      "url": "https://www.business-standard.com/amp/content/press-releases-ani/firecompass-ai-agent-reaches-top-3-on-hackerones-signalling-a-new-era-of-ai-driven-cybersecurity-for-enterprises-126080700004_1.html"
+    },
+    {
+      "date": "2026-08-04 to 2026-08-06",
+      "headline": "FireCompass exhibits at Black Hat USA 2026 (Booth #5739)",
+      "url": "https://x.com/FireCompass?lang=en"
+    }
+  ],
+  "sources": [
+    "https://www.crunchbase.com/organization/firecompass",
+    "https://www.crunchbase.com/funding_round/firecompass-series-a--549003da",
+    "https://www.crunchbase.com/funding_round/firecompass-seed--8b8b17cc",
+    "https://www.crunchbase.com/organization/firecompass-india",
+    "https://www.crunchbase.com/person/bikash-barai",
+    "https://in.linkedin.com/company/firecompass",
+    "https://in.linkedin.com/in/arnabchattopadhayay",
+    "https://www.linkedin.com/in/bikashbarai/",
+    "https://www.linkedin.com/in/priyanka-aash-522aa739/",
+    "https://www.linkedin.com/posts/firecompass_automateredteaming-innovation-cybersecurity-activity-7120304719629029376-zx5M",
+    "https://tracxn.com/d/companies/firecompass/__PwO86ry5mDP5xvi3S_aoIALwtDfuU5QyIROryq6liAE",
+    "https://tracxn.com/d/companies/firecompass/__PwO86ry5mDP5xvi3S_aoIALwtDfuU5QyIROryq6liAE/funding-and-investors",
+    "https://www.caplight.com/company/firecompass",
+    "https://cbinsights.com/company/firecompass/financials",
+    "https://www.cbinsights.com/company/firecompass",
+    "https://www.cbinsights.com/company/firecompass/people",
+    "https://www.cbinsights.com/company/firecompass/alternatives-competitors",
+    "https://theorg.com/org/firecompass",
+    "https://pitchbook.com/profiles/company/436308-49",
+    "https://profiles.crustdata.com/company/firecompass",
+    "https://craft.co/firecompass",
+    "https://craft.co/firecompass/competitors",
+    "https://www.securityweek.com/firecompass-raises-20-million-for-offensive-security-platform/",
+    "https://siliconangle.com/2025/09/04/ec-council-invests-20m-firecompass-expand-ai-offensive-security/",
+    "https://fintech.global/2025/09/08/ec-council-invests-20m-in-firecompass-to-scale-agentic-ai/",
+    "https://www.eccouncil.org/ec-council-in-news/ec-council-invests-over-20-million-in-firecompass-to-scale-offensive-security-with-agentic-ai/",
+    "https://www.globenewswire.com/news-release/2025/09/04/3144531/0/en/EC-Council-Invests-Over-20-Million-in-FireCompass-to-Scale-Offensive-Security-with-Agentic-AI.html",
+    "https://www.cervinventures.com/news/firecompass-raises-7m-in-funding",
+    "https://inc42.com/company/firecompass/",
+    "https://inc42.com/startups/data-breach-firecompass-looks-to-ease-cybersecurity-for-indian-startups/",
+    "https://www.techmahindra.com/en-in/techm-partners-firecompass/",
+    "https://www.techmahindra.com/insights/press-releases/tech-mahindra-partners-firecompass-launch-continuous-automated-red-teaming/",
+    "https://www.mahindra.com/news-room/press-release/en/tech-mahindra-partners-with-firecompass-to-launch-continuous-automated-red-teaming-assessment-carta-for-large-enterprises",
+    "https://www.siliconindia.com/news/startups/it-services-firm-3i-infotech-partners-with-firecompass-to-help-detect-cyber-security-threats-in-enterprises-nid-224961-cid-19.html",
+    "https://itvarnews.techplusmedia.com/2023/08/24/3i-infotech-forms-strategic-partnership-with-firecompass-to-enhance-enterprise-security/",
+    "https://www.itvoice.in/tag/firecompass",
+    "https://natlawreview.com/press-releases/firecompass-launches-ai-agents-autonomous-web-and-api-penetration-testing",
+    "https://finance.yahoo.com/technology/ai/articles/ai-pentest-agent-reaches-hackerones-140000433.html",
+    "https://www.business-standard.com/amp/content/press-releases-ani/firecompass-ai-agent-reaches-top-3-on-hackerones-signalling-a-new-era-of-ai-driven-cybersecurity-for-enterprises-126080700004_1.html",
+    "https://cxotoday.com/media-coverage/firecompass-ai-agent-reaches-top-3-on-hackerone-signalling-a-new-era-of-ai-driven-cybersecurity-for-enterprises/",
+    "https://cxotoday.com/media-coverage/firecompass-ai-agent-hits-hackerone-top-3-ushering-in-ai-cybersecurity-era/",
+    "https://ismatimes.com/firecompass-ai-agent-hackerone-top3/",
+    "https://www.g2.com/products/firecompass/reviews",
+    "https://www.g2.com/products/firecompass/reviews?qs=pros-and-cons",
+    "https://www.g2.com/sellers/firecompass",
+    "https://www.g2.com/products/firecompass/competitors/alternatives",
+    "https://www.gartner.com/reviews/product/firecompass-134694945",
+    "https://www.gartner.com/reviews/market/external-attack-surface-management/vendor/firecompass/product/firecompass-external-attack-surface-management",
+    "https://www.gartner.com/reviews/market/external-attack-surface-management/vendor/firecompass/likes-dislikes",
+    "https://www.gartner.com/reviews/vendor/firecompass",
+    "https://www.gartner.com/reviews/product/firecompass-external-attack-surface-management/alternatives",
+    "https://www.gartner.com/reviews/market/it-risk-management-solutions/compare/firecompass-vs-safe-security",
+    "https://www.peerspot.com/products/firecompass-reviews",
+    "https://www.glassdoor.com/Reviews/FireCompass-Reviews-E1896905.htm",
+    "https://www.glassdoor.co.uk/Overview/Working-at-FireCompass-EI_IE1896905.11,22.htm",
+    "https://slashdot.org/software/p/FireCompass/",
+    "https://sourceforge.net/software/product/FireCompass/",
+    "https://www.softwareworld.co/software/firecompass-reviews/",
+    "https://www.softwareworld.co/competitors/firecompass-alternatives/",
+    "https://softwarefinder.com/cybersecurity/firecompass",
+    "https://www.softwaresuggest.com/firecompass",
+    "https://www.trustradius.com/products/firecompass/pricing",
+    "https://www.cyberdb.co/vendor/firecompass/",
+    "https://getlatka.com/companies/firecompass.com/competitors",
+    "https://leadiq.com/c/firecompass/5a1dd6042300005b00e0f4d2",
+    "https://www.zoominfo.com/c/firecompass-inc/404550512",
+    "https://www.zoominfo.com/pic/firecompass-inc/404550512",
+    "https://prospectoo.com/company/FireCompass-13197743/",
+    "https://www.uplers.com/company/firecompass-8571",
+    "https://www.instahyre.com/jobs-at-firecompass/",
+    "https://www.instahyre.com/job-102985-software-engineer-at-firecompass-bangalore-chennai-work-from-home/",
+    "https://assessment.hackerearth.com/en-us/challenges/hiring/firecompass-fullstack-dev-hiring-aug20/",
+    "https://assessment.hackerearth.com/en-us/challenges/hiring/firecompass-lead-software-engineer-hiring-challenge/",
+    "https://wellfound.com/company/firecompass-3",
+    "https://internshala.com/company/firecompass-1518436663/careers/",
+    "https://in.indeed.com/cmp/Firecompass",
+    "https://www.naukri.com/firecompass-jobs-careers-4800150",
+    "https://www.levels.fyi/companies/firecompass",
+    "https://github.com/FireCompassRnD",
+    "https://x.com/FireCompass?lang=en",
+    "https://x.com/FireCompass/with_replies",
+    "https://twitter.com/FireCompass",
+    "https://x.com/bikashbarai1",
+    "https://www.rsaconference.com/experts/bikash-barai",
+    "https://creators.spotify.com/pod/profile/tat-capital/episodes/AI-for-Security-Conversation-with-Bikash-Barai--CEO--Co-Founder--FireCompass-e1k6r8b",
+    "https://cisoplatform.podbean.com/",
+    "https://www.amazon.com/CISO-Platform-Security-Association-FireCompass/dp/B08K595L4P",
+    "https://www.cisoplatform.com/profiles/blogs/list/tag/firecompass",
+    "https://www.youtube.com/watch?v=c-Vh2g-ZzmE",
+    "https://www.youtube.com/watch?v=rkIi2GsINYo",
+    "https://www.youtube.com/@firecompass4106",
+    "https://sugermint.com/bikash-barai-firecompass-interview/",
+    "https://www.dqindia.com/role-played-ethical-hacking-cybersecurity-industry-bikash-barai-firecompass/",
+    "https://cisomag.com/firecompass-continuous-testing/",
+    "https://escape.tech/blog/xbow-alternatives/",
+    "https://xbow.com/blog/xbow-vs-humans",
+    "https://cybersectools.com/compare/xbow-captcha-bypass-tool-vs-firecompass-ai-powered-pen-testing",
+    "https://fleuret.ai/blog/firecompass-alternative",
+    "https://patrowl.io/en/ressources/comparisons/best-automated-pentest-tools",
+    "https://simbian.ai/blog/xbow-alternatives-ai-pentesting-tools",
+    "https://godaccess.substack.com/p/behind-the-hype-is-xbow-ai-really-the-game-changer",
+    "https://www.dqchannels.com/netapp-excellerator-programme-help-startups-innovation/",
+    "https://www.varindia.com/news/netapp-excellerator-announces-eighth-cohort",
+    "https://www.prnewswire.com/news/firecompass,-inc./"
+  ]
+}
