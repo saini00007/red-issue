@@ -1,0 +1,10 @@
+# command: cd /work && sqlmap -u "https://duck-store.escape.tech/login?username=test" --batch --level=5 --risk=3 --threads=4 --technique=BEUSTQ 2>&1 | tee tool_outputs/sqlmap_login_get.log
+# tool: sqlmap
+# exit_code: 124
+# ts: 2026-09-29T16:40:04.226657+00:00
+# ---
+
+
+[exec timeout after 300s]
+
+[exit=124]

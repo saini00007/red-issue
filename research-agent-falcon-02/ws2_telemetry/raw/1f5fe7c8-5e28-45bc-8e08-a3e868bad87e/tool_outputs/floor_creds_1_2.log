@@ -1,0 +1,18 @@
+# command: timeout 15 curl -s -m 13 -o - -D - -w '\nHTTP_STATUS:%{http_code}' -X POST -H 'Content-Type: application/x-www-form-urlencoded' -d 'username=admin&password=admin123' 'https://www.infinitycapital.bh/contact?cb=1&q=test'
+# exit_code: 0
+# ---
+
+HTTP/2 429 
+cache-control: private, no-store, max-age=0
+content-type: text/plain; charset=utf-8
+server: Vercel
+x-vercel-id: bom1::rbcl7-1790746219630-64b6e671e801
+x-vercel-mitigated: deny
+content-length: 75
+date: Wed, 30 Sep 2026 05:30:19 GMT
+
+Too Many Requests
+
+Too Many Requests
+bom1::rbcl7-1790746219630-64b6e671e801
+HTTP_STATUS:429

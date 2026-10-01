@@ -1,0 +1,7 @@
+# command: curl -s "https://duck-store.escape.tech/api/v1/docs" 2>&1 | head -200
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T14:29:23.213542+00:00
+# ---
+
+{"detail":"Not Found"}

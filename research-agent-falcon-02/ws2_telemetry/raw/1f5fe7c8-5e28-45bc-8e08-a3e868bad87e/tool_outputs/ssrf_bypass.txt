@@ -1,0 +1,13 @@
+=== allowlist bypass attempts (domain=images.ctfassets.net)
+subdomain-lookalike                                                            code=400 size=84 ct=text/plain; charset=utf-8 | Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::58xjq-1790722834580-e314c0b9f
+prefix-lookalike                                                               code=400 size=84 ct=text/plain; charset=utf-8 | Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::zxjdw-1790722834705-ca8a6f720
+userinfo@evil                                                                  code=400 size=84 ct=text/plain; charset=utf-8 | Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::tgtxz-1790722834832-1b7ac42ae
+fragment-trick                                                                 code=404 size=79 ct=text/plain; charset=utf-8 | The page could not be foundNOT_FOUNDbom1::gm2jf-1790722834970-6bd3ab627828
+path-contains-allowed                                                          code=400 size=84 ct=text/plain; charset=utf-8 | Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::g9fft-1790722835396-8c4e10544
+traversal                                                                      code=400 size=84 ct=text/plain; charset=utf-8 | Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::gm2jf-1790722835540-d24dffb74
+protocol-relative                                                              code=400 size=84 ct=text/plain; charset=utf-8 | Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::7bljw-1790722835671-6b7e6adf6
+punycode                                                                       code=400 size=84 ct=text/plain; charset=utf-8 | Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::kmplk-1790722835801-70d4d0079
+url-in-query                                                                   code=400 size=84 ct=text/plain; charset=utf-8 | Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::xgd8m-1790722835928-ddf113213
+nullbyte                                                                       code=400 size=84 ct=text/plain; charset=utf-8 | Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::rwhwf-1790722836039-07c1865e9
+=== OOB direct (control) - expect 400 = blocked by allowlist
+oob-direct                                                                     code=400 size=84 ct=text/plain; charset=utf-8 | Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::87zm9-1790722836476-f4e8971b2

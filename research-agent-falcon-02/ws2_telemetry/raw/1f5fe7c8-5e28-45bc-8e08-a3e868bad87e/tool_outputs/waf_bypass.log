@@ -1,0 +1,84 @@
+### http1.0
+ARGS: --http1.0 -A Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 https://www.infinitycapital.bh/
+OUT: Forbidden
+
+Forbidden
+bom1::1790717519-rIKZdcvoOTCr6QrlKcFZyUvWaSY1zVgk
+HTTP:403 SIZE:70 XVM:deny
+
+ERR: 
+
+### HEAD
+ARGS: -I -A Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 https://www.infinitycapital.bh/
+OUT: HTTP/2 403 
+cache-control: private, no-store, max-age=0
+content-type: text/plain; charset=utf-8
+server: Vercel
+x-vercel-id: bom1::1790717520-dkV6B3j7YItz9R8NDsvUsd865dM5g9Tr
+x-vercel-mitigated: deny
+content-length: 70
+date: Tue, 29 Sep 2026 21:32:00 GMT
+
+
+HTTP:403 SIZE:0 XVM:deny
+
+ERR: 
+
+### xff-spoof
+ARGS: -A Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 -H X-Forwarded-For: 8.8.8.8 -H X-Real-IP: 8.8.8.8 https://www.infinitycapital.bh/
+OUT: Forbidden
+
+Forbidden
+bom1::1790717520-X1kIQPKC1TFkOyGVyLxpiIQKpXA755TC
+HTTP:403 SIZE:70 XVM:deny
+
+ERR: 
+
+### xff-cloudflare
+ARGS: -A Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 -H X-Forwarded-For: 1.1.1.1 -H CF-Connecting-IP: 1.1.1.1 https://www.infinitycapital.bh/
+OUT: Forbidden
+
+Forbidden
+bom1::1790717520-FChY0kG3i588piERVPMtx9flDXDSpjAy
+HTTP:403 SIZE:70 XVM:deny
+
+ERR: 
+
+### full-browser-headers
+ARGS: -A Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 -H Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8 -H Accept-Language: en-US,en;q=0.9 -H Accept-Encoding: gzip, deflate, br -H sec-ch-ua: "Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99" -H sec-ch-ua-mobile: ?0 -H sec-ch-ua-platform: "Windows" -H Sec-Fetch-Dest: document -H Sec-Fetch-Mode: navigate -H Sec-Fetch-Site: none -H Sec-Fetch-User: ?1 -H Upgrade-Insecure-Requests: 1 https://www.infinitycapital.bh/
+OUT: <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <title>403: Forbidden</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --content-width: 283px;
+        --background: #0a0a0a;
+        --foreground: #ededed;
+        --copy: #ffffff;
+        --secondary: #a0a0a0;
+        --button-background: #ededed;
+        --bu
+ERR: 
+
+### http-plain
+ARGS: -A Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 http://www.infinitycapital.bh/
+OUT: Redirecting...
+HTTP:308 SIZE:14 XVM:
+
+ERR: 
+
+### host-header-apex
+ARGS: -A Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 -H Host: infinitycapital.bh https://www.infinitycapital.bh/
+OUT: Forbidden
+
+Forbidden
+bom1::1790717521-RjWpo1Vg1QJeOnV29E6XHTzSWVlu7tyG
+HTTP:403 SIZE:70 XVM:deny
+
+ERR: 

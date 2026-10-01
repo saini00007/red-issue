@@ -1,0 +1,8 @@
+# command: curl -s https://duck-store.escape.tech/assets/index.CkGp-KSH.js | grep -oE '/api/[a-zA-Z0-9/_-]+' | sort -u
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:27:27.922506+00:00
+# ---
+
+/api/v1
+/api/v1/admin/orders

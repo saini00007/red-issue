@@ -1,0 +1,4 @@
+# command: printf '%s\n' 'https://www.infinitycapital.bh/api/?id=1' 'https://www.infinitycapital.bh/?contact=1' | timeout 300 nuclei -silent -jsonl -no-color -dast -severity critical,high,medium -tags cve,sqli,xss,ssti,lfi,rce,redirect
+# exit_code: 0
+# ---
+

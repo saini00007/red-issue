@@ -1,0 +1,24 @@
+# command: timeout 105 sh -c 'for i in $(seq 1 20); do curl -s -o /dev/null -m 4 -w '"'"'RL:%{http_code}\n'"'"' -X POST -H '"'"'Content-Type: application/json'"'"' -d '"'"'{"email": "rlf311a3191d63@x.invalid", "password": "x"}'"'"' https://duck-store.escape.tech/api/login; done'
+# exit_code: 0
+# ---
+
+RL:404
+RL:404
+RL:404
+RL:404
+RL:404
+RL:404
+RL:404
+RL:404
+RL:404
+RL:404
+RL:404
+RL:404
+RL:404
+RL:404
+RL:404
+RL:404
+RL:404
+RL:404
+RL:404
+RL:404

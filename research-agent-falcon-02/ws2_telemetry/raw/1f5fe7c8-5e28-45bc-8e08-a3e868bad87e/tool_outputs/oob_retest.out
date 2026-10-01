@@ -1,0 +1,14 @@
+Firing TEST host = oob272e62d731df.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in
+  nextimage-url-ssrf     -> 400 len=84
+  nextimage-url-dns      -> 400 len=84
+  nextimage-url-plain    -> 403 len=33970
+  nextimage-w            -> 400 len=84
+  nextimage-q            -> 403 len=33976
+  home-ref               -> 403 len=33980
+  api-url                -> 404 len=28986
+  404-redirect           -> 403 len=33989
+  header-jndi            -> 200 len=27355
+  header-ua              -> 200 len=27355
+  header-referer         -> 200 len=27355
+
+CONTROL host (NEVER sent to target): oob7c720e257d4d.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in

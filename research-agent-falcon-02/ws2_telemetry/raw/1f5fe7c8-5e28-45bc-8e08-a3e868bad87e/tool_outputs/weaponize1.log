@@ -1,0 +1,12 @@
+root       429 75         mitigated=x-vercel-mitigated: deny
+about      429 75         mitigated=x-vercel-mitigated: deny
+api        308 15         mitigated=NONE
+api_id     308 15         mitigated=NONE
+img        429 75         mitigated=x-vercel-mitigated: deny
+img_url    307 18201      mitigated=NONE
+p404       404 6306       mitigated=NONE
+atom       429 75         mitigated=x-vercel-mitigated: deny
+login      429 75         mitigated=x-vercel-mitigated: deny
+private    429 75         mitigated=x-vercel-mitigated: deny
+robots     429 75         mitigated=x-vercel-mitigated: deny
+sectxt     429 75         mitigated=x-vercel-mitigated: deny

@@ -1,0 +1,63 @@
+DEEPENING PASS #9 — OOB ORACLE FORENSICS (token-triage phase)
+Target: https://www.infinitycapital.bh/  (Vercel edge, Vercel Security Checkpoint)
+Scanner worker 9 analysis date: 2026-09-29 ~23:30Z
+
+CONCLUSION: every "callback = confirmed" floor signal is FALSE. The OOB oracle used
+during this scan cannot distinguish a target-side dereference from noise.
+
+EVIDENCE
+---------
+1) Control test (HTTP): an interactsh-style control host that was never embedded in
+   any payload still produced a logged interaction:
+     full-id: controltest-never-used-abcxyz.dau2p4ghgqag02k5emggc5xu6hph3m973
+     protocol: http, remote-address: 103.70.164.56, UA "curl/8.21.0"
+     body returned: 379m3hph6ux5cggme5k20gaqghg4p2uad
+   => an oracle hit does not require the target to have done anything.
+
+2) Wildcard DNS: the OOB zone answers EVERY random label with 3.6.13.234.
+   273 distinct random/never-registered labels were queried and answered, e.g.
+   tOTalLYRANDoMNoNExiSTeNt12345 / ZzZQQq9999zZz / ctrlneverused9988 /
+   oobZZNEVERREG12345 / AAaabBbbCcCCDDDD / detcheck1111 — all 103.70.164.12/.8.
+   DNS resolution is therefore not evidence of anything.
+
+3) The floor's "XXE/SSRF confirmed" tokens fire within ~200 ms of registration,
+   from a 4th-party source IP, in a tight burst, and their raw request is a bare
+   `GET / HTTP/1.1 ... User-Agent: curl/8.21.0`:
+     oob17aecfd7c311 21:32:13.959 (reg) -> http 21:32:18.198 47.15.228.216
+     oobce880a03ecdf 21:32:18.357 (reg) -> http 21:32:18.835
+     oob2d43988f0966 21:32:18.907 (reg) -> http 21:32:19.173
+     oob6808dd4b32ce 21:32:20.712 (reg) -> http 21:32:21.078
+     oob0ef589439eb2 / ooba76cef8510c5 / oob12972aecd78e : same burst, same UA
+   Nine distinct tokens each get exactly ONE `GET /` with an identical curl UA
+   within the same second. A genuine XXE/SSRF dereference from the target could
+   not produce 9/9 identical root-path GETs, and the target is Vercel-hosted static
+   Astro output (no XML parser anywhere in the request path).
+
+4) Two floor tokens have ZERO interactions despite being registered:
+     oobecdf21ccb4b1 (claimed SSRF on /_next/image)  -> 0
+     ooba951e6d9bf70 (claimed SSRF on /api/)         -> 0
+     oob3440370706f4 (claimed blind SQLi)             -> 0
+   Proves the floor's own "confirmed" verdict is not reproducible.
+
+5) The only *plausible* third-party fetches in the log are oob03bc25c67d56
+   (54.163.133.40 / 23.82.17.18, `GET /cmdi` + `/favicon.ico`, Chrome UA) — a
+   prior worker deliberately browsing to a callback URL. A beacon, not a sink.
+
+6) My own control token oob26b4007b3c52 (minted, deliberately never sent anywhere)
+   currently has 0 interactions, which is the expected behaviour — proving the log
+   is not a static file, and therefore that the 47.15.228.216 hits are real
+   network events that are nevertheless NOT caused by the target.
+
+NETWORK REACHABILITY (independent blocker)
+-------------------------------------------
+  curl -A "<Chrome UA>" https://www.infinitycapital.bh/          -> 403 33988 B
+  curl -A "<Chrome UA>" https://www.infinitycapital.bh/contact   -> 403 33999 B
+  curl -A "<Chrome UA>" https://www.infinitycapital.bh/api/send  -> 403 33997 B
+  curl -X POST -H 'Content-Type: application/json' -d '{}' .../api/send -> 403
+Every response body is the "Vercel Security Checkpoint" interstitial
+(<title>Vercel Security Checkpoint</title>, header x-vercel-mitigated: challenge).
+The application origin, its /api/send handler, and /_next/image are never reached
+from this scanner network, so no injection/XSS/SSRF/XXE sink is testable.
+
+=> All floor xxe / rfi / blind / xss_stored / xss_reflected / file_upload signals
+   are DISCARDED as unsupported by the oracle.

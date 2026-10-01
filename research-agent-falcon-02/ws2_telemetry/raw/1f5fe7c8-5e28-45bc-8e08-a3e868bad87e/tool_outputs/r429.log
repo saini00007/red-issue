@@ -1,0 +1,16 @@
+--- headers
+HTTP/2 403 
+cache-control: private, no-store, max-age=0
+content-type: text/html; charset=utf-8
+server: Vercel
+x-vercel-challenge-token: 2.1790718672.60.NTk5OWE0NmExMjQ3NGE3NjFlNDU5NzMzNDk2MDM2MjA7NGExZWYwMDY7MDFjNmY0ZmIyYjJmZTRjYzc2NDAwOWJiNTc4ZWJlNDI5MDAyMzVmMzszO7yn5hdw2lQJpHHx99i15+GVrpEoHFs4Lm+SIEUdHM+Pt5Y5VnU5Vq1GLWxGTnU5u3WzQscCyRbIw9u+8jyvOoQf/n1Hjigo.e80c5a1e75636649f8eb65cd4e946158
+x-vercel-id: bom1::1790718672-m6ChtvzAUIccSTnsmbE7MWUxdT2OMlXc
+x-vercel-mitigated: challenge
+date: Tue, 29 Sep 2026 21:51:12 GMT
+
+--- body size
+33991 /tmp/rb.txt
+--- title
+<title>Vercel Security Checkpoint
+--- first 300
+<!DOCTYPE html><html lang="en" data-astro-cid-4wdtffzm><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#000"><title>Vercel Security Checkpoint</title><style>.spinner[data-astro-cid-ijmsm3te]{flex-direction:column;justi

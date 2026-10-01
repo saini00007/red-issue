@@ -1,0 +1,27 @@
+=== /api/send OPTIONS + GET/POST shape ===
+HTTP/2 403 
+--- GET /api/send ---
+HTTP=405 sz=0 ct=
+
+--- POST /api/send empty ---
+HTTP=500 sz=0
+
+
+=== /contact reachable? ===
+HTTP=200 sz=41185
+contact params (form inputs):
+<input type="text" id="fname" name="fname"/>
+<input type="text" id="lname" name="lname"/>
+<input class="Contact_tel__Gjwwx undefined" type="tel" id="telInput" name="telInput"/>
+<input type="text" id="cname" name="cname"/>
+<input type="checkbox" name="check"/>
+name="check"
+name="cname"
+name="description"
+name="fname"
+name="lname"
+name="msgTxt"
+name="tel"
+name="telInput"
+name="viewport"
+DONE

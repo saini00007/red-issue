@@ -1,0 +1,14 @@
+# command: curl -X GET "https://duck-store.escape.tech/api/v1/products" --http1.1 --max-time 5 -v 2>&1 | head -80
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:10:58.265210+00:00
+# ---
+
+Note: Unnecessary use of -X or --request, GET is already inferred.
+* Host duck-store.escape.tech:443 was resolved.
+* IPv6: (none)
+* IPv4: 51.15.242.155
+*   Trying 51.15.242.155:443...
+* Connection timed out after 5003 milliseconds
+* closing connection #0
+curl: (28) Connection timed out after 5003 milliseconds

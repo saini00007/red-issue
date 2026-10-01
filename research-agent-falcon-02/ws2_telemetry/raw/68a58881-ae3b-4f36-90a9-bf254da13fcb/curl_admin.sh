@@ -1,0 +1,2 @@
+#!/bin/bash
+curl -s -X GET "https://duck-store.escape.tech/api/v1/admin/users/testuserB" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzc3NjY3ZjktMjY3OC00MzU1LWJjN2MtODIwYmU4M2U0YzU4IiwidXNlcm5hbWUiOiJhdHRrdXNlcjEiLCJyb2xlIjoidXNlciIsImV4cCI6MTc5MDY4NDcwM30.Eu6rZyvdccrNfPiLt-O6iDbFdX2FWkST4Rteg1yQ4PM" -H "Content-Type: application/json"

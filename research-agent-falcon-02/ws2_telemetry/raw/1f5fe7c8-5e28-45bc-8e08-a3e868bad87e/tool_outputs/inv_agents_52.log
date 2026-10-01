@@ -1,0 +1,29 @@
+# command: ls -la /work/evidence/ | head -20; echo "---"; find / -name 'payload.json' -maxdepth 4 2>/dev/null
+# tool: ls
+# exit_code: 1
+# ts: 2026-09-30T11:52:58.141797+00:00
+# ---
+
+total 12364
+drwxr-xr-x 66 kali kali  20480 Sep 30 11:52 .
+drwxr-xr-x  1 kali kali  24576 Sep 30 11:44 ..
+-rw-r--r--  1 kali kali     24 Sep 29 23:48 .rcpt_own
+-rw-r--r--  1 kali kali     82 Sep 29 23:25 01_baseline.txt
+-rw-r--r--  1 kali kali     32 Sep 30 11:42 01_baseline_response.txt
+-rw-r--r--  1 kali kali  33994 Sep 30 04:50 01_home.html
+-rw-r--r--  1 kali kali    528 Sep 30 10:43 01_home_and_get.txt
+-rw-r--r--  1 kali kali    224 Sep 30 09:07 01_single_requests.txt
+-rw-r--r--  1 kali kali  33992 Sep 30 04:50 03_body.txt
+-rw-r--r--  1 kali kali 124362 Sep 30 10:24 117-4ba60eb06d2ce296.js
+-rw-r--r--  1 kali kali 328197 Sep 30 10:30 275-ea7b562607231006.js
+-rw-r--r--  1 kali kali 115295 Sep 30 10:24 341-553bcb827a52d4aa.js
+-rw-r--r--  1 kali kali 125646 Sep 30 11:21 489-c3a66469350d58bd.js
+-rw-r--r--  1 kali kali  38805 Sep 30 11:21 71-fbecd7aa70f9e321.js
+-rw-r--r--  1 kali kali      9 Sep 30 09:37 711-90c81a42d9859d8c.js
+-rw-r--r--  1 kali kali  43522 Sep 30 11:21 711-90c81a42d9859d8d.js
+-rw-r--r--  1 kali kali  50426 Sep 30 11:21 743-7f9d0b5cebfd0486.js
+-rw-r--r--  1 kali kali    135 Sep 30 01:17 A.json
+-rw-------  1 kali kali     67 Sep 30 03:05 A_site_own.json
+---
+
+[exit=1]

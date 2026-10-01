@@ -1,0 +1,20 @@
+# command: cd /work && tail -n 12 tool_outputs/sqlmap_send.log; echo "---running:"; pgrep -af "sqlmap" | grep -c sqlmap
+# tool: tail
+# exit_code: 0
+# ts: 2026-09-30T11:11:33.027310+00:00
+# ---
+
+[11:09:26] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (NOT - comment)'
+[11:09:28] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (MySQL comment)'
+[11:09:36] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (MySQL comment)'
+[11:09:46] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (NOT - MySQL comment)'
+[11:09:54] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (Microsoft Access comment)'
+[11:10:04] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (Microsoft Access comment)'
+[11:10:11] [INFO] testing 'MySQL RLIKE boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause'
+[11:10:24] [INFO] testing 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (MAKE_SET)'
+[11:10:39] [INFO] testing 'MySQL OR boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (MAKE_SET)'
+[11:10:56] [INFO] testing 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (ELT)'
+[11:11:08] [INFO] testing 'MySQL OR boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (ELT)'
+[11:11:20] [INFO] testing 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)'
+---running:
+160

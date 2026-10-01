@@ -1,0 +1,6 @@
+set -u
+C="docker exec scanner-cp sh -c"
+echo "=== H1 host dir count ==="
+$C 'ls -1 /var/lib/scanner | wc -l'
+echo "=== H2 hash dirs with scan subdirs + artifact line counts ==="
+$C 'for h in $(ls -1 /var/lib/scanner); do for d in /var/lib/scanner/$h/*/; do [ -d "$d" ] || continue; sid=$(basename "$d"); lu="-"; oi="-"; rg="-"; dm="-"; al="-"; to="-"; [ -f "$d/ledger_updates.jsonl" ] && lu=$(wc -l < "$d/ledger_updates.jsonl"); [ -f "$d/oob_interactions.jsonl" ] && oi=$(wc -l < "$d/oob_interactions.jsonl"); [ -f "$d/oob_registry.jsonl" ] && rg=$(wc -l < "$d/oob_registry.jsonl"); [ -f "$d/decisions.log" ] && dm=$(wc -l < "$d/decisions.log"); [ -f "$d/logs/agent.log" ] && al=$(wc -l < "$d/logs/agent.log"); nt=$(ls -1 "$d/tool_outputs" 2>/dev/null | wc -l); sz=$(du -sm "$d" 2>/dev/null | cut -f1); printf "%s/%s MB=%s ledger=%s oob=%s reg=%s dec=%s agentlog=%s toolouts=%s mtime=%s\n" "$h" "$sid" "$sz" "$lu" "$oi" "$rg" "$dm" "$al" "$nt" "$(stat -c %y "$d" 2>/dev/null | cut -c1-16)"; done; done'

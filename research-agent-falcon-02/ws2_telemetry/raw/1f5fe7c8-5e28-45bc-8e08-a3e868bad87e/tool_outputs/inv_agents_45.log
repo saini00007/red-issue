@@ -1,0 +1,25 @@
+# command: cd /work/evidence && echo "=== raw body hexdump ==="; xxd VERIF_single_empty.body; echo; echo "=== compare to prior known monthly_quota evidence ==="; cat IV429.body 2>/dev/null; echo "---"; cat IV429.hdr 2>/dev/null
+# tool: xxd
+# exit_code: 0
+# ts: 2026-09-30T12:06:50.170214+00:00
+# ---
+
+=== raw body hexdump ===
+
+=== compare to prior known monthly_quota evidence ===
+Too Many Requests
+
+Too Many Requests
+bom1::qlwjs-1790751039427-9523466d3f7a---
+HTTP/2 429 
+cache-control: private, no-store, max-age=0
+content-type: text/plain; charset=utf-8
+server: Vercel
+x-vercel-id: bom1::qlwjs-1790751039427-9523466d3f7a
+x-vercel-mitigated: deny
+content-length: 75
+date: Wed, 30 Sep 2026 06:50:39 GMT
+
+
+[exit=0]
+bash: line 1: xxd: command not found

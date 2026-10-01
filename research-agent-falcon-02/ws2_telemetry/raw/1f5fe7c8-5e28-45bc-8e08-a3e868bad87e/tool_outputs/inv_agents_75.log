@@ -1,0 +1,16 @@
+# command: cd /work/evidence && grep -oE 'name="[a-zA-Z_]+"' contact.html | sort -u; echo "---form---"; grep -oE '<form[^>]*>' contact.html | head
+# tool: grep
+# exit_code: 0
+# ts: 2026-09-30T12:08:18.893468+00:00
+# ---
+
+name="check"
+name="cname"
+name="description"
+name="fname"
+name="lname"
+name="msgTxt"
+name="tel"
+name="telInput"
+name="viewport"
+---form---

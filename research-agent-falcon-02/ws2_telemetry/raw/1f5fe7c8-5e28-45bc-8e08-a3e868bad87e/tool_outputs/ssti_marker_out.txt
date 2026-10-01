@@ -1,0 +1,54 @@
+### control: does marker appear in BASELINE pages?
+  home     200|27355|0.201335 marker_in_baseline=False
+  contact  200|41185|0.137118 marker_in_baseline=False
+  404      404|28986|0.151205 marker_in_baseline=False
+
+### SSTI unique-marker test (expect 7*1165 = 8135)
+ target https://www.infinitycapital.bh/?page=
+   {{7*1165}}                               200|27355|0.150933 marker_count=0
+   ${7*1165}                                200|27355|0.143987 marker_count=0
+   <%= 7*1165 %>                            200|27355|0.134392 marker_count=0
+   #{7*1165}                                200|27355|0.218541 marker_count=0
+   {{7*'1165'}}                             200|27355|0.130496 marker_count=0
+   ${{7*1165}}                              200|27355|0.144848 marker_count=0
+   {{-7*-1165-}}                            200|27355|0.134159 marker_count=0
+   {{ 7*1165 }}                             200|27355|0.124809 marker_count=0
+   {% for i in range(8135) %}{% endfor %}   200|27355|0.132053 marker_count=0
+   {{7*1165}}{{7*1165}}                     200|27355|0.145266 marker_count=0
+ target https://www.infinitycapital.bh/contact?cb=
+   {{7*1165}}                               200|41185|0.165024 marker_count=0
+   ${7*1165}                                200|41185|0.161353 marker_count=0
+   <%= 7*1165 %>                            200|41185|0.135525 marker_count=0
+   #{7*1165}                                200|41185|0.136261 marker_count=0
+   {{7*'1165'}}                             200|41185|0.153194 marker_count=0
+   ${{7*1165}}                              200|41185|0.181073 marker_count=0
+   {{-7*-1165-}}                            200|41185|0.138263 marker_count=0
+   {{ 7*1165 }}                             200|41185|0.212247 marker_count=0
+   {% for i in range(8135) %}{% endfor %}   200|41185|0.187896 marker_count=0
+   {{7*1165}}{{7*1165}}                     200|41185|0.159847 marker_count=0
+ target https://www.infinitycapital.bh/?id=
+   {{7*1165}}                               200|27355|0.382699 marker_count=0
+   ${7*1165}                                200|27355|0.304580 marker_count=0
+   <%= 7*1165 %>                            200|27355|0.585924 marker_count=0
+   #{7*1165}                                200|27355|0.385869 marker_count=0
+   {{7*'1165'}}                             200|27355|0.160298 marker_count=0
+   ${{7*1165}}                              200|27355|0.176814 marker_count=0
+   {{-7*-1165-}}                            200|27355|0.328914 marker_count=0
+   {{ 7*1165 }}                             200|27355|0.187841 marker_count=0
+   {% for i in range(8135) %}{% endfor %}   200|27355|0.150041 marker_count=0
+   {{7*1165}}{{7*1165}}                     200|27355|0.161767 marker_count=0
+ target https://www.infinitycapital.bh/404?q=
+   {{7*1165}}                               404|28986|0.155769 marker_count=0
+   ${7*1165}                                404|28986|0.130001 marker_count=0
+   <%= 7*1165 %>                            404|28986|0.138595 marker_count=0
+   #{7*1165}                                404|28986|0.129448 marker_count=0
+   {{7*'1165'}}                             404|28986|0.133357 marker_count=0
+   ${{7*1165}}                              404|28986|0.179090 marker_count=0
+   {{-7*-1165-}}                            404|28986|0.161754 marker_count=0
+   {{ 7*1165 }}                             404|28986|0.168615 marker_count=0
+   {% for i in range(8135) %}{% endfor %}   404|28986|0.227653 marker_count=0
+   {{7*1165}}{{7*1165}}                     404|28986|0.220976 marker_count=0
+
+### POST /api/send - SSTI/CMDi in JSON body fields
+  json: 500|0|0.454732 b''
+  contact: 404|0|0.128741 b''

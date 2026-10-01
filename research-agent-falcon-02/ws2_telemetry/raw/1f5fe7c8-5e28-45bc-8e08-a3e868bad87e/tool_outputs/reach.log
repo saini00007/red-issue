@@ -1,0 +1,13 @@
+/                                             429  ORIGIN-CONTENT
+/login                                        403  Vercel Security Checkpoint
+/about                                        403  Vercel Security Checkpoint
+/contact                                      403  Vercel Security Checkpoint
+/private                                      403  Vercel Security Checkpoint
+/404                                          429  ORIGIN-CONTENT
+/ads.txt                                      403  Vercel Security Checkpoint
+/robots.txt                                   429  ORIGIN-CONTENT
+/sitemap.xml                                  429  ORIGIN-CONTENT
+/feed.xml                                     429  ORIGIN-CONTENT
+/api/                                         403  Vercel Security Checkpoint
+/index.xml                                    429  ORIGIN-CONTENT
+/_next/static/css/32a0546faf171957.css        403  Vercel Security Checkpoint

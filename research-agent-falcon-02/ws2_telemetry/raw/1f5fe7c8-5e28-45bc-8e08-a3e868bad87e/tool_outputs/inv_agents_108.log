@@ -1,0 +1,7 @@
+# command: cd "$WORK_PATH"; tail -4 tool_outputs/sqlmap_contact.log tool_outputs/sqlmap_root.log 2>/dev/null; echo ---; wc -l /work/oob_registry.jsonl 2>/dev/null; grep -o 'oob[a-f0-9]\{16\}' /work/oob_registry.jsonl 2>/dev/null | tail -8
+# tool: tail
+# exit_code: 0
+# ts: 2026-09-30T11:31:51.715298+00:00
+# ---
+
+---

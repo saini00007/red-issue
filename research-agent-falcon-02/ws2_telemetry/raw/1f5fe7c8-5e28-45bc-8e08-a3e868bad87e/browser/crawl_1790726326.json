@@ -1,0 +1,103 @@
+{
+  "seed": "https://www.infinitycapital.bh/",
+  "routes": [
+    "https://www.infinitycapital.bh/",
+    "https://www.infinitycapital.bh/investment-portfolio",
+    "https://www.infinitycapital.bh/investment-philosophy",
+    "https://www.infinitycapital.bh/about",
+    "https://www.infinitycapital.bh/contact",
+    "https://www.infinitycapital.bh/privacy-terms"
+  ],
+  "xhr": [
+    {
+      "url": "https://www.infinitycapital.bh/investment-portfolio?_rsc=19zvn",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://www.infinitycapital.bh/?_rsc=7d80p",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://www.infinitycapital.bh/investment-philosophy?_rsc=7d80p",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://www.infinitycapital.bh/about?_rsc=7d80p",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://www.infinitycapital.bh/contact?_rsc=7d80p",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://www.infinitycapital.bh/?_rsc=4g1g4",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://www.infinitycapital.bh/investment-portfolio?_rsc=4g1g4",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://www.infinitycapital.bh/about?_rsc=4g1g4",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://www.infinitycapital.bh/contact?_rsc=4g1g4",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://www.infinitycapital.bh/?_rsc=eup3p",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://www.infinitycapital.bh/investment-portfolio?_rsc=eup3p",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://www.infinitycapital.bh/investment-philosophy?_rsc=eup3p",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://www.infinitycapital.bh/contact?_rsc=eup3p",
+      "method": "GET",
+      "post_data": null
+    }
+  ],
+  "forms": [],
+  "js_endpoints": [
+    "https://www.infinitycapital.bh/_next",
+    "https://www.infinitycapital.bh/_next/",
+    "https://www.infinitycapital.bh/404",
+    "https://www.infinitycapital.bh/privacy-terms",
+    "https://www.infinitycapital.bh/404",
+    "https://www.infinitycapital.bh/_next/image",
+    "https://www.infinitycapital.bh/api/send",
+    "https://www.infinitycapital.bh/a/i",
+    "https://www.infinitycapital.bh/a/b",
+    "https://www.infinitycapital.bh/",
+    "https://www.infinitycapital.bh/_next/"
+  ],
+  "js_secrets": [],
+  "screenshots": [
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/browser/shots/0.png",
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/browser/shots/1.png",
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/browser/shots/2.png",
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/browser/shots/3.png",
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/browser/shots/4.png",
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/browser/shots/5.png"
+  ],
+  "har": "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/browser/www.infinitycapital.bh_1790726326.har.gz",
+  "pages_crawled": 6
+}

@@ -1,0 +1,6 @@
+OOB HOST: oob7ad8f3c10d11.dau2p4ghgqag02k5emggm973.5xu6hph3m973.oast.abhedi.co.in
+TGT: http://oob7ad8f3c10d11.dau2p4ghgqag02k5emggm973.5xu6hph3m973.oast.abhedi.co.in/img_a => CODE=400 SZ=84
+TGT: http://oob7ad8f3c10d11.dau2p4ghgqag02k5emggm973.5xu6hph3m973.oast.abhedi.co.in/img_b.jpg => CODE=400 SZ=84
+INSCOPE /atom.xml => CODE=400 SZ=84
+INSCOPE /feeds/all.atom.xml => CODE=400 SZ=84
+INSCOPE / => CODE=400 SZ=84

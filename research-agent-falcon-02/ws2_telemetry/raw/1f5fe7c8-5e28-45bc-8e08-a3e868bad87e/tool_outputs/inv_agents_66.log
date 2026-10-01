@@ -1,0 +1,7 @@
+# command: cd /work && python3 verify_probe.py a_reserved_domain 2>&1 | head -60
+# tool: python3
+# exit_code: 0
+# ts: 2026-09-30T12:08:09.869838+00:00
+# ---
+
+python3: can't open file '/work/verify_probe.py': [Errno 2] No such file or directory

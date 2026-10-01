@@ -1,0 +1,21 @@
+[root] GET / -> 200 len=27355 loc=- srv=- mit=-
+[api-root] GET /api/ -> 404 len=28986 loc=- srv=- mit=-
+[api-contact-GET] GET /api/contact -> 404 len=28986 loc=- srv=- mit=-
+[api-contact-POST] POST /api/contact -> 404 len=0 loc=- srv=- mit=-
+[api-send-GET] GET /api/send -> 405 len=0 loc=- srv=- mit=-
+[api-send-OPTIONS] OPTIONS /api/send -> 429 len=101 loc=- srv=- mit=-
+      body: {"error":{"code":"429","message":"Too Many Requests","id":"bom1::ftk2d-1790750859789-574dde93f621"}} 
+[atom] GET /atom.xml -> 429 len=101 loc=- srv=- mit=-
+      body: {"error":{"code":"429","message":"Too Many Requests","id":"bom1::hlvsd-1790750860025-e5314c25655c"}} 
+[feeds] GET /feeds/all.atom.xml -> 429 len=101 loc=- srv=- mit=-
+      body: {"error":{"code":"429","message":"Too Many Requests","id":"bom1::bbc55-1790750860268-d61eab243009"}} 
+[sitemap] GET /sitemap.xml -> 429 len=101 loc=- srv=- mit=-
+      body: {"error":{"code":"429","message":"Too Many Requests","id":"bom1::bqpq4-1790750860470-78a186bfc835"}} 
+[robots] GET /robots.txt -> 429 len=101 loc=- srv=- mit=-
+      body: {"error":{"code":"429","message":"Too Many Requests","id":"bom1::nmrqk-1790750860676-76221c8e0a00"}} 
+[login] GET /login -> 429 len=101 loc=- srv=- mit=-
+      body: {"error":{"code":"429","message":"Too Many Requests","id":"bom1::7fk56-1790750860904-912a0c313654"}} 
+[admin] GET /admin -> 429 len=101 loc=- srv=- mit=-
+      body: {"error":{"code":"429","message":"Too Many Requests","id":"bom1::gqpst-1790750861084-99355181b880"}} 
+[dash] GET /dashboard -> 429 len=101 loc=- srv=- mit=-
+      body: {"error":{"code":"429","message":"Too Many Requests","id":"bom1::xrlmq-1790750861299-22ec3e8f47cb"}} 

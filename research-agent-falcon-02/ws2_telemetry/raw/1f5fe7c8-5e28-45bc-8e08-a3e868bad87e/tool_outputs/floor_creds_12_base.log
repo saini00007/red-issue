@@ -1,0 +1,21 @@
+# command: timeout 15 curl -s -m 13 -o - -D - -w '\nHTTP_STATUS:%{http_code}' 'https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=75https://www.infinitycapital.bh//?id=1&search=test&page=2==='
+# exit_code: 0
+# ---
+
+HTTP/2 400 
+cache-control: public, max-age=0, must-revalidate
+content-type: text/plain; charset=utf-8
+date: Wed, 30 Sep 2026 04:20:18 GMT
+server: Vercel
+strict-transport-security: max-age=63072000
+x-vercel-error: INVALID_IMAGE_OPTIMIZE_REQUEST
+x-vercel-id: bom1::4svx9-1790742018778-985aafe28481
+content-length: 84
+
+Bad request
+
+INVALID_IMAGE_OPTIMIZE_REQUEST
+
+bom1::4svx9-1790742018778-985aafe28481
+
+HTTP_STATUS:400

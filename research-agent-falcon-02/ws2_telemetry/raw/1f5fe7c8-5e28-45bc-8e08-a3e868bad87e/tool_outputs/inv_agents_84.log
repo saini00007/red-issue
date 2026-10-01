@@ -1,0 +1,28 @@
+# command: cd /work && sleep 3; curl -s -i -X POST "https://www.infinitycapital.bh/api/send" \
+  --max-time 45 \
+  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36' \
+  -F 'fname=Probe' -F 'lname=' -F 'areacode=+973' -F 'tel=17100005' \
+  -F 'cname=' -F 'subject=' -F 'msg=' \
+  -F 'check=0' \
+  -F 'targets=' \
+  -o ICV_nocheck.hdr -w "code=%{http_code}\n"; echo "=== probe email shape, check=0 ==="; tail -c 500 ICV_nocheck.hdr
+# tool: sleep
+# exit_code: 0
+# ts: 2026-09-30T11:37:19.520898+00:00
+# ---
+
+code=429
+=== probe email shape, check=0 ===
+HTTP/2 429 
+cache-control: private, no-store, max-age=0
+content-type: text/plain; charset=utf-8
+server: Vercel
+x-vercel-id: bom1::rshqc-1790768239528-e4c4eeb7d4bf
+x-vercel-mitigated: deny
+content-length: 75
+date: Wed, 30 Sep 2026 11:37:19 GMT
+
+Too Many Requests
+
+Too Many Requests
+bom1::rshqc-1790768239528-e4c4eeb7d4bf

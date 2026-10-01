@@ -1,0 +1,5 @@
+GET /api/v1/orders/?skip=0&limit=10 HTTP/2
+Host: duck-store.escape.tech
+User-Agent: curl/8.21.0
+Accept: */*
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYmUzMjkxZDMtYTdmMi00YmY5LTk1M2QtN2Y1ZjJhMGY2ZTkwIiwidXNlcm5hbWUiOiJ0ZXN0dXNlcl8xNzkwNjY0NDI3Iiwicm9sZSI6InVzZXIiLCJleHAiOjE3OTA2NjYyMzl9.2AfvgBfHlgJwOCZy9llHDPdjjJlZuTG0jqFkycfePKw

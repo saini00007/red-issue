@@ -1,0 +1,29 @@
+# command: cd "$WORK_PATH"; head -2 oob_registry.jsonl; echo ---; python3 -c "
+import json
+ks=set()
+for l in open('oob_registry.jsonl'):
+    l=l.strip()
+    if l:
+        ks|=set(json.loads(l).keys())
+print(sorted(ks))
+"; echo "--- entries with non-null status ---"; grep -vE '\"cell_id\": null' oob_registry.jsonl | tail -10
+# tool: head
+# exit_code: 0
+# ts: 2026-09-30T11:33:06.790977+00:00
+# ---
+
+{"token": "oob17aecfd7c311", "cell_id": "32500691-9489-44d1-8360-b969cc69dfa0", "vuln_class": "xxe", "endpoint": "https://www.infinitycapital.bh/api/", "param": null, "method": "exploit_floor:oob"}
+{"token": "oobce880a03ecdf", "cell_id": "38d986f3-2639-47a2-b1d1-a5f56b2c848d", "vuln_class": "xxe", "endpoint": "https://www.infinitycapital.bh/atom.xml", "param": null, "method": "exploit_floor:oob"}
+---
+['cell_id', 'endpoint', 'method', 'param', 'token', 'vuln_class']
+--- entries with non-null status ---
+{"token": "oob25ebf859f41d", "cell_id": "be2d46ce-4c65-4cc7-b8d4-f2c56e6e8864", "vuln_class": "open_redirect", "endpoint": "https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=75https://www.infinitycapital.bh//?id=1&search=test&page=2===", "param": null, "method": "exploit_floor:oob"}
+{"token": "oobd7a9ead33d86", "cell_id": "c273f7d5-76f6-493e-bc20-2fd403dcc7b4", "vuln_class": "open_redirect", "endpoint": "https://www.infinitycapital.bh/_next/image", "param": "url", "method": "exploit_floor:oob"}
+{"token": "oob21cb993957fd", "cell_id": "c429a7b0-748c-4e09-8f3b-8d9f24d719e7", "vuln_class": "open_redirect", "endpoint": "https://www.infinitycapital.bh/_next/image", "param": "w", "method": "exploit_floor:oob"}
+{"token": "oob0245368bd826", "cell_id": "c6001ccf-7bc9-4e1a-87f5-3d60109840bb", "vuln_class": "open_redirect", "endpoint": "https://www.infinitycapital.bh/contact?x=1&cb=1", "param": null, "method": "exploit_floor:oob"}
+{"token": "oob0e3677eca76c", "cell_id": "d35bd8ae-f4e3-4c9b-91cb-6a96435a1932", "vuln_class": "open_redirect", "endpoint": "https://www.infinitycapital.bh/contact?x=1", "param": null, "method": "exploit_floor:oob"}
+{"token": "oob9f300b7976d5", "cell_id": "dc60b00e-c58d-446f-8c08-46de0180d67c", "vuln_class": "open_redirect", "endpoint": "https://www.infinitycapital.bh/_next/image", "param": "search", "method": "exploit_floor:oob"}
+{"token": "oob1d6b5512bb15", "cell_id": "deddfe08-e20c-4e7f-a908-e179e05ff7c2", "vuln_class": "open_redirect", "endpoint": "https://www.infinitycapital.bh/_next/image?url=", "param": null, "method": "exploit_floor:oob"}
+{"token": "oob86e52fbae5f2", "cell_id": "f0d308e2-8d65-43a5-973a-9680f4eaa723", "vuln_class": "open_redirect", "endpoint": "https://www.infinitycapital.bh/api/?id=1", "param": null, "method": "exploit_floor:oob"}
+{"token": "oob2ced27c41cf2", "cell_id": "f2cc1375-ae42-46ed-b14f-6ae0740b9a93", "vuln_class": "open_redirect", "endpoint": "https://www.infinitycapital.bh/404", "param": null, "method": "exploit_floor:oob"}
+{"token": "oob821403af9aca", "cell_id": "fa105f3d-ae41-4318-b942-bd07fd81b922", "vuln_class": "open_redirect", "endpoint": "https://www.infinitycapital.bh/contact?cb=1", "param": null, "method": "exploit_floor:oob"}

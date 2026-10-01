@@ -1,0 +1,9 @@
+# command: timeout 15 curl -s -m 13 -o - -w '\nHTTP_STATUS:%{http_code}' https://www.infinitycapital.bh/_next/static/B1nnEhb4n0vSJ1Cnb3vz0/_buildManifest.js
+# exit_code: 0
+# ---
+
+Too Many Requests
+
+Too Many Requests
+bom1::9fp6t-1790741681049-5333d289179b
+HTTP_STATUS:429

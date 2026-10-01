@@ -1,0 +1,16 @@
+set -u
+q() { docker exec scanner-postgres psql -U scanner -d scanner -X -A -F' | ' -t -c "$1" 2>&1; }
+echo "=== K1 findings by verification_method ==="
+q "select coalesce(verification_method,'<NULL>'), count(*) from tenant_xbow.findings group by 1 order by 2 desc;"
+echo "=== K2 findings with oob_callback method (the OOB-minted path) ==="
+q "select count(*) from tenant_xbow.findings where verification_method='oob_callback';"
+echo "=== K3 oob_token rows WITH endpoint but cell_id NULL (registry had no UUID cell_id) ==="
+q "select count(*) from tenant_xbow.oob_token where cell_id is null and endpoint is not null;"
+echo "=== K4 oob_token with BOTH cell_id null AND endpoint null = truly unlinked ==="
+q "select count(*) from tenant_xbow.oob_token where cell_id is null and endpoint is null;"
+echo "=== K5 registry cell_id format check: how many registry rows carry a UUID cell_id? (workdir side done separately) ==="
+echo "=== K6 findings.jsonl on disk: verification_method census ==="
+echo "=== K7 ledger cells resolved/confirmed by oob? ==="
+q "select column_name from information_schema.columns where table_schema='tenant_xbow' and table_name='ledger_cell' order by ordinal_position;"
+echo "=== K8 scan_events / audit for oob errors ==="
+q "select column_name from information_schema.columns where table_schema='tenant_xbow' and table_name='scan_events' order by ordinal_position;"

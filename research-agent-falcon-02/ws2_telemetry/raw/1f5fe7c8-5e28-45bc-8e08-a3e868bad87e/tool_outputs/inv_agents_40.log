@@ -1,0 +1,44 @@
+# command: mkdir -p /work/evidence; ls /work/IVRELAY_V3 /work/verifier /work/vrf_relay /work/verif_relay 2>/dev/null
+# tool: ls
+# exit_code: 2
+# ts: 2026-09-30T12:06:12.071660+00:00
+# ---
+
+/work/IVRELAY_V3:
+117-4ba60eb06d2ce296.js
+275-ea7b562607231006.js
+341-553bcb827a52d4aa.js
+489-c3a66469350d58bd.js
+71-fbecd7aa70f9e321.js
+711-90c81a42d9859d8d.js
+743-7f9d0b5cebfd0486.js
+contact.hdr
+contact.html
+fd9d1056-3902e23722a6b2db.js
+layout-2aac163e3ced1001.js
+main-app-2dcde4753ea0d175.js
+page-b4cf0ec49dd0c737.js
+polyfills-42372ed130431b0a.js
+template-0dafb77d99dbfc0f.js
+urls.txt
+webpack-e401313d27ef7f61.js
+
+/work/verifier:
+117-4ba60eb06d2ce296.js
+275-ea7b562607231006.js
+341-553bcb827a52d4aa.js
+489-c3a66469350d58bd.js
+71-fbecd7aa70f9e321.js
+743-7f9d0b5cebfd0486.js
+contact.hdr
+contact.txt
+fd9d1056-3902e23722a6b2db.js
+home.hdr
+home.txt
+page.js
+relay_test.sh
+resp_T1_external_recipient.hdr
+resp_T1_external_recipient.json
+template.js
+
+[exit=2]

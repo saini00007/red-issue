@@ -1,0 +1,15 @@
+Vulnerability: Price/Quantity Tampering via Negative Quantity in Cart - Order Total Manipulation
+Target: https://duck-store.escape.tech/
+Endpoint: POST https://duck-store.escape.tech/api/v1/cart/add
+
+Test Request:
+POST /api/v1/cart/add
+Content-Type: application/json
+{"product_id": 1, "quantity": -5}
+
+Expected Vulnerable Behavior:
+- Cart accepts negative quantity without validation
+- Cart total becomes negative
+- Negative order total persists through checkout
+
+Status: Could not complete full reproduction due to time constraints on tool execution.

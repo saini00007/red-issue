@@ -1,0 +1,54 @@
+api/send           500                                          0
+
+api/contact        404 content-type: text/html; charset=utf-8   0
+api/email          404 content-type: text/html; charset=utf-8   0
+api/newsletter     404 content-type: text/html; charset=utf-8   0
+api/subscribe      404 content-type: text/html; charset=utf-8   0
+api/quote          404 content-type: text/html; charset=utf-8   0
+api/apply          429 content-type: text/html; charset=utf-8   101
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::cwlql-1790753871868-ed2f87eed255"}}
+
+api/portfolio      404 content-type: application/json           0
+api/investment     429 content-type: application/json           101
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::qtk7s-1790753872413-bd2f0c14a07c"}}
+
+api/auth           429 content-type: text/html; charset=utf-8   101
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::4qz9c-1790753872772-458ed5a4ee0d"}}
+
+api/login          404 content-type: text/html; charset=utf-8   0
+api/user           404 content-type: application/json           0
+api/users          404 content-type: application/json           0
+api/admin          429 content-type: application/json           101
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::j9qhf-1790753873943-ef55c2b27d83"}}
+
+api/data           404 content-type: application/json           0
+api/graphql        429 content-type: text/html; charset=utf-8   101
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::jrjr8-1790753874522-9cedf9d976b0"}}
+
+api/webhook        404 content-type: application/json           0
+api/upload         404 content-type: application/json           0
+api/pdf            429 content-type: application/json           101
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::5sw56-1790753875384-5b0caae088d4"}}
+
+api/news           429 content-type: text/html; charset=utf-8   101
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::jx2lh-1790753875687-a76379a39261"}}
+
+api/posts          429 content-type: application/json           101
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::68fk7-1790753875949-72aad39af2e2"}}
+
+api/og             429 content-type: application/json           101
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::rfhg8-1790753876229-d9d5564da884"}}
+
+api/calculate      404 content-type: text/html; charset=utf-8   0
+api/valuation      404 content-type: application/json           0
+api/risk           429 content-type: application/json           101
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::z7rmh-1790753877085-b73fb5fbd102"}}
+
+api/callback       429 content-type: text/html; charset=utf-8   101
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::nh5l2-1790753877346-bb9bc4d0779a"}}
+
+api/health         404 content-type: application/json           0
+api/status         404 content-type: application/json           0
+api/test           429 content-type: application/json           101
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::slmm8-1790753878168-494cd3ac72bc"}}
+

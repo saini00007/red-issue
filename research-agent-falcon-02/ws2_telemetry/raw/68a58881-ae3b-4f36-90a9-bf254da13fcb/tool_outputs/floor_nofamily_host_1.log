@@ -1,0 +1,10 @@
+# command: timeout 15 curl -s -m 13 -o - -D - -H 'Host: evil.example' https://duck-store.escape.tech/login
+# exit_code: 0
+# ---
+
+HTTP/2 200 
+alt-svc: h3=":443"; ma=2592000
+server: Caddy
+content-length: 0
+date: Mon, 28 Sep 2026 23:20:39 GMT
+

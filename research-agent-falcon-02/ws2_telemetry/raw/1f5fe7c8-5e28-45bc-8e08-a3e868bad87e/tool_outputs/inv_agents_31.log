@@ -1,0 +1,13 @@
+# command: cd /work/evidence && echo "### T2: targets OMITTED entirely" && curl -sS -i -X POST https://www.infinitycapital.bh/api/send -F "fname=Verify" -F "lname=Test" -F "areacode=973" -F "tel=0000000" -F "cname=Omitted" -F "subject=omitted targets" -F "msg=omitted targets body" -F "check=x" | tail -6
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-30T12:04:00.095233+00:00
+# ---
+
+### T2: targets OMITTED entirely
+x-matched-path: /api/send
+x-vercel-cache: MISS
+x-vercel-id: bom1::iad1::hnl5d-1790769826088-f7fa494d6b46
+x-xss-protection: 1; mode=block
+content-length: 0
+

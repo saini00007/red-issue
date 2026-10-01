@@ -1,0 +1,458 @@
+[
+ {
+  "test": "bypass",
+  "name": "sec-fetch headers",
+  "path": "/",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "len": 33980
+ },
+ {
+  "test": "bypass",
+  "name": "sec-fetch headers",
+  "path": "/about",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "len": 33973
+ },
+ {
+  "test": "bypass",
+  "name": "sec-fetch headers",
+  "path": "/api/",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "len": 33971
+ },
+ {
+  "test": "bypass",
+  "name": "googlebot",
+  "path": "/",
+  "code": 429,
+  "mitigated": "-",
+  "challenge": false,
+  "len": 7069
+ },
+ {
+  "test": "bypass",
+  "name": "googlebot",
+  "path": "/about",
+  "code": 429,
+  "mitigated": "-",
+  "challenge": false,
+  "len": 7069
+ },
+ {
+  "test": "bypass",
+  "name": "googlebot",
+  "path": "/api/",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "len": 33970
+ },
+ {
+  "test": "bypass",
+  "name": "vercel-internal",
+  "path": "/",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "len": 33976
+ },
+ {
+  "test": "bypass",
+  "name": "vercel-internal",
+  "path": "/about",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "len": 33991
+ },
+ {
+  "test": "bypass",
+  "name": "vercel-internal",
+  "path": "/api/",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "len": 33976
+ },
+ {
+  "test": "bypass",
+  "name": "method-override",
+  "path": "/",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "len": 33989
+ },
+ {
+  "test": "bypass",
+  "name": "method-override",
+  "path": "/about",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "len": 33991
+ },
+ {
+  "test": "bypass",
+  "name": "method-override",
+  "path": "/api/",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "len": 33970
+ },
+ {
+  "test": "bypass",
+  "name": "accept-json",
+  "path": "/",
+  "code": 429,
+  "mitigated": "-",
+  "challenge": false,
+  "len": 101
+ },
+ {
+  "test": "bypass",
+  "name": "accept-json",
+  "path": "/about",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": false,
+  "len": 151
+ },
+ {
+  "test": "bypass",
+  "name": "accept-json",
+  "path": "/api/",
+  "code": 429,
+  "mitigated": "-",
+  "challenge": false,
+  "len": 101
+ },
+ {
+  "test": "bypass",
+  "name": "range",
+  "path": "/",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "len": 33976
+ },
+ {
+  "test": "bypass",
+  "name": "range",
+  "path": "/about",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "len": 33986
+ },
+ {
+  "test": "bypass",
+  "name": "range",
+  "path": "/api/",
+  "code": 429,
+  "mitigated": "-",
+  "challenge": false,
+  "len": 7069
+ },
+ {
+  "test": "bypass",
+  "name": "xff-chain",
+  "path": "/",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "len": 33980
+ },
+ {
+  "test": "bypass",
+  "name": "xff-chain",
+  "path": "/about",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "len": 33984
+ },
+ {
+  "test": "bypass",
+  "name": "xff-chain",
+  "path": "/api/",
+  "code": 429,
+  "mitigated": "-",
+  "challenge": false,
+  "len": 7069
+ },
+ {
+  "test": "method",
+  "method": "GET",
+  "code": 403,
+  "mitigated": "-"
+ },
+ {
+  "test": "method",
+  "method": "HEAD",
+  "code": 403,
+  "mitigated": "-"
+ },
+ {
+  "test": "method",
+  "method": "POST",
+  "code": 403,
+  "mitigated": "-"
+ },
+ {
+  "test": "method",
+  "method": "OPTIONS",
+  "code": 429,
+  "mitigated": "-"
+ },
+ {
+  "test": "method",
+  "method": "PUT",
+  "code": 429,
+  "mitigated": "-"
+ },
+ {
+  "test": "method",
+  "method": "TRACE",
+  "code": 403,
+  "mitigated": "-"
+ },
+ {
+  "test": "method",
+  "method": "PATCH",
+  "code": 429,
+  "mitigated": "-"
+ },
+ {
+  "test": "injection",
+  "name": "ssrf-file",
+  "code": 429,
+  "mitigated": "-",
+  "challenge": false,
+  "dt": 0.2536895275115967,
+  "len": 7069
+ },
+ {
+  "test": "injection",
+  "name": "ssrf-169",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "dt": 0.1393265724182129,
+  "len": 33975
+ },
+ {
+  "test": "injection",
+  "name": "ssrf-gopher",
+  "code": 429,
+  "mitigated": "-",
+  "challenge": false,
+  "dt": 0.11199045181274414,
+  "len": 7069
+ },
+ {
+  "test": "injection",
+  "name": "ssrf-redirect-http",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "dt": 0.15246343612670898,
+  "len": 33986
+ },
+ {
+  "test": "injection",
+  "name": "path-traversal",
+  "code": 429,
+  "mitigated": "-",
+  "challenge": false,
+  "dt": 0.10933804512023926,
+  "len": 7069
+ },
+ {
+  "test": "injection",
+  "name": "path-traversal2",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "dt": 0.0976555347442627,
+  "len": 33970
+ },
+ {
+  "test": "injection",
+  "name": "nullbyte",
+  "code": 429,
+  "mitigated": "-",
+  "challenge": false,
+  "dt": 0.12419939041137695,
+  "len": 7069
+ },
+ {
+  "test": "injection",
+  "name": "sqli-url",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "dt": 0.09891152381896973,
+  "len": 33991
+ },
+ {
+  "test": "injection",
+  "name": "sqli-url2",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "dt": 0.1403186321258545,
+  "len": 33986
+ },
+ {
+  "test": "injection",
+  "name": "sqli-url3",
+  "code": 429,
+  "mitigated": "-",
+  "challenge": false,
+  "dt": 0.10037946701049805,
+  "len": 7069
+ },
+ {
+  "test": "injection",
+  "name": "sqli-url4",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "dt": 0.09198808670043945,
+  "len": 33970
+ },
+ {
+  "test": "injection",
+  "name": "cmdi-url",
+  "code": 429,
+  "mitigated": "-",
+  "challenge": false,
+  "dt": 0.13454365730285645,
+  "len": 7069
+ },
+ {
+  "test": "injection",
+  "name": "cmdi-url2",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "dt": 0.20722484588623047,
+  "len": 33986
+ },
+ {
+  "test": "injection",
+  "name": "cmdi-url3",
+  "code": 429,
+  "mitigated": "-",
+  "challenge": false,
+  "dt": 0.09241056442260742,
+  "len": 7069
+ },
+ {
+  "test": "injection",
+  "name": "ssti-url",
+  "code": 429,
+  "mitigated": "-",
+  "challenge": false,
+  "dt": 0.10569477081298828,
+  "len": 7069
+ },
+ {
+  "test": "injection",
+  "name": "ssti-url2",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "dt": 0.12247276306152344,
+  "len": 33970
+ },
+ {
+  "test": "injection",
+  "name": "w-err",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "dt": 0.09954595565795898,
+  "len": 33976
+ },
+ {
+  "test": "injection",
+  "name": "w-sqli",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "dt": 0.1363525390625,
+  "len": 33980
+ },
+ {
+  "test": "injection",
+  "name": "w-cmd",
+  "code": 429,
+  "mitigated": "-",
+  "challenge": false,
+  "dt": 0.10429811477661133,
+  "len": 7069
+ },
+ {
+  "test": "injection",
+  "name": "q-err",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "dt": 0.10769987106323242,
+  "len": 33975
+ },
+ {
+  "test": "injection",
+  "name": "q-sqli",
+  "code": 429,
+  "mitigated": "-",
+  "challenge": false,
+  "dt": 0.10998034477233887,
+  "len": 7069
+ },
+ {
+  "test": "injection",
+  "name": "q-cmd",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "dt": 0.10091447830200195,
+  "len": 33989
+ },
+ {
+  "test": "injection",
+  "name": "w-oversize",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "dt": 0.10616374015808105,
+  "len": 33989
+ },
+ {
+  "test": "injection",
+  "name": "url-ext",
+  "code": 429,
+  "mitigated": "-",
+  "challenge": false,
+  "dt": 0.12107133865356445,
+  "len": 7069
+ },
+ {
+  "test": "injection",
+  "name": "url-gopher",
+  "code": 403,
+  "mitigated": "-",
+  "challenge": true,
+  "dt": 0.11084771156311035,
+  "len": 33976
+ }
+]

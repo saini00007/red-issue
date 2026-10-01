@@ -1,0 +1,23 @@
+=== C. Does the optimizer really FETCH? distinguishing outcomes ===
+valid asset (expect 200 fast)                200 len=45805    0.14s image/jpeg
+valid host, bogus path (fetch 404?)          404 len=79       0.44s The page could not be found  NOT_FOUND  bom1::lpwmv-1790755226854-8f6d8172462b 
+valid host, root path                        404 len=79       0.40s The page could not be found  NOT_FOUND  bom1::z6vkn-1790755227289-086360af986c 
+explicit :443 + valid asset                  200 len=45805    1.20s image/jpeg
+:8443 (already saw 502/27s)                  502 len=122     27.55s An error occurred with this application.  ROUTER_EXTERNAL_TARGET_CONNECTION_ERROR  bom1::z9hpt-1790755228886-5b360af6f7ec 
+:22 ssh port                                 400 len=84       0.43s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::xdz52-1790755256501-10e38fe04ff0 
+:1337                                        502 len=122     27.44s An error occurred with this application.  ROUTER_EXTERNAL_TARGET_CONNECTION_ERROR  bom1::jb6gj-1790755256892-a772957a10d0 
+
+=== D. hostname-validation bypass attempts (is it exact-match or suffix?) ===
+uppercase host                               400 len=84       0.20s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::qlwjs-1790755284398-39d68d5367c4 
+trailing dot                                 400 len=84       0.18s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::j9qhf-1790755284575-44f3afbcec0c 
+subdomain                                    400 len=84       0.18s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::rp676-1790755284761-dcfa454a980d 
+suffix attack                                400 len=84       0.19s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::8jk52-1790755284947-fd2b325c9aee 
+prefix attack                                400 len=84       0.28s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::bvvmt-1790755285215-681c67cc500a 
+userinfo trick                               404 len=79       0.43s The page could not be found  NOT_FOUND  bom1::r2qd7-1790755285398-957a5fef1f28 
+userinfo 2                                   400 len=84       0.18s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::wqs9s-1790755285842-bc2807204026 
+openredir-ish                                404 len=79       0.47s The page could not be found  NOT_FOUND  bom1::ngxph-1790755286009-d69d26d34be2 
+tab in host                                  400 len=84       0.14s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::rfsdg-1790755286454-87bdbf97db25 
+backslash                                    400 len=84       0.10s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::r2qd7-1790755286565-5d684da3a174 
+double scheme                                400 len=84       0.14s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::r4798-1790755286713-17e2619f13e1 
+v6                                           400 len=84       0.12s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::p9ck4-1790755286831-ae79f12f8f88 
+decimal ip                                   400 len=84       0.15s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::8lrtq-1790755286984-61c8fb671c7a 

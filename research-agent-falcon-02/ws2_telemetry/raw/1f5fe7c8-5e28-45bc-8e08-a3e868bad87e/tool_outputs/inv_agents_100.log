@@ -1,0 +1,37 @@
+# command: cd "$WORK_PATH"; pgrep -af sqlmap | head; echo "---LOG---"; tail -20 tool_outputs/sqlmap_send.log 2>/dev/null
+# tool: pgrep
+# exit_code: 0
+# ts: 2026-09-30T11:24:41.042573+00:00
+# ---
+
+8372 [sqlmap] <defunct>
+8373 [sqlmap] <defunct>
+8374 [sqlmap] <defunct>
+8375 [sqlmap] <defunct>
+10082 [sqlmap] <defunct>
+15498 [sqlmap] <defunct>
+53940 [sqlmap] <defunct>
+58046 [sqlmap] <defunct>
+59759 [sqlmap] <defunct>
+62359 [sqlmap] <defunct>
+---LOG---
+[11:18:52] [INFO] testing for SQL injection on POST parameter 'fname'
+[11:18:52] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[11:19:20] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause'
+[11:19:36] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (NOT)'
+[11:20:10] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (subquery - comment)'
+[11:20:21] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (subquery - comment)'
+[11:20:31] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (comment)'
+[11:20:34] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (comment)'
+[11:20:37] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (NOT - comment)'
+[11:20:40] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (MySQL comment)'
+[11:20:53] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (MySQL comment)'
+[11:21:01] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (NOT - MySQL comment)'
+[11:21:11] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (Microsoft Access comment)'
+[11:21:20] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (Microsoft Access comment)'
+[11:21:29] [INFO] testing 'MySQL RLIKE boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause'
+[11:21:43] [INFO] testing 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (MAKE_SET)'
+[11:22:00] [INFO] testing 'MySQL OR boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (MAKE_SET)'
+[11:22:13] [INFO] testing 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (ELT)'
+[11:22:54] [INFO] testing 'MySQL OR boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (ELT)'
+[11:23:24] [INFO] testing 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)'

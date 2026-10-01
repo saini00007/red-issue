@@ -1,0 +1,19 @@
+# command: cd /work && pwd && ls -d /work/tool_outputs && readlink -f /work/tool_outputs && ls /var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/ | head
+# tool: pwd
+# exit_code: 0
+# ts: 2026-09-30T11:39:30.061785+00:00
+# ---
+
+/work
+/work/tool_outputs
+/work/tool_outputs
+$WORK_PATH
+AT
+IND_VRF_0913
+IVC2_browser.py
+IVC_browser.py
+IVP_INDEP3
+IVRELAY_V3
+IVRELAY_V4
+IVRFN
+IVRF_probe.py

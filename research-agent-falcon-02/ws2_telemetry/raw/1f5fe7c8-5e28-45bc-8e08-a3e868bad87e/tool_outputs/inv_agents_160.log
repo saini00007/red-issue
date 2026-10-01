@@ -1,0 +1,30 @@
+# command: tail -20 /work/tool_outputs/sqlmap_send.log 2>/dev/null; echo "=== injectable count ==="; grep -cE "is not injectable|appears to be injectable|potentially injectable" /work/tool_outputs/sqlmap_send.log
+# tool: tail
+# exit_code: 1
+# ts: 2026-09-30T11:36:09.610903+00:00
+# ---
+
+[11:30:49] [ERROR] detected invalid data for declared content encoding 'br' ('BrotliError: invalid Brotli prefix code')
+[11:30:49] [WARNING] turning off page compression
+[11:30:49] [WARNING] if the problem persists please check that the provided target URL is reachable. In case that it is, you can try to rerun with switch '--random-agent' and/or proxy switches ('--proxy', '--proxy-file'...)
+[11:30:54] [INFO] checking if the target is protected by some kind of WAF/IPS
+[11:30:56] [CRITICAL] heuristics detected that the target is protected by some kind of WAF/IPS
+are you sure that you want to continue with further target testing? [Y/n] Y
+do you want sqlmap to try to automatically bypass the WAF/IPS during the run (e.g. by using a non-scanner User-Agent and tamper script(s))? [Y/n] Y
+[11:30:56] [INFO] using a random (non-scanner) User-Agent and browser-like headers to bypass the WAF/IPS
+[11:30:56] [INFO] testing if the target URL content is stable
+[11:30:58] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+how do you want to proceed? [(C)ontinue/(s)tring/(r)egex/(q)uit] C
+[11:30:58] [INFO] searching for dynamic content
+[11:30:59] [CRITICAL] target URL content appears to be heavily dynamic. sqlmap is going to retry the request(s)
+[11:31:05] [WARNING] target URL content appears to be too dynamic. Switching to '--text-only' 
+[11:31:05] [INFO] testing if (custom) POST parameter '#1*' is dynamic
+[11:31:12] [INFO] (custom) POST parameter '#1*' appears to be dynamic
+[11:31:28] [INFO] testing for SQL injection on (custom) POST parameter '#1*'
+[11:31:28] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[11:32:06] [WARNING] target appears to be rate-limiting requests; sqlmap is backing off and throttling accordingly (consider raising '--delay' or lowering '--threads')
+[11:34:21] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause'
+=== injectable count ===
+0
+
+[exit=1]

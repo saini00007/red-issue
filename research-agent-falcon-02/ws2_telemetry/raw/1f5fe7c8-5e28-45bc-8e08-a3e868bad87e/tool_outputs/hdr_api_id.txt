@@ -1,0 +1,10 @@
+HTTP/2 308 
+cache-control: public, max-age=0, must-revalidate
+content-type: text/plain
+date: Tue, 29 Sep 2026 21:51:42 GMT
+location: /api?id=1
+refresh: 0;url=/api?id=1
+server: Vercel
+strict-transport-security: max-age=63072000
+x-vercel-id: bom1::2fbf4-1790718702313-9790a42cac1f
+

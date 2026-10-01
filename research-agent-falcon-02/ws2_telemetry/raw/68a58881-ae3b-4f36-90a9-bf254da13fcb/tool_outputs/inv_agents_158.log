@@ -1,0 +1,10 @@
+# command: curl -X GET "https://duck-store.escape.tech/api/v1/orders/checkout" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYjk4YjBhOTEtNzY3Zi00MDgwLWIyZWUtYzE3OGYwMDg3MjhiIiwidXNlcm5hbWUiOiJ0ZXN0dXNlckFfMTIzIiwicm9sZSI6InVzZXIiLCJleHAiOjE3OTA2OTU0Mzh9.J59tThpOLOZtutUZrAljNP6a0QpJfGmkjTTuo6CjOm8" --max-time 10 2>&1
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:23:12.334778+00:00
+# ---
+
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+  0      0   0      0   0      0      0      0                              0100    158 100    158   0      0    350      0                              0100    158 100    158   0      0    350      0                              0100    158 100    158   0      0    350      0                              0
+{"detail":[{"type":"int_parsing","loc":["path","order_id"],"msg":"Input should be a valid integer, unable to parse string as an integer","input":"checkout"}]}

@@ -1,0 +1,9 @@
+# command: cd "$WORK_PATH"; pgrep -c sqlmap; tail -3 tool_outputs/sqlmap_contact.log tool_outputs/sqlmap_root.log tool_outputs/sqlmap_img.log 2>/dev/null
+# tool: pgrep
+# exit_code: 1
+# ts: 2026-09-30T11:26:07.052712+00:00
+# ---
+
+159
+
+[exit=1]

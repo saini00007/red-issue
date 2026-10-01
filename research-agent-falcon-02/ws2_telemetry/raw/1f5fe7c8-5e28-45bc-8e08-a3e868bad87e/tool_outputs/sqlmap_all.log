@@ -1,0 +1,230 @@
+===== SQLMAP image_all_params =====
+URL: https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=75
+[22:01:03] [INFO] checking if the target is protected by some kind of WAF/IPS
+[22:01:03] [INFO] testing if the target URL content is stable
+[22:01:03] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+how do you want to proceed? [(C)ontinue/(s)tring/(r)egex/(q)uit] C
+[22:01:03] [INFO] testing if GET parameter 'url' is dynamic
+[22:01:03] [WARNING] GET parameter 'url' does not appear to be dynamic
+[22:01:04] [WARNING] heuristic (basic) test shows that GET parameter 'url' might not be injectable
+[22:01:04] [INFO] testing for SQL injection on GET parameter 'url'
+[22:01:04] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[22:01:13] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause'
+[22:01:19] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (NOT)'
+[22:01:24] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (subquery - comment)'
+[22:01:29] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (subquery - comment)'
+[22:01:32] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (comment)'
+[22:01:34] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (comment)'
+[22:01:35] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (NOT - comment)'
+[22:01:36] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (MySQL comment)'
+[22:01:40] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (MySQL comment)'
+[22:01:43] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (NOT - MySQL comment)'
+[22:01:46] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (Microsoft Access comment)'
+[22:01:49] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (Microsoft Access comment)'
+[22:01:52] [INFO] testing 'MySQL RLIKE boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause'
+[22:01:57] [INFO] testing 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (MAKE_SET)'
+[22:02:02] [INFO] testing 'MySQL OR boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (MAKE_SET)'
+got a 307 redirect to 'https://www.infinitycapital.bh/404'. Do you want to follow? [Y/n] Y
+[22:02:06] [ERROR] detected invalid data for declared content encoding 'br' ('BrotliError: truncated Brotli stream')
+[22:02:06] [WARNING] turning off page compression
+[22:02:06] [WARNING] if the problem persists please try to lower the number of used threads (option '--threads')
+[22:02:24] [WARNING] target appears to be rate-limiting requests; sqlmap is backing off and throttling accordingly (consider raising '--delay' or lowering '--threads')
+[22:04:12] [INFO] testing 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (ELT)'
+
+===== SQLMAP image_w_only =====
+URL: https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 22:05:03 /2026-09-29/
+
+[22:05:03] [WARNING] using '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sqlmap' as the output directory
+[22:05:03] [INFO] fetched random HTTP User-Agent header value 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36' from file '/usr/share/sqlmap/data/txt/user-agents.txt'
+[1/1] URL:
+GET https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080
+do you want to test this URL? [Y/n/q]
+> Y
+[22:05:03] [INFO] testing URL 'https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080'
+[22:05:03] [INFO] using '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sqlmap/results-09292026_1005pm.csv' as the CSV results file in multiple targets mode
+[22:05:03] [INFO] testing connection to the target URL
+[22:05:03] [WARNING] target appears to be rate-limiting requests; sqlmap is backing off and throttling accordingly (consider raising '--delay' or lowering '--threads')
+[22:05:04] [WARNING] if the problem persists please check that the provided target URL is reachable. In case that it is, you can try to rerun with proxy switches ('--proxy', '--proxy-file'...)
+[22:05:04] [WARNING] the web server responded with an HTTP error code (429) which could interfere with the results of the tests
+[22:05:04] [INFO] checking if the target is protected by some kind of WAF/IPS
+[22:05:06] [WARNING] if the problem persists please try to lower the number of used threads (option '--threads')
+[22:05:07] [INFO] testing if the target URL content is stable
+[22:05:11] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+how do you want to proceed? [(C)ontinue/(s)tring/(r)egex/(q)uit] C
+[22:05:11] [INFO] searching for dynamic content
+[22:05:11] [INFO] dynamic content marked for removal (1 region)
+[22:05:12] [CRITICAL] target URL content appears to be heavily dynamic. sqlmap is going to retry the request(s)
+[22:05:15] [WARNING] target URL content appears to be too dynamic. Switching to '--text-only' 
+[22:05:15] [INFO] testing if GET parameter 'url' is dynamic
+[22:05:17] [INFO] GET parameter 'url' appears to be dynamic
+[22:05:18] [INFO] testing for SQL injection on GET parameter 'url'
+[22:05:18] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+
+===== SQLMAP image_url_only =====
+URL: https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=75
+        ___
+       __H__
+ ___ ___["]_____ ___ ___  {1.10.8#stable}
+|_ -| . ["]     | .'| . |
+|___|_  ["]_|_|_|__,|  _|
+      |_|V...       |_|   https://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 22:09:03 /2026-09-29/
+
+[22:09:03] [WARNING] using '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sqlmap' as the output directory
+[22:09:03] [INFO] fetched random HTTP User-Agent header value 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0' from file '/usr/share/sqlmap/data/txt/user-agents.txt'
+[1/1] URL:
+GET https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=75
+do you want to test this URL? [Y/n/q]
+> Y
+[22:09:03] [INFO] testing URL 'https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=75'
+[22:09:03] [INFO] using '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sqlmap/results-09292026_1009pm.csv' as the CSV results file in multiple targets mode
+[22:09:03] [INFO] testing connection to the target URL
+[22:09:03] [INFO] checking if the target is protected by some kind of WAF/IPS
+[22:09:03] [INFO] testing if the target URL content is stable
+[22:09:03] [INFO] target URL content is stable
+[22:09:04] [WARNING] heuristic (basic) test shows that GET parameter 'url' might not be injectable
+[22:09:05] [INFO] testing for SQL injection on GET parameter 'url'
+[22:09:05] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[22:09:43] [WARNING] target appears to be rate-limiting requests; sqlmap is backing off and throttling accordingly (consider raising '--delay' or lowering '--threads')
+[22:09:44] [WARNING] if the problem persists please try to lower the number of used threads (option '--threads')
+
+===== SQLMAP image_q_only =====
+URL: https://www.infinitycapital.bh/_next/image?q=75&w=1080&url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg
+|___|_  [)]_|_|_|__,|  _|
+      |_|V...       |_|   https://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 22:13:03 /2026-09-29/
+
+[22:13:03] [WARNING] using '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sqlmap' as the output directory
+[22:13:03] [INFO] fetched random HTTP User-Agent header value 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.7258.5 Safari/537.36' from file '/usr/share/sqlmap/data/txt/user-agents.txt'
+[1/1] URL:
+GET https://www.infinitycapital.bh/_next/image?q=75&w=1080&url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg
+do you want to test this URL? [Y/n/q]
+> Y
+[22:13:03] [INFO] testing URL 'https://www.infinitycapital.bh/_next/image?q=75&w=1080&url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg'
+[22:13:03] [INFO] using '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sqlmap/results-09292026_1013pm.csv' as the CSV results file in multiple targets mode
+[22:13:03] [INFO] testing connection to the target URL
+[22:13:03] [WARNING] target appears to be rate-limiting requests; sqlmap is backing off and throttling accordingly (consider raising '--delay' or lowering '--threads')
+[22:13:04] [WARNING] if the problem persists please check that the provided target URL is reachable. In case that it is, you can try to rerun with proxy switches ('--proxy', '--proxy-file'...)
+[22:13:05] [WARNING] the web server responded with an HTTP error code (429) which could interfere with the results of the tests
+[22:13:05] [INFO] checking if the target is protected by some kind of WAF/IPS
+[22:13:06] [WARNING] if the problem persists please try to lower the number of used threads (option '--threads')
+[22:13:07] [INFO] testing if the target URL content is stable
+[22:13:11] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+how do you want to proceed? [(C)ontinue/(s)tring/(r)egex/(q)uit] C
+[22:13:11] [INFO] searching for dynamic content
+[22:13:11] [INFO] dynamic content marked for removal (1 region)
+[22:13:15] [CRITICAL] target URL content appears to be heavily dynamic. sqlmap is going to retry the request(s)
+[22:13:24] [WARNING] target URL content appears to be too dynamic. Switching to '--text-only' 
+[22:13:26] [INFO] testing for SQL injection on GET parameter 'q'
+[22:13:26] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+
+===== SQLMAP path_404 =====
+URL: https://www.infinitycapital.bh/404
+       __H__
+ ___ ___[)]_____ ___ ___  {1.10.8#stable}
+|_ -| . [.]     | .'| . |
+|___|_  [.]_|_|_|__,|  _|
+      |_|V...       |_|   https://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 22:17:03 /2026-09-29/
+
+[22:17:03] [WARNING] using '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sqlmap' as the output directory
+[22:17:03] [INFO] fetched random HTTP User-Agent header value 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36 Edg/99.0.1150.36' from file '/usr/share/sqlmap/data/txt/user-agents.txt'
+[1/1] URL:
+GET https://www.infinitycapital.bh/404
+do you want to test this URL? [Y/n/q]
+> Y
+[22:17:03] [INFO] testing URL 'https://www.infinitycapital.bh/404'
+[22:17:03] [WARNING] you've provided target URL without any GET parameters (e.g. 'http://www.site.com/article.php?id=1') and without providing any POST parameters through option '--data'
+do you want to try URI injections in the target URL itself? [Y/n/q] Y
+[22:17:03] [INFO] using '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sqlmap/results-09292026_1017pm.csv' as the CSV results file in multiple targets mode
+[22:17:03] [INFO] testing connection to the target URL
+[22:17:03] [ERROR] detected invalid data for declared content encoding 'br' ('BrotliError: truncated Brotli stream')
+[22:17:03] [WARNING] turning off page compression
+[22:17:03] [CRITICAL] page not found (404)
+[22:17:03] [WARNING] HTTP error codes detected during run:
+404 (Not Found) - 1 times
+[22:17:03] [INFO] you can find results of scanning in multiple targets mode inside the CSV file '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sqlmap/results-09292026_1017pm.csv'
+
+[*] ending @ 22:17:03 /2026-09-29/
+
+
+===== SQLMAP api_root =====
+URL: https://www.infinitycapital.bh/api/
+|___|_  [,]_|_|_|__,|  _|
+      |_|V...       |_|   https://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 22:17:03 /2026-09-29/
+
+[22:17:03] [WARNING] using '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sqlmap' as the output directory
+[22:17:03] [INFO] fetched random HTTP User-Agent header value 'Mozilla/5.0 (X11; CrOS x86_64 14541.0.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36' from file '/usr/share/sqlmap/data/txt/user-agents.txt'
+[1/1] URL:
+GET https://www.infinitycapital.bh/api/
+do you want to test this URL? [Y/n/q]
+> Y
+[22:17:03] [INFO] testing URL 'https://www.infinitycapital.bh/api/'
+[22:17:03] [WARNING] you've provided target URL without any GET parameters (e.g. 'http://www.site.com/article.php?id=1') and without providing any POST parameters through option '--data'
+do you want to try URI injections in the target URL itself? [Y/n/q] Y
+[22:17:03] [INFO] using '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sqlmap/results-09292026_1017pm.csv' as the CSV results file in multiple targets mode
+[22:17:03] [INFO] testing connection to the target URL
+got a 308 redirect to 'https://www.infinitycapital.bh/api'. Do you want to follow? [Y/n] Y
+[22:17:03] [ERROR] detected invalid data for declared content encoding 'br' ('BrotliError: truncated Brotli stream')
+[22:17:03] [WARNING] turning off page compression
+[22:17:03] [WARNING] if the problem persists please check that the provided target URL is reachable. In case that it is, you can try to rerun with proxy switches ('--proxy', '--proxy-file'...)
+[22:17:04] [INFO] testing if the target URL content is stable
+[22:17:04] [WARNING] URI parameter '#1*' does not appear to be dynamic
+[22:17:04] [WARNING] heuristic (basic) test shows that URI parameter '#1*' might not be injectable
+[22:17:04] [INFO] heuristic (SSTI) test shows that URI parameter '#1*' might be vulnerable to server-side template injection (rerun with switch '--ssti')
+[22:17:04] [INFO] testing for SQL injection on URI parameter '#1*'
+[22:17:04] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[22:17:05] [WARNING] target appears to be rate-limiting requests; sqlmap is backing off and throttling accordingly (consider raising '--delay' or lowering '--threads')
+[22:17:06] [WARNING] if the problem persists please try to lower the number of used threads (option '--threads')
+
+===== SQLMAP dollar_p =====
+URL: https://www.infinitycapital.bh/$p
+[22:23:39] [INFO] testing 'SAP MaxDB boolean-based blind - Stacked queries'
+[22:23:43] [INFO] testing 'MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)'
+[22:23:46] [INFO] testing 'MySQL >= 5.6 OR error-based - WHERE or HAVING clause (GTID_SUBSET)'
+[22:23:49] [INFO] testing 'MySQL >= 8.0 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (UUID_TO_BIN)'
+[22:23:52] [INFO] testing 'MySQL >= 8.0 OR error-based - WHERE or HAVING clause (UUID_TO_BIN)'
+[22:23:54] [INFO] testing 'MySQL >= 5.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)'
+[22:23:57] [INFO] testing 'MySQL >= 5.1 OR error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)'
+[22:24:00] [INFO] testing 'MySQL >= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (BIGINT UNSIGNED)'
+[22:24:03] [INFO] testing 'MySQL >= 5.5 OR error-based - WHERE or HAVING clause (BIGINT UNSIGNED)'
+[22:24:06] [INFO] testing 'MySQL >= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXP)'
+[22:24:09] [INFO] testing 'MySQL >= 5.5 OR error-based - WHERE or HAVING clause (EXP)'
+[22:24:13] [INFO] testing 'MySQL >= 5.7.8 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (JSON_KEYS)'
+[22:24:16] [INFO] testing 'MySQL >= 5.7.8 OR error-based - WHERE or HAVING clause (JSON_KEYS)'
+[22:24:19] [INFO] testing 'MySQL >= 5.0 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)'
+[22:24:22] [INFO] testing 'MySQL >= 5.0 OR error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)'
+[22:24:26] [INFO] testing 'MySQL >= 5.0 (inline) error-based - Table name clause (FLOOR)'
+[22:24:26] [INFO] testing 'MySQL >= 5.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (UPDATEXML)'
+[22:24:29] [INFO] testing 'MySQL >= 5.1 OR error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (UPDATEXML)'
+[22:24:33] [INFO] testing 'MySQL >= 4.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)'
+[22:24:36] [INFO] testing 'MySQL >= 4.1 OR error-based - WHERE or HAVING clause (FLOOR)'
+[22:24:39] [INFO] testing 'MySQL OR error-based - WHERE or HAVING clause (FLOOR)'
+[22:24:41] [INFO] testing 'PostgreSQL AND error-based - WHERE or HAVING clause'
+[22:24:43] [INFO] testing 'PostgreSQL OR error-based - WHERE or HAVING clause'
+[22:24:46] [INFO] testing 'Microsoft SQL Server/Sybase AND error-based - WHERE or HAVING clause (IN)'
+[22:24:49] [INFO] testing 'Microsoft SQL Server/Sybase OR error-based - WHERE or HAVING clause (IN)'
+[22:24:51] [INFO] testing 'Microsoft SQL Server/Sybase AND error-based - WHERE or HAVING clause (CONVERT)'
+[22:24:54] [INFO] testing 'Microsoft SQL Server/Sybase OR error-based - WHERE or HAVING clause (CONVERT)'
+[22:24:56] [INFO] testing 'Microsoft SQL Server/Sybase AND error-based - WHERE or HAVING clause (CONCAT)'
+[22:24:59] [INFO] testing 'Microsoft SQL Server/Sybase OR error-based - WHERE or HAVING clause (CONCAT)'
+[22:25:03] [INFO] testing 'Oracle AND error-based - WHERE or HAVING clause (XMLType)'
+
+ALL SQLMAP RUNS COMPLETE

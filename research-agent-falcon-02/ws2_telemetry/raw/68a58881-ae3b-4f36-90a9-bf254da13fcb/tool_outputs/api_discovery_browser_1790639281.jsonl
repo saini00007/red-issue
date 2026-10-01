@@ -1,0 +1,3 @@
+# tool: api_discovery
+{"method": "GET", "url": "https://duck-store.escape.tech/login", "protocol": "rest", "spec_source": "browser_form", "live": true, "params": ["username", "password"]}
+{"method": "GET", "url": "https://duck-store.escape.tech/signup", "protocol": "rest", "spec_source": "browser_form", "live": true, "params": []}

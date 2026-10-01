@@ -1,0 +1,11 @@
+plain-UA                                   403 33980
+UA+Accept                                  200 27355
+UA+Lang+Fetch                              200 27355
+http1.1                                    200 27355
+HEAD                                       200 0
+curl-default                               403 33990
+googlebot                                  403 33995
+vercel-internal                            403 33984
+no-cookie-dnt                              403 33979
+soc-share                                  200 27355
+img-url                                    400 84

@@ -1,0 +1,8 @@
+[
+  ["resend_test_addr", {"targets": "delivered@resend.dev"}],
+  ["resend_test_named", {"targets": "IC Test <delivered@resend.dev>"}],
+  ["targets_comma", {"targets": "delivered@resend.dev,info@infinitycapital.bh"}],
+  ["targets_bcc_param", {"targets": "delivered@resend.dev", "bcc": "attacker@evil.test"}],
+  ["targets_cc_param", {"targets": "delivered@resend.dev", "cc": "attacker@evil.test"}],
+  ["targets_replyto", {"targets": "delivered@resend.dev", "replyTo": "attacker@evil.test"}]
+]

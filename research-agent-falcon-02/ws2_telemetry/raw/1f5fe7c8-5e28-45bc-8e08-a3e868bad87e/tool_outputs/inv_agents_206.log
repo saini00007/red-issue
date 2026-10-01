@@ -1,0 +1,33 @@
+# command: cd $WORK_PATH 2>/dev/null || cd .; UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/126"; B="https://www.infinitycapital.bh"; for p in "/graphql" "/admin" "/wp-json/"; do echo "=== $p"; curl -skI -A "$UA" --max-time 12 "$B$p" | head -8; sleep 1; done
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-30T12:09:42.517923+00:00
+# ---
+
+=== /graphql
+HTTP/2 429 
+cache-control: private, no-store, max-age=0
+content-type: text/plain; charset=utf-8
+server: Vercel
+x-vercel-id: bom1::86r45-1790770178766-08a43bd585b5
+x-vercel-mitigated: deny
+content-length: 75
+date: Wed, 30 Sep 2026 12:09:38 GMT
+=== /admin
+HTTP/2 429 
+cache-control: private, no-store, max-age=0
+content-type: text/plain; charset=utf-8
+server: Vercel
+x-vercel-id: bom1::zh57c-1790770180107-43cd389f9f52
+x-vercel-mitigated: deny
+content-length: 75
+date: Wed, 30 Sep 2026 12:09:40 GMT
+=== /wp-json/
+HTTP/2 429 
+cache-control: private, no-store, max-age=0
+content-type: text/plain; charset=utf-8
+server: Vercel
+x-vercel-id: bom1::pjr49-1790770181439-58f7cc92fde8
+x-vercel-mitigated: deny
+content-length: 75
+date: Wed, 30 Sep 2026 12:09:41 GMT

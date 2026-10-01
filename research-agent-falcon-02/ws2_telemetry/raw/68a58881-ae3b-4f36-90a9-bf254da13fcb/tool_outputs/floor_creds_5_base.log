@@ -1,0 +1,17 @@
+# command: timeout 15 curl -s -m 13 -o - -D - -w '\nHTTP_STATUS:%{http_code}' https://duck-store.escape.tech/api/login
+# exit_code: 0
+# ---
+
+HTTP/2 404 
+alt-svc: h3=":443"; ma=2592000
+content-type: application/json
+date: Tue, 29 Sep 2026 06:42:50 GMT
+server: uvicorn
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+via: 1.1 Caddy
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+content-length: 22
+
+{"detail":"Not Found"}
+HTTP_STATUS:404

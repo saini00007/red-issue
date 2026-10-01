@@ -1,0 +1,18 @@
+set -u
+q() { docker exec scanner-postgres psql -U scanner -d scanner -X -A -F' | ' -t -c "$1" 2>&1; }
+echo "=== J1 evidence kinds + oob linkage ==="
+q "select kind, count(*), count(oob_token), count(finding_id), count(cell_id) from tenant_xbow.evidence_object group by 1 order by 2 desc;"
+echo "=== J2 findings total ==="
+q "select count(*), count(distinct scan_id), count(*) filter (where verified) from tenant_xbow.findings;"
+echo "=== J3 does any FINDING carry OOB evidence (join via evidence_object.finding_id)? ==="
+q "select count(distinct e.finding_id) from tenant_xbow.evidence_object e where e.oob_token is not null and e.finding_id is not null;"
+echo "=== J4 findings linked to oob evidence, per scan ==="
+q "select left(e.scan_id::text,8), count(distinct e.finding_id) from tenant_xbow.evidence_object e where e.oob_token is not null and e.finding_id is not null group by 1 order by 2 desc;"
+echo "=== J5 oob evidence rows with cell_id but NO finding (evidenced, not yet a finding) ==="
+q "select count(*) from tenant_xbow.evidence_object where oob_token is not null and finding_id is null;"
+echo "=== J6 oob_token table rows that are UNLINKED (cell_id null) ==="
+q "select count(*) filter (where cell_id is null) as no_cell, count(*) filter (where cell_id is not null) as with_cell, count(*) from tenant_xbow.oob_token;"
+echo "=== J7 pre-scan check: fired_at vs scan started_at (negative = pre-scan) ==="
+q "select count(*) filter (where o.fired_at < s.started_at) as pre_start, count(*) filter (where o.fired_at >= s.started_at) as post_start, count(*) from tenant_xbow.oob_token o join tenant_xbow.scans s on s.scan_id=o.scan_id;"
+echo "=== J8 vuln_class claimed in oob_token vs protocol-derived honest class ==="
+q "select coalesce(vuln_class,'<NULL>'), count(*) from tenant_xbow.oob_token group by 1 order by 2 desc;"

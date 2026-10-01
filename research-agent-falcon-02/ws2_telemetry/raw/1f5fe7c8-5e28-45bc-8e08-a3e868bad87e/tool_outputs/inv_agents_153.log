@@ -1,0 +1,11 @@
+# command: cd /work; UA="Mozilla/5.0 (X11; Linux x86_64) Firefox/128.0"
+send() { code=$(curl -s -o /tmp/r.txt -w "%{http_code}" -X POST "https://www.infinitycapital.bh/api/send" -H "Content-Type: application/x-www-form-urlencoded" -H "User-Agent: $UA" -H "Accept: */*" -H "Accept-Encoding: identity" -H "Referer: https://www.infinitycapital.bh/contact" --data "$1"); echo "HTTP=$code sz=$(stat -c%s /tmp/r.txt) | $(head -c 300 /tmp/r.txt)"; }
+echo "--- valid to, in-scope host recipient ---"
+send 'fname=MARKER1&lname=B&areacode=388&tel=1&cname=c&subject=s&msg=m&check=1&targets=vapt@www.infinitycapital.bh'
+# tool: cd
+# exit_code: 0
+# ts: 2026-09-30T11:32:02.782030+00:00
+# ---
+
+--- valid to, in-scope host recipient ---
+HTTP=200 sz=67 | {"data":{"id":"01a0f215-fdc2-7aca-84ad-31ee3b177093"},"error":null}

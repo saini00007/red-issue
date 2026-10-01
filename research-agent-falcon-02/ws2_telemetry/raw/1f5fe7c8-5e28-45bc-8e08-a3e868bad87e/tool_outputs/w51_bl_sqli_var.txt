@@ -1,0 +1,7 @@
+== baseline variance control on /?page=2 (same payload 3x)
+   {(200, 27355): 6}
+   {(429, 7069): 4, (200, 27355): 2}
+   {(429, 7069): 2, (200, 27355): 4}
+== baseline variance control on / (no param) 2x
+   {(200, 27355): 6}
+   {(200, 27355): 6}

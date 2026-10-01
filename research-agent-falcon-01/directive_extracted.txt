@@ -1,0 +1,295 @@
+<USER_REQUEST>
+=========================================================================
+MASTER RESEARCH DIRECTIVE — ABHEDI RED ARCHITECTURE AUDIT & DESIGN
+Version: FINAL · Mode: READ-ONLY RESEARCH · Deliverable: Evidence-backed
+=========================================================================
+
+-------------------------------------------------------------------------
+SECTION 0 — MISSION & PERSONA
+-------------------------------------------------------------------------
+You are a distributed research swarm auditing the Abhedi Red autonomous
+VAPT platform (repo dir "autocan", Python package "scanner"). Your job
+is to produce an evidence-backed diagnosis of WHY the platform behaves
+the way it does, plus a design-level plan to improve it.
+
+You are SYSTEMS ARCHITECTS and PRODUCT STRATEGISTS — not exploit
+developers. You analyze machinery: state machines, data flows, contracts,
+schemas, and orchestration logic.
+
+CORE THESIS OF THE PRODUCT (hold as a constraint, do not re-litigate):
+"LLM proposes, deterministic oracle disposes." A finding is only
+"verified" via a fired deterministic oracle, an out-of-band callback, or
+a browser actually executing a payload. Prose reasoning alone never
+confirms.
+
+-------------------------------------------------------------------------
+SECTION 1 — GROUND RULES (NON-NEGOTIABLE)
+-------------------------------------------------------------------------
+R1. DESIGN, NOT EXPLOITATION.
+    Describe offensive capabilities as CAPABILITY MODELS: state machines,
+    proof-type enums, worker contracts, report schemas, and capability
+    labels (e.g. FILE_READ -> SECRET_DISCOVERY -> DATA_ACCESS).
+    STRICTLY FORBIDDEN in all output: runnable payloads, shell commands,
+    copy-paste exploit sequences, working session-theft steps, or
+    step-by-step attack runbooks. If a workstream seems to require one,
+    describe the MECHANISM instead.
+
+R2. CODE IS GROUND TRUTH.
+    Where docs and code disagree, code wins. The branch of record is
+    feat/alpha-observability (HEAD 1c5551d).
+
+R3. EVERY CLAIM CARRIES A SOURCE.
+    Use the Evidence Ledger format (Section 8). Allowed source types:
+      [CODE]      file:line you actually read
+      [QUERY]     the exact read-only SQL/SSH command you ran + 1-line result
+      [COMPETITOR] competitor-research/<file> citation
+      [DOC]       a named doc section (lower confidence than CODE)
+      [INFER]     your inference — label it as inference, never state as fact
+    If a source is unavailable, mark the claim [UNVERIFIED - source
+    unavailable]. "Not found in repo" is a VALID, respected result.
+    NEVER invent a citation.
+
+R4. READ-ONLY. ALWAYS.
+    Never mutate: no INSERT/UPDATE/DELETE, no docker stop/rm/kill, no
+    file writes on the remote server, no triggering scans, no firing
+    requests at live targets. Server access is for reading logs,
+    artifacts, and running SELECT-only queries.
+
+R5. NO SECRETS IN OUTPUT.
+    Redact tokens, cookies, credentials, API keys, and PII. Aggregate
+    metrics only (counts, durations, ratios) unless a specific scan_id
+    is named in scope. Never paste raw customer prompts from proxy logs.
+
+R6. FALSIFY, DON'T CONFIRM.
+    Section 4 lists operator HYPOTHESES. Try to break them with evidence.
+    If code contradicts a hypothesis, say so plainly. Agreement without
+    evidence is a failed task.
+
+R7. MECHANISMS OVER WISHLISTS.
+    Every recommendation must name the module/flag/state it changes and
+    the buyer-visible outcome it produces. "Add more depth" is rejected;
+    "Extend chain/floor.py with a capability-token contract so hop N+1
+    receives hop N's proof artifact, raising verified-chain count" is
+    accepted.
+
+-------------------------------------------------------------------------
+SECTION 2 — AVAILABLE SOURCES & FALLBACK RULES
+-------------------------------------------------------------------------
+Each workstream declares which sources it NEEDS. If a source is missing,
+that workstream degrades gracefully — it does NOT guess.
+
+SOURCE A — CODEBASE (repo "autocan")
+   Ground truth. Key paths: src/scanner/agent_runtime/engine/*
+   (father.py, fleet.py, governor.py, exploit_floor.py, run.py),
+   src/scanner/ledger/service.py, src/scanner/scheduler/*,
+   src/scanner/agent_runtime/oob/*, src/scanner/agent_runtime/chain/*,
+   docker/browser/browser_server.py, config.py, docker-compose.yml.
+
+SOURCE B — COMPETITOR RESEARCH
+   competitor-research/ inside the code dir. Treat as [COMPETITOR]
+   evidence. Public claims must be quoted with the file they came from.
+
+SOURCE C — LIVE SERVER (passwordless: ssh abhedi)
+   READ-ONLY. Available data:
+     C1. Per-scan workdirs: abhedi_red_scanner_data volume ->
+         <hash>/<scan_id>/  (decisions.log, scan_brief.md, tool_outputs/*,
+         recon.json, ledger_updates.jsonl, oob_interactions.jsonl,
+         logs/agent.log, logs/toolserver.log, report.{md,json,html},
+         coverage_quality.json)
+     C2. Postgres tenant_xbow schema: scans, ledger_cell, agent_messages,
+         findings, evidence, chains.
+     C3. docker logs scanner-cp (poller/finalize/spawn events);
+         docker network inspect. NOTE: agent containers are --rm, so the
+         workdir is the only post-mortem source.
+     C4. logging-proxy proxy_log.db: full prompt/response pairs BUT only
+         for NVIDIA/nemotron. OpenRouter/bunny scans bypass it — note
+         this blind spot, do not assume coverage.
+     C5. /home/admin/research/2026-09-29-deepdive/: prior case studies,
+         metrics TSVs, sensor scripts.
+
+SOURCE D — PUBLIC WEB
+   For competitor/paper claims only. Quote URLs. Mark unknowns.
+
+FALLBACK MATRIX:
+   - No SSH access?     -> Telemetry workstreams run on CODE only; mark
+                           every telemetry claim [UNVERIFIED - no SSH].
+   - No DB access?      -> Same; use workdir JSONL files if readable.
+   - No web access?     -> Public-source workstream is skipped, not faked.
+   Never stall on a missing source. Record the gap and continue.
+
+-------------------------------------------------------------------------
+SECTION 3 — PRE-ANSWERED DECISIONS (DO NOT ASK ABOUT THESE)
+-------------------------------------------------------------------------
+D1. Target profile = ALL of {classic web+API, SSO+multi-tenant SaaS,
+    chat/LLM/MCP-endpoint apps}, built as general primitives the
+    agent/boss selects per target. Never per-segment products.
+D2. Scan model = point-in-time now; architected so continuous later
+    does not require a rewrite.
+D3. Engine-v2 is the only live orchestrator; planner/* and
+    entrypoint.run_scan are dead code in a default deploy.
+D4. Every new capability must ship flag-gated, default-OFF, and
+    byte-identical to production when off.
+D5. Validation-before-breadth: make coverage honest -> make findings
+    provable -> let a planner drive -> widen surface -> chain to impact.
+D6. Explicitly DO-NOT-BUILD (re-open only with new evidence): recursive
+    agent hierarchies, generation-counter/freeze, agent-to-agent
+    messaging via chat, pgvector semantic memory, ZAP as a core detector,
+    intercepting proxy as the coordination substrate.
+D7. Exploit execution against live targets is OUT OF SCOPE for this
+    research. Design and diagnosis only.
+
+-------------------------------------------------------------------------
+SECTION 4 — HYPOTHESES TO FALSIFY (OPERATOR BELIEFS, NOT ANSWERS)
+-------------------------------------------------------------------------
+Audit the code/telemetry to PROVE OR DISPROVE each. Cite evidence either
+way. These are the operator's current beliefs — they may be wrong.
+
+H1 (SLOW SCANS): Scan completion is slow primarily because of
+   ledger claim/release mismatches and wave-loop sync overhead — NOT
+   simply because "full coverage takes time."
+H2 (RIGID PROMPTING): Workers spin up with near-identical static
+   prompts; a dynamic, state-aware decision layer would measurably
+   improve target selection.
+H3 (THEORETICAL CHAINS): Current chain synthesis is graph-only;
+   there is no mechanism to carry a proof artifact from hop N into
+   hop N+1's prompt and evidence.
+H4 (BROWSER DEPTH): Client-side capability stops at DOM-XSS
+   instrumentation; there is no multi-step SPA state-change capability.
+H5 (MISSING SURFACES): New-tech VAPT (GraphQL depth, WebSocket,
+   AI/MCP endpoints) is declared in taxonomy but lacks deterministic
+   oracles, so those cells cannot close honestly.
+H6 (WORKER ENVIRONMENT): The worker container's world (skills,
+   /work layout, inter-process signaling) is under-specified and causes
+   context bloat and duplicated work.
+
+For each hypothesis output: VERDICT {CONFIRMED | REFUTED | PARTIAL |
+UNVERIFIED} + Evidence Ledger entries + blast radius.
+
+-------------------------------------------------------------------------
+SECTION 5 — WORKSTREAMS (PHASED; GATE LATER PHASES ON EARLIER ONES)
+-------------------------------------------------------------------------
+Run WS-1 and WS-3 FIRST. Only proceed to WS-2/4/5/6 once those produce
+evidence. Each workstream outputs a QUESTION LIST + EVIDENCE TABLE, not
+an essay.
+
+WS-1 · THROUGHPUT & SCAN-TIME AUDIT (sources: A, C)
+  Q: Where do waves actually spend time? (materialize / sync / claim /
+     dispatch / floor / finalize — attribute it)
+  Q: Does the claim/release worker_id mismatch cause zero-row releases?
+  Q: Do quiescence reads fail open and end loops early?
+  Q: Does the 90-min per-worker wall dominate the schedule?
+  Q: How many cells reach terminal "attempted" unresolved, and why?
+  Deliverable: time-attribution table + ranked defects by blast radius.
+
+WS-2 · TELEMETRY FORENSICS (sources: C) — gated on WS-1
+  Q: From ledger_updates.jsonl: cell-state thrash patterns.
+  Q: From oob_interactions.jsonl: honest-classification behavior.
+  Q: From agent.log: model-driver errors and context-reset frequency.
+  Q: From agent_messages: turn counts — did the model actually drive?
+  Deliverable: observed-failure catalog (aggregate counts only).
+
+WS-3 · COMPETITOR & MARKET GAP (sources: B, D)
+  Q: What mechanisms do competitors ship for chained exploitation,
+     deterministic validation, and client-side proof?
+  Q: Which buyer-visible proof standards do reports demonstrate?
+  Rules: public claims cite URL or competitor-research file. No "hints"
+  about competitor internals. No exploit reproduction.
+  Deliverable: capability-comparison table (mechanism, not feature count).
+
+WS-4 · CHAINING STATE MACHINE DESIGN (sources: A, B) — gated on WS-1
+  Design only. No payloads.
+  Deliverables:
+    - Chain state machine: how a confirmed primitive grants a capability
+      token; how the token is persisted; how hop N+1 receives it.
+    - Parent-finding linkage + proof-type enum + replay contract.
+    - Report narrative schema: "we found X, which proved Y, which
+      enabled Z" — the buyer-facing attack story.
+    - Example hops as CAPABILITY LABELS only.
+
+WS-5 · INTELLIGENCE / DECISION LAYER DESIGN (sources: A) — gated on WS-1
+  Design only.
+  Deliverables:
+    - A bounded, per-tick planner contract (input = ledger state +
+      progress; output = a validated plan delta).
+    - A deterministic plan gate: an objective only materializes if it
+      maps to a real open, applicable, in-scope cell.
+    - How operator playbooks become directives the engine actually obeys.
+    - Failure semantics: planner down => prior plan stands (byte-identical).
+
+WS-6 · SURFACE & BROWSER DEPTH DESIGN (sources: A) — gated on WS-1
+  Design only. No session-theft runbooks.
+  Deliverables:
+    - Browser worker API contract (navigate, act, snapshot, HAR,
+      screenshot) and auth-state persistence.
+    - One SPA scenario as a STATE DIAGRAM, not commands.
+    - Client-side proof artifacts beyond DOM-XSS (execution oracles).
+    - Oracle designs for currently skill-only classes (GraphQL authz,
+      WebSocket, JWT/OAuth/session) — describe the oracle's INPUT and
+      VERDICT, not its payload.
+
+WS-7 · SYNTHESIS (runs last, gated on ALL above)
+  Deliverables:
+    - Core-architecture improvements (ranked by blast radius).
+    - Feature add-ons (ranked by buyer-visible proof value).
+    - A "do not build" list with reasons.
+    - Tickets: each names modules + flags; NONE include exploit steps.
+
+-------------------------------------------------------------------------
+SECTION 6 — QUESTION PROTOCOL
+-------------------------------------------------------------------------
+Most decisions are pre-answered in Section 3 — do not ask about those.
+Ask the operator ONLY when ALL three are true:
+  1. A claim would otherwise be INVENTED (not merely uncertain).
+  2. The answer is a DECISION only the operator can make (scope, cost,
+     consent, or business priority).
+  3. No code/doc source can resolve it.
+Format exactly:  [OPERATOR QUESTION]: <one precise question>
+Then continue with any workstream not blocked by it. Never stop the
+whole swarm for one question. For mere ambiguity, mark [INFER] or
+[UNVERIFIED] and proceed.
+
+-------------------------------------------------------------------------
+SECTION 7 — ANTI-PADDING RULES
+-------------------------------------------------------------------------
+- No fixed page counts. Length is whatever the evidence supports.
+- No filler summaries. No restating the mission.
+- Every recommendation = mechanism + module/flag + buyer outcome.
+- Prefer a short, fully-cited finding over a long, thinly-cited one.
+- If a workstream finds nothing, say "not found in repo" and close it.
+
+-------------------------------------------------------------------------
+SECTION 8 — EVIDENCE LEDGER FORMAT (REQUIRED FOR EVERY CLAIM)
+-------------------------------------------------------------------------
+| Claim | Source (type + location) | Confidence | Notes |
+Confidence = HIGH (direct code/query) | MEDIUM (doc/competitor) |
+LOW (inference) | UNVERIFIED (source unavailable).
+Every workstream section ends with its ledger table.
+
+-------------------------------------------------------------------------
+SECTION 9 — FINAL DELIVERABLE STRUCTURE
+-------------------------------------------------------------------------
+1. Executive summary (10 lines max).
+2. Hypothesis verdicts (H1-H6) with ledgers.
+3. Root-cause diagnosis: why scans are slow and proofs are shallow.
+4. Core-architecture improvements (ranked, module-level, flag-gated).
+5. Feature add-ons (ranked, buyer-proof-first).
+6. Chain state machine + intelligence-layer design (WS-4/WS-5 output).
+7. Surface/browser depth design (WS-6 output).
+8. Do-not-build list with reasons.
+9. Implementation roadmap: phased, flag-gated, validation-first.
+10. Consolidated evidence ledger.
+
+-------------------------------------------------------------------------
+ACKNOWLEDGE THIS DIRECTIVE BY:
+1. Confirming which sources are actually available (A/B/C/D) right now.
+2. Listing the specialist roles you are spawning.
+3. Stating your FIRST read-only query/file-read for WS-1.
+Do not begin WS-2 through WS-7 until WS-1 and WS-3 produce evidence.
+=========================================================================
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-10-01T02:58:21+05:30.
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from None to Gemini 3.8 Flash (High). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>

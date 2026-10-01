@@ -1,0 +1,7 @@
+contact cb baseline      200|41185|0.146533         len=41185
+contact cb sqli T        200|41185|0.234353         len=41185
+contact cb sqli F        403|33988|0.151693         len=33988
+home page baseline       403|34002|0.140529         len=34002
+home page sqli T         200|27355|0.118479         len=27355
+home page sqli F         200|27355|0.405175         len=27355
+contact cb oob           200|41185|0.205475         len=41185

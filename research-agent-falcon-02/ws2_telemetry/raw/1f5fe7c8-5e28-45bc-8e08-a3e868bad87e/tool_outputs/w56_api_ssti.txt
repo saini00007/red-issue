@@ -1,0 +1,25 @@
+GET /api -> 404 https://www.infinitycapital.bh/404 28986 text/html; charset=utf-8
+     hist 307 /404
+GET /api/ -> 404 https://www.infinitycapital.bh/404 28986 text/html; charset=utf-8
+     hist 308 /api
+     hist 307 /404
+GET /api?id=1 -> 404 https://www.infinitycapital.bh/404 28986 text/html; charset=utf-8
+     hist 307 /404
+GET /api?id=%7B%7B7*7%7D%7D -> 404 https://www.infinitycapital.bh/404 28986 text/html; charset=utf-8
+     hist 307 /404
+--- POST probes to /api
+POST /api '' -> 405 87 text/plain; charset=utf-8 b'Method not allowed\n\nFUNCTION_INVOCATION_FAILED\n\nbom1::695j4-1790762864603-60ed64cd7076\n'
+POST /api 'id=1' -> 405 87 text/plain; charset=utf-8 b'Method not allowed\n\nFUNCTION_INVOCATION_FAILED\n\nbom1::jb6gj-1790762865224-5091fc970596\n'
+POST /api '{"id":1}' -> 405 87 text/plain; charset=utf-8 b'Method not allowed\n\nFUNCTION_INVOCATION_FAILED\n\nbom1::h9tgs-1790762866120-83e7331d03b6\n'
+POST /api 'id={{7*7}}' -> 405 87 text/plain; charset=utf-8 b'Method not allowed\n\nFUNCTION_INVOCATION_FAILED\n\nbom1::zvwd5-1790762866713-23d79599d5fa\n'
+POST /api '{"name":"{{7*7}}"}' -> 405 87 text/plain; charset=utf-8 b'Method not allowed\n\nFUNCTION_INVOCATION_FAILED\n\nbom1::g8mfq-1790762867262-3615ed52e5ff\n'
+POST /api/ '' -> 308 15 text/plain b'Redirecting...\n'
+POST /api/ 'id=1' -> 308 15 text/plain b'Redirecting...\n'
+POST /api/ '{"id":1}' -> 308 15 text/plain b'Redirecting...\n'
+POST /api/ 'id={{7*7}}' -> 308 15 text/plain b'Redirecting...\n'
+POST /api/ '{"name":"{{7*7}}"}' -> 308 15 text/plain b'Redirecting...\n'
+POST /api?id=1 '' -> 405 87 text/plain; charset=utf-8 b'Method not allowed\n\nFUNCTION_INVOCATION_FAILED\n\nbom1::shmrm-1790762870962-838f96a1871f\n'
+POST /api?id=1 'id=1' -> 405 87 text/plain; charset=utf-8 b'Method not allowed\n\nFUNCTION_INVOCATION_FAILED\n\nbom1::s5tkm-1790762871564-5a706f5e8867\n'
+POST /api?id=1 '{"id":1}' -> 405 87 text/plain; charset=utf-8 b'Method not allowed\n\nFUNCTION_INVOCATION_FAILED\n\nbom1::dvtwj-1790762872147-903d8d2dddd0\n'
+POST /api?id=1 'id={{7*7}}' -> 405 87 text/plain; charset=utf-8 b'Method not allowed\n\nFUNCTION_INVOCATION_FAILED\n\nbom1::p76zp-1790762872840-e5e1692f9ecf\n'
+POST /api?id=1 '{"name":"{{7*7}}"}' -> 405 87 text/plain; charset=utf-8 b'Method not allowed\n\nFUNCTION_INVOCATION_FAILED\n\nbom1::6rw5p-1790762874313-539dff402b05\n'

@@ -1,0 +1,7 @@
+# command: timeout 15 curl -s -m 13 -o - -w '\nHTTP_STATUS:%{http_code}' 'http://duck-store.escape.tech:443?s5err=%27%22%3E%3C%5B'
+# exit_code: 0
+# ---
+
+Client sent an HTTP request to an HTTPS server.
+
+HTTP_STATUS:400

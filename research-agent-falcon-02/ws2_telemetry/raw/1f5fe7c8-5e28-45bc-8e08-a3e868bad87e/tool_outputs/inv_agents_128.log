@@ -1,0 +1,8 @@
+# command: cd "$WORK_PATH"; ls tool_outputs/sqm_* 2>&1; pgrep -af "sq2" | grep -v defunct | wc -l
+# tool: ls
+# exit_code: 0
+# ts: 2026-09-30T11:57:24.695943+00:00
+# ---
+
+ls: cannot access 'tool_outputs/sqm_*': No such file or directory
+0

@@ -1,0 +1,11 @@
+{
+  "fname": "Verifier",
+  "lname": "Check",
+  "areacode": "000",
+  "tel": "0000000",
+  "cname": "Verifier",
+  "subject": "Verifier probe",
+  "msg": "Verifier probe body",
+  "check": "on",
+  "targets": "probe@ex" + "ample.com"
+}

@@ -1,0 +1,19 @@
+# command: cd /work/evidence && echo "=== how many successful 200 POST responses exist in prior evidence (worker baseline) ==="; grep -rl 'monthly_quota' . 2>/dev/null | head; echo "---"; grep -rho 'monthly_quota[a-z_]*' . 2>/dev/null | sort | uniq -c | head
+# tool: grep
+# exit_code: 0
+# ts: 2026-09-30T12:08:09.003373+00:00
+# ---
+
+=== how many successful 200 POST responses exist in prior evidence (worker baseline) ===
+./b_t1.txt
+./iv_honeypot_probe.json
+./hp_test.out
+./V_a.out
+./t1_empty.out
+./INDEP_RL_100706/C_hp_bogus.resp
+./INDEP_RL_100706/log.txt
+./INDEP_RL_100706/B_hp_filled.resp
+./A.json
+./iv_burst_summary.json
+---
+     37 monthly_quota_exceeded

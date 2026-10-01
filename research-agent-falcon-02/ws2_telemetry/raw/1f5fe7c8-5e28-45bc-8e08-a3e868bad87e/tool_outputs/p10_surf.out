@@ -1,0 +1,34 @@
+=== 1. legit remote image (Next optimizer baseline) ===
+code=200 size=48055 type=image/jpeg
+=== 2. SSRF probe url=minted OOB host ===
+code=400 size=84
+Bad request
+
+INVALID_IMAGE_OPTIMIZE_REQUEST
+
+bom1::6lx2t-1790729007575-cc379f004ddc
+
+=== 3. IMDS probe ===
+code=400 size=84
+Bad request
+
+INVALID_IMAGE_OPTIMIZE_REQUEST
+
+bom1::s45gv-1790729007719-38d1d30cf1c0
+
+=== 4. w= injection probe ===
+code=400 size=84
+Bad request
+
+INVALID_IMAGE_OPTIMIZE_REQUEST
+
+bom1::2n9f5-1790729007851-07a1e80f08a5
+
+=== 5. q= probe ===
+code=400 size=84
+Bad request
+
+INVALID_IMAGE_OPTIMIZE_REQUEST
+
+bom1::gr8fx-1790729007967-adde0905152e
+

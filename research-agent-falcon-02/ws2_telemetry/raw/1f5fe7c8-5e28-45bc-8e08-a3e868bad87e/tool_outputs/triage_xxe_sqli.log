@@ -1,0 +1,25 @@
+=== BASELINE (everything should be 403 x-vercel-mitigated: deny if WAF-blocked)
+GET /                                  403 t=0.201858 sz=70  wall=0.21  err=
+GET /api/                              403 t=0.244569 sz=70  wall=0.26  err=
+GET /_next/image?url=..&w=128&q=75     403 t=0.437046 sz=70  wall=0.45  err=
+=== XXE re-fire (fresh OOB host oobc6bf7c262315) — floor payloads never sent (curl exit 26)
+XXE raw POST /api/                     403 t=0.203824 sz=70  wall=0.22  err=
+XXE raw POST /atom.xml                 403 t=0.198434 sz=70  wall=0.21  err=
+XXE raw POST /feeds/all.atom.xml       403 t=0.255723 sz=70  wall=0.27  err=
+XXE raw POST /404                      403 t=0.180712 sz=70  wall=0.19  err=
+XXE multipart POST /api/               403 t=0.255651 sz=70  wall=0.27  err=
+XXE multipart POST /atom.xml           403 t=0.186747 sz=70  wall=0.20  err=
+SSRF /_next/image?url=oob              403 t=0.291774 sz=70  wall=0.30  err=
+SSRF /api/?url=oob                     403 t=0.175328 sz=70  wall=0.19  err=
+SSRF /api/ Host hdr                    403 t=0.184919 sz=70  wall=0.20  err=
+=== SQLi time oracle (SLEEP) — expect identical ~instant 403 if WAF blocks before app
+base id=0                              403 t=0.353268 sz=70  wall=0.37  err=
+SLEEP id=0                             403 t=0.316216 sz=70  wall=0.33  err=
+base id=1                              403 t=0.183990 sz=70  wall=0.20  err=
+SLEEP id=1                             403 t=0.179230 sz=70  wall=0.19  err=
+SLEEP /_next/image w                   403 t=0.180534 sz=70  wall=0.20  err=
+SLEEP /404 ?id                         403 t=0.272101 sz=70  wall=0.29  err=
+=== SSTI / cmd markers (should all be plain 403)
+SSTI /api/?q={{7*7}}                   403 t=0.197267 sz=70  wall=0.21  err=
+CMDI /api/?q=;id                       403 t=0.199379 sz=70  wall=0.21  err=
+LFI /api/?file=/etc/passwd             403 t=0.209841 sz=70  wall=0.22  err=

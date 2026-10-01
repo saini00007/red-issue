@@ -1,0 +1,2 @@
+TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNzdjOWJjOGItNzIyNC00ODBlLWIwZmUtOGFlMTE3ZDYxNzRjIiwidXNlcm5hbWUiOiJ0ZXN0dXNlcjIiLCJyb2xlIjoidXNlciIsImV4cCI6MTc5MDY4MTM0N30.zt4Tw1kDcehqiaDEqym5Rp_DK7YlJbaJO4ic5tJIElk"
+curl -s -X GET "https://duck-store.escape.tech/api/v1/cart/" -H "Authorization: Bearer $TOKEN"

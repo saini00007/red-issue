@@ -1,0 +1,12 @@
+=== allowlist probing for /_next/image?url=
+https://images.ctfassets.net/yts1dx0j7jj5/1GCT0vyjqmOwm2OL1YVpD1/2ab55f8b5189afa153eac5cb97f7f6d4/Ahmed_Taleb_updated-min.jpg code=200 size=48055 ct=image/jpegssrf_img2.sh: line 4: warning: command substitution: ignored null byte in input
+ | ÿØÿÛC			++&.%#%.&D5//5DNB>BN_UU_wqwœœÑÿÛC			
+https://www.infinitycapital.bh/_next/static/css/ce01342cea288296.css code=400 size=84 ct=text/plain; charset=utf-8 | Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::sgtr6-1790722822040-63aabe93106e
+https://www.infinitycapital.bh/favicon.ico                   code=400 size=84 ct=text/plain; charset=utf-8 | Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::sc8bk-1790722822171-ab76b99eba80
+https://infinitycapital.bh/x.png                             code=400 size=84 ct=text/plain; charset=utf-8 | Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::zxjdw-1790722822319-1698d054f46d
+https://images.ctfassets.net/x.png                           code=404 size=79 ct=text/plain; charset=utf-8 | The page could not be foundNOT_FOUNDbom1::gm2jf-1790722822463-bdcf62919383
+/x.png                                                       code=307 size=18209 ct=text/html; charset=utf-8 | <!DOCTYPE html><html id="__next_error__"><head><meta charSet="utf-8"/><meta name="viewport
+https://images.ctfassets.net/yts1dx0j7jj5/1GCT0vyjqmOwm2OL1YVpD1/2ab55f8b5189afa153eac5cb97f7f6d4/Ahmed_Taleb_updated-min.jpg code=200 size=48055 ct=image/jpegssrf_img2.sh: line 4: warning: command substitution: ignored null byte in input
+ | ÿØÿÛC			++&.%#%.&D5//5DNB>BN_UU_wqwœœÑÿÛC			
+=== http scheme + redirects
+http://images.ctfassets.net/yts1dx0j7jj5/1GCT0vyjqmOwm2OL1YVpD1/2ab55f8b5189afa153eac5cb97f7f6d4/Ahmed_Taleb_updated-min.jpg code=400 size=84 ct=text/plain; charset=utf-8 | Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::f2rqh-1790722824164-2efccbdb184e

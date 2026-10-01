@@ -1,0 +1,1 @@
+https://www.infinitycapital.bh/_next/image?url=abc&w=1080&q=75 (GET)  # /usr/bin/sqlmap -u https://www.infinitycapital.bh/_next/image?url=abc&w=1080&q=75 -p url --batch --level=2 --risk=1 --timeout=8 --retries=0 --output-dir=tool_outputs/sqlmap_q

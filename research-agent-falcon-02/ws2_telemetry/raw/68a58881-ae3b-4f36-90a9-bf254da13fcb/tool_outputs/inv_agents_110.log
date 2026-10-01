@@ -1,0 +1,7 @@
+# command: curl -s -X POST "https://duck-store.escape.tech/api/v1/orders/checkout" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOTgwMWEyY2UtOWVkNy00YWMzLThlODYtNjE3ZmY3NzA2OTNjIiwidXNlcm5hbWUiOiJ0ZXN0c3FsbWFwMSIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzkwNjk4MzM5fQ.KDQKJco3OfXBtTCbGn01YAvlDbkXEIfUHV1jo_vGeiI" -H "Content-Type: application/json" -d '{"shipping": {"first_name": "test", "last_name": "test", "address": "test", "city": "test", "country": "test", "zip_code": "test"}}' | head -500
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T15:56:45.685078+00:00
+# ---
+
+{"detail":"Cart not found"}

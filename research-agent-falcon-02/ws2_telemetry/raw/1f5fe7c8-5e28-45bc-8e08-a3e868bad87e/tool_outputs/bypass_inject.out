@@ -1,0 +1,58 @@
+=== WAF BYPASS ATTEMPTS ===
+  sec-fetch headers    /          -> 403 mit=- challenge=True len=33980
+  sec-fetch headers    /about     -> 403 mit=- challenge=True len=33973
+  sec-fetch headers    /api/      -> 403 mit=- challenge=True len=33971
+  googlebot            /          -> 429 mit=- challenge=False len=7069
+  googlebot            /about     -> 429 mit=- challenge=False len=7069
+  googlebot            /api/      -> 403 mit=- challenge=True len=33970
+  vercel-internal      /          -> 403 mit=- challenge=True len=33976
+  vercel-internal      /about     -> 403 mit=- challenge=True len=33991
+  vercel-internal      /api/      -> 403 mit=- challenge=True len=33976
+  method-override      /          -> 403 mit=- challenge=True len=33989
+  method-override      /about     -> 403 mit=- challenge=True len=33991
+  method-override      /api/      -> 403 mit=- challenge=True len=33970
+  accept-json          /          -> 429 mit=- challenge=False len=101
+  accept-json          /about     -> 403 mit=- challenge=False len=151
+  accept-json          /api/      -> 429 mit=- challenge=False len=101
+  range                /          -> 403 mit=- challenge=True len=33976
+  range                /about     -> 403 mit=- challenge=True len=33986
+  range                /api/      -> 429 mit=- challenge=False len=7069
+  xff-chain            /          -> 403 mit=- challenge=True len=33980
+  xff-chain            /about     -> 403 mit=- challenge=True len=33984
+  xff-chain            /api/      -> 429 mit=- challenge=False len=7069
+=== METHOD VARIANTS on / ===
+  GET      -> 403 mit=- len=33982
+  HEAD     -> 403 mit=- len=0
+  POST     -> 403 mit=- len=33989
+  OPTIONS  -> 429 mit=- len=7069
+  PUT      -> 429 mit=- len=75
+  TRACE    -> 403 mit=- len=33973
+  PATCH    -> 429 mit=- len=75
+=== INJECTION PROBES /_next/image ===
+  ssrf-file              -> 429 mit=- chal=False dt=0.25 len=7069
+  ssrf-169               -> 403 mit=- chal=True dt=0.14 len=33975
+  ssrf-gopher            -> 429 mit=- chal=False dt=0.11 len=7069
+  ssrf-redirect-http     -> 403 mit=- chal=True dt=0.15 len=33986
+  path-traversal         -> 429 mit=- chal=False dt=0.11 len=7069
+  path-traversal2        -> 403 mit=- chal=True dt=0.10 len=33970
+  nullbyte               -> 429 mit=- chal=False dt=0.12 len=7069
+  sqli-url               -> 403 mit=- chal=True dt=0.10 len=33991
+  sqli-url2              -> 403 mit=- chal=True dt=0.14 len=33986
+  sqli-url3              -> 429 mit=- chal=False dt=0.10 len=7069
+  sqli-url4              -> 403 mit=- chal=True dt=0.09 len=33970
+  cmdi-url               -> 429 mit=- chal=False dt=0.13 len=7069
+  cmdi-url2              -> 403 mit=- chal=True dt=0.21 len=33986
+  cmdi-url3              -> 429 mit=- chal=False dt=0.09 len=7069
+  ssti-url               -> 429 mit=- chal=False dt=0.11 len=7069
+  ssti-url2              -> 403 mit=- chal=True dt=0.12 len=33970
+  w-err                  -> 403 mit=- chal=True dt=0.10 len=33976
+  w-sqli                 -> 403 mit=- chal=True dt=0.14 len=33980
+  w-cmd                  -> 429 mit=- chal=False dt=0.10 len=7069
+  q-err                  -> 403 mit=- chal=True dt=0.11 len=33975
+  q-sqli                 -> 429 mit=- chal=False dt=0.11 len=7069
+  q-cmd                  -> 403 mit=- chal=True dt=0.10 len=33989
+  w-oversize             -> 403 mit=- chal=True dt=0.11 len=33989
+  url-ext                -> 429 mit=- chal=False dt=0.12 len=7069
+  url-gopher             -> 403 mit=- chal=True dt=0.11 len=33976
+
+Saved tool_outputs/bypass_inject.json

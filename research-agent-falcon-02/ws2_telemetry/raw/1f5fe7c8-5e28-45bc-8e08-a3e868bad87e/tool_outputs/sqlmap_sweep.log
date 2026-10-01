@@ -1,0 +1,14 @@
+### https://www.infinitycapital.bh/?id=1&search=test&page=2
+[08:12:39] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+
+### https://www.infinitycapital.bh/contact?cb=1&q=test
+[08:17:39] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+
+### https://www.infinitycapital.bh/404?q=test
+
+### https://www.infinitycapital.bh/api/?id=1&page=2
+[08:22:40] [WARNING] heuristic (basic) test shows that GET parameter 'id' might not be injectable
+
+### https://www.infinitycapital.bh/_next/image?w=100&q=75&url=x
+[08:27:51] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+

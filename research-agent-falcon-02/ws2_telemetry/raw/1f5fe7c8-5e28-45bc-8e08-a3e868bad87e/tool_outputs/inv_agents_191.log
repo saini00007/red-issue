@@ -1,0 +1,19 @@
+# command: cd /work && ls -la tool_outputs/sqlmap_get/ 2>/dev/null; pgrep -c sqlmap; ls tool_outputs/sqlmap_get/www.infinitycapital.bh/ 2>/dev/null
+# tool: ls
+# exit_code: 0
+# ts: 2026-09-30T12:01:49.988643+00:00
+# ---
+
+total 32
+drwxr-xr-x  3 kali kali  4096 Sep 30 11:49 .
+drwxr-xr-x 70 kali kali 12288 Sep 30 11:57 ..
+-rw-r--r--  1 kali kali    48 Sep 30 11:39 results-09302026_1139am.csv
+-rw-r--r--  1 kali kali    48 Sep 30 11:44 results-09302026_1144am.csv
+-rw-r--r--  1 kali kali    48 Sep 30 11:49 results-09302026_1149am.csv
+drwxr-xr-x  2 kali kali  4096 Sep 30 11:49 www.infinitycapital.bh
+168
+log
+session.sqlite
+session.sqlite-shm
+session.sqlite-wal
+target.txt

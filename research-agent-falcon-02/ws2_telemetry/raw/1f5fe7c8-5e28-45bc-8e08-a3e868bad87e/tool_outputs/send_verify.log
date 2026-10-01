@@ -1,0 +1,17 @@
+### V1: recipient fully attacker-controlled (unauthenticated, check=on)
+HTTP 200 t=0.346478
+cat: v1.out: No such file or directory
+
+### V2: second, different subject/message (repeatability)
+HTTP 200 t=0.518140
+cat: v2.out: No such file or directory
+
+### V3: NO captcha/checkbox field at all (captcha bypass)
+HTTP 200 t=0.412923
+cat: v3.out: No such file or directory
+
+### V4: multiple recipients in one request (amplification)
+HTTP 200 t=0.370031
+cat: v4.out: No such file or directory
+
+DONE

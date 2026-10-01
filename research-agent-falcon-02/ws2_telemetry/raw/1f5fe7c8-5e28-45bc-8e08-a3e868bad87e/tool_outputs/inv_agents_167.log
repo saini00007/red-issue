@@ -1,0 +1,26 @@
+# command: cd /work && grep -rl "api/send" --include=*.html --include=*.js . 2>/dev/null | head -20
+# tool: grep
+# exit_code: 0
+# ts: 2026-09-30T11:37:14.977517+00:00
+# ---
+
+./w45/js_275-ea7b562607231006.js
+./iv_js/275-ea7b562607231006.js
+./IVQF/chunk_275-ea7b562607231006.js
+./njs/275-ea7b562607231006.js
+./ivjs/275-ea7b562607231006.js
+./w101/js_275-ea7b562607231006.js
+./js10/275-ea7b562607231006.js
+./cjs/275-ea7b562607231006.js
+./myjs_275-ea7b562607231006.js
+./verify/275-ea7b562607231006.js
+./verify/js_275-ea7b562607231006.js
+./ichk/275-ea7b562607231006.js
+./vjs_275.js
+./IVFJS/275-ea7b562607231006.js
+./tool_outputs/w100/js/275-ea7b562607231006.js
+./tool_outputs/inj2/fuzz1.js
+./tool_outputs/275-ea7b562607231006.js
+./tool_outputs/dfp2/275-ea7b562607231006.js
+./tool_outputs/recon2/js/275-ea7b562607231006.js
+./tool_outputs/js/275-ea7b562607231006.js

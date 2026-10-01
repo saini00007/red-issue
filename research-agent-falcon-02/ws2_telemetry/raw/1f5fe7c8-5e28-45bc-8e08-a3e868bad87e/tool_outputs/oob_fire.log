@@ -1,0 +1,18 @@
+### image url = OOB host (DNS/HTTP callback => blind SSRF / sqli sink) ###
+img_url_oob => 400 
+img_url_oob_bare => 307 https://www.infinitycapital.bh/404
+### NoSQLi-style operator injection on url/w/q ###
+nosqli_ne => 
+nosqli_ne2 => 
+nosqli_regex => 
+### blind time-based SQLi in w/q ###
+sqli_sleep_w => 400 
+sqli_sleep_q => 400 
+sqli_stacked => 400 
+### SSTI / CMDi in image params ###
+ssti_url => 
+cmdi_url => 404 
+cmdi_w => 400 
+### metadata SSRF ###
+meta => 400 
+DONE

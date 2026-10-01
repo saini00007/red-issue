@@ -1,0 +1,1112 @@
+[
+  {
+    "label": "WS1:attempted-cells",
+    "agentId": "a26b5611d2c15d897",
+    "result": {
+      "role": "WS-1 Attempted/terminal-cell analyst — systems-architect (read-only)",
+      "summary": "'attempted' is the single largest applicable-cell fate on the live server: 8,771 of ~22,458 applicable cells (39.1%) across tenant_xbow, vs 25.0% resolved and 35.9% open. But the attempt-cap machinery is NOT why cells strand there — na_reason shows 8,683/8,771 (99.0%) reached 'attempted' via finalize.py's scanner_finalize_retire_unreached sweep (never-genuinely-probed untested/methods-less-testing cells retired at scan end so count_open_cells can hit 0), and only 82 (0.9%) via the genuine attempt-cap. The deployed cap is 6 (SCANNER_LEDGER_ATTEMPT_CAP=6), not the code default 3. So 'attempted' is honestly labeled terminal (father _TERMINAL_STATES #30 fix confirmed; report gives it its own bucket, excluded from resolved_pct) but its real meaning is \"the fleet never drained the grid before the scan ended\" — a throughput-vs-grid-size coverage ceiling, not per-cell exhaustion. Per-scan this ranges 40–93% attempted on large grids (2122→40%, 768→93%) and 0% on small fully-drained grids (39→100% resolved). Two honesty defects fall out: the report and live board both label the whole attempted bucket \"attempt-capped\"/\"done\", conflating 8,683 never-reached cells with 82 genuinely-tried ones; and the deployed lease (1800s) is far below the worker wall (86400s), violating the code's documented lease-must-exceed-wall invariant and inflating attempts via mid-run reclaim.",
+      "questions": [
+        {
+          "q": "DO-1: ledger state enums (_OPEN_STATES/_DONE_STATES/terminal) + attempt-cap logic and default cap value",
+          "answer": "_OPEN_STATES=('untested','testing') at service.py:50; there is no _DONE_STATES in ledger/service.py (that constant lives in father.py:376). Attempt cap = _attempt_cap() at service.py:1237-1247, reads SCANNER_LEDGER_ATTEMPT_CAP, CODE DEFAULT 3 (comment 'was 0'), cap<=0 = legacy unbounded. Mechanism: claim_cells (service.py:1388-1417) increments attempts on each claim and filters 'AND c.attempts < :cap' so a capped cell is no longer claimable; it is absorbed to terminal 'attempted' only via release_cells (:1460), release_cells_by_ids (:1492), or reclaim_expired_leases (:1559), each 'state = CASE WHEN attempts >= :cap THEN attempted'. count_claimable_cells (:1508-1521) also filters attempts<cap → quiescence signal. DEPLOYED cap is 6, not 3 (SCANNER_LEDGER_ATTEMPT_CAP=6 on scanner-cp).",
+          "verdict": "CONFIRMED"
+        },
+        {
+          "q": "DO-2: father.py _TERMINAL_STATES (~:378) / _render_board_totals (~:436) — is 'attempted' terminal/resolved or dropped? (CLAUDE.md #30 says fixed)",
+          "answer": "CONFIRMED FIXED. father.py:376 _DONE_STATES=frozenset{tested_clean,confirmed,blocked}; :378 _TERMINAL_STATES=_DONE_STATES|{'attempted'}. In _render_board_totals (:382-406), :394 buckets state into 2=untested(open),1=testing(in-flight),0=state in _TERMINAL_STATES(done),-1=na(dropped). So 'attempted' is counted, in the 'done' bucket — NOT dropped. Caveat/defect: the live board LUMPS attempted into 'done' (done = tested_clean+confirmed+blocked+attempted per the :388 docstring), so mid/late-run 'done N' overstates genuinely-tested cells by the whole attempted pile (39% tenant-wide).",
+          "verdict": "CONFIRMED (with lumped-with-done caveat)"
+        },
+        {
+          "q": "DO-3: reporting/service.py _coverage (~:123, ~:459-463) — attempted surfaced as resolved/open/own bucket? Does report math reconcile with ledger _OPEN_STATES?",
+          "answer": "Own bucket. _coverage (:110-134): resolved=confirmed+tested_clean+blocked (:121), open=untested+testing (:122), attempted=by_state['attempted'] as its own key (:123), pending=pending_oracle+pending_human (:124), resolved_pct=resolved/applicable (:125) — attempted is EXCLUDED from both resolved and open and does NOT inflate the %. Report line (:459-463): 'X/Y resolved (Z%); N attempt-capped; M open'. RECONCILES with ledger: report open (untested+testing) is exactly ledger _OPEN_STATES. Honesty defect: N is labeled 'attempt-capped' but 99% of it is finalize-retired never-reached cells, not attempt-capped.",
+          "verdict": "CONFIRMED (reconciles; label misleading)"
+        },
+        {
+          "q": "DO-4: server ledger_cell state histogram — % attempted vs done vs open; coverage_quality.json",
+          "answer": "tenant_xbow, all scans: na 48323 (excluded), then applicable 22,458 = attempted 8771 (39.1%), untested 5299 (23.6%), tested_clean 4862 (21.6%), testing 2775 (12.4%), blocked 454 (2.0%), confirmed 297 (1.3%). Rolled up: RESOLVED 5613 (25.0%), OPEN 8074 (35.9%), ATTEMPTED 8771 (39.1%). na_reason of attempted: finalize_retire_unreached 8683 (99.0%), attempt_cap 82 (0.9%), null 6. Per-recent-scan attempted share: 2122-cell→40%, 768→93%, 203→76%, 17→100%(0 resolved), 39→0%(100% resolved); the live running scan 84aea81a is mid-run (0 attempted, 930 res, 1985 open of 2915). coverage_quality.json (sampled) shows families with applicable>0 but exercised=0 ('gap') — the family weapon never fired on applicable cells, corroborating never-drained rather than tried-and-failed.",
+          "verdict": "CONFIRMED"
+        }
+      ],
+      "evidence": [
+        {
+          "claim": "_OPEN_STATES=('untested','testing'); no _DONE_STATES in ledger/service.py",
+          "source": "[CODE] src/scanner/ledger/service.py:50",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Attempt cap default is 3 in code, read live from SCANNER_LEDGER_ATTEMPT_CAP; cap<=0 disables (legacy unbounded re-claim)",
+          "source": "[CODE] src/scanner/ledger/service.py:1237-1247",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "claim_cells increments attempts+1 per claim and filters 'AND c.attempts < :cap' so a capped cell is no longer claimable (SELECT..FOR UPDATE SKIP LOCKED, states untested/testing)",
+          "source": "[CODE] src/scanner/ledger/service.py:1388-1417",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "A cell reaches terminal 'attempted' ONLY via release_cells / release_cells_by_ids / reclaim_expired_leases, each 'state = CASE WHEN attempts >= :cap THEN attempted', with na_reason 'attempted: attempt cap reached'",
+          "source": "[CODE] src/scanner/ledger/service.py:1460,1492,1559",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "count_claimable_cells filters applicable+open+attempts<cap → drives father quiescence stop; count_open_cells counts _OPEN_STATES (untested/testing) so a capped-but-unreleased 'testing' cell is counted OPEN yet is NOT claimable",
+          "source": "[CODE] src/scanner/ledger/service.py:1139-1160,1508-1521",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "scan_is_complete uses count_open_cells with _COMPLETE_RATIO default 0.98 (scan finishes at >=98% resolved-of-applicable, not zero-open)",
+          "source": "[CODE] src/scanner/ledger/service.py:1181,1184-1200",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "father _TERMINAL_STATES = _DONE_STATES|{attempted}; _render_board_totals buckets attempted into 'done' (bucket 0), na dropped (bucket -1) — #30 fix confirmed, attempted not dropped but lumped with done",
+          "source": "[CODE] src/scanner/agent_runtime/engine/father.py:376-378,382-406 (bucket at 394)",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Quiescence break: father exits the wave loop only when governor says 'partial' AND _has_claimable() is False (count_claimable==0); comment says attempt cap+lease guarantee cells absorb to 'attempted' so claimable→0",
+          "source": "[CODE] src/scanner/agent_runtime/engine/father.py:1428-1439,1851-1852",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "on_done work-stealing re-queue releases a finished worker's cells BY cell_ids (release_cells_by_ids), which is where a capped cell absorbs to 'attempted'; suppresses exceptions",
+          "source": "[CODE] src/scanner/agent_runtime/engine/father.py:1345-1362,1405",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "reporting _coverage: resolved=confirmed+tested_clean+blocked, open=untested+testing, attempted own bucket (excluded from resolved & open), resolved_pct=resolved/applicable; report open == ledger _OPEN_STATES (reconciles)",
+          "source": "[CODE] src/scanner/reporting/service.py:110-134",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Report exec line labels the entire attempted bucket 'attempt-capped' regardless of na_reason",
+          "source": "[CODE] src/scanner/reporting/service.py:459-463",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "finalize.py mass-retires never-genuinely-probed cells to 'attempted': UPDATE ledger_cell SET state='attempted', na_reason='unreached: scan ended before this cell was tested' WHERE untested OR (testing AND methods_used empty); also promotes methods>=1 testing cells to tested_clean",
+          "source": "[CODE] src/scanner/agent_runtime/finalize.py:444-465",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "scanner_finalize_retire_unreached defaults True (ON); not overridden in deploy env → live",
+          "source": "[CODE] src/scanner/config.py:447-451",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "count_claimable is fail-closed (logs and re-raises; father turns it into 'keep working') — a DB hiccup cannot masquerade as drained",
+          "source": "[CODE] src/scanner/agent_runtime/engine/attack_surface.py:173-183",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "tenant_xbow ledger_cell state histogram: na 48323, attempted 8771, untested 5299, tested_clean 4862, testing 2775, blocked 454, confirmed 297 → applicable 22458: resolved 25.0%, open 35.9%, ATTEMPTED 39.1%",
+          "source": "[QUERY] psql SELECT state,count(*) GROUP BY state → attempted=8771 largest applicable bucket",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "na_reason of 'attempted' cells: finalize_retire_unreached 8683 (99.0%), attempt_cap 82 (0.9%), null 6 — attempt-cap is a negligible producer of 'attempted'",
+          "source": "[QUERY] psql SELECT CASE na_reason.. GROUP BY → 8683 unreached vs 82 attempt_cap",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Deployed cap is 6 not 3; SCANNER_LEDGER_LEASE_S=1800 while SCANNER_ENGINE_WORKER_WALL_S=86400; MAX_WAVES=1000; ENGINE_V2/FINALIZE_LEFTOVER/ENGINE_RESUME all true; STOP_ON_PROBE=0",
+          "source": "[QUERY] docker exec scanner-cp env | grep LEDGER/ENGINE",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Attempts histogram (applicable): 0→13046,1→6903,2→966,3→449,4→364,5→125,6→158 — only ~647 cells reached attempts>=4; 8239 'attempted' cells have attempts<3, impossible via cap=6, proving finalize-retire origin",
+          "source": "[QUERY] psql SELECT attempts,count(*) GROUP BY attempts",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Per-recent-scan attempted share tracks grid drainage: 2122appl→853att(40%)/1269res, 768→718att(93%)/50res, 203→154att(76%)/49res, 17→17att(100%)/0res, 39→0att/39res(100%); live scan 84aea81a mid-run 0att/930res/1985open of 2915",
+          "source": "[QUERY] psql per-scan GROUP BY scan_id ORDER BY max(updated_at)",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "coverage_quality.json shows families applicable>0 exercised=0 gap (jwt_tool/nuclei/dalfox/curl fired on 0 applicable) — cells strand because the family weapon never fired, i.e. never-reached not tried-and-failed",
+          "source": "[QUERY] sudo cat .../coverage_quality.json (one sampled scan)",
+          "confidence": "MEDIUM"
+        }
+      ],
+      "hypotheses": [
+        {
+          "id": "H1: cells strand at 'attempted' because the attempt cap is too low",
+          "verdict": "REFUTED",
+          "note": "Only 82/8771 (0.9%) reached 'attempted' via the cap, and the deployed cap is 6 (not the code default 3). The cap is nearly irrelevant to the attempted pile."
+        },
+        {
+          "id": "H2: #30 fixed — 'attempted' counted terminal, not dropped from the coverage board",
+          "verdict": "CONFIRMED",
+          "note": "father.py:378/394 counts attempted in _TERMINAL_STATES (done bucket). Caveat: it is lumped INTO 'done' on the live board rather than shown as its own slot, so 'done' overstates genuinely-tested cells."
+        },
+        {
+          "id": "H3: report coverage math reconciles with ledger _OPEN_STATES",
+          "verdict": "CONFIRMED",
+          "note": "report open (untested+testing) == ledger _OPEN_STATES; attempted is its own bucket excluded from resolved_pct. Sum applicable = resolved+open+attempted+pending, no silent drop."
+        },
+        {
+          "id": "H4: cells strand at 'attempted' mainly because the fleet never drains the grid within the run (throughput << grid size), then finalize sweeps the untested tail",
+          "verdict": "CONFIRMED",
+          "note": "na_reason 99% unreached, per-scan attempted% scales with grid size (small grids resolve fully, large grids strand 40-93%), coverage_quality gaps show weapons never fired on applicable cells."
+        },
+        {
+          "id": "H5: a capped 'testing' cell can permanently zombie (counted open, never claimable, never released)",
+          "verdict": "PARTIAL",
+          "note": "Mechanically possible mid-run (capped 'testing' with methods_used non-empty is not claimable but count_open_cells counts it) so quiescence can fire while open>0; but finalize.py:444 promotes methods>=1 testing→tested_clean and :457 sweeps methods-less→attempted, so it is transient, resolved at scan end, not a permanent leak."
+        }
+      ],
+      "evidence_gaps": "",
+      "defects": [
+        {
+          "title": "'attempted' is dominated (99%) by finalize mass-retire of NEVER-PROBED cells, not attempt-cap exhaustion — a coverage ceiling wearing a terminal-state label",
+          "mechanism": "finalize.py:454-465 (scanner_finalize_retire_unreached, default ON) sweeps every applicable untested cell (and every 'testing' cell with empty methods_used) into state='attempted' at scan end so count_open_cells reaches 0 and graceful_terminal_status can read 'completed'. This fires because the wave loop terminates (quiescence via count_claimable, or wall/cancel) with a large untested remainder the fleet never reached. The attempt cap (deployed 6) only produced 82 of 8,771 attempted cells; the machinery WS-1 was asked to audit is a red herring for the observed strand.",
+          "blast_radius": "39.1% of all applicable cells tenant-wide (8,771/22,458); per-scan 40-93% on large grids (768-cell scan = 93% attempted, only 6.5% resolved). Directly caps the headline resolved_pct (25% tenant-wide). This is the throughput-vs-grid-size ceiling, not a per-cell bug.",
+          "module_flag": "src/scanner/agent_runtime/finalize.py:454-465 · scanner_finalize_retire_unreached (config.py:451, default True, deployed ON)",
+          "severity": "HIGH (blast radius); it is honest by design, but the true lever is fleet throughput / grid size, not the cap"
+        },
+        {
+          "title": "Report + live board mislabel the attempted bucket as 'attempt-capped' / 'done', conflating never-reached with genuinely-tried",
+          "mechanism": "reporting/service.py:459 emits 'N attempt-capped;' for the WHOLE attempted count, but na_reason proves 8,683 of those were never probed ('unreached') and only 82 were actually attempt-capped. Separately father.py:394 buckets 'attempted' into the live board's 'done' total, so 'done N' includes cells that were never tested. Both surfaces overstate testing effort; the DB has the distinguishing na_reason but neither surface reads it.",
+          "blast_radius": "Every VAPT report and every live board for scans with a large attempted tail (i.e. most non-trivial scans). Operator reads '718 attempt-capped' or a high 'done' number and infers the surface was worked, when 99% was never reached.",
+          "module_flag": "src/scanner/reporting/service.py:459-463 and src/scanner/agent_runtime/engine/father.py:388,394 (#30 chose lump-with-done over drop; a third 'attempted' slot + na_reason split would be honest)",
+          "severity": "MEDIUM (honesty/observability, not correctness)"
+        },
+        {
+          "title": "Deployed lease (1800s) is far below the worker wall (86400s), inverting the code's documented lease>wall invariant",
+          "mechanism": "service.py:1227-1234 states the lease must EXCEED SCANNER_ENGINE_WORKER_WALL_S (+600s margin) so reclaim_expired_leases only fires for a genuinely dead/hung worker, never mid-run. Deployed: SCANNER_LEDGER_LEASE_S=1800 (30min) vs SCANNER_ENGINE_WORKER_WALL_S=86400 (24h). A live worker legitimately holding a cell past 30min has it reclaimed and re-claimed (attempts+1) repeatedly, inflating attempts (histogram shows 647 cells at attempts>=4 under cap=6) and risking premature cap-absorb to 'attempted' while the worker is still working it (double-work).",
+          "blast_radius": "Attempts inflation across long-running scans; contributes the 82 genuine attempt_cap retirements and wasted re-work. Practically limited today (attempt_cap is only 0.9% of attempted) but it is a real deviation from the design invariant and grows with longer per-cell work.",
+          "module_flag": "deploy env SCANNER_LEDGER_LEASE_S=1800 vs invariant in src/scanner/ledger/service.py:1227-1234; also docs/context/FLAGS.md territory",
+          "severity": "MEDIUM"
+        },
+        {
+          "title": "Quiescence stop can fire while open>0 via capped-but-unreleased 'testing' cells (board discrepancy, transient)",
+          "mechanism": "count_claimable_cells filters attempts<cap (service.py:1518) but count_open_cells counts all _OPEN_STATES (service.py:1150). A cell at attempts>=cap still in 'testing' (release/reclaim not yet applied) is not claimable but is counted open, so _has_claimable()→False (loop breaks) while scan_is_complete() still sees it open. finalize.py:444/457 then resolves it (methods>=1→tested_clean, else→attempted), so it is not a permanent leak — but mid-run the live board and completeness signal disagree.",
+          "blast_radius": "Transient per-cell; no permanent stranding. Affects only mid-run board/complete-signal consistency and the accuracy of 'why did the loop stop'.",
+          "module_flag": "src/scanner/ledger/service.py:1150 (count_open_cells) vs :1518 (count_claimable_cells)",
+          "severity": "LOW"
+        }
+      ],
+      "gaps": [
+        "Live scan 84aea81a is still running (read-only observed: 930 resolved / 1985 open / 0 attempted of 2915 applicable); its final attempted ratio after finalize is not yet knowable — expect a large finalize-retire sweep at end based on the 40-93% pattern on completed large-grid scans.",
+        "_has_claimable / _reconcile_on_boot have no direct engine-level test per CLAUDE.md; not re-verified here (out of WS-1 scope).",
+        "Logging-proxy blind spot noted in directive (proxy_log.db covers only NVIDIA/nemotron; OpenRouter/bunny scans bypass it) — not relied on for any claim here; all metrics are from Postgres and the docker volume.",
+        "coverage_quality.json was sampled on one scan only; the 'weapon never fired' corroboration is MEDIUM confidence, not a full-corpus aggregate."
+      ]
+    }
+  },
+  {
+    "label": "WS1:live-telemetry",
+    "agentId": "ab53ee84d03463ede",
+    "result": {
+      "role": "WS-1 Live-server telemetry (Source C primary) — Abhedi Red autonomous VAPT platform, branch feat/alpha-observability. READ-ONLY audit via ssh abhedi (host abhedi-cc). All DB access SELECT-only; live scan 84aea81a not disturbed.",
+      "summary": "Live server is healthy and the running scan is emphatically NOT dark: scan 84aea81a (model=openrouter/bunny, 4 workers, thorough/full_coverage_vapt, UNCAPPED) has run ~1.86h in the exploitation phase, made 5576 tool_invocations, produced 41 DB findings / 42 evidence / 18 confirmed ledger cells, and is writing to disk every ~30s. This falsifies the \"model halts after a few turns\" concern for this run. The tenant holds 43 scans (18 completed, 19 cancelled, 4 failed, 1 partial, 1 running); completed-scan duration median 494s but max 64395s (~17.9h runaway), and the live scan being uncapped (time_cap NULL, cost_cap 0) keeps that runaway-duration risk live. Three telemetry-quality defects stand out: (1) scanner-cp's log is 94.7% scan.method_switch debug spam (18941/20000 lines), drowning real poller signal; (2) ledger.resolve.finding_unmatched warnings show CommandInjection/RFI findings misclassified as vuln_class=ssrf, so findings don't bind to their ledger cell — explaining the 67(disk)→41(DB)→18(confirmed) finding funnel; (3) agent_messages is a poor activity proxy (only 17/43 scans have any; 64 rows for a 5576-tool-call scan) — tool_invocations is the real driver signal. proxy_log.db blind spot confirmed: the live openrouter/bunny model bypasses the nemotron-only proxy, corroborated by cost_spent_usd=$0.00 despite ~1.9h of heavy activity.",
+      "questions": [
+        {
+          "q": "Can WS-1 reach the live DB read-only, and what is the schema?",
+          "answer": "Yes. user=scanner db=scanner; single tenant schema tenant_xbow with 19 tables (scans, ledger_cell, agent_messages, findings, evidence_object, chain_node/edge, tool_invocations, scan_events, worker_runs, etc.). Scans table uses column `status` (not `state`).",
+          "verdict": "CONFIRMED"
+        },
+        {
+          "q": "Scan-state distribution and completed-scan duration?",
+          "answer": "43 scans total: cancelled=19, completed=18, failed=4, partial=1, running=1. Completed (n=18): min=91s median=494s max=64395s (~17.9h). cancelled median=740s max=2191s. One 17.9h completed run = a past runaway.",
+          "verdict": "CONFIRMED"
+        },
+        {
+          "q": "ledger_cell state histogram for the 3 most recent scans?",
+          "answer": "Live 84aea81a: na=6248,testing=1704,tested_clean=941,untested=321,confirmed=18,blocked=5 (9237 cells; applicable=2915). 38c703c0(cancelled): na=2864,attempted=718,blocked=54,tested_clean=1,testing=1,confirmed=1 (applicable=768). a0e78406(cancelled): na=1184,attempted=154,blocked=57,confirmed=3 (applicable=203). NOTE live state enum {na,testing,tested_clean,untested,confirmed,blocked,attempted} differs from the directive's assumed {open/claimed/attempted/done/na}.",
+          "verdict": "CONFIRMED"
+        },
+        {
+          "q": "Did the model drive many turns or halt after a few?",
+          "answer": "For the live scan it drove HEAVILY: 5576 tool_invocations over ~1.86h (~50/min). agent_messages badly undercounts this (64 rows, 28 agents, max turn_index=7) — agent_messages is NOT the real activity log; tool_invocations is. Two older scans: 38c703c0=237 tool calls, a0e78406=121.",
+          "verdict": "CONFIRMED"
+        },
+        {
+          "q": "Is the live scan (84aea81a) producing findings/coverage or dark?",
+          "answer": "Producing. Workdir mtimes ~30s-2min old: ledger_updates.jsonl=1946 lines, oob_interactions.jsonl=226, exploit_floor_signals.jsonl=1157, oob_registry.jsonl=730, findings.jsonl=67, decisions.log=65. DB: 41 findings, 42 evidence, 39 chain_node, 47 chain_edge (3-recent aggregate), 18 confirmed cells. report.{md,json,html} regenerated mid-scan (report.md 1.16MB). No coverage_quality.json (expected pre-finalize).",
+          "verdict": "CONFIRMED"
+        },
+        {
+          "q": "scanner-cp poller/finalize/spawn cadence and errors?",
+          "answer": "scanner-cp alive (last line ~30s ago; Up ~3h, restarted 19:03Z BEFORE scan start 20:08Z, so NO mid-scan restart). Recent log 94.7% scan.method_switch [debug] spam. Real signal: egress_healthy heartbeat (130), evidence.written (17), ledger.resolve.finding_unmatched warnings (12). No errors/exceptions/tracebacks in last 20k lines. No spawn/finalize events (single steady-state scan).",
+          "verdict": "CONFIRMED"
+        },
+        {
+          "q": "Does the proxy_log.db blind spot apply here?",
+          "answer": "Yes. Live scan engine_models.provider=openrouter (stealth/space-bunny-alpha), which bypasses the nemotron-only logging proxy. Corroborated: cost_spent_usd=$0.0000 despite ~1.9h of heavy activity — no cost/token telemetry for this run.",
+          "verdict": "CONFIRMED"
+        },
+        {
+          "q": "Why do disk-findings, DB-findings, and confirmed-cells disagree?",
+          "answer": "Finding funnel: findings.jsonl=67 (disk) -> 41 (DB findings) -> 18 (confirmed ledger cells). Mechanism observed: ledger.resolve.finding_unmatched warnings show CommandInjection/RemoteFileInclusion endpoints tagged vuln_class=ssrf, so a finding can't match its correct ledger cell and never flips the cell to confirmed.",
+          "verdict": "PLAUSIBLE"
+        }
+      ],
+      "evidence": [
+        {
+          "claim": "DB reachable read-only; creds user=scanner db=scanner; one tenant schema tenant_xbow with 19 tables",
+          "source": "[QUERY] docker exec scanner-postgres env | grep POSTGRES_* -> USER=scanner DB=scanner; psql -c \"SELECT nspname FROM pg_namespace LIKE 'tenant%'\" -> tenant_xbow; information_schema.tables -> 19 rows",
+          "confidence": "HIGH",
+          "notes": "password redacted; not recorded"
+        },
+        {
+          "claim": "43 scans: cancelled=19, completed=18, failed=4, partial=1, running=1",
+          "source": "[QUERY] SELECT status,count(*) FROM tenant_xbow.scans GROUP BY status -> cancelled 19, completed 18, failed 4, partial 1, running 1",
+          "confidence": "HIGH",
+          "notes": "scans table uses column `status`, not `state`"
+        },
+        {
+          "claim": "Completed-scan duration min=91s median=494s max=64395s (~17.9h)",
+          "source": "[QUERY] SELECT ... percentile_cont(0.5) ... WHERE completed_at NOT NULL GROUP BY status -> completed: n=18 min=91 med=494 max=64395; cancelled: n=19 min=149 med=740 max=2191",
+          "confidence": "HIGH",
+          "notes": "64395s completed run = prior runaway"
+        },
+        {
+          "claim": "Live scan 84aea81a running ~6700s in exploitation, model=openrouter/bunny, 4 workers, UNCAPPED",
+          "source": "[QUERY] SELECT ... FROM scans WHERE status='running' -> running_s=6681-6800, current_phase=exploitation, engine_models={workers:4, provider:openrouter, model:stealth/space-bunny-alpha}; cost_cap=0.00 time_cap=NULL mode=thorough playbook=full_coverage_vapt",
+          "confidence": "HIGH",
+          "notes": "full scan_id 84aea81a-7e43-495c-9974-ca064ddd3552"
+        },
+        {
+          "claim": "Live ledger_cell: na=6248,testing=1704,tested_clean=941,untested=321,confirmed=18,blocked=5 (9237 cells; applicable=2915)",
+          "source": "[QUERY] SELECT state,count(*) FROM ledger_cell WHERE scan_id IN (3 recent) GROUP BY sid,state; applicable split t=2915 f=6322",
+          "confidence": "HIGH",
+          "notes": "live enum has states not in directive's assumed set"
+        },
+        {
+          "claim": "38c703c0(cancelled) mostly attempt-capped: na=2864,attempted=718,blocked=54,confirmed=1 (applicable=768)",
+          "source": "[QUERY] same ledger_cell group-by -> 38c703c0 attempted=718 confirmed=1",
+          "confidence": "HIGH",
+          "notes": "718/768 applicable cells attempted-without-resolution"
+        },
+        {
+          "claim": "a0e78406(cancelled): na=1184,attempted=154,blocked=57,confirmed=3 (applicable=203)",
+          "source": "[QUERY] same ledger_cell group-by -> a0e78406 attempted=154 confirmed=3",
+          "confidence": "HIGH",
+          "notes": ""
+        },
+        {
+          "claim": "agent_messages sparse: 319 rows across only 17/43 scans; live scan 64 msgs/28 agents/max_turn=7",
+          "source": "[QUERY] SELECT count(*),count(DISTINCT scan_id) FROM agent_messages -> 319, 17; per-scan: 84aea81a=64/28agents/max_turn=7, 38c703c0=7, a0e78406=2, 7ec54a2f=1",
+          "confidence": "HIGH",
+          "notes": "cce4b835 (5th recent) has 0 agent_messages"
+        },
+        {
+          "claim": "tool_invocations is the real activity proxy: live=5576, 38c703c0=237, a0e78406=121, 7ec54a2f=55",
+          "source": "[QUERY] SELECT scan_id,count(*) FROM tool_invocations WHERE scan_id IN (5 recent) GROUP BY -> 84aea81a 5576",
+          "confidence": "HIGH",
+          "notes": "5576 tool calls vs 64 agent_messages = ~87x undercount"
+        },
+        {
+          "claim": "Live findings=41 (DB); evidence=42, chain_node=39, chain_edge=47 (3-recent aggregate); total findings all scans=255/15 scans",
+          "source": "[QUERY] SELECT count(*) FROM findings/evidence_object/chain_node/chain_edge WHERE scan_id IN (recent) -> findings 41, evidence 42, chain_node 39, chain_edge 47; findings all=255/15",
+          "confidence": "HIGH",
+          "notes": ""
+        },
+        {
+          "claim": "Live workdir actively written (mtimes ~30s-2min old): ledger_updates.jsonl=1946, exploit_floor_signals.jsonl=1157, oob_registry.jsonl=730, oob_interactions.jsonl=226, findings.jsonl=67, decisions.log=65 lines",
+          "source": "[QUERY] sudo wc -l on /var/lib/docker/volumes/abhedi_red_scanner_data/_data/16e69f07.../84aea81a.../ files -> those counts; ls -la shows report.md 1.16MB @03:20 IST, scan_brief.md 18KB",
+          "confidence": "HIGH",
+          "notes": "no coverage_quality.json (pre-finalize); no logs/ dir at workdir root"
+        },
+        {
+          "claim": "scanner-cp alive; last log ~30s ago; restarted 19:03Z (before scan start 20:08Z) so NO mid-scan restart",
+          "source": "[QUERY] docker ps -> 'Up 3 hours'; docker logs --tail 1 --timestamps -> 2026-09-30T22:03:02Z; date -u -> 22:03:32Z; scans.started_at=20:08:29Z",
+          "confidence": "HIGH",
+          "notes": "corrects the 'never restart mid-scan' gotcha concern for THIS scan"
+        },
+        {
+          "claim": "scanner-cp log 94.7% scan.method_switch [debug] spam (18941/20000 lines)",
+          "source": "[QUERY] docker logs --tail 20000 scanner-cp | grep -c method_switch -> 18941",
+          "confidence": "HIGH",
+          "notes": "drowns real poller signal; debug-level (log_level field is dead per CLAUDE.md, so debug ships)"
+        },
+        {
+          "claim": "Real (non-flood) scanner-cp signal: egress_healthy=130 [info], evidence.written=17 [info], 12 [warning]; zero errors/exceptions/tracebacks",
+          "source": "[QUERY] docker logs | grep -v method_switch | grep info/warning | uniq -c -> egress_healthy 130, evidence.written 17, warning 12; error/exception grep -> empty",
+          "confidence": "HIGH",
+          "notes": "egress_healthy = periodic poller heartbeat"
+        },
+        {
+          "claim": "finding->cell binding breaks: CommandInjection/RFI endpoints resolved with vuln_class=ssrf",
+          "source": "[QUERY] docker logs | grep finding_unmatched -> 'ledger.resolve.finding_unmatched endpoint=.../CommandInjection/LEVEL_3 vuln_class=ssrf' (x12, ssrf/RFI/cmdi LEVEL_1..5)",
+          "confidence": "HIGH",
+          "notes": "explains 67(disk)->41(DB)->18(confirmed) funnel; target is OWASP VulnerableApp @172.17.0.1:9090"
+        },
+        {
+          "claim": "proxy_log.db blind spot applies: openrouter/bunny bypasses nemotron-only proxy; cost_spent_usd=$0.00 despite ~1.9h activity",
+          "source": "[QUERY] scans.engine_models.provider=openrouter; SELECT cost_spent_usd WHERE status='running' -> 0.0000",
+          "confidence": "HIGH",
+          "notes": "no cost/token telemetry captured for this run"
+        }
+      ],
+      "defects": [
+        {
+          "title": "scanner-cp observability drowned by scan.method_switch debug flood",
+          "mechanism": "scan.method_switch events are published to the event bus at multiple Hz per running scan at [debug] level; they make up 18941/20000 (94.7%) of recent scanner-cp log lines. Because the log_level config field is dead (never consumed; CLAUDE.md LOW issue), debug ships in prod, so real poller/finalize/spawn/error signal is buried.",
+          "blast_radius": "Operator/observability: near-impossible to eyeball poller health or catch finalize/spawn errors in scanner-cp logs during any active scan; log-shipping cost and rotation churn.",
+          "module_flag": "scanner-cp event publisher (scan.method_switch); log_level config field (dead)",
+          "severity": "MEDIUM"
+        },
+        {
+          "title": "Findings misclassified by vuln_class fail to bind to their ledger cell",
+          "mechanism": "ledger.resolve.finding_unmatched warnings show CommandInjection and RemoteFileInclusion endpoints being resolved with vuln_class=ssrf. The resolve step matches on (endpoint, vuln_class); a class mismatch means the finding never flips its ledger cell to confirmed. Produces the 67(disk findings.jsonl) -> 41(DB findings) -> 18(confirmed cells) funnel.",
+          "blast_radius": "Coverage/accuracy: confirmed-cell count and report coverage math understate real findings; a real cmdi/RFI can be written as a finding yet leave its cell open/attempted, corrupting the 'is this resolved' picture.",
+          "module_flag": "ledger resolve (finding->cell matcher, vuln_class classification upstream)",
+          "severity": "HIGH"
+        },
+        {
+          "title": "agent_messages is an unreliable turn/activity telemetry source",
+          "mechanism": "Only 17 of 43 scans have any agent_messages rows (319 total). The live scan logged 64 agent_messages while making 5576 tool_invocations (~87x undercount); max turn_index=7. Any dashboard/analysis reading agent_messages to gauge 'did the model drive turns' will read near-zero and wrongly conclude the model halted.",
+          "blast_radius": "Observability/analysis: WS-tier auditors and any ops dashboard keyed on agent_messages will misread active scans as stalled; tool_invocations must be used instead.",
+          "module_flag": "agent_messages persistence path (engine-v2 message sink)",
+          "severity": "MEDIUM"
+        },
+        {
+          "title": "Live scan runs uncapped (time_cap NULL, cost_cap 0) with no cost telemetry",
+          "mechanism": "Running scan has time_cap_seconds=NULL and cost_cap_usd=0.00; it has run ~1.9h and counting. cost_spent_usd=$0.00 because the openrouter/bunny model bypasses the nemotron-only logging proxy, so there is no cost signal to trigger a cost-based stop either. Historical max completed duration is 64395s (~17.9h), showing the runaway-duration failure mode is real.",
+          "blast_radius": "Runaway resource/time: an uncapped non-anthropic scan with no cost metering can only be stopped by manual cancel or the reachable-stop/quiescence logic; matches the historical 17.9h runaway.",
+          "module_flag": "scan caps (time_cap/cost_cap); non-anthropic default time cap; logging-proxy cost metering (openrouter uncovered)",
+          "severity": "MEDIUM"
+        }
+      ],
+      "hypotheses": [
+        {
+          "id": "H1: model halts after a few turns (hallucination bail-out)",
+          "verdict": "REFUTED",
+          "note": "Live scan made 5576 tool_invocations over ~1.86h; sustained ~50 calls/min. agent_messages max_turn=7 is a persistence artifact, not a halt."
+        },
+        {
+          "id": "H2: scanner-cp was restarted mid-scan (the 'NEVER restart mid-scan' gotcha triggered)",
+          "verdict": "REFUTED",
+          "note": "scanner-cp 'Up 3 hours' => restart ~19:03Z; scan started 20:08Z. Restart PRECEDES scan start, so the gotcha did not fire for this run."
+        },
+        {
+          "id": "H3: live scan is dark / not producing findings or coverage",
+          "verdict": "REFUTED",
+          "note": "Workdir jsonl files updating every ~30s (ledger_updates=1946 lines, oob_interactions=226), 41 DB findings, 42 evidence, 18 confirmed cells, report regenerated mid-scan."
+        },
+        {
+          "id": "H4: finding counts across disk/DB/ledger agree",
+          "verdict": "REFUTED",
+          "note": "67 disk findings vs 41 DB findings vs 18 confirmed cells; finding_unmatched (vuln_class=ssrf misclass) is the observed mechanism for the gap."
+        },
+        {
+          "id": "H5: proxy_log.db captures the live scan's model traffic",
+          "verdict": "REFUTED",
+          "note": "Live model provider=openrouter (bunny); proxy is nemotron-only. cost_spent_usd=$0.00 corroborates zero proxy coverage."
+        }
+      ],
+      "gaps": [
+        "Agent-side turn log not sampled: no logs/ dir at the live scan workdir root and no agent.log/toolserver.log found there; could not directly read the in-container agent transcript to cross-check turn cadence (relied on tool_invocations DB counts instead). [UNVERIFIED - artifact absent at expected path]",
+        "proxy_log.db not opened: the live openrouter/bunny scan is outside its nemotron-only coverage, so reading it would not describe this run; blind spot accepted, not eliminated. OpenRouter/bunny scans have NO cost or token telemetry anywhere observed (cost_spent_usd=$0).",
+        "findings.jsonl (67) vs DB findings (41): did not enumerate which 26 disk findings failed ingest vs were dedup-merged vs are in-flight; only the finding_unmatched mechanism was confirmed from logs.",
+        "scanner-cp logs older than ~22:00Z (this container's current lifetime) were not inspected; only the recent 20k lines were sampled, so past finalize/spawn/salvage cadence for completed/cancelled scans is not characterized.",
+        "Did not verify against code (WS-1 is telemetry-only): the vuln_class=ssrf misclassification and method_switch-flood mechanisms are asserted from live logs/DB, not traced to file:line — hand to the code-auditor WS for root-cause in the ledger resolve + event publisher."
+      ]
+    }
+  },
+  {
+    "label": "WS1:claim-release",
+    "agentId": "a05ae3622a975d9c8",
+    "result": {
+      "role": "WS-1 Claim/Release forensics (SYSTEMS-ARCHITECT, read-only)",
+      "summary": "H1 (the ledger claim/release worker_id mismatch causes ZERO-ROW releases → leased-limbo) is REFUTED for the batch/pool path in the current tree (HEAD f75608f). The mismatch is real and documented — the wave claims all cells under one worker_id \"wave{N}\" (father.py:1874) while sub-batches run under distinct \"batch{N}-...\" ids (father.py:1275) — but the code deliberately releases the batch path by cell_id via release_cells_by_ids (father.py:1362 → service.py:1476), which is worker_id-agnostic and cannot zero-row on that mismatch. The only by-worker release, the escalation path (father.py:1723), claims and releases under the SAME esc_wid (father.py:1703/1723), so it is symmetric too. Both B1 fix commits (0ba90b9, 5c57c89) are present in HEAD. Live DB confirms the batch path leaves ZERO strands (no cell is claimed by any \"batch{N}-\" id). The real leased-limbo IS live but comes from a DIFFERENT mechanism: the exploit floor claims cells under \"floor-{fam}\" (exploit_floor.py:4890) and has NO release path at all — on the running scan 1622 floor-claimed cells sit in expired-lease limbo, plus 37 \"wave1\" residue cells; all 1659 are reclaimable-now (leases expired; 0 cells held under a live lease), so the requeue path (lease-expiry OR-clause in claim_cells:1400 + per-wave reclaim_expired_leases at father.py:1189) does eventually free them — it is churn/starvation, not a permanent strand and not the worker_id mismatch.",
+      "questions": [
+        {
+          "q": "Does father.py release cells by the SAME worker_id it claimed with, or by shard/batch id? Trace end to end.",
+          "answer": "Batch/pool path: wave-level claim stamps claimed_by='wave{spawn_wave}' (father.py:1874 _claim_worklist → attack_surface.py:121 → service.py:1408). Batch workers run under worker_id='batch{spawn_wave}-{batch_id}-{model}' (father.py:1275) but DO NOT re-claim — they inherit the wave's cells (father.py:1386 _batch_cells maps batch worker_id→cell_ids). on_done releases via release_cells_by_ids(cell_ids) (father.py:1362), i.e. BY CELL_ID, not worker_id — so the wave/batch id mismatch is neutralized. Escalation path: claims claim_family_cells(worker_id=esc_wid) (father.py:1703) and releases release_cells(worker_id=esc_wid) (father.py:1723) — SAME id, symmetric. No live caller releases by a worker_id different from the one that claimed.",
+          "verdict": "HIGH — released by cell_id (batch) or same id (escalation); no mismatch"
+        },
+        {
+          "q": "Is the by-worker vs by-ids mismatch (fixed 0ba90b9/5c57c89) actually fixed in current code?",
+          "answer": "Yes. release_cells_by_ids exists (service.py:1476) and is the sole release used by the batch on_done hook (father.py:1362). Both commits 0ba90b9 ('add release_cells_by_ids for batch work-stealing requeue (B1)') and 5c57c89 ('release batch worker cells by id so requeue actually frees them (B1)') are ancestors of HEAD f75608f. Live: 0 cells are stranded under any 'batch{N}-' claimer, confirming the batch requeue frees its slice.",
+          "verdict": "HIGH — fix present and effective"
+        },
+        {
+          "q": "Does the zero-row-release / leased-limbo actually occur in production?",
+          "answer": "Leased-limbo occurs, but NOT from the worker_id mismatch. On the live running scan 84aea81a, 1659 'testing' cells sit with expired leases unreleased: 1622 owned by 'floor' (exploit floor never releases), 37 by 'wave1'. 0 cells held by any 'batch{N}-' id; 0 cells under a live (unexpired) lease. All 1659 are claimable-now (claim_cells:1400 OR-clause covers expired leases) and reclaim_expired_leases runs each wave, so they are transient/reclaimable, not permanently stuck.",
+          "verdict": "HIGH — limbo present, source is floor no-release, reclaimable"
+        },
+        {
+          "q": "What is the lease TTL / stale-lease reclaim default?",
+          "answer": "_DEFAULT_LEASE_S = env SCANNER_LEDGER_LEASE_S, else SCANNER_ENGINE_WORKER_WALL_S(default 5400) + 600 = 6000s / 100 min (service.py:1232-1234). Reclaim: reclaim_expired_leases (service.py:1543) resets claimed_by/lease to NULL for open cells past lease, run at the start of every _claim_worklist wave (father.py:1189-1190). Attempt cap = 3 (service.py:1237-1247); on release/reclaim a cell at cap is absorbed to terminal 'attempted'. Note: the 1800s figure in memory/CLAUDE.md is STALE — the code default is 6000s.",
+          "verdict": "HIGH — 6000s default, per-wave reclaim, cap 3"
+        },
+        {
+          "q": "Live: how many cells stuck in claimed/leased with no active worker; attempted vs done vs open?",
+          "answer": "tenant_xbow, 40 scans, 70781 cells. Global states: na 48323, attempted 8771, untested 5299, tested_clean 4862, testing 2775, blocked 454, confirmed 297. Of 2775 testing: 2521 leased-EXPIRED-reclaimable, 254 already-released (claimed_by NULL = re-queued), 0 leased-ACTIVE. Expired-leased by scan status: running 1659 (1 scan), cancelled 841 (4 scans), failed 21. Live scan 84aea81a: attempted-vs-done-vs-open = 8771-global; for this scan tested_clean 941 + confirmed 18 (done) vs untested 321 + testing 1704 (open), na 6248, blocked 5; claimable_now 1976; blocked_by_live_lease 0.",
+          "verdict": "HIGH — direct SELECT-only reads"
+        }
+      ],
+      "evidence": [
+        {
+          "claim": "Wave-level claim stamps every wave cell claimed_by='wave{spawn_wave}'",
+          "source": "[CODE] father.py:1874 (self._claim_worklist(f\"wave{spawn_wave}\")) → attack_surface.py:121 → service.py:1408 (SET claimed_by=:worker)",
+          "confidence": "HIGH",
+          "notes": "single worker_id for the whole wave batch"
+        },
+        {
+          "claim": "Batch workers run under a DIFFERENT id 'batch{spawn_wave}-{batch_id}-{model}' and never re-claim",
+          "source": "[CODE] father.py:1275 (WorkerSpec worker_id) + father.py:1386 (_batch_cells map)",
+          "confidence": "HIGH",
+          "notes": "the wave/batch id mismatch the hypothesis targets"
+        },
+        {
+          "claim": "Batch on_done releases BY CELL_ID (worker_id-agnostic), neutralizing the mismatch",
+          "source": "[CODE] father.py:1345-1362 (_release_worker_cells → release_cells_by_ids(cell_ids)); service.py:1476-1505 (WHERE cell_id = ANY(:ids), no worker_id predicate)",
+          "confidence": "HIGH",
+          "notes": "the B1 fix; docstring at service.py:1481-1483 explains a by-worker release would match 0 rows"
+        },
+        {
+          "claim": "release_cells (by worker_id) has exactly one live caller — the escalation path — and it is symmetric",
+          "source": "[CODE] grep release_cells over src: sole call father.py:1723 (release_cells worker_id=esc_wid) paired with father.py:1703 (claim_family_cells worker_id=esc_wid), esc_wid=f\"esc{100+rounds}\" father.py:1699",
+          "confidence": "HIGH",
+          "notes": "claim id == release id → cannot zero-row"
+        },
+        {
+          "claim": "release_cells SQL matches WHERE claimed_by=:worker AND state IN open — so a mismatched id WOULD return rowcount 0",
+          "source": "[CODE] service.py:1464-1473",
+          "confidence": "HIGH",
+          "notes": "the failure mode exists in the primitive; it is simply not invoked with a mismatched id"
+        },
+        {
+          "claim": "claim_cells claimable predicate re-admits expired leases automatically",
+          "source": "[CODE] service.py:1400 (claimed_by IS NULL OR lease_expires_at IS NULL OR lease_expires_at < now())",
+          "confidence": "HIGH",
+          "notes": "why expired-leased cells are not permanently stuck"
+        },
+        {
+          "claim": "reclaim_expired_leases runs at the start of every wave claim",
+          "source": "[CODE] father.py:1189-1190 (if hasattr surf reclaim_expired_leases: await) → service.py:1543-1570",
+          "confidence": "HIGH",
+          "notes": "the periodic requeue of dead-worker leases"
+        },
+        {
+          "claim": "Lease TTL default is 6000s (5400 wall + 600), not 1800s",
+          "source": "[CODE] service.py:1232-1234",
+          "confidence": "HIGH",
+          "notes": "memory/CLAUDE.md '1800s leased-limbo' is stale"
+        },
+        {
+          "claim": "Attempt cap default 3; capped cell absorbed to terminal 'attempted' on release/reclaim",
+          "source": "[CODE] service.py:1237-1247, 1459-1463 (release), 1559 (reclaim)",
+          "confidence": "HIGH",
+          "notes": "bounds re-claim churn so the loop can reach quiescence"
+        },
+        {
+          "claim": "Exploit floor claims under 'floor-{fam}' and has NO release call anywhere in the file",
+          "source": "[CODE] exploit_floor.py:4890 (claim_family_cells worker_id=f\"floor-{fam.name}\"); [QUERY] grep 'release_cells' exploit_floor.py → 0 matches",
+          "confidence": "HIGH",
+          "notes": "floor relies on record_coverage→resolve for fired cells + lease-reclaim for the rest; unfired cells sit leased"
+        },
+        {
+          "claim": "Both B1 fix commits are ancestors of HEAD f75608f",
+          "source": "[QUERY] git log 0ba90b9/5c57c89 → '0ba90b9 fix(ledger): add release_cells_by_ids...'; '5c57c89 fix(engine): release batch worker cells by id...'; HEAD=f75608f",
+          "confidence": "HIGH",
+          "notes": "directive cited 1c5551d; docs-only delta, working tree audited"
+        },
+        {
+          "claim": "Global testing-cell lease breakdown: 2521 leased-EXPIRED, 254 released (claimed_by NULL), 0 leased-ACTIVE",
+          "source": "[QUERY] SELECT CASE ... GROUP BY lease_status WHERE state='testing' (tenant_xbow)",
+          "confidence": "HIGH",
+          "notes": "254 with claimed_by NULL = the release path's output (freed but state still 'testing' = claimable)"
+        },
+        {
+          "claim": "Live running scan 84aea81a: 1659 expired-leased testing cells; owned by floor=1622, wave1=37",
+          "source": "[QUERY] SELECT split_part(claimed_by,'-',1),count(*) WHERE scan_id=84aea81a AND state='testing' AND claimed_by IS NOT NULL → floor 1622, wave1 37",
+          "confidence": "HIGH",
+          "notes": "ZERO owned by any 'batch{N}-' id — batch path leaves no strands"
+        },
+        {
+          "claim": "Live scan: 1976 cells claimable-now, 0 blocked by a live (unexpired) lease",
+          "source": "[QUERY] SELECT count(*) ...(claimed_by IS NULL OR lease_expires_at<now())=1976; ...(claimed_by IS NOT NULL AND lease_expires_at>=now())=0 (scan 84aea81a)",
+          "confidence": "HIGH",
+          "notes": "all leased cells are past-lease → reclaimable; nothing hard-locked"
+        },
+        {
+          "claim": "Expired-leased strands by scan status: running 1659, cancelled 841 (4 scans), failed 21",
+          "source": "[QUERY] SELECT s.status,count(*) JOIN scans WHERE state='testing' AND lease_expires_at<now()",
+          "confidence": "HIGH",
+          "notes": "cancelled/failed strands are harmless end-of-scan residue; only the running-scan strands affect a live run"
+        },
+        {
+          "claim": "count_claimable_cells counts 'testing' cells with no lease predicate, unlike the actual claim predicate",
+          "source": "[CODE] service.py:1515 (state IN ('untested','testing'), no lease clause) vs service.py:1400 (claim requires past-lease)",
+          "confidence": "HIGH",
+          "notes": "divergence only when leased_ACTIVE>0; biases quiescence to late-stop (safe); not observable now (0 live leases)"
+        },
+        {
+          "claim": "Postgres access is scanner/scanner; tenant schema tenant_xbow readable",
+          "source": "[QUERY] docker exec scanner-postgres env → POSTGRES_USER=scanner POSTGRES_DB=scanner (password REDACTED)",
+          "confidence": "HIGH",
+          "notes": "all queries SELECT-only; live scan not disturbed"
+        }
+      ],
+      "defects": [
+        {
+          "title": "Exploit floor never releases its claimed cells → large leased-limbo + fleet starvation",
+          "mechanism": "run_exploit_floor claims a disjoint batch per family under worker_id='floor-{fam}' (exploit_floor.py:4890) but there is NO release_cells/release_cells_by_ids call anywhere in exploit_floor.py. Cells the floor claims but does not fire against stay state='testing', claimed_by='floor-{fam}' until the lease TTL (6000s) expires and the next wave's reclaim_expired_leases (father.py:1189) frees them. Because the floor and the LLM fleet race the SAME cells over the shared lease, floor-held cells are unavailable to fleet workers for up to a full lease window each cycle.",
+          "blast_radius": "On the live running scan, 1622 of 1976 claimable cells (~82%) are floor-held expired-lease limbo; work is reclaimable but repeatedly cycles through limbo, throttling fleet throughput/coverage. Not a permanent strand and not the worker_id mismatch.",
+          "severity": "HIGH",
+          "module_flag": "exploit_floor.py run_exploit_floor / flag scanner_exploit_floor_enabled (default OFF in config, but ON on this deploy)"
+        },
+        {
+          "title": "Wave-claim residue: cells claimed under 'wave{N}' whose batch never dispatched are not released",
+          "mechanism": "_claim_worklist claims the whole wave under 'wave{spawn_wave}' (father.py:1874). Only batches that actually RAN get freed by the on_done hook (father.py:1405 on_done=_release_worker_cells → release_cells_by_ids, father.py:1362). If the wave wall / wrap_up cuts run_pool before every composed batch is dispatched, the undispatched batches' cells stay leased under 'wave{N}' with no on_done to release them — freed only by lease-expiry + next-wave reclaim.",
+          "blast_radius": "Small and bounded: 37 'wave1' cells on the live scan; reclaimable. Grows only if waves are frequently wall-cut mid-dispatch.",
+          "severity": "MEDIUM",
+          "module_flag": "father.py _run_batch_pool/_release_worker_cells (engine-v2 batch path)"
+        },
+        {
+          "title": "Lease TTL default 6000s lengthens every leased-limbo window; docs cite a stale 1800s",
+          "mechanism": "_DEFAULT_LEASE_S = SCANNER_ENGINE_WORKER_WALL_S(5400)+600 = 6000s when SCANNER_LEDGER_LEASE_S unset (service.py:1232-1234). Any unreleased/crashed claim (floor cells, wave residue, a SIGKILL'd wave) stays in limbo up to 100 min before reclaim, not the 30 min the memory/CLAUDE.md notes assume.",
+          "blast_radius": "Amplifies the two defects above; a crashed wave strands its whole claimed batch for up to 100 min. Stale doc misleads future tuning.",
+          "severity": "LOW",
+          "module_flag": "service.py _DEFAULT_LEASE_S / env SCANNER_LEDGER_LEASE_S"
+        },
+        {
+          "title": "count_claimable_cells counts actively-leased 'testing' cells, diverging from the real claim predicate",
+          "mechanism": "count_claimable_cells (service.py:1508-1521) filters state IN ('untested','testing') with NO lease predicate, while claim_cells (service.py:1400) only hands out cells that are unclaimed OR past-lease. When live leases exist, the quiescence signal (father _has_claimable) over-counts vs what can actually be claimed this instant.",
+          "blast_radius": "Biases the wave loop toward LATE-stop (keeps working when 0 cells are actually claimable), the safe direction — opposite of H1's early-stop. Not observable on the live scan (0 leased-ACTIVE). Minor.",
+          "severity": "LOW",
+          "module_flag": "service.py count_claimable_cells / father _has_claimable quiescence"
+        }
+      ],
+      "hypotheses": [
+        {
+          "id": "H1: claim/release worker_id mismatch causes ZERO-ROW releases → leased-limbo",
+          "verdict": "REFUTED",
+          "note": "The mismatch is real (wave{N} claim vs batch{N}- worker) and release_cells WOULD zero-row on it, but the batch path releases by cell_id (release_cells_by_ids, father.py:1362) and the only by-worker release (escalation, father.py:1723) uses the SAME id it claimed with (father.py:1703). Live DB: 0 cells stranded under any batch{N}- claimer. Fix commits 0ba90b9/5c57c89 present in HEAD."
+        },
+        {
+          "id": "H1b: leased-limbo exists in production",
+          "verdict": "CONFIRMED (different mechanism)",
+          "note": "1659 in-run strands on the live scan, but 1622 are floor-claimed (floor never releases) + 37 wave residue — all reclaimable-now (0 held under a live lease), not caused by the worker_id mismatch."
+        },
+        {
+          "id": "H1c: stranded cells are permanently stuck",
+          "verdict": "REFUTED",
+          "note": "claim_cells OR-clause (service.py:1400) re-admits expired leases and reclaim_expired_leases runs each wave (father.py:1189); live scan shows 1976 claimable-now including all 1659 strands. Churn/starvation, not permanent leak."
+        }
+      ],
+      "gaps": [
+        "scanner-cp logs contained no reclaim/release/quiescence lines (EXIT 0, empty) — the wave loop + ledger requeue run inside the agent container (logs/agent.log on volume abhedi_red_scanner_data), not scanner-cp; I did not open the per-scan agent.log to time actual reclaim/claim cadence, so the requeue interval is inferred from lease timestamps (floor leases expired 21:32-21:46, now ~22:02) rather than logged events.",
+        "Did not measure how fast the floor re-claims after reclaim frees its cells (churn rate), which would quantify the fleet-starvation blast radius over the full run — would need agent.log or repeated DB snapshots (avoided to keep strictly read-only / non-perturbing on the live scan).",
+        "compose_batches (father.py:1384) not opened — assumed it batches ALL claimed_cells so the only wave residue is wall-cut undispatched batches; a partial-batching bug there could add a second wave-residue source (37-cell count is consistent with wall-cut, so low priority).",
+        "logging-proxy proxy_log.db (NVIDIA/nemotron only) not consulted — irrelevant to ledger claim/release forensics."
+      ]
+    }
+  },
+  {
+    "label": "WS1:quiescence",
+    "agentId": "a02da4e4aacbc9f17",
+    "result": {
+      "role": "WS-1 Quiescence & fail-open auditor",
+      "summary": "H1 (wave loops end early because quiescence reads fail open) is REFUTED for the quiescence path. On the current working tree (HEAD f75608f, branch feat/alpha-observability) all three loop-stop reads fail CLOSED toward \"keep working\": father._has_claimable logs and returns True on error (father.py:1428-1441), attack_surface.count_claimable logs and RE-RAISES (attack_surface.py:173-183), and father._is_complete logs and returns False (father.py:1418-1426) — the CLAUDE.md Phase 0 claim is confirmed against code. The loop stop is a genuine-quiescence signal, not a bare plateau: it breaks only on real coverage-complete (_is_complete) or on Governor \"partial\" AND a drained queue (not _has_claimable()) — a double gate that survives a simultaneous DB/Redis hiccup because both reads fail closed (father.py:1817, 1851). Two real FAIL-OPEN defects remain, both latent: target_health() returns 1.0 on any error with zero logging (attack_surface.py:207-226), silently defeating fleet concurrency-shedding on the prod batch-dispatch path (fleet.py:145), and _batch_done's preempt misreads a swallowed cell_states hiccup ({} -> batch_satisfied True -> \"contract satisfied\") and can cut a still-working worker (father.py:1309-1311). Server evidence: ZERO read-failure events across all production agent logs and only 1 \"partial\" scan in tenant_xbow, so neither fail-open has fired in practice; the common real terminator is the deliberate time-based soft-cap drain, not quiescence.",
+      "questions": [
+        {
+          "q": "On exception, what does father._has_claimable return and is it logged?",
+          "answer": "Returns True ('assume still-claimable / keep working') and LOGS father.has_claimable_failed via logger.awarning. FAIL-CLOSED. father.py:1439-1441.",
+          "verdict": "CONFIRMED fail-closed (Phase 0 claim true)"
+        },
+        {
+          "q": "On exception, what does attack_surface.count_claimable return and is it logged?",
+          "answer": "LOGS attack_surface.count_claimable_failed via logger.awarning, then RE-RAISES (does not swallow to 0). The sole caller (_has_claimable) turns the exception into True. FAIL-CLOSED. attack_surface.py:181-183; file now imports structlog (:7) + logger (:25).",
+          "verdict": "CONFIRMED fail-closed (Phase 0 claim true)"
+        },
+        {
+          "q": "On exception, what does attack_surface.target_health return and is it logged?",
+          "answer": "Returns 1.0 (fully healthy) with NO logging in the except block. FAIL-OPEN and silent. attack_surface.py:225-226. CLAUDE.md's detail 'the file imports no logger at all' is now STALE (logger exists at :25, used by count_claimable) but 'fails open to 1.0' remains true.",
+          "verdict": "CONFIRMED fail-open, silent"
+        },
+        {
+          "q": "Is the loop STOP true quiescence or a plateau/no-progress heuristic? Does a transient DB/Redis hiccup read as 'drained'?",
+          "answer": "True quiescence, double-gated. Breaks on (a) _is_complete() = no applicable cell open / >=98% resolved (father.py:1817), or (b) Governor decision=='partial' AND not _has_claimable() (father.py:1851). Plateau alone never stops the loop while cells are claimable. A transient hiccup does NOT read as drained: _has_claimable->True (keep working) and _is_complete->False (not complete). Governor 'stop' from a spurious unresolved==0 (a None reading coerced to 0 at father.py:1794) is a no-op — the loop only acts on 'partial'.",
+          "verdict": "CONFIRMED true-quiescence, hiccup-safe"
+        },
+        {
+          "q": "fleet.py adaptive cap (hard_cap * health()) — does a failed health read silently defeat concurrency-shedding?",
+          "answer": "YES. cap = max(1, int(hard_cap * await health())) (fleet.py:145); health = target_health, which returns 1.0 on any error -> cap stays at hard_cap -> no shedding, silently. Only wired on the batch-dispatch path (father.py:1398,1403), which is ON in prod (compose:202 default true; config.py:437 default False). Effect over-drives a struggling target; does NOT cut scans short.",
+          "verdict": "CONFIRMED silent shed-defeat (does not shorten scans)"
+        },
+        {
+          "q": "Server: do scanner-cp/agent logs show early-stop/quiescence read-failure events, and at what frequency?",
+          "answer": "ZERO across all production agent logs: has_claimable_failed=0, count_claimable_failed=0, scan_complete_check_failed=0, unresolved_count_failed=0, cell_states_failed=0, sample_open_failed=0. Real terminators seen instead: engine.soft_cap_drain (time-cap, multiple scans), engine.model_http_error x1082 (dominant reliability event). tenant_xbow scans: 18 completed, 19 cancelled, 4 failed, 1 partial, 1 running — only 1 governor-'partial' outcome.",
+          "verdict": "CONFIRMED: fail-open paths never fired in prod (latent)"
+        }
+      ],
+      "evidence": [
+        {
+          "claim": "father._has_claimable fails closed: on exception logs father.has_claimable_failed and returns True ('keep working')",
+          "source": "[CODE] src/scanner/agent_runtime/engine/father.py:1428-1441",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "attack_surface.count_claimable fails closed: logs attack_surface.count_claimable_failed then re-raises (never swallows to 0); module now imports structlog+logger",
+          "source": "[CODE] src/scanner/agent_runtime/engine/attack_surface.py:7,25,178-183",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "father._is_complete fails closed: on exception logs father.scan_complete_check_failed and returns False",
+          "source": "[CODE] src/scanner/agent_runtime/engine/father.py:1418-1426",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "father._unresolved_reading fails closed: logs father.unresolved_count_failed and returns None; caller coerces None->0 at the loop, feeding Governor which returns 'stop' (a no-op in the loop)",
+          "source": "[CODE] src/scanner/agent_runtime/engine/father.py:1108-1118, 1794",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Wave-loop stop is double-gated true quiescence: break on _is_complete(), or on decision=='partial' AND not _has_claimable(); a single no-progress wave does not stop while cells are claimable",
+          "source": "[CODE] src/scanner/agent_runtime/engine/father.py:1762,1817-1819,1841-1852",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Governor.decide returns 'stop' on unresolved==0, 'partial' on plateau; the loop only acts on 'partial' (gated by _has_claimable), so a spurious unresolved==0 from a read error cannot early-stop",
+          "source": "[CODE] src/scanner/agent_runtime/engine/governor.py:32-39; father.py:1851",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "attack_surface.target_health fails OPEN to 1.0 with no logging in the except block",
+          "source": "[CODE] src/scanner/agent_runtime/engine/attack_surface.py:207-226 (except at :225-226)",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "fleet.run_pool adaptive cap multiplies hard_cap by health(); health=target_health so a failed read (->1.0) keeps full cap and silently defeats shedding",
+          "source": "[CODE] src/scanner/agent_runtime/engine/fleet.py:124-145; father.py:1398,1403",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "The health-driven cap path is only reached under batch-dispatch, which defaults False in code but is pinned ON in the prod compose",
+          "source": "[CODE] config.py:437 (=False); [QUERY] grep docker-compose.yml:202 -> SCANNER_ENGINE_BATCH_DISPATCH:${..:-true}",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "_batch_done preempt fail-open: cell_states swallows its DB error to {} (logs ledger.cell_states_failed), batch_satisfied({}) is True (empty is trivially done), so _batch_done returns 'contract satisfied' and preempts a still-working worker",
+          "source": "[CODE] father.py:1309-1311, 1342-1343; attack_surface.py:199-205; ledger/service.py:1587-1604; batch.py:64-68",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Service-layer quiescence reads raise (do not swallow) so the father wrappers can fail-closed: count_open_cells, count_applicable_cells, scan_is_complete, count_claimable_cells have no internal try/except",
+          "source": "[CODE] ledger/service.py:1139-1160,1163-1170,1184-1198,1508-1521",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "scan_is_complete returns True at >=98% resolved (SCANNER_LEDGER_COMPLETE_RATIO default 0.98), so the coverage-complete stop can fire with up to 2% of applicable cells still genuinely open — a deliberate widening, not an error path",
+          "source": "[CODE] ledger/service.py:1181,1184-1198",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "No read-failure/quiescence-error event has ever fired in production: has_claimable_failed/count_claimable_failed/scan_complete_check_failed/unresolved_count_failed/cell_states_failed/sample_open_failed all 0 across every agent.log in the scanner_data volume",
+          "source": "[QUERY] ssh abhedi sudo grep -rhoE over /var/lib/docker/volumes/abhedi_red_scanner_data/_data/*/*/logs/agent.log -> only smoke_workers_skipped x10, smoke_workers_spawn x1",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Real terminators in prod are time-based soft-cap drain (engine.soft_cap_drain, multiple scans) and model API errors dominate reliability (engine.model_http_error x1082); governor.decision logged x1575 (payload in DB, not log line)",
+          "source": "[QUERY] ssh abhedi sudo cat agent.log | event-name histogram",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "tenant_xbow scan outcomes: 18 completed, 19 cancelled, 4 failed, 1 partial, 1 running — governor-'partial' early-stop outcome is rare (1), consistent with fail-open early-stop not occurring",
+          "source": "[QUERY] docker exec scanner-postgres psql -U scanner -d scanner -c \"SET search_path=tenant_xbow; SELECT status,count(*) FROM scans GROUP BY status\"",
+          "confidence": "HIGH"
+        }
+      ],
+      "defects": [
+        {
+          "title": "_batch_done preempt fails open: swallowed cell_states hiccup ({}) is read as 'contract satisfied' and cuts a still-working worker",
+          "mechanism": "In the prod batch-dispatch path the Manager watchdog polls each running worker every ~2s via _batch_done (father.py:1294-1343). It calls self._surface.cell_states(ids) (father.py:1309); that helper swallows any DB error and returns {} (ledger/service.py:1596-1604, logged as ledger.cell_states_failed; passthrough attack_surface.py:199-205). batch_satisfied({}) evaluates all() over an empty iterable = True (batch.py:64-68), so _batch_done returns 'contract satisfied' (father.py:1310-1311) and the pool preempts the worker (fleet.py:105-116). The _batch_done try/except (father.py:1342-1343) only catches errors that RAISE — cell_states never raises — so its docstring promise that 'a transient DB blip never cuts a still-working worker' does not hold for this read.",
+          "blast_radius": "An intermittent DB flap where cell_states reads fail but claims still succeed: every running worker is preempted as 'done' at each ~2s poll, its cells re-queued (on_done -> _release_worker_cells) and re-claimed (attempts++). A sustained flap burns the per-cell attempt cap on cells that were never actually tested, absorbing them to 'attempted' so count_claimable->0 and the wave loop legitimately terminates with untested surface marked attempted — a genuine 'cut scans short' pathway via the preempt path, not the loop-stop path. LATENT: cell_states_failed=0 across all prod logs; narrow trigger (partial DB failure). NOT tracked in CLAUDE.md (distinct from the already-fixed count_claimable/has_claimable CRITICAL). Lazy root-cause fix: treat an empty cell_states result for a non-empty id list as 'unknown -> return None (keep working)' rather than 'satisfied' at father.py:1310.",
+          "severity": "MEDIUM",
+          "module_flag": "engine batch-dispatch preempt path — SCANNER_ENGINE_BATCH_DISPATCH (compose default true)"
+        },
+        {
+          "title": "target_health() fails open to 1.0 with zero logging, silently defeating fleet concurrency-shedding",
+          "mechanism": "attack_surface.target_health (attack_surface.py:207-226) computes a 0..1 health ratio from the transport-failure rate; its except returns 1.0 with no logger call (:225-226). fleet.run_pool sizes the effective cap as max(1, int(hard_cap * await health())) (fleet.py:145) with health=target_health wired on the batch-dispatch path (father.py:1398,1403). A DB/telemetry read error therefore reads as 'perfectly healthy', pinning the cap at hard_cap; a persistent outage is indistinguishable from a healthy target and no log line records it.",
+          "blast_radius": "Concurrency-shedding is silently disabled during a telemetry outage, so the fleet keeps full worker concurrency against a target that may be struggling (more transport failures, wasted budget, possible false 'unreachable' findings). Direction is OVER-drive, not early-stop — it does not shorten scans and is not an H1 quiescence risk. Already tracked in CLAUDE.md Known Issues, but that entry's detail 'the file imports no logger at all' is now STALE (structlog imported at :7, logger at :25 and used by count_claimable); only target_health's except block still lacks logging. Live on the prod batch-dispatch path. Lazy fix: add one logger.awarning in the except, mirroring count_claimable.",
+          "blast_radius_note": "",
+          "severity": "MEDIUM",
+          "module_flag": "fleet adaptive cap — SCANNER_ENGINE_BATCH_DISPATCH (compose default true)"
+        },
+        {
+          "title": "Coverage-complete stop fires at 98% resolved, leaving up to 2% of applicable cells genuinely open (design fact, not an error-path fail-open)",
+          "mechanism": "scan_is_complete returns True when the resolved fraction of applicable cells clears SCANNER_LEDGER_COMPLETE_RATIO (default 0.98), not only at zero-open (ledger/service.py:1181,1184-1198); this feeds father._is_complete -> the wave-loop break at father.py:1817. It only ever widens 'complete' and never fires on a read error (count_open_cells raises, _is_complete catches to False).",
+          "blast_radius": "On a large grid the loop can stop with the last ~2% of applicable cells never tested (they may be genuinely-open, not just attempt-capped). This is a deliberate completeness/latency tradeoff, surfaced here only so it is not mistaken for a fail-open: it is a healthy-path early-completion knob, tunable to 1.0 to restore all-or-nothing. No code change recommended.",
+          "severity": "LOW",
+          "module_flag": "ledger completion ratio — SCANNER_LEDGER_COMPLETE_RATIO (default 0.98)"
+        }
+      ],
+      "hypotheses": [
+        {
+          "id": "H1: wave loops end early because quiescence/health reads fail open",
+          "verdict": "REFUTED",
+          "note": "The three loop-stop reads (_has_claimable, count_claimable, _is_complete) and _unresolved_reading all fail CLOSED toward 'keep working' and are logged; the stop is double-gated true-quiescence (father.py:1817,1851); a transient DB/Redis hiccup during the check cannot read as 'drained'. Server: zero read-failure events ever, only 1 'partial' scan. The Phase 0 fix is real and correct against HEAD f75608f."
+        },
+        {
+          "id": "H1b: concurrency is mis-scaled by a fail-open health read",
+          "verdict": "CONFIRMED",
+          "note": "target_health fails open to 1.0 silently (attack_surface.py:225-226), so a failed read keeps full cap and defeats shedding (fleet.py:145). Over-drives rather than shortens; latent (never observed in prod logs)."
+        },
+        {
+          "id": "H1c: a fail-open read can cut scan WORK short outside the loop-stop path",
+          "verdict": "PARTIAL",
+          "note": "The _batch_done preempt misreads a swallowed cell_states hiccup ({}) as 'contract satisfied' (father.py:1310 + batch.py:68) and can preempt a working worker; a sustained partial-DB flap could burn the attempt cap on untested cells and terminate the loop early via legitimate quiescence. Narrow trigger, never fired in prod (cell_states_failed=0)."
+        }
+      ],
+      "gaps": [
+        "governor.decision payloads (the actual continue/partial/stop values and plateau flags) are persisted to Redis/DB via the recorder, not to agent.log — the log line carries only event_type+scan_id, so the in-prod decision-value distribution could not be extracted from logs. A read-only query of the persisted event payloads (agent_messages/events table) would quantify how often 'partial' vs 'continue' was decided.",
+        "Live-scan (containers *-84aea81a7e43) agent.log was not isolated/read to avoid disturbing the running scan; its per-wave quiescence timing is therefore inferred from the aggregate log corpus rather than the live run.",
+        "BLIND SPOT acknowledged: the logging-proxy proxy_log.db covers only NVIDIA/nemotron; OpenRouter/bunny scans bypass it. This audit relied on agent.log + Postgres, not the proxy, so no proxy coverage gap affects the quiescence findings — but model-routing-specific behavior was out of WS-1 scope.",
+        "Whether _worker_progress state accumulation across many workers in a long scan could itself desync the stuck-watchdog (father.py:1325-1336) was not exercised — orthogonal to fail-open, deferred."
+      ]
+    }
+  },
+  {
+    "label": "WS1:wave-loop-timer",
+    "agentId": "a231917361b8182bc",
+    "result": {
+      "role": "WS-1 Wave-loop time-attribution auditor",
+      "summary": "Wall-time in an Abhedi Red engine-v2 scan is overwhelmingly spent in the DISPATCH phase (worker LLM execution), not in ledger/sync overhead. The wave loop is Father.run()'s `while True` (father.py:1762): per iteration it does materialize (1 DB grid upsert), a serial wave-boundary sync (ingest+resolve+census+dedup), claim (one SKIP-LOCKED round-trip, limit 72), then dispatch — and dispatch is where all worker LLM time lives. In prod (compose pins batch_dispatch=true, stuck_window=300s) the MAIN wave runs through the rolling run_pool (hard_cap=4, 300s stuck-cut), but the exploit floor (budget 1500s) and periodic sync (120s) run CONCURRENTLY with it and are cancelled on return, so they overlap rather than add. The real cost multiplier is the per-worker reprompt loop (agents_runtime.py:812-838): up to max_reprompts(6)+1 iterations x max_turns(40) = ~280 Runner turns per worker, each re-feeding the full capped transcript (growing context on a non-caching proxied model). Live evidence: decisions.log is 100% `max_turns_exceeded` (65/65) with workers reaching ·turn7, and the live 7.5h scan's ledger has 1704 cells stuck in `testing` limbo vs only 964 resolved — workers grind turns without recording terminal coverage, the stuck-watchdog counts tool_calls as \"progress\" so never cuts them, leases expire and cells re-test = coverage thrash that prevents quiescence. Scan durations span 321s to 64,395s (17.9h), with a heavy right tail of multi-hour runaways. H1 (slow scans = ledger/sync overhead) is REFUTED: slowness is worker-LLM turn-grind + testing-limbo thrash + run_all barriers for escalation, not ledger writes.",
+      "questions": [
+        {
+          "q": "Which wave-loop phase dominates wall-time and why?",
+          "answer": "DISPATCH dominates (~95%+). Mechanism: dispatch is the only phase that runs worker LLM loops; each worker grinds up to ~280 Runner turns (6 reprompts x 40 turns, agents_runtime.py:809+326+812-838) because the offensive-gate rarely trips on the weak proxied model (bunny) — decisions.log is 100% max_turns_exceeded. materialize/claim/wave-boundary-sync are single bounded DB round-trips; the exploit floor (1500s budget) and periodic sync (120s) run concurrently (create_task) with the wave and are cancelled on return (father.py:1100-1106,1395-1416), so they overlap dispatch rather than add to it.",
+          "verdict": "CONFIRMED"
+        },
+        {
+          "q": "H1: are slow scans caused by ledger/sync overhead rather than coverage genuinely taking time?",
+          "answer": "REFUTED (with nuance). Ledger/sync is cheap and mostly concurrent: wave-boundary _sync_work_to_db is one serial DB pass (father.py:1770,888-967); periodic_sync (120s) overlaps the wave. Slowness is (a) worker LLM turn-grind in dispatch, and (b) coverage THRASH — 1704 of 2989 applicable cells sit in `testing` limbo (live QUERY) because workers never record terminal coverage, so count_claimable never drains and the loop runs to max_waves/wall. It is neither pure ledger overhead NOR honest coverage time; it is WASTED worker time (turns that don't terminalize cells) re-paid across waves. The one sync-adjacent real cost — live_convergence verify(LLM)+report-regen on the 120s tick (father.py:1050-1075) — is throttled (180s) and concurrent, a secondary bandwidth competitor, not the driver.",
+          "verdict": "REFUTED"
+        },
+        {
+          "q": "Does prod actually use the rolling run_pool or the run_all gather-barrier?",
+          "answer": "BOTH, split by wave type. compose pins SCANNER_ENGINE_BATCH_DISPATCH=true (docker-compose.yml:202), so the MAIN wave uses _run_batch_pool -> fleet.run_pool (rolling, hard_cap=4, preempt=_batch_done@300s, on_done requeue). But escalation (_run_escalation, father.py:1720), authed-recrawl (:1575), auth-bootstrap (:1515) and smoke workers (:1483) all call fleet.run_all -> _one -> asyncio.wait_for(wall) with NO stuck-watchdog (fleet.py:74-76,121-122). Live decisions.log confirms both: batch0/batch1 (pool) + s*w100/auth-bootstrap/authed-recrawl (run_all).",
+          "verdict": "CONFIRMED"
+        },
+        {
+          "q": "What are the fixed intervals/sleeps/cadences and their prod defaults?",
+          "answer": "periodic sync = scanner_engine_sync_interval_s 120s (config.py:384, compose:141); live report-regen throttle = 180s (father.py:453-462); run_pool preempt poll = 2s (fleet.py:31-34); per-worker wall = 5400s/90min (fleet.py:12-28, compose:178 unset->5400); stuck-window = code-default 0 (disabled) but compose:206 pins 300s (father.py:529-544); batch budget = 0/disabled (father.py:512-526, compose:205); max_turns = 40 (agents_runtime.py:326-331); max_reprompts = 6 (agents_runtime.py:809); max_waves = 3 (father.py:419-427); escalate_max_rounds = 3 (father.py:479-484); expansion_budget = compose:213 -> 3; recon_expansion_rounds = compose:197 -> 2; OOB mirror loop = 15s (run.py:129); exploit floor budget = 1500s (exploit_floor.py:4962, compose:241 unset->1500); max_workers = min({1:4,2:12,3:32}[level], cap 4) = 4 (resolver.py:75,8-16).",
+          "verdict": "CONFIRMED"
+        },
+        {
+          "q": "What is the observed scan-duration distribution?",
+          "answer": "Last 12 scans (tenant_xbow.scans, completed_at-started_at): 321s, 340s, 967s, 1039s, 1993s, 2191s, 2878s, 5755s (96min), 54896s (15.2h), 64395s (17.9h), plus 1 running (~7.5h and counting) and one 1379s. Median ~1.4-2.9k s (~25-48min) but a heavy right tail with two >15h runaways. Duration variance is driven by target surface size x the testing-limbo thrash, not by a time cap (all sampled scans have time_cap_seconds NULL/uncapped).",
+          "verdict": "CONFIRMED"
+        }
+      ],
+      "evidence": [
+        {
+          "claim": "The wave loop is Father.run()'s `while True` at father.py:1762; per-iteration order is materialize(1766) -> serial wave-boundary sync(1770) -> sample/recon/brief/boss(1775-1787) -> progress/plateau+_is_complete+Governor+quiescence(1793-1852) -> target-select(1853-1867) -> claim(1874) -> dispatch(1898-1901) -> chain_floor/channel_seq/escalation(1914-1922).",
+          "source": "[CODE] father.py:1727-1931",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "DISPATCH routing: batch_dispatch ON (prod) -> _run_batch_pool(1899); OFF -> _run_floor_and_fleet(1901). _run_batch_pool uses fleet.run_pool with hard_cap=_pool_hard_cap(max_workers=4), preempt=_batch_done, on_done=_release_worker_cells, plus a CONCURRENT exploit floor (create_task, 1395) and CONCURRENT periodic sync (120s, 1397), both cancelled on return (1408-1416).",
+          "source": "[CODE] father.py:1364-1416,1898-1901",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "The exploit floor and periodic sync OVERLAP the wave rather than add to wall-time: both are asyncio.create_task'd and cancelled in the finally when run_pool/run_all returns.",
+          "source": "[CODE] father.py:1100-1106 (_run_fleet_with_sync), 1220-1243 (_run_floor_and_fleet), 1395-1416 (_run_batch_pool)",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Wave-boundary sync (father.py:1770) is the only SERIAL sync: _sync_work_to_db = ingest_findings_jsonl(905) + sync_from_work+coverage_counts+count_open_cells(929-933) + _reconcile_census publish(949) + _final_dedup(961). It does NOT call _live_convergence (only periodic_sync does, at 1090), so the heavy verify/report work never blocks the loop serially.",
+          "source": "[CODE] father.py:888-967,1077-1092",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Per-worker reprompt loop: while True over Runner.run(max_turns=40), break only on _offensive_gate(group) OR attempts>max_reprompts(6) OR budget<=0; each reprompt re-feeds the full capped transcript. So a worker that never satisfies the gate runs 7 iterations x 40 = ~280 Runner turns, then up to 3x8 recording-sweep turns.",
+          "source": "[CODE] agents_runtime.py:798-863,326-331,809,988-991",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Live scan decisions.log is 100% `max_turns_exceeded` (65/65 lines) with individual workers reaching ·turn7 (e.g. batch1-b-9-bunny·turn7); wave prefixes present: batch0(22), batch1(29), s*w100 escalation(12), auth-bootstrap, authed-recrawl. Model = bunny (single OpenRouter/bunny model).",
+          "source": "[QUERY] sudo cat decisions.log | uniq -c -> 65 max_turns_exceeded; prefix tally batch0=22 batch1=29 s0w100=1 s1w100=2 s2w100=7 s3w100=2",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Live 7.5h scan ledger state distribution (tenant_xbow.ledger_cell): na=6248, testing=1704, tested_clean=941, untested=321, confirmed=18, blocked=5. 1704/2989 applicable cells (57%) are stuck in `testing` limbo vs 964 terminal-resolved — direct evidence of coverage thrash (claimed-but-never-terminalized).",
+          "source": "[QUERY] SELECT state,count(*) FROM tenant_xbow.ledger_cell WHERE scan_id='84aea81a-...' GROUP BY state",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "The stuck-watchdog cannot cut a turn-grinding worker: _batch_done treats an incremented tool_calls count as forward progress (advanced=... or tool_calls>st.tool_calls), so a worker streaming tool calls without closing cells is never preempted at the 300s window; only the 90-min wall or batch-satisfied stops it.",
+          "source": "[CODE] father.py:1294-1343 (esp. 1328-1336)",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "run_all path has NO progress-based preempt — _one wraps the worker in asyncio.wait_for(w.run, timeout=_worker_wall_s=5400s) only; the stuck-watchdog/300s window applies ONLY on the run_pool preempt path (_one_pooled). So escalation/recrawl/auth/smoke waves block on the slowest of N workers up to 90min each.",
+          "source": "[CODE] fleet.py:74-122; father.py:1483,1515,1575,1720",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Concurrency is capped at 4: max_workers = min({1:4,2:12,3:32}[level], _max_workers_cap()=4). Fleet semaphore and run_pool hard_cap both = 4. Governor runaway max_workers = 4*4=16 but that guards DISCOVERED-TARGET count, not concurrency (father.py:1829-1836).",
+          "source": "[CODE] resolver.py:8-16,75; run.py:239-244; father.py:1402,1139",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "live_convergence on the 120s tick runs _verify_findings (LLM, concurrency 3) + enrich + build_graph/synthesize_chains + generate_report, throttled to _report_min_interval=180s or forced by a new confirmation. Report artifacts are large: live report.md=1.16MB, report.json=1.5MB — regenerated each throttle interval concurrently with dispatch.",
+          "source": "[CODE] father.py:969-1075,453-462; [QUERY] sudo ls -la workdir -> report.md 1164758B, report.json 1495822B",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Compose pins that change effective behavior vs code defaults: BATCH_DISPATCH=true (code False), STUCK_WINDOW_S=300 (code 0/disabled), LIVE_CONVERGENCE=true, EXPLOIT_FLOOR_ENABLED=true, SYNC_INTERVAL_S=120, RECON_EXPANSION_ROUNDS=2, EXPANSION_BUDGET=3, BATCH_BUDGET_S=0, WORKER_WALL_S unset->5400, MAX_WAVES unset->3.",
+          "source": "[CODE/QUERY] grep docker-compose.yml -> lines 136,141,178-181,190,197,199,202,205,206,213",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Scan duration distribution (last 12) ranges 321s..64395s with two >15h runaways (54896s, 64395s) and one live scan at ~7.5h; all sampled scans are uncapped (time_cap_seconds NULL).",
+          "source": "[QUERY] SELECT status,started_at,completed_at,EXTRACT(EPOCH FROM completed_at-started_at) FROM tenant_xbow.scans ORDER BY started_at DESC LIMIT 12",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Exploit floor per-wave budget default is 1500s (25min); compose leaves SCANNER_FLOOR_BUDGET_S unset so 1500s applies. The wave awaits the floor after the fleet returns unless wrap_up (father.py:1240-1243), so on a short fleet wave the floor can extend the wave up to its budget.",
+          "source": "[CODE] exploit_floor.py:4962; docker-compose.yml:241; father.py:1240-1243",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Live scan agent_messages recording is degraded for the bunny model: only 67 rows over a 112-min span, tokens_in=0 and cost_usd=0 for all rows — the S2 per-turn recorder isn't capturing usage for this proxied model (consistent with the stated proxy_log blind spot), so DB-side turn cadence understates real LLM turns (decisions.log shows the true grind).",
+          "source": "[QUERY] SELECT count(*),span_min,avg(tokens_in),sum(cost_usd) FROM tenant_xbow.agent_messages WHERE scan_id='84aea81a-...' -> 67 turns, 112min, 0 tok, $0",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Per-worker wall raised from 1800s to 5400s (90min) as the last-resort backstop, with the progress-driven stuck-watchdog intended as the primary early stopper — but the watchdog's tool_calls=progress rule (Defect) means it rarely fires on a grinding worker, so the 90min wall becomes the effective per-worker stop on the run_all path.",
+          "source": "[CODE] fleet.py:12-28; father.py:1328-1336",
+          "confidence": "HIGH"
+        }
+      ],
+      "defects": [
+        {
+          "title": "Reprompt x max_turns grind is the wall-time sink; weak proxied models never satisfy the offensive-gate so every worker runs the ~280-turn ceiling",
+          "mechanism": "agents_runtime.py:812-838 loops Runner.run(max_turns=40) until _offensive_gate(group) OR attempts>max_reprompts(6) OR budget<=0. A model that never trips the gate (bunny: decisions.log 65/65 max_turns_exceeded, workers reaching ·turn7) grinds all 7 iterations x 40 = ~280 Runner turns, each re-feeding the full capped transcript (838,988-991) so context grows and each turn gets slower/costlier on a non-caching proxied endpoint. This is where essentially all dispatch wall-time is spent.",
+          "module_flag": "agents_runtime.py run loop; SCANNER_ENGINE_MAX_TURNS=40, SCANNER_ENGINE_MAX_REPROMPTS=6",
+          "blast_radius": "Every worker in every main/escalation/recrawl/auth/smoke wave. Dominant contributor to per-scan wall-time; scales with worker count x wave count.",
+          "severity": "HIGH"
+        },
+        {
+          "title": "Coverage thrash: 1704 cells stuck in `testing` limbo because workers grind turns without recording terminal coverage, and the loop cannot quiesce",
+          "mechanism": "Cells claimed -> state `testing`; the turn-grind rarely records terminal coverage, so cells stay in `testing`. _batch_done counts incremented tool_calls as forward progress (father.py:1328-1336) so the 300s stuck-watchdog never cuts a grinding worker; leases expire, reclaim_expired_leases re-opens them, next wave re-claims and re-tests the SAME cells. count_claimable stays >0 so the quiescence break (father.py:1851) never fires -> the loop runs to max_waves/wall. Live: 1704 testing vs 964 resolved (57% of applicable in limbo).",
+          "module_flag": "father.py _batch_done progress rule + wave-loop quiescence; ledger lease/reclaim",
+          "blast_radius": "Root cause of the multi-hour right-tail (15-18h scans): the same LLM work is repaid across waves without converging coverage. Affects every uncapped scan on a non-trivial surface.",
+          "severity": "HIGH"
+        },
+        {
+          "title": "Escalation/recrawl/auth/smoke waves use the run_all gather-barrier with no stuck-watchdog",
+          "mechanism": "batch_dispatch=true only routes the MAIN wave through run_pool. _run_escalation (father.py:1720, up to 3 rounds/wave, 6 specs), _spawn_authed_recrawl (1575), _ensure_auth (1515) and _spawn_smoke_workers (1483) call fleet.run_all -> _one -> asyncio.wait_for(wall=5400s) with NO preempt (fleet.py:74-76). Each barrier blocks on the slowest of N workers up to 90min, and each worker itself runs the ~280-turn grind. These serial barriers stack on top of the main pool per wave.",
+          "module_flag": "fleet.run_all / _one; father.py escalation+recrawl+auth+smoke call sites",
+          "blast_radius": "Adds up to (1 + 3 escalation + recrawls) 90min-bounded serial barriers per wave; multiplies the runaway with wave count. Secondary to Defects 1-2 but compounds them.",
+          "severity": "HIGH"
+        },
+        {
+          "title": "live_convergence verify(LLM)+large report regen on the 120s tick competes with workers for scarce proxied-LLM/egress bandwidth",
+          "mechanism": "periodic_sync(120s) -> _live_convergence -> _verify_findings (LLM concurrency 3) + generate_report writing report.md(1.16MB)/report.json(1.5MB), throttled 180s (father.py:1050-1075). Runs concurrently with dispatch so it is not additive to wall-time, but on a bandwidth-limited proxy the tick's LLM calls steal throughput the workers need, indirectly slowing dispatch.",
+          "module_flag": "father.py:969-1075; scanner_engine_live_convergence=true (compose)",
+          "blast_radius": "Secondary; material only when egress/LLM bandwidth is the bottleneck. Grows with findings volume (bigger report each regen).",
+          "severity": "MEDIUM"
+        },
+        {
+          "title": "finalize verify re-reproduces criticals/highs serially at scan end",
+          "mechanism": "finalize_scan (run.py:355-366) re-runs _verify_findings over declared verified findings plus chain/report rebuild; with a large findings.jsonl (live 231KB) this is a non-trivial one-time tail (one cancelled scan ended in `finalize` phase after 1993s).",
+          "module_flag": "run.py finalize; scanner_engine_v2 verify path",
+          "blast_radius": "One-time, bounded; not the multi-hour driver but a fixed tail on every scan proportional to finding count.",
+          "severity": "LOW"
+        }
+      ],
+      "hypotheses": [
+        {
+          "id": "H1: slow scans = ledger/sync overhead, not coverage time",
+          "verdict": "REFUTED",
+          "note": "Ledger/sync is cheap and mostly concurrent (periodic_sync/floor overlap dispatch and are cancelled on return; wave-boundary sync is one bounded DB pass). Wall-time is dominated by the DISPATCH phase (worker LLM reprompt x max_turns grind) and by testing-limbo thrash that prevents quiescence. The only sync-adjacent real cost (live_convergence verify+report on the 120s tick) is throttled+concurrent, a secondary bandwidth competitor. Evidence: decisions.log 100% max_turns_exceeded; live ledger 1704 testing vs 964 resolved; durations 321s..64395s."
+        },
+        {
+          "id": "H-dispatch-dominates: dispatch phase is the wall-time sink",
+          "verdict": "CONFIRMED",
+          "note": "Only phase that runs worker LLM loops; ~280 Runner turns/worker (6 reprompts x 40) with growing transcript; all other phases are single bounded DB round-trips or concurrent overlapping tasks."
+        },
+        {
+          "id": "H-run_all-barrier: run_all waves lack progress-based preemption",
+          "verdict": "CONFIRMED",
+          "note": "fleet._one uses only wait_for(wall); the 300s stuck-watchdog exists only on the run_pool preempt path (_one_pooled). Escalation/recrawl/auth/smoke all use run_all."
+        },
+        {
+          "id": "H-thrash: cells cycle through testing without terminalizing",
+          "verdict": "CONFIRMED",
+          "note": "1704/2989 applicable cells in `testing` on the live 7.5h scan; _batch_done treats tool_calls increment as progress so grinding workers evade the stuck-cut."
+        }
+      ],
+      "gaps": [
+        "agent_messages usage is not captured for the bunny model (tokens_in=0, cost_usd=0, only 67 rows over 112min) — the proxy_log.db blind spot extends to the S2 per-turn recorder, so DB-side per-turn latency/cadence could not be measured directly; turn cadence was inferred from decisions.log + the reprompt-loop code instead.",
+        "ledger_updates.jsonl carries no timestamp field (keys: endpoint/vuln_class/state/methods/evidence), so inter-transition cadence could not be sampled from it; state-transition timing would require correlating tool_invocations occurred_at (not queried this pass).",
+        "Could not directly time individual wave-phase durations (materialize vs claim vs dispatch) from telemetry — the WorkerRecorder emits phase_started/phase_finished only for the 3 coarse phases (recon/exploit/finalize), not per-wave-phase; attribution is from code structure + concurrency semantics + the 1704-testing-limbo signal, not a per-phase stopwatch.",
+        "The two >15h runaway scans (54896s, 64395s) were characterized from duration + the live scan's shape by analogy; their per-scan ledger state distributions were not individually queried.",
+        "exploit_floor.py was only grepped for the budget constant (line 4962); the floor's internal per-family timing/serial-vs-concurrent behavior within its 1500s budget was not fully read this pass."
+      ]
+    }
+  },
+  {
+    "label": "WS1:per-worker-wall",
+    "agentId": "a3abfdc3558d6beb2",
+    "result": {
+      "role": "WS-1 Per-worker wall and scan time-cap auditor (Abhedi Red / autocan, pkg scanner, branch feat/alpha-observability @ f75608f)",
+      "summary": "The platform has four time backstops (per-worker wall, Manager stuck-watchdog, scan-level runaway wall, and an opt-in scan time_cap), but all sit BEHIND the Governor progress signals (coverage-complete OR plateau), so by design a healthy scan stops on work-done, not the clock. The single most important finding is a code-vs-deployed drift: scanner-cp actually runs SCANNER_ENGINE_WORKER_WALL_S=86400 and SCANNER_ENGINE_RUNAWAY_WALL_S=86400 (both 24h) via docker-compose.override.yml, NOT the code defaults (5400s/90min worker, 21600s/6h runaway) nor the tracked compose pins, so the ~90 min per-worker wall in code comments and docs effectively NEVER fires in production. Live DB evidence REFUTES wall/cap dominance: of 22 time-capped scans only 1 (5%) reached its cap (a graceful partial at 106% of cap), while the other 21 finished at 7-44% of cap; uncapped scans span 1.5 min to 17.9h and completed under the 24h ceiling on coverage/plateau. A per-worker wall hit does NOT lose findings (in-process asyncio.wait_for timeout returning a partial WorkerResult with /work already flushed). The genuine finding-loss risk is the time-cap/cancel graceful path, which SIGKILLs at the 120s finalize-grace ceiling (observed live twice on 2026-09-30), cutting in-flight finalize work, though per-wave flush and salvage preserve already-proven findings.",
+      "questions": [
+        {
+          "q": "Q1: Grep the time budgets - file:line, code default, docker-compose pin, and default-vs-deployed mismatches.",
+          "answer": "Six budgets. (1) Per-worker wall SCANNER_ENGINE_WORKER_WALL_S: code default 5400s/90min [fleet.py:28]; compose UNSET so code default [docker-compose.yml:178]; DEPLOYED 86400s/24h [QUERY scanner-cp env]. (2) Runaway wall SCANNER_ENGINE_RUNAWAY_WALL_S: code default 21600s/6h [context.py:115]; compose pin 21600 [docker-compose.yml:198]; DEPLOYED 86400s/24h. (3) Stuck-watchdog SCANNER_ENGINE_STUCK_WINDOW_S: code default 0 DISABLED [father.py:540-542]; compose pin 300s [docker-compose.yml:206]; DEPLOYED 1200s/20min. (4) Batch budget SCANNER_ENGINE_BATCH_BUDGET_S: code default 0 off [father.py:521-524]; DEPLOYED 0 matches. (5) Non-anthropic default cap SCANNER_NONANTHROPIC_DEFAULT_TIME_CAP_S: code default 0 [config.py:464]; compose default 0 [docker-compose.yml:226]; DEPLOYED 0 matches. (6) Soft-cap margin SCANNER_SOFT_CAP_MARGIN_S: code default 180s [father.py:863]; DEPLOYED empty so 180 matches. THREE mismatches: worker wall (90min to 24h), runaway wall (6h to 24h), stuck window (disabled to 20min). Source /home/admin/autocan/docker-compose.override.yml literal 86400/1200, which shadows a conflicting .env SCANNER_ENGINE_WORKER_WALL_S=9000. Forwarding allowlist worker.py:41-172 (_TUNING_KEYS) via _forward_tuning_env [worker.py:175-178].",
+          "verdict": "CONFIRMED HIGH"
+        },
+        {
+          "q": "Q2: How is the wall enforced (SIGKILL / graceful drain / finalize-on-timeout)? Does a wall-hit lose in-flight findings/coverage?",
+          "answer": "Two mechanisms. (a) Per-worker wall: IN-PROCESS asyncio.wait_for(w.run, timeout=_worker_wall_s()) [fleet.py:76,89] plus a monotonic deadline on the preempt path [fleet.py:97-107]; on hit TimeoutError to WorkerResult(status=partial) [fleet.py:60-66]. NO SIGKILL, NO finding loss (/work already flushed, cells re-queue via on_done). (b) Scan time_cap: primary graceful stopper is the in-container soft-cap [father.py:852-887] tripping wrap_up at cap-margin, breaking the wave loop [father.py:1771-1774] AFTER a per-wave /work-to-DB flush [father.py:1767-1770], finalizing with toolserver alive. Backstop: poller elapsed>time_cap_seconds to _cancel_scan(graceful=True) [poller.py:1217-1227] drops /work/close.json, SIGTERM, waits up to SCANNER_FINALIZE_GRACE_S 120s via _drain_or_kill, SIGKILL at ceiling [poller.py:955-972,997-1002], then salvage-finalize [poller.py:1034-1040]. FINDING LOSS bounded but real: findings.jsonl entries survive (per-wave flush plus salvage); in-flight findings and the whole finalize pass (verify/enrich/report-regen) lost if it overruns 120s. CONFIRMED live: cancel_sigkill_sent grace_s=120.0 fired exactly 120s after SIGTERM on two 2026-09-30 stops [QUERY docker logs].",
+          "verdict": "CONFIRMED HIGH"
+        },
+        {
+          "q": "Q3: Is the non-anthropic uncapped path (SCANNER_NONANTHROPIC_DEFAULT_TIME_CAP_S) truly unlimited?",
+          "answer": "YES. resolve_time_cap(None,...) returns None unless BOTH non_anthropic AND default_s>0 [scans.py:83-87]. Field defaults 0 [config.py:464], compose default 0 [docker-compose.yml:226], DEPLOYED 0 [QUERY]. With cap None the poller check is skipped (guarded by time_cap_seconds truthiness [poller.py:1217]) and the soft-cap is off (SCANNER_TIME_CAP_S only forwarded when >0 [worker.py:871-872]; _soft_cap_s None when cap<=0 [father.py:860-862]). Only residual bounds are the deployed 24h runaway and 24h worker wall. Live: running scan 84aea81a (bunny/OpenRouter, non-Anthropic) has time_cap NULL at 114.7min [QUERY].",
+          "verdict": "CONFIRMED HIGH"
+        },
+        {
+          "q": "Q4: For recent scans, how many ended at/near the cap vs finished naturally?",
+          "answer": "tenant_xbow: 41 scans (18 completed, 17 cancelled, 4 failed, 1 partial, 1 running). Of 22 with a time_cap (mostly 2100s/35min, one 900s): ONLY 1 (5%) reached cap, a partial at 106% (2225s vs 2100s; the ~125s overrun equals SIGTERM plus finalize-grace, confirming the graceful path not a hard kill-at-cap). Other 21 at 7-44% of cap [QUERY pct_of_cap]. Uncapped durations 91s to 64395s (17.9h); two longest (17.9h, 15.2h) COMPLETED under the 24h wall [QUERY]. Recent cap/wall log events are user cancels, not poller.time_cap_exceeded [QUERY]. Neither cap nor wall dominates on this deployment; work completes/plateaus first.",
+          "verdict": "CONFIRMED HIGH"
+        }
+      ],
+      "evidence": [
+        {
+          "claim": "Per-worker wall code default is 5400s (90min); a per-worker HANG-GUARD, explicitly NOT a scan stopper, enforced in the fleet so both runtimes inherit it.",
+          "source": "[CODE] src/scanner/agent_runtime/engine/fleet.py:12-28 (_worker_wall_s), :74-76 (_one), :78-119 (_one_pooled deadline)",
+          "confidence": "HIGH",
+          "notes": "Env-overridable via SCANNER_ENGINE_WORKER_WALL_S; comment: watchdog primary, wall last-resort."
+        },
+        {
+          "claim": "A per-worker wall hit is an asyncio.wait_for TimeoutError mapped to WorkerResult(status=partial) - no SIGKILL, /work already flushed, nothing proven lost.",
+          "source": "[CODE] src/scanner/agent_runtime/engine/fleet.py:60-66",
+          "confidence": "HIGH",
+          "notes": "on_done work-stealing requeues the worker still-open cells [father.py:1345-1357]."
+        },
+        {
+          "claim": "DEPLOYED per-worker wall AND runaway wall are BOTH 86400s (24h), not code defaults (5400/21600) or compose pins (unset/21600).",
+          "source": "[QUERY] ssh abhedi docker exec scanner-cp env -> SCANNER_ENGINE_WORKER_WALL_S=86400, SCANNER_ENGINE_RUNAWAY_WALL_S=86400, SCANNER_ENGINE_STUCK_WINDOW_S=1200, SCANNER_ENGINE_BATCH_BUDGET_S=0",
+          "confidence": "HIGH",
+          "notes": "Source docker-compose.override.yml literal 86400/1200; header says wall/time caps removed. 86400 is not the 0 sentinel, so walls still finitely fire at 24h."
+        },
+        {
+          "claim": "docker-compose.override.yml (86400) shadows a conflicting .env value (SCANNER_ENGINE_WORKER_WALL_S=9000); the override.yml literal wins.",
+          "source": "[QUERY] grep /home/admin/autocan/.env (=9000) and docker-compose.override.yml (=86400); resolved env=86400",
+          "confidence": "HIGH",
+          "notes": "Two override files set different values for one knob; the .env 9000 is dead - config-hygiene footgun."
+        },
+        {
+          "claim": "Scan runaway wall (Governor max_wall_s) code default 6h (21600s); returns partial ONLY behind coverage-complete and plateau, and only when >0.",
+          "source": "[CODE] src/scanner/agent_runtime/engine/context.py:102-116, :417,439-440; src/scanner/agent_runtime/engine/governor.py:32-48",
+          "confidence": "HIGH",
+          "notes": "decide: unresolved==0 stop; plateau partial; runaway partial; else continue. Checked once per wave, not a hard interrupt."
+        },
+        {
+          "claim": "Manager stuck-watchdog code default 0 (DISABLED) precisely because a no-progress timer cannot tell a stuck worker from one blocked on one long tool; deploy overrides ON at 1200s (compose pins 300s).",
+          "source": "[CODE] src/scanner/agent_runtime/engine/father.py:529-544 (_stuck_window_s), :1295-1343 (_batch_done); [QUERY] deployed=1200; [CODE] docker-compose.yml:206 pin=300",
+          "confidence": "HIGH",
+          "notes": "Progress = more terminal cells OR fresher last_progress OR incremented tool_calls [father.py:1328-1332]; a single long tool spanning the window increments none and is cut."
+        },
+        {
+          "claim": "In-container soft-cap graceful drain is disabled for any cap <= SOFT_CAP_MARGIN_S (default 180s); such a scan relies solely on the poller SIGTERM->120s->SIGKILL path.",
+          "source": "[CODE] src/scanner/agent_runtime/engine/father.py:852-866 (_soft_cap_s returns None when cap<=margin)",
+          "confidence": "HIGH",
+          "notes": "Narrow blast radius (sub-3-min caps only); none observed live."
+        },
+        {
+          "claim": "Time-cap/cancel graceful stop SIGKILLs at the 120s finalize-grace ceiling; observed firing exactly 120s after SIGTERM on two scans 2026-09-30.",
+          "source": "[QUERY] docker logs scanner-cp -> cancel_sigterm_sent 19:52:47 then cancel_sigkill_sent grace_s=120.0 19:54:47 (and 20:08:27->20:10:27); [CODE] poller.py:955-972,997-1002,1217-1227",
+          "confidence": "HIGH",
+          "notes": "These two were user cancels but time-cap uses the identical _cancel_scan(graceful=True) path, so a time-capped scan whose finalize overruns 120s is SIGKILLed the same way."
+        },
+        {
+          "claim": "Only 1 of 22 time-capped scans reached its cap (partial at 106%); the other 21 finished at 7-44% of cap.",
+          "source": "[QUERY] SELECT status,time_cap_seconds,dur_s,pct_of_cap FROM scans WHERE time_cap_seconds IS NOT NULL - top row partial 2100/2225/106, remainder 44% down to 1%",
+          "confidence": "HIGH",
+          "notes": "Observed caps are short (2100s/35min, 900s), well below the 24h worker wall, so the wall could not fire on these."
+        },
+        {
+          "claim": "Uncapped scans completed at up to 17.9h and 15.2h - under the deployed 24h wall, stopping on coverage/plateau not the clock.",
+          "source": "[QUERY] SELECT status,dur_s FROM scans WHERE time_cap_seconds IS NULL ORDER BY dur_s DESC -> completed 64395s, 54896s, 9647s, 5755s(95.9min)",
+          "confidence": "HIGH",
+          "notes": "The 95.9min completion fits a scan whose slowest worker neared the historical 90-min wall then finalized; the 15-18h ones prove the 24h wall (not 90min) bounds prod."
+        },
+        {
+          "claim": "The live running scan is uncapped, 114.7 min elapsed, bunny/OpenRouter - not clock-dominated, inside all backstops.",
+          "source": "[QUERY] SELECT ... WHERE status=running -> 84aea81a, time_cap NULL, 114.7min, engine_models bunny/openrouter workers:4",
+          "confidence": "HIGH",
+          "notes": "OpenRouter/bunny = logging-proxy blind spot (proxy_log.db covers only NVIDIA/nemotron)."
+        },
+        {
+          "claim": "Ledger claim lease is tied to the worker wall (WORKER_WALL_S + 600s), so with the deployed 24h wall the lease is ~24h10m.",
+          "source": "[CODE] src/scanner/ledger/service.py:1228-1233",
+          "confidence": "HIGH",
+          "notes": "Side-effect of the wall drift: an orphaned worker cells stay leased ~24h before natural expiry (work-stealing on_done release mitigates the normal path)."
+        },
+        {
+          "claim": "SCANNER_TIME_CAP_S is forwarded to the agent ONLY when time_cap_seconds>0, so an uncapped scan agent env is byte-identical to legacy (no soft-cap).",
+          "source": "[CODE] src/scanner/scheduler/worker.py:867-872",
+          "confidence": "HIGH",
+          "notes": "Uncapped default keeps legacy env; soft-cap never wired."
+        }
+      ],
+      "defects": [
+        {
+          "title": "Deployed 24h worker and runaway walls contradict code (90min/6h) and compose pins; the no-backstops intent is only half-realized (86400 is a finite wall, not the 0 sentinel)",
+          "mechanism": "docker-compose.override.yml sets SCANNER_ENGINE_WORKER_WALL_S=86400 and SCANNER_ENGINE_RUNAWAY_WALL_S=86400 [QUERY scanner-cp env]. Code default worker wall 5400s [fleet.py:28], runaway 21600s [context.py:115]; Governor treats a positive max_wall_s as a live cap so 86400 STILL fires the runaway partial at 24h [governor.py:46]. The 6h runaway wall was added to close the 12h-runaway class; overriding to 24h re-widens it. Because 86400 is not 0, the override header wall/time caps removed is inaccurate - they are stretched, not removed.",
+          "blast_radius": "A wedged worker or runaway scan can burn up to 24h of container/LLM/compute before any clock reaps it (the lease also stretches to ~24h10m [ledger/service.py:1233], so orphaned cells stay claimed that long). Conversely an XBOW run legitimately needing >24h silently walls out despite uncapped intent. Code comments (worker.py:862-863 ~90min), FLAGS.md, CONFIG_TRUTH_TABLE.md and any agent reasoning from them are stale about the real bound.",
+          "severity": "HIGH",
+          "module_flag": "docker-compose.override.yml -> SCANNER_ENGINE_WORKER_WALL_S / SCANNER_ENGINE_RUNAWAY_WALL_S (both 86400); conflicting .env WORKER_WALL=9000 shadowed"
+        },
+        {
+          "title": "Time-cap / cancel graceful stop hard-SIGKILLs at the 120s finalize-grace ceiling, cutting in-flight finalize (verify/enrich/report-regen) and not-yet-flushed findings",
+          "mechanism": "_cancel_scan(graceful=True) drops /work/close.json, SIGTERMs, then _drain_or_kill waits up to SCANNER_FINALIZE_GRACE_S (default/deployed 120s) and SIGKILLs at the ceiling [poller.py:955-972,997-1002]. If the in-container close-sweep+finalize (A1 verifier + enrich + report regen) cannot finish in 120s it is killed mid-pass. Observed live: cancel_sigkill_sent grace_s=120.0 exactly 120s after SIGTERM on two 2026-09-30 stops [QUERY docker logs]. Time-cap uses the identical path.",
+          "blast_radius": "Already-proven findings survive (per-wave /work-to-DB flush [father.py:1767-1770] plus poller salvage [poller.py:1034-1040]), so not the total loss of the old bug; but the final verify/enrich/report pass and any finding computed-but-unflushed at the kill instant are lost, degrading a stopped scan report vs a clean finish. Widening SCANNER_FINALIZE_GRACE_S, or gating the SIGKILL on the finalizing.json marker for the graceful (non-hung) case, shrinks the window.",
+          "severity": "MEDIUM",
+          "module_flag": "src/scanner/scheduler/poller.py:955-972,997-1002 -> SCANNER_FINALIZE_GRACE_S (deployed empty->120s)"
+        },
+        {
+          "title": "Stuck-watchdog (deployed 20min; code default DISABLED) can preempt a worker legitimately blocked on a single long tool, causing preempt+requeue thrash",
+          "mechanism": "_batch_done marks a worker stuck when for _stuck_window_s there is no new terminal cell, no fresher cells_last_progress, AND no tool_calls increment [father.py:1318-1336]. A worker running ONE long tool (sqlmap dump, ffuf, nuclei) spanning the window increments none of these and is cut with stuck: no progress. Code default is 0 DISABLED specifically to avoid this (cutting the latter discards real in-flight work, strictly worse [father.py:532-534]); deploy overrides ON at 1200s (compose pins 300s).",
+          "blast_radius": "Bounded: the deployed 20-min window tolerates most single tools and on a cut the cells re-queue via on_done work-stealing with /work persisted - cost is rework/thrash and lost partial tool progress, not proven-finding loss. At the compose-pinned 300s (5min) the risk is materially higher for any real DAST tool. Same coverage-thrash class the 2026-09-17 fix targeted; the tool-aware signal only helps a worker that streams multiple tools within the window.",
+          "severity": "MEDIUM",
+          "module_flag": "src/scanner/agent_runtime/engine/father.py:1318-1336 -> SCANNER_ENGINE_STUCK_WINDOW_S (deployed 1200, compose 300, code 0)"
+        },
+        {
+          "title": "Soft-cap graceful drain silently self-disables for any scan whose time_cap <= SOFT_CAP_MARGIN_S (180s)",
+          "mechanism": "_soft_cap_s returns None when cap <= margin [father.py:864], so a scan capped at <=180s gets NO in-container graceful drain and depends entirely on the poller SIGTERM->120s->SIGKILL backstop (the harsher, finding-lossier path) with zero log/warning that the drain was skipped.",
+          "blast_radius": "Narrow: only sub-3-minute caps (none in tenant_xbow history); but for such a scan the graceful-drain protections (clean wave-loop exit, toolserver-alive finalize) are all bypassed and the SIGKILL-mid-finalize window (Defect 2) becomes the only path.",
+          "severity": "LOW",
+          "module_flag": "src/scanner/agent_runtime/engine/father.py:852-866 -> SCANNER_SOFT_CAP_MARGIN_S (default 180)"
+        }
+      ],
+      "hypotheses": [
+        {
+          "id": "H1: A per-worker wall (~90 min) and/or scan time caps DOMINATE the schedule (vs work genuinely completing).",
+          "verdict": "REFUTED",
+          "note": "Refuted on two axes. (1) The ~90min wall is a code default NOT deployed - prod runs 24h worker + 24h runaway walls [QUERY], so the wall almost never fires. (2) Live history: 21/22 capped scans finished at 7-44% of cap (only 1 at 106%), and uncapped scans complete on coverage/plateau up to 17.9h under the 24h ceiling. Governor stops on progress (unresolved==0 or plateau) ahead of every clock [governor.py:32-48]. Schedule is work-dominated."
+        },
+        {
+          "id": "H1a: A wall/cap hit loses in-flight findings via SIGKILL-before-flush.",
+          "verdict": "PARTIAL",
+          "note": "Per-worker wall does NOT (asyncio timeout to partial, /work flushed) [fleet.py:60-66]. The time-cap/cancel graceful path DOES have a real SIGKILL-at-120s window cutting in-flight finalize, confirmed live [docker logs 2026-09-30]. Already-proven findings survive via per-wave flush plus salvage; findings not yet in findings.jsonl at the kill instant are lost."
+        },
+        {
+          "id": "H1b: The non-anthropic uncapped path is truly unlimited.",
+          "verdict": "CONFIRMED",
+          "note": "default_s=0 in code, compose, and deployment; resolve_time_cap returns None; only the deployed 24h walls bound it [scans.py:83-87, config.py:464, QUERY]."
+        }
+      ],
+      "gaps": [
+        "proxy_log.db (logging-proxy) covers only NVIDIA/nemotron; the live scan and other OpenRouter/bunny scans bypass it, so per-turn timing/cost telemetry for those runs was not cross-checkable - durations here come from DB started_at/completed_at only.",
+        "The single time-capped scan that reached its cap (partial at 106%) predates the retained scanner-cp log window, so its exact poller.time_cap_exceeded to drain to terminal-status line was not readable; the 106% (~cap+125s = cap+finalize-grace) is inferred from DB duration, corroborated by the identical 120s grace seen on the two 2026-09-30 cancels.",
+        "Whether the 17.9h/15.2h completed scans were resumed (SCANNER_ENGINE_RESUME) vs one continuous run was not determined from started_at/completed_at alone; if resumed, per-segment wall reasoning is unaffected but the wall-clock span is not a single-scan bound.",
+        "I did not measure real DAST tool durations to quantify how often a single tool exceeds the deployed 1200s stuck window (Defect 3) vs the 300s compose pin - the risk is established from code semantics, not a measured preempt-rate; no engine-level test covers _batch_done single-long-tool case."
+      ]
+    }
+  }
+]

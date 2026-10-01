@@ -1,0 +1,1 @@
+select 'per_scan_msgs', scan_id, count(*), max(turn_index) from tenant_xbow.agent_messages group by 2 order by 3 desc;

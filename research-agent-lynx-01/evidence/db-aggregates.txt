@@ -1,0 +1,92 @@
+# Raw evidence — DB aggregates (psql SELECT-only, tenant_xbow, run 2026-09-30/10-01)
+# Agent: research-agent-lynx-01. Queries base64-encoded through ssh; read-only.
+
+== scan status distribution
+ cancelled |    19
+ completed |    18
+ failed    |     4
+ partial   |    1
+ running   |    1
+
+== tables present (information_schema.tables WHERE table_schema='tenant_xbow')
+ agent_messages, audit_log, chain_edge, chain_node, checkpoints, coverage_ledger,
+ evidence_object, findings, inventory_element, ledger_cell, oob_token, recon_targets,
+ scan_approvals, scan_events, scan_phases, scan_schedule, scans, tool_invocations, worker_runs
+
+== scan_phases (recent scans)
+ 84aea81a | reconnaissance | completed | 214s ; exploitation | running (NULL completed_at)
+ a0e78406 | reconnaissance | completed | 108s ; exploitation | running (NULL completed_at)
+
+== worker_runs (completed scan a0e78406)
+ auth-bootstrap-bunny | ok      |  97s | findings 0 | resolved 0
+ batch0-b-0-bunny     | partial | 121s | 0 | 0 | err: preempted: contract satisfied
+ batch0-b-1-bunny     | partial | 121s | 0 | 0 | err: preempted: contract satisfied
+ batch0-b-3-bunny     | partial | 121s | 0 | 0 | err: preempted: contract satisfied
+ batch0-b-2-bunny     | partial | 241s | 0 | 0 | err: preempted: contract satisfied
+ batch0-b-7-bunny     | partial | 241s | 0 | 0 | err: preempted: contract satisfied
+ batch0-b-4/b-5/b-6   | running | (never finished)
+ exploit-floor        | ok      |   0s | findings 4 | resolved 0
+
+== worker_runs (running scan 84aea81a, aggregated)
+ ok 26 (avg 639s, max 2961s) | partial 3 (avg 319s, max 512s) | running 3
+
+== worker_runs ALL-TIME
+ error 578 (avg 139s, max 4209s) | partial 75 (avg 281s, max 1779s) | ok 267 (avg 1465s, max 6685s) | running 53
+
+== worker error top patterns (all-time)
+ ChatCompletion response has no choices (possible provider error payloa | 471
+ Error code: 429 - {'status': 429, 'title': 'Too Many Requests'}        |  73
+ preempted: contract satisfied                                          |  59
+ preempted: worker backstop 0s exceeded                                 |  13
+ Error code: 429 - {'error': {'message': 'Provider returned error', ...}}|  11
+ Error code: 500 - ... Internal server error                            |   9
+ Error code: 429 - Rate limit exceeded: free-mod...                     |   7
+ Error code: 400 - Provider returned error                              |   6
+ worker wall cap 0s exceeded                                            |   3
+ Error code: 502 - Bad Gateway                                          |   1
+
+== agent_messages
+ 84aea81a | 69 msgs | 30 agents | max_turn 7 | tokens_in 0 | tokens_out 0 | cost 0.00
+ a0e78406 |  2 msgs |  2 agents | max_turn 1 | tokens_in 1,141,543 | out 20,716 | cost 0.00
+
+== ledger_cell states
+ 84aea81a (running, 2h+): na 6248 | testing 1704 | tested_clean 941 | untested 321 | confirmed 18 | blocked 5
+ a0e78406 (completed, ~21m): na 1184 | attempted 154 | blocked 57 | confirmed 3   (0 tested_clean, 0 untested)
+
+== attempted cells with evidence_ids
+ a0e78406: has_ev=f → 154 (ALL attempted cells carry zero proof artifacts)
+ ALL-TIME attempted cells: 8,771
+
+== findings / evidence_object / chains
+ findings 84aea81a: 42 | a0e78406: 4
+ evidence  84aea81a: 38 | a0e78406: 2
+ chain_node 84aea81a: 39 | chain_edge: 58
+
+== method_switch flood
+ docker logs scanner-cp | grep -c method_switch → 34,796 (first at 19:36:57 for scan 38c703c0; flooding for 84aea81a at ~10-23 events/5s)
+
+== agent env (live scan 84aea81a, KEY OVERRIDES + GATES)
+ SCANNER_ENGINE_WORKER_WALL_S=86400 (24h — default is 5400)
+ SCANNER_ENGINE_MAX_WAVES=1000 (default 3)
+ SCANNER_ENGINE_FANOUT=4 / SCANNER_ENGINE_POOL_HARD_CAP=4 (default 6)
+ SCANNER_ENGINE_MAX_REPORT_REGENS=50 (default 0)
+ SCANNER_ENGINE_MAX_RETRIES=8 (default 3)
+ (no SCANNER_TIME_CAP_S — uncapped)
+ Gates ON: SCANNER_ENGINE_BOSS=true, SCANNER_EVIDENCE_GATE=true, SCANNER_LEDGER_MACHINE_CLOSE=true,
+ SCANNER_ENGINE_ESCALATE=1 (MAX_ROUNDS=10), SCANNER_ENGINE_CHAIN_FLOOR=1, SCANNER_FLOOR_BUDGET_S=1200,
+ SCANNER_ENGINE_BATCH_DISPATCH=true, SCANNER_ENGINE_BATCH_BUDGET_S=0, SCANNER_ENGINE_STUCK_WINDOW_S=1200,
+ SCANNER_ENGINE_BATCH_MAX_CELLS=8, SCANNER_ENGINE_SEAT_MODELS=true, SCANNER_AUTH_ORACLES_ENABLED=true
+ ABSENT in agent env (CP env has SCANNER_LEDGER_SKILL_GATE=true): SCANNER_LEDGER_SKILL_GATE → forwarding gap
+
+== OOB
+ 84aea81a: oob_interactions.jsonl 317 lines; oob_registry.jsonl 740 lines; oob_health.json present
+ a0e78406: oob_interactions.jsonl 5 lines
+
+== CP-side log (a0e78406/logs/agent.log)
+ 479 lines, 19:53:22→20:10:25; 6 error lines, ALL = ledger.resolve.update_unmatched
+ endpoint=.../ErrorBasedSQLInjectionVulnerability/LEVEL_2 vuln_class=sqli repeated every 120s
+ (REDACTED: one generated ADMIN_API_KEY line present in log — never reproduce)
+
+== workdir sizes (84aea81a running)
+ exploit_floor_signals.jsonl 327KB | findings.jsonl 236KB | ledger_updates.jsonl 477KB |
+ oob_interactions.jsonl 247KB | report.json 1.99MB | report.md 1.52MB (regenerated live)

@@ -1,0 +1,16 @@
+# command: cd /work/evidence && TS=$(date +%s) && curl -s -i -X POST https://www.infinitycapital.bh/api/send \
+  -F "fname=Verifier" -F "lname=Probe" -F "areacode=+973" -F "tel=3000000" \
+  -F "cname=Verifier Org" -F "subject=General Inquiry" \
+  -F "msg=Independent verification request $TS - please ignore." \
+  -F "check=" -F "targets=test-verification" \
+  -o VERIF_single_empty.hdr -w "HTTP=%{http_code} time=%{time_total}\n"; echo "=== HEADERS ==="; cat VERIF_single_empty.hdr | sed -n '1,40p'
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-30T12:04:40.439200+00:00
+# ---
+
+HTTP=000 time=8.005329
+=== HEADERS ===
+
+[exit=0]
+cat: VERIF_single_empty.hdr: No such file or directory

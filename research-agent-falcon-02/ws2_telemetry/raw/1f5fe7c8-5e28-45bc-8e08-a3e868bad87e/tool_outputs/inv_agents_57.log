@@ -1,0 +1,11 @@
+# command: cd /work/evidence && curl -s -D - -o /dev/null https://www.infinitycapital.bh/api/send | grep -iE 'HTTP/|x-matched-path|mitigated|ratelimit|retry-after|allow'; echo "=== HEAD to root headers ==="; curl -s -D - -o /dev/null https://www.infinitycapital.bh/ | grep -iE 'HTTP/|mitigated|ratelimit'
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-30T12:07:45.695577+00:00
+# ---
+
+HTTP/2 429 
+x-vercel-mitigated: deny
+=== HEAD to root headers ===
+HTTP/2 429 
+x-vercel-mitigated: deny

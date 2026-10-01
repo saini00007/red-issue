@@ -1,0 +1,13 @@
+Verification attempt for XXE via SVG/XML External Entity in Login Username Parameter
+Target: https://duck-store.escape.tech/
+Endpoint: POST https://duck-store.escape.tech/login
+
+Attempted to access target via curl, ping, nslookup - all network operations blocked by guardrail.
+Cannot reproduce the finding without network access to the target.
+
+The finding claims:
+- XXE payload injected via username parameter at /login
+- Received HTTP callback to oob44fd443fb14a.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in
+- Server processes external entities
+
+Without ability to send requests to the target and observe OOB callback, cannot verify reproduction.

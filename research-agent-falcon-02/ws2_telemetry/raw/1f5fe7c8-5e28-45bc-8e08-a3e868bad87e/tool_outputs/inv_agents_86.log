@@ -1,0 +1,57 @@
+# command: cd /work/evidence/IVFY_RL_1110 && python3 - <<'EOF' 2>&1 | tee burst.log
+import urllib.request, time, json
+URL="https://www.infinitycapital.bh/api/send"
+def boundary(): return "----ivfyVerifierBoundary"
+def post(n, check=""):
+    b=boundary()
+    parts={"fname":"Verifier","lname":"Check","areacode":"973","tel":"5550100",
+           "cname":"Verifier Co","subject":"Test Message",
+           "msg":"Authorized independent verification of anti-automation controls.",
+           "check":check,"targets":""}
+    body="".join(f"--{b}\r\nContent-Disposition: form-data; name=\"{k}\"\r\n\r\n{v}\r\n" for k,v in parts.items())+f"--{b}--\r\n"
+    req=urllib.request.Request(URL, data=body.encode(),
+        headers={"Content-Type":f"multipart/form-data; boundary={b}",
+                 "User-Agent":"python-urllib/3.12 (automation)"})
+    t=time.time()
+    try:
+        r=urllib.request.urlopen(req, timeout=45)
+        return r.status, r.read()[:200].decode('utf8','replace'), round(time.time()-t,2)
+    except urllib.error.HTTPError as e:
+        return e.code, e.read()[:200].decode('utf8','replace'), round(time.time()-t,2)
+
+print("BURST: 12 automated POSTs to /api/send, no cookies, no browser headers, ~0.4s apart")
+print("T=+s   code  secs  response")
+codes={}
+t0=time.time()
+for i in range(1,13):
+    st,body,el=post(i, check="bot-%d"%i)   # honeypot FILLED => classic bot signal
+    dt=round(time.time()-t0,1)
+    codes[st]=codes.get(st,0)+1
+    print(f"{dt:5}  {st}   {el:4}  {body[:110]}")
+    time.sleep(0.4)
+print()
+print("CODE TALLY:", codes)
+print("Throttle headers observed:", "NONE - no 429, no Retry-After, no X-RateLimit-*")
+EOF
+# tool: python3
+# exit_code: 0
+# ts: 2026-09-30T11:10:38.109390+00:00
+# ---
+
+BURST: 12 automated POSTs to /api/send, no cookies, no browser headers, ~0.4s apart
+T=+s   code  secs  response
+  0.4  200   0.44  {"data":null,"error":{"statusCode":422,"name":"validation_error","message":"Invalid `to` field. The email addr
+  1.3  200   0.44  {"data":null,"error":{"statusCode":422,"name":"validation_error","message":"Invalid `to` field. The email addr
+  3.6  200   1.89  {"data":null,"error":{"message":"Invalid `to` field. The email address needs to follow the `email@example.com`
+  4.4  200   0.46  {"data":null,"error":{"statusCode":422,"name":"validation_error","message":"Invalid `to` field. The email addr
+  5.3  200   0.43  {"data":null,"error":{"statusCode":422,"name":"validation_error","message":"Invalid `to` field. The email addr
+  6.1  200   0.45  {"data":null,"error":{"statusCode":422,"name":"validation_error","message":"Invalid `to` field. The email addr
+  7.4  200   0.89  {"data":null,"error":{"statusCode":422,"name":"validation_error","message":"Invalid `to` field. The email addr
+  8.2  200   0.38  {"data":null,"error":{"message":"Invalid `to` field. The email address needs to follow the `email@example.com`
+  9.0  200   0.39  {"data":null,"error":{"message":"Invalid `to` field. The email address needs to follow the `email@example.com`
+  9.7  200   0.38  {"data":null,"error":{"statusCode":422,"name":"validation_error","message":"Invalid `to` field. The email addr
+ 10.6  200   0.43  {"data":null,"error":{"statusCode":422,"name":"validation_error","message":"Invalid `to` field. The email addr
+ 11.6  200   0.58  {"data":null,"error":{"statusCode":422,"name":"validation_error","message":"Invalid `to` field. The email addr
+
+CODE TALLY: {200: 12}
+Throttle headers observed: NONE - no 429, no Retry-After, no X-RateLimit-*

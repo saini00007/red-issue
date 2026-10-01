@@ -1,0 +1,7 @@
+# command: curl -s -X POST "https://duck-store.escape.tech/api/v1/auth/login" -H "Content-Type: application/json" -d '{"username": "attackerA", "password": "TestPass123!"}' | head -200
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T15:46:26.717418+00:00
+# ---
+
+{"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiN2VjZGJiZWEtZjc3Yi00N2E3LWJiZjktN2QzZTdmYmRhOTk3IiwidXNlcm5hbWUiOiJhdHRhY2tlckEiLCJyb2xlIjoidXNlciIsImV4cCI6MTc5MDY5ODU4Nn0.vwY8Ob-R-EChoKsbfnaDXcvEk-eiIg6pPFQV7W7ox10","token_type":"bearer","requires_totp":false,"temp_token":null}

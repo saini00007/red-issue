@@ -1,0 +1,7 @@
+# command: timeout 15 curl -s -m 13 -o - -w '\nHTTP_STATUS:%{http_code}\nCTYPE:%{content_type}' https://duck-store.escape.tech/api/v1/openapi.json
+# exit_code: 0
+# ---
+
+{"detail":"Not Found"}
+HTTP_STATUS:404
+CTYPE:application/json

@@ -1,0 +1,9 @@
+# command: cd /work && curl -s -X GET "https://duck-store.escape.tech/api/v1/auth/me" \
+  -H "Authorization: Bearer eyJhbGciOiAibm9uZSIsICJ0eXAiOiAiSldUIn0.eyJ1c2VyX2lkIjogImI5OGIwYTkxLTc2N2YtNDA4MC1iMmVlLWMxNzhmMDA4NzI4YiIsICJ1c2VybmFtZSI6ICJ0ZXN0dXNlckFfMTIzIiwgInJvbGUiOiAiYWRtaW4iLCAiZXhwIjogMTc5MDcwMjQ3Nn0." \
+  -H "Content-Type: application/json"
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:21:32.033919+00:00
+# ---
+
+{"detail":"User not found"}

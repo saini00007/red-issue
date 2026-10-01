@@ -1,0 +1,1198 @@
+[
+  {
+    "label": "WS3:xbow-safe",
+    "result": {
+      "role": "WS-3 XBOW mechanism reader (SANITIZED, Source B) — buyer-facing mechanisms + proof standards",
+      "competitor": "XBOW (XBOW USA Inc.) — autonomous offensive-security / AI pentesting platform",
+      "summary": "XBOW's buyer-facing pitch is a single machine: point it at a target + context and it runs a five-stage autonomous loop — Learn (CONTEXT_INGEST) → Map (live attack-surface map) → Coordinate (a central decision-engine that plans what/where/order and dispatches a fleet) → Attack (many short-lived, bias-reset agents exploiting and CHAINING in parallel with an offensive toolkit + steerable headless browser) → Prove (independent validator agents that confirm exploitability before any finding surfaces). The entire commercial thesis is PROOF, not detection: \"Frontier models find vulnerabilities. A platform proves them.\" The differentiating machinery a buyer actually pays for is the validator/proof layer (independent re-check, execution-confirmed where possible), the per-finding \"case file\" (chained path + working exploit + full agent decision log + remediation, \"nothing hidden behind a severity score\"), production-safe/scoped/audited execution, and portfolio-scale surface discovery + dedup. Everything else (model routing, API/webhooks, compliance) is framed as enterprise wrapping around that proof core. Confidence HIGH that these are XBOW's marketed mechanisms; MEDIUM that they run exactly as described in the product (most detail is first-party marketing + one detailed named case study, with the raw benchmark score explicitly disclaimed by XBOW itself and third-party research showing the underlying task class is tractable for generic coding agents — i.e. the defensible moat is proof/validation/orchestration, not a superior model).",
+      "mechanisms": [
+        {
+          "capability": "FIVE_STAGE_LOOP: CONTEXT_INGEST -> SURFACE_MAP -> COORDINATE(PLAN) -> PARALLEL_EXPLOIT -> VALIDATE(PROVE)",
+          "mechanism": "Point-at-URL plus optional context (docs, credentials, API specs, architecture notes; 'the more you give it, the deeper it goes'). Builds a live map of applications/endpoints/parameters/auth flows. A central 'coordinator' decision engine decides what to test, where, and in what order and directs the fleet. 'Thousands of agents attack in parallel.' Independent validators confirm exploitability last. Positioned explicitly as 'exploitation, not pattern-matching.'",
+          "source": "[COMPETITOR] competitor-research/xbow/pages/page-https-xbow-com-platform.md",
+          "confidence": "HIGH (first-party marketing)"
+        },
+        {
+          "capability": "ORCHESTRATION: coordinator + short-lived bias-reset attack agents + separate validators",
+          "mechanism": "Coordinator gives ongoing orchestration + a decision engine that 'debriefs agents and prioritizes.' Attack agents are short-lived, focused workers 'retired after each mission to avoid bias.' Validator agents are a distinct role that independently re-checks a claimed exploit. Three-role split (plan / attack / prove) rather than one monolithic model call.",
+          "source": "[COMPETITOR] competitor-research/xbow/pages/page-https-xbow-com-platform.md ; competitor-research/xbow/dossier.md",
+          "confidence": "HIGH"
+        },
+        {
+          "capability": "CHAIN: multi-stage exploit chaining (SECRET_DISCOVERY -> AUTH -> INJECTION -> SERVICE_DISRUPTION / DATA_ACCESS)",
+          "mechanism": "Links discrete findings into ONE working attack path ('connective tissue between bugs') rather than a flat list. Buyer-facing exemplar (Moderna, sanitized to capability level): source-read -> unrotated exposed API key -> authenticated API probing -> malformed-input handling cascading into the routing/gateway layer -> confirmed IDOR, full chain built in under 18 hours; human reviewers afterward confirmed a confidentiality impact in addition to the availability impact.",
+          "source": "[COMPETITOR] competitor-research/xbow/pages/page-https-xbow-com-customer-stories-moderna.md ; page-https-xbow-com-platform.md",
+          "confidence": "HIGH (marketing + one detailed named case study)"
+        },
+        {
+          "capability": "PROOF / FALSE_POSITIVE_SUPPRESSION: independent validator layer",
+          "mechanism": "Automated peer-reviewer 'validators' confirm each finding before it reaches the customer. Two flavors described: (1) purpose-built programmatic checks, (2) LLM-based peer review. Explicitly targets both scanner-style guesses and AI-hallucination false positives. Marketed as the actual durable product: 'Frontier models find vulnerabilities. A platform proves them' / 'proof, not a flood of maybes.'",
+          "source": "[COMPETITOR] competitor-research/xbow/pages/page-https-xbow-com-platform.md ; page-https-xbow-com-blog-top-1-how-xbow-did-i.md",
+          "confidence": "HIGH"
+        },
+        {
+          "capability": "EXECUTION_PROOF: browser confirmation oracle",
+          "mechanism": "For XSS, a real headless browser visits the target site and confirms the JavaScript payload actually executed, rather than trusting a reflection/pattern match. A 'steerable headless browser' is named as part of the offensive toolkit for reaching non-obvious paths. This is the buyer-facing standard for turning a candidate into proven risk.",
+          "source": "[COMPETITOR] competitor-research/xbow/pages/page-https-xbow-com-blog-top-1-how-xbow-did-i.md (validators section) ; page-https-xbow-com-platform.md",
+          "confidence": "HIGH"
+        },
+        {
+          "capability": "EVIDENCE_TRACE / CASE_FILE reporting",
+          "mechanism": "Every finding ships as a complete, reproducible trace: the chained attack path, the working exploit, and a full log of every decision/tactic the agents took, plus developer-ready remediation. 'Nothing is hidden behind a severity score. You see the whole kill chain.' The platform page embeds a fully worked interactive trace (agent narration + reproduced scripts) as the richest proof-of-how-it-works artifact.",
+          "source": "[COMPETITOR] competitor-research/xbow/pages/page-https-xbow-com-platform.md",
+          "confidence": "HIGH"
+        },
+        {
+          "capability": "SURFACE_DISCOVERY + TARGET_SCORING + ASSET_DEDUP (portfolio scale)",
+          "mechanism": "Scope/policy parsing (LLM + manual curation of non-machine-readable policies); a target-scoring system weighting WAF presence, HTTP status/redirect behavior, auth forms, reachable-endpoint count, tech stack, etc.; asset deduplication via SimHash (content similarity) + headless-browser screenshots + imagehash (visual similarity) to group cloned/staging environments and avoid wasted effort. Built during HackerOne dogfooding; now the substrate for the credential-less, black-box 'Autonomous Exposure Management' whole-estate product.",
+          "source": "[COMPETITOR] competitor-research/xbow/pages/page-https-xbow-com-blog-top-1-how-xbow-did-i.md ; competitor-research/xbow/dossier.md",
+          "confidence": "HIGH as described infra; MEDIUM that all of it is productized in the SaaS today"
+        },
+        {
+          "capability": "MODEL_ROUTING (model-agnostic)",
+          "mechanism": "Routes each task to 'the best model' and adopts new frontier models as they ship; pitched as no vendor lock-in and no migration project, with the platform (proof, safety, coverage, orchestration, cost control) framed as the durable value over any single underlying LLM.",
+          "source": "[COMPETITOR] competitor-research/xbow/pages/page-https-xbow-com-platform.md",
+          "confidence": "HIGH (claim)"
+        },
+        {
+          "capability": "SAFE_VALIDATION + SCOPE_GATE + AUDIT (production governance)",
+          "mechanism": "Customer-defined scope XBOW operates strictly within; 'safe validation' using production-safe challenges designed to avoid modifying data or disrupting systems; every agent action logged and reviewable; human review before findings surface; board- and auditor-ready reporting; deployment aligned to data separation/residency + compliance (SOC 2, ISO 27001, PCI DSS, NIS 2; '40+ frameworks'). Directly answers the buyer objection to running autonomous exploitation in production.",
+          "source": "[COMPETITOR] competitor-research/xbow/pages/page-https-xbow-com-platform.md",
+          "confidence": "HIGH"
+        },
+        {
+          "capability": "PROOF_FIRST_ROUTING via API + signed webhooks (CI/CD gate)",
+          "mechanism": "REST API workflow: create/configure asset -> configure scope, authentication, and safety controls -> trigger assessment -> retrieve findings. Webhooks with subscribable event types, delivery-signature verification, and delivery-history inspection. Buyer use cases: pre-release gate on merge/pre-deploy; portfolio coverage on the customer's own scheduler/CI 'without adding headcount'; 'send only proven findings to your SIEM, vuln management, and ticketing, so triage starts from proof, not scanner noise.' Bearer-token auth, pinned API version header, 3 data-residency regions (US/EU/SG).",
+          "source": "[COMPETITOR] competitor-research/xbow/pages/page-https-xbow-com-api.md",
+          "confidence": "HIGH"
+        }
+      ],
+      "evidence": [
+        {
+          "claim": "Independent validators confirm exploitability before any finding reaches the customer, to eliminate false positives including those from AI hallucination — the marketed proof standard 'proof, not a flood of maybes.'",
+          "source": "[COMPETITOR] competitor-research/xbow/pages/page-https-xbow-com-platform.md",
+          "confidence": "HIGH (first-party claim)"
+        },
+        {
+          "claim": "Execution-confirmed proof: for XSS, a headless browser visits the target and verifies the JS payload actually executed (custom programmatic validator), not a pattern match.",
+          "source": "[COMPETITOR] competitor-research/xbow/pages/page-https-xbow-com-blog-top-1-how-xbow-did-i.md",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Third-party-confirmed proof at scale: reached #1 on HackerOne US leaderboard (June 2025, first autonomous system), ~1,060 submissions, and — key for the proof standard — 'every submission was confirmed by the program owners and triaged as real, actionable security issues'; 90-day severity mix 54 critical / 242 high / 524 medium / 65 low.",
+          "source": "[COMPETITOR] competitor-research/xbow/pages/page-https-xbow-com-blog-top-1-how-xbow-did-i.md",
+          "confidence": "HIGH (first-party but externally corroborated by TechRepublic/Cybernews per dossier)"
+        },
+        {
+          "claim": "Named-customer proof (Moderna): XBOW found a WAF-bypass exposure a 20-year offensive-security veteran had personally missed, then built a full multi-stage chain across ~30-40 internal apps in under 18 hours; issues resolved within 24 hours because each finding carried a reproducible exploit proof that made prioritization obvious ('every finding comes with an exploit proof. That tells us exactly what to fix first').",
+          "source": "[COMPETITOR] competitor-research/xbow/pages/page-https-xbow-com-customer-stories-moderna.md",
+          "confidence": "MEDIUM (first-party case study, single named customer)"
+        },
+        {
+          "claim": "External real-world proof credits corroborating the 'we prove it' story: critical CVE credits (Microsoft CVSS 9.8 CVE-2026-21536; two Bing RCEs; unauthenticated Exim RCE CVE-2026-45185) and a $250,000 Google Chrome full-chain bounty.",
+          "source": "[COMPETITOR] competitor-research/xbow/dossier.md ; competitor-research/xbow/external-research.md",
+          "confidence": "MEDIUM (CVE credits external-sourced; Chrome bounty external-only, exact date unverified)"
+        },
+        {
+          "claim": "Objective-proof yardstick (XBEN): 104 containerized CTF-style web-app challenges across 26 vuln categories, commissioned from outside pentest firms specifically so they were never in LLM training data, embedded with a canary string, open-sourced (xbow-engineering/validation-benchmarks). Marketed under 'Show Me the Numbers!' as a countermeasure to AI-security hype.",
+          "source": "[COMPETITOR] competitor-research/xbow/pages/page-https-xbow-com-blog-benchmarks.md",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Credibility caveat XBOW itself surfaces: its original headline benchmark scores (75% of 543 industry benchmarks; 85% of 104 XBEN) now carry an editor's note that they are 'outdated and should no longer be used to measure offensive performance.'",
+          "source": "[COMPETITOR] competitor-research/xbow/pages/page-https-xbow-com-blog-benchmarks.md ; page-https-xbow-com-blog-introducing-xbow.md",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Independent counter-evidence that the moat is productization not model: third-party research on XBOW's own public XBEN shows a plain coding-agent baseline solving 70-81/104 tasks and MAPTA hitting 76.9% — i.e. the task class is tractable for generalist agents; critics (Utku Sen, Rawsec) argue the HackerOne rank is a volume/reputation artifact and much output is known vuln classes, not novel logic flaws.",
+          "source": "[COMPETITOR] competitor-research/xbow/external-research.md",
+          "confidence": "HIGH (as an accurately-relayed external claim)"
+        },
+        {
+          "claim": "Proof-first downstream integration is a first-class buyer promise: only exploit-proven findings are routed into SIEM/vuln-mgmt/ticketing, delivered via versioned REST API + signature-verified webhooks; findings are 'reproducible proof' rather than scanner noise.",
+          "source": "[COMPETITOR] competitor-research/xbow/pages/page-https-xbow-com-api.md",
+          "confidence": "HIGH"
+        }
+      ],
+      "buyer_proof_standards": [
+        "A working, reproducible exploit is attached to EVERY finding — not a theoretical or CVSS-only flag ('proof, not a flood of maybes'). [platform, moderna]",
+        "An INDEPENDENT validator confirms exploitability BEFORE a finding surfaces; the vendor commits to near-zero false positives, explicitly including AI-hallucination FPs. [platform, top-1]",
+        "Execution-confirmed proof where the class allows it — e.g. a real headless browser confirms an XSS payload actually executed (live proof, not reflection detection). [top-1]",
+        "A complete per-finding CASE FILE: chained attack path + the working exploit + a full log of every agent decision/tactic + developer-ready remediation; 'nothing hidden behind a severity score' — buyer sees the whole kill chain. [platform]",
+        "End-to-end exploit CHAINING is demonstrated, not just listed: discrete bugs linked into one working multi-stage path, so the buyer can see combined blast radius. [platform, moderna]",
+        "Production-safe, non-destructive validation + customer-controlled scope + full audit trail of every agent action + human review before surfacing + board/auditor-ready reporting. [platform]",
+        "Third-party confirmation of the proof standard, not just self-assertion: real-world program owners (HackerOne) triaged findings as genuine, plus real CVE credits and a major browser bounty. [top-1, external]",
+        "An objective, novelty-guarded benchmark posture (XBEN: 104 challenges / 26 categories, outside-commissioned so unseen by training, canary-stringed, open-sourced) offered as the 'show me the numbers' yardstick — with the honesty caveat that XBOW now disclaims its own raw score as outdated. [benchmarks, external]",
+        "Proof-first downstream routing: only exploit-PROVEN findings flow into SIEM / vuln-management / ticketing, so triage starts from proof rather than scanner noise. [api]"
+      ],
+      "gaps_vs_abhedi": [
+        "CASE-FILE PACKAGING ALTITUDE (buyer-visible outcome: a CISO can hand one document to a developer and to an auditor). XBOW's headline deliverable is a single consolidated per-finding case file (chain + working exploit + full decision log + remediation, board/auditor-ready). Abhedi already produces proof-capsules + executed-chain writers (per CLAUDE.md Phases 1/4), so the machinery exists — the gap to verify is whether Abhedi's report layer consolidates these into one buyer-legible, board/auditor-ready case file at XBOW's altitude. [INFER / DOC CLAUDE.md]",
+        "VALIDATOR AS A NAMED PROOF LAYER WITH AN FP NUMBER (buyer-visible outcome: 'we prove it, near-zero false positives incl. hallucinations'). XBOW markets an independent validator layer as THE moat and attaches a false-positive claim. Abhedi's oracle-first confirm + browser executed:true proof is mechanism-equivalent but is neither packaged nor quantified as an independent-validation proof standard. Gap is positioning/measurement, not core mechanism. [INFER / DOC CLAUDE.md]",
+        "WHOLE-ESTATE, CREDENTIAL-LESS SURFACE DEDUP + SCORING (buyer-visible outcome: 'test my entire external application portfolio without wasting budget on clones'). XBOW pairs SimHash content-dedup + headless-browser imagehash VISUAL dedup + a target-scoring model to cover an estate black-box. Abhedi's dedup is finding-level (dedup_hash) + coverage-grid fold; no documented asset-level visual dedup or portfolio target-scoring for whole-estate scope. [INFER / DOC CLAUDE.md]",
+        "PROOF-FIRST DOWNSTREAM INTEGRATIONS (buyer-visible outcome: only proven findings reach SIEM/Jira; a merge/pre-deploy gate). XBOW routes only exploit-proven findings into SIEM/ticketing via signature-verified webhooks + a versioned REST API, and markets a pre-release CI gate. Abhedi has an API + findings ingest but no documented proof-first webhook/SIEM routing or CI merge-gate story. [INFER / DOC CLAUDE.md]",
+        "BENCHMARK IS SHARED (parity, note only): XBOW open-sourced XBEN (xbow-engineering/validation-benchmarks) as the industry yardstick, and Abhedi's benchmark track already adapts exactly that suite (XBEN adapter + FLAG{} sha256 scorer + proof-completeness metric per CLAUDE.md). Parity on the harness; the only gap is that Abhedi publishes no buyer-facing benchmark posture/number — and the smart move (given XBOW disclaims its 85% and 3rd parties hit 70-81/104 on plain agents) is to lead with proof-completeness/validation, not a raw solve rate. [DOC CLAUDE.md, external-research]",
+        "MODEL-AGNOSTIC ROUTING AS A BUYER PROMISE (parity, note only): XBOW sells 'routes each task to the best model, no lock-in, auto-adopts new frontier models.' Abhedi is already model-agnostic via per-entry api_base + proxy (CLAUDE.md Deviation #9). Parity on mechanism; the gap is purely the buyer-facing 'no-lock-in / gets stronger as models improve' framing. [DOC CLAUDE.md]"
+      ]
+    }
+  },
+  {
+    "label": "WS-4 Chain:audit",
+    "result": {
+      "role": "WS-4 Chain-machinery AUDITOR (audit stage) — Abhedi Red, branch feat/alpha-observability @ f75608f",
+      "summary": "Abhedi has TWO distinct, deterministic (no-LLM) chain subsystems, and they answer H3 differently. (1) The CHAIN GRAPH (chain/service.py + chain/capabilities.py) is PURE GRAPH INFERENCE over a static capability table: build_graph reads verified findings from findings.jsonl, maps vuln_class→Capability via GRANTS, mints one ChainNode per granted capability, and mints ChainEdge rows from the ENABLES adjacency. It is DEFAULT-ON (scanner_chain_synthesis=True, compose :-true) and feeds the report's \"Candidate / reachability (not executed end-to-end)\" section. (2) The CHAIN FLOOR (chain/floor.py) is the only part that ACTUALLY FIRES a next-hop probe from a confirmed primitive; it is DEFAULT-OFF via env SCANNER_ENGINE_CHAIN_FLOOR (compose :-0, NOT set in override.yml), so in a stock deploy it never runs. H3 VERDICT: the chain does NOT carry a proof ARTIFACT into hop N+1. The GRAPH edge is a pure table lookup (edge_rationale is a static template sentence); the proof (attrs.proof_of_concept) rides on each node as a decoration only, never as an input to next-hop inference. The FLOOR carries the source finding's LOCATION (url, param) — not its evidence object — into a FRESHLY, independently-fired hop N+1 request that re-proves from scratch. The executed_chain finding (_write_executed_chain) is a TEXTUAL composition: a PoC string naming source→cap→follow-on, with NO parent finding_id linkage, NO proof_capsule, NO evidence_paths, and NO replay contract. There is NO proof-type enum anywhere (Capability=capability tokens, VulnClass=vuln classes, proof state is signaled by string fields like verification_method='executed_chain'). Design implication: proof-artifact carry, parent-finding linkage, and a re-runnable chain capsule are the DELTA the designer must add — they do not exist today (harvest the graph + floor + capability table; do not rebuild them).",
+      "current_state": [
+        "TWO subsystems, not one. GRAPH: chain/service.py build_graph:123-234 (nodes+edges) / synthesize_chains:325-346 / enumerate_ranked_chains:264-322. FLOOR: chain/floor.py run_chain_floor:407-454. capabilities.py:22-216 is the shared static table (Capability StrEnum, GRANTS, ENABLES, EDGE_RATIONALE). [CODE]",
+        "GRAPH synthesis is graph-only. build_graph derives node capabilities DETERMINISTICALLY from vuln_class via capabilities_for/GRANTS (service.py:150) and derives edges purely from reachable_from/ENABLES (service.py:216-228). The docstring is explicit: 'there is no model free-text gained/prerequisite string-matching anymore' (service.py:139-141). Edges carry only edge_rationale(src_cap,vc) — a STATIC template sentence from EDGE_RATIONALE (capabilities.py:106-167), NOT derived from the source's actual evidence. [CODE]",
+        "The proof rides on a node but is NOT an input to the next hop. build_graph binds proof to each ChainNode.attrs: proof_of_concept (capped 4000, service.py:167-173), evidence_path, and optional reasoning (attacker_narrative, service.py:177-179). This is a per-node DECORATION for the report; the ENABLES edge inference never reads it. [CODE]",
+        "FLOOR carries LOCATION, not artifact. run_chain_floor reads confirmed findings (_read_confirmed:146-162, same verified+proof_of_concept gate as build_graph), extracts (url,param) via _finding_target:190-201, and for each capability fires a FRESH deterministic curl that re-proves independently (e.g. _hop_metadata injects _METADATA_URLS into the param and regex-matches the NEW response body, floor.py:232-280). Hop N's evidence object never enters hop N+1's request or evidence. [CODE]",
+        "FLOOR hops are a static capability→probe table: _HOPS (floor.py:397-404) maps METADATA_ACCESS→(_hop_metadata,_hop_bucket), CLOUD_STORAGE→_hop_bucket, FILE_READ→_hop_file_read, REDIRECT→_hop_redirect, INTERNAL_HTTP→_hop_internal, CREDENTIAL→_hop_credential. Each hop self-proves→_write_finding, else emits _signal. Bounded by seen_hops (Father-owned, per (cap,url,param), floor.py:437-440) + _MAX_HOPS=40 (floor.py:102) + per-wave depth cap. [CODE]",
+        "executed_chain finding is a TEXTUAL composition, not an evidence-linked capsule. _write_executed_chain (floor.py:204-228) writes proof_of_concept as a prose string ('CONFIRMED {src_class} at {url} → {cap.value} → PROVED {follow}...'), inherits the follow-on hop's CWE, and sets verification_method='executed_chain', detected_by_tool='chain'. It writes NO evidence_paths, NO proof_capsule, and NO parent finding_id — the source is referenced only by name in the string. [CODE]",
+        "NO proof-type enum exists. The only chain enum is Capability (StrEnum, capabilities.py:22-33) = capability tokens. Proof state is signaled by free string fields: verification_method='executed_chain' (floor.py:225), tool='chain:ssrf-metadata'/'chain:lfi-secrets' (floor.py:258,335), category='executed_chain'. [CODE]",
+        "Parent-finding linkage is partial and lossy. GRAPH: ChainNode.finding_id is a nullable UUID column with NO DB ForeignKey (tenant.py:306); it is set only when the JSONL finding already carries a uuid finding_id (service.py:183 _is_uuid(fid) else None). ChainEdge.from_node/to_node ARE real FKs (tenant.py:331-332) — so node→node linkage exists, but node→finding often does not. FLOOR: the executed_chain row has zero finding-id linkage. [CODE]",
+        "Report narrative today (reporting/service.py). '## Attack chains (what an attacker can chain)' has two subsections: '### Executed (proven end-to-end)' from executed_chains (verified executed_chain findings, service.py:298-306,528-542) and '### Candidate / reachability (not executed end-to-end)' from chain_narratives (the graph walk, service.py:297,543-554). Each candidate line is 'Chain: cap1 → cap2 → cap3' then per-step 'prev → cap: <rationale><step_detail>' where rationale is the static EDGE_RATIONALE sentence and step_detail adds title/endpoint/poc/evidence. Fallback (single edges only) narrates raw adjacency 'from → to: rationale' (service.py:555-559). [CODE]",
+        "DEFAULT-ON: scanner_chain_synthesis=True (config.py:149), compose SCANNER_CHAIN_SYNTHESIS :-true (docker-compose.yml:227) — the GRAPH build + candidate-chain report is LIVE in stock prod (finalize.py:333-352, father.py live-tick :1061-1068). [CODE][QUERY]",
+        "DEFAULT-OFF: the FLOOR is env-gated SCANNER_ENGINE_CHAIN_FLOOR default '0' (father.py:487-491), compose :-0 (docker-compose.yml:140), NOT set in override.yml. father._run_chain_floor:1620 is the ONLY caller of run_chain_floor and self-gates on it, so the floor NEVER fires in prod OR the dev override. [CODE][QUERY]",
+        "DEFAULT-OFF writer flags: scanner_executed_chain_findings=False (config.py:254), scanner_ssrf_cloud_exfil=False (config.py:261), scanner_require_proof_capsule=False (config.py:494). override.yml sets EXECUTED_CHAIN_FINDINGS/SSRF_CLOUD_EXFIL/REQUIRE_PROOF_CAPSULE 'true' (override.yml:65,85,86) — but because override.yml does NOT also set SCANNER_ENGINE_CHAIN_FLOOR, _write_executed_chain is unreachable even in the dev override (the floor that invokes it is off). [CODE][QUERY]",
+        "Escalation re-loop consumes the GRAPH, not proof artifacts. engine/escalation.py:37-50 calls build_graph then newly_high_impact (service.py:237-246, HIGH_IMPACT set capabilities.py:96-98) to detect newly-arrived high-impact capabilities and reopen ledger classes via cells_unlocked_by (service.py:249-254). Pure capability-token driven; no evidence carried. [CODE]"
+      ],
+      "evidence": [
+        {
+          "claim": "GRAPH edge synthesis is a pure ENABLES table lookup; edge rationale is a static template, not derived from the source finding's evidence.",
+          "source": "[CODE] chain/service.py:216-228 (reachable_from + _add_edge with edge_rationale); capabilities.py:77-88 (ENABLES), :106-167 (EDGE_RATIONALE static sentences)",
+          "confidence": "HIGH",
+          "notes": "Node proof rides in attrs (service.py:167-179) but is never read by edge inference."
+        },
+        {
+          "claim": "FLOOR carries only (url, param) location from the confirmed finding into a fresh, independently re-proving hop N+1 request; hop N's evidence object is not carried.",
+          "source": "[CODE] chain/floor.py:190-201 (_finding_target), :232-280 (_hop_metadata fires new curl + regex-matches new body), :426-450 (run_chain_floor loop)",
+          "confidence": "HIGH",
+          "notes": "Directly answers H3(a)."
+        },
+        {
+          "claim": "The executed_chain finding is a prose composition with no parent finding_id linkage, no proof_capsule, no evidence_paths, no replay contract.",
+          "source": "[CODE] chain/floor.py:204-228 (_write_executed_chain — the full field set is title/severity/category/affected_endpoint/description/proof_of_concept/cwe_id/verified/verification_method/verification_notes/attacker_narrative/detected_by_tool)",
+          "confidence": "HIGH",
+          "notes": "Answers H3(b): no linkage/capsule/replay for the executed finding."
+        },
+        {
+          "claim": "No proof-type enum exists; proof state is carried by free string fields.",
+          "source": "[CODE] chain/capabilities.py:22-33 (Capability StrEnum = capability tokens only); floor.py:222-227 (verification_method/category strings)",
+          "confidence": "HIGH",
+          "notes": "Answers H3(b) enum question."
+        },
+        {
+          "claim": "GRAPH (candidate chains) is default-ON in prod; FLOOR (executed hops) is default-OFF and unreachable in both prod and the dev override.",
+          "source": "[QUERY] grep scanner_chain_synthesis src/scanner/config.py -> ':149: = True'; grep CHAIN_FLOOR docker-compose.yml -> ':140 :-0'; grep CHAIN_FLOOR docker-compose.override.yml -> (no match). [CODE] father.py:1620 (only caller self-gates)",
+          "confidence": "HIGH",
+          "notes": "Answers H3(c). Consequence: 'Executed (proven end-to-end)' report bucket is structurally always-empty in stock prod."
+        },
+        {
+          "claim": "Report narrative is a capability-token graph walk decorated with static rationale sentences + per-node granting-finding proof snippet; two buckets (Executed / Candidate-reachability).",
+          "source": "[CODE] reporting/service.py:82-107 (_synthesize_chains narrative = ' → '.join capabilities), :526-559 (markdown rendering of both buckets)",
+          "confidence": "HIGH",
+          "notes": "Answers H3(d). edge_rationale IS the 'edge_rationale' narrative the task asked about (capabilities.py:165-167)."
+        },
+        {
+          "claim": "ChainNode.finding_id is a nullable UUID with no ForeignKey and is frequently None when built from findings.jsonl; ChainEdge from/to are real FKs.",
+          "source": "[CODE] db/models/tenant.py:306 (finding_id no FK), :331-332 (edge FKs); chain/service.py:183 (_is_uuid(fid) else None)",
+          "confidence": "MEDIUM",
+          "notes": "How often finding_id is a real uuid in findings.jsonl at build_graph time was not traced end-to-end; flagged as a gap."
+        },
+        {
+          "claim": "Escalation re-loop is driven by capability tokens (newly_high_impact / cells_unlocked_by), not by evidence artifacts.",
+          "source": "[CODE] engine/escalation.py:37-50; chain/service.py:237-254; capabilities.py:96-98 (HIGH_IMPACT)",
+          "confidence": "HIGH",
+          "notes": "Confirms the whole chain substrate is graph-only for control flow."
+        }
+      ],
+      "hypotheses": [
+        {
+          "id": "H3",
+          "verdict": "REFUTED (no proof-artifact carry) — chain is GRAPH + LOCATION only",
+          "note": "A confirmed primitive's capability token does NOT carry a proof ARTIFACT into hop N+1. GRAPH path: edges are pure ENABLES table lookups (service.py:216-228); the node's proof_of_concept (attrs, service.py:167-179) is a report decoration only, never an input to next-hop inference. FLOOR path: only the LOCATION (url,param) is carried (floor.py:190-201); hop N+1 fires a fresh, independent request that re-proves from scratch (floor.py:232-280). The executed_chain finding is prose composition with no parent-finding linkage, no proof_capsule, no evidence_paths (floor.py:204-228). No proof-type enum exists. Confidence HIGH."
+        }
+      ],
+      "questions": [
+        {
+          "q": "H3(a): Is a chain synthesized as pure graph over a capability table, or does a confirmed primitive carry a PROOF ARTIFACT (the actual evidence object) into hop N+1's prompt/evidence?",
+          "answer": "Pure graph + location. The GRAPH (chain/service.py) is a pure walk over the GRANTS/ENABLES capability table; the FLOOR (chain/floor.py) carries the source finding's (url,param) LOCATION and fires a fresh independently-re-proving request. Neither carries hop N's evidence OBJECT into hop N+1. The proof only rides on a node as a display decoration (service.py:167-179).",
+          "verdict": "REFUTED (graph+location, not artifact-carrying)"
+        },
+        {
+          "q": "H3(b): Is there a proof-type enum? a parent-finding linkage? a replay contract?",
+          "answer": "Proof-type enum: NO (Capability StrEnum is capability tokens, not proof types; proof is signaled by string fields like verification_method='executed_chain'). Parent-finding linkage: PARTIAL — GRAPH has ChainEdge from_node→to_node real FKs (tenant.py:331-332) and a nullable, no-FK ChainNode.finding_id often left None (service.py:183); the FLOOR's executed_chain finding has ZERO finding-id linkage. Replay contract: NO for chain findings — _write_executed_chain writes no proof_capsule/evidence_paths, so the per-finding retest endpoint (config.py:502, reads evidence_paths.proof_capsule) cannot re-run them.",
+          "verdict": "NO enum; partial graph-only linkage; no replay contract"
+        },
+        {
+          "q": "H3(c): What is default-ON vs default-OFF?",
+          "answer": "DEFAULT-ON: scanner_chain_synthesis=True (config.py:149, compose :-true) → GRAPH build + 'Candidate/reachability' chains are LIVE in prod. DEFAULT-OFF: SCANNER_ENGINE_CHAIN_FLOOR='0' (father.py:491, compose :-0, absent from override.yml) → the FLOOR never fires; scanner_executed_chain_findings=False (config.py:254), scanner_ssrf_cloud_exfil=False (config.py:261), scanner_require_proof_capsule=False (config.py:494). Net: 'Executed (proven end-to-end)' report bucket is structurally always-empty in a stock deploy, AND unreachable even in the dev override because override.yml enables the writer flags but not the floor that triggers them.",
+          "verdict": "GRAPH on; FLOOR + executed-chain writer off (and floor unreachable even in override)"
+        },
+        {
+          "q": "H3(d): What is the report narrative today (edge_rationale etc.)?",
+          "answer": "A capability-token graph walk. Narrative string = ' → '.join of capability names (reporting/service.py:106). Rendered under '## Attack chains' as 'Executed (proven end-to-end)' (from verified executed_chain findings; empty in prod) and 'Candidate / reachability (not executed end-to-end)' (from the graph). Each candidate step reads 'prev → cap: <edge_rationale sentence><step_detail>', where edge_rationale is a STATIC per-(cap,vc) template (capabilities.py:106-167, fallback '<cap> enables <vc>') and step_detail appends the granting finding's title/endpoint/poc/evidence. It is a static render of the deterministic graph, not a discovery/decision log.",
+          "verdict": "static capability-walk + template edge_rationale, evidence-decorated per node"
+        }
+      ],
+      "defects": [
+        {
+          "title": "Executed-chain proof bucket is structurally empty by default (buyer sees no proven end-to-end chain)",
+          "mechanism": "The only code path that fires a next-hop probe and can mint an executed_chain finding (chain/floor.py via father._run_chain_floor:1620) is gated on SCANNER_ENGINE_CHAIN_FLOOR, which defaults '0' and is not set in compose or override.yml. So report section 'Executed (proven end-to-end)' (reporting/service.py:528) never populates in a stock deploy; only 'Candidate/reachability' (unproven graph edges) ships.",
+          "module_flag": "SCANNER_ENGINE_CHAIN_FLOOR (father.py:487-491) + scanner_executed_chain_findings (config.py:254)",
+          "severity": "HIGH",
+          "blast_radius": "Every stock scan report — the platform's strongest buyer-proof asset (deterministic multi-hop execution) is dark; matches competitor 'candidate' output, not 'executed PoC'."
+        },
+        {
+          "title": "executed_chain finding is not re-runnable and has no parent linkage (fails 're-runnable PoC handed to buyer' + 'full attack-path' standards)",
+          "mechanism": "_write_executed_chain (floor.py:204-228) emits a prose PoC string with no evidence_paths, no proof_capsule, and no parent finding_id. The retest/replay endpoint (config.py:502) reads evidence_paths.proof_capsule, so a chain finding cannot be replayed; the report cannot deep-link each hop to its source finding row.",
+          "module_flag": "chain/floor.py:_write_executed_chain (flag scanner_executed_chain_findings) — plus a candidate new proof_capsule-per-hop under scanner_require_proof_capsule (config.py:494)",
+          "severity": "MEDIUM",
+          "blast_radius": "The executed-chain finding itself: not independently verifiable/regressible by the buyer; the designer's re-runnable-capsule + parent-link delta lands here."
+        },
+        {
+          "title": "No proof artifact carried across hops — each hop re-proves in isolation (no negative control, no cumulative attack-path evidence)",
+          "mechanism": "FLOOR hops carry only (url,param) location (floor.py:190-201) and fire fresh requests; the source finding's evidence object never enters hop N+1. There is no proof-type enum and no per-hop capsule binding hop N→hop N+1 into one verifiable artifact, so a composed chain is a text assertion over independently-proven parts rather than a single carried-evidence chain.",
+          "module_flag": "chain/floor.py hop functions + a candidate proof-artifact payload on seen_hops/_HOPS (no existing flag; new default-OFF flag required, D4)",
+          "severity": "MEDIUM",
+          "blast_radius": "Chain-proof strength: competitor 'negative control in proof' + 'full attack-path with evidence' standards are unmet for chains today."
+        }
+      ],
+      "gaps": [
+        "How often ChainNode.finding_id resolves to a real uuid at build_graph time was not traced: findings.jsonl finding_id shape vs DB-assigned uuid (service.py:183 _is_uuid gate). If usually None, the report's node→finding evidence deep-link and title_by_fid join (reporting/service.py:96,296) are lossy — verify before the designer relies on node→finding linkage. [UNVERIFIED]",
+        "The _hop_credential path (floor.py:385-390) is a documented no-op that only reopens ENABLES[CREDENTIAL] classes (no deterministic re-auth) — confirmed as a ponytail-marked stub, not a defect, but the designer should know credential→session chaining is graph-reopen only, never executed. [CODE floor.py:385-390]",
+        "Did not exhaustively confirm no OTHER caller mints an executed_chain/attack_chain finding outside chain/floor.py; reporting._executed_chain_finding also matches title substrings 'attack chain'/'kill chain' (service.py:79), so a worker-written finding could in principle land in the Executed bucket without the floor — grep for agent/skill-authored 'attack chain' titles to confirm. [UNVERIFIED]",
+        "Whether the live-tick chain rebuild (father.py:1061-1068) and finalize rebuild (finalize.py:333-352) ever disagree on node/edge counts under concurrent confirms was not tested; both DELETE-then-rebuild per scan_id for idempotency, so likely convergent, but not verified. [INFER]"
+      ]
+    }
+  },
+  {
+    "label": "WS-6 Surface/Browser:audit",
+    "result": {
+      "role": "WS-6 Surface/browser AUDITOR (design workstream, audit stage) — Abhedi Red, branch feat/alpha-observability, HEAD f75608f",
+      "summary": "H4 CONFIRMED (HIGH): the browser sidecar exposes exactly three endpoints (/healthz, /crawl, /instrument); client-side execution proof stops at three single-page classes — DOM-XSS (executed:true callback), prototype-pollution (live ({})[prop] read-back), and storage-leak/secrets_exposure (live localStorage/sessionStorage structural match). /instrument loads each URL FRESH (fragment+query canary, then postMessage) with no step-chaining and no post-action state assertion. The only multi-step browser flows are LOGIN primitives (form/identifier-first _try_login; gated federated SSO _try_sso_login) that merely get the crawl authenticated. There is NO browser-driven login->navigate->act->assert SPA state-change oracle. NUANCE: a multi-step STATE-CARRYING flow oracle exists but at the HTTP layer, not the browser — channels.py replay_sequences (order_id captured step2 -> fed step4) with in-flow BFLA/workflow-skip/anti-replay verdicts, gated default-OFF. H5 REFUTED (HIGH): GraphQL authz, WebSocket/SSE/webhook, and JWT/OAuth/session are NOT skill-only — each has a pure-Python deterministic oracle. GraphQL: whole graphql_authz.py module (field_authz_verdict->bola/bfla, bopla_exposure/writability, depth/batch). WS: channels.py Track B (channel_auth_open, cross_user_leak, webhook_sig_bypassed/replayable). JWT/OAuth/session: exploit_floor parse_jwt_forge/parse_pkce_missing/parse_session_fixation/parse_session_no_rotation/parse_revoked_replay. Even AI/MCP has deterministic oracles (ai_redteam canary_in_output/tool_invoked). The real gap is not 'skill-only' — it is 'code oracle exists but ships default-OFF', so a stock prod deploy runs NONE of GraphQL/WS/JWT-OAuth-session/two-identity/AI oracles; only the always-on floor (SQLi/XSS/SSTI/LFI/redirect/CRLF/smuggling/CORS/host/CSRF/headers/upload/defaultcreds/ratelimit/differential-authz) plus the default-ON browser instrument (DOM-XSS/PP/storage) and HAR-slice proof (idor_bola/bfla/auth_bypass/mass_assignment) run out of the box.",
+      "evidence": [
+        {
+          "claim": "Browser sidecar exposes exactly three HTTP endpoints: GET /healthz (unauth), POST /crawl, POST /instrument — no SPA-action/state-change endpoint exists",
+          "source": "[CODE] docker/browser/browser_server.py:732 (@app.get /healthz), :737 (@app.post /crawl), :1032 (@app.post /instrument); [QUERY] grep '@app.(post|get)' over docker/browser -> only those three",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "/instrument proves exactly 3 client-side classes by live execution: DOM-XSS, prototype_pollution, storage_leak",
+          "source": "[CODE] docker/browser/browser_server.py:399-409 (__domxss_exec executed:true), :437-445 (__domxss_pp_scan fresh-object read-back), :254-280 (storage_secret_hits live localStorage/sessionStorage); mapping browser_ingest.py:209-213 _INSTRUMENT_KIND_MAP {dom_xss,prototype_pollution,storage_leak}",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "/instrument processes each URL as a single fresh page-load (canary in fragment+query, then one postMessage) with no step-chaining and no post-action DOM/state assertion",
+          "source": "[CODE] docker/browser/browser_server.py:1086-1136 (per-url loop: new_page -> goto goto_url -> settle -> postMessage -> read __domxss_hits/__domxss_pp_scan/storage -> page.close)",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Only multi-step browser flows are login primitives (form/identifier-first + gated federated SSO) that authenticate the crawl, not a general act->assert state-change oracle",
+          "source": "[CODE] docker/browser/browser_server.py:673-712 (_try_login, multi-step identifier-first), :641-670 (_try_sso_login app->IdP->creds->consent->callback), :686 SSO gated on SCANNER_SSO_LOGIN; login only ever submits a password-bearing form (:680 docstring)",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "A multi-step state-carrying flow oracle exists but at HTTP layer via curl/_fire, not in the browser: recorded-sequence replay with variable capture/substitution + in-flow BFLA/workflow-skip/anti-replay verdicts",
+          "source": "[CODE] engine/channels.py:471 (replay_sequences), :102 extract_vars, :123 substitute, :151 step_auth_bypassed, :157 workflow_skip_succeeded, :162 replay_succeeded; module docstring channels.py:13-15 (order_id minted step2 feeding step4)",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "GraphQL authz is a deterministic CODE oracle, not skill prose: whole graphql_authz.py module (schema index, two-identity field verdict->bola/bfla, BOPLA exposure/writability, depth/batch abuse)",
+          "source": "[CODE] engine/graphql_authz.py:201 field_authz_verdict (bola/bfla), :242 bopla_exposure, :268 bopla_writability, :294 find_self_cycle, :333 depth_unlimited, :338 batch_unlimited; wired exploit_floor.py:4751 _sweep_graphql",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "WebSocket/SSE/webhook is a deterministic CODE oracle: frame-based unauth-open, cross-user leak, webhook sig-bypass/replay verdicts",
+          "source": "[CODE] engine/channels.py:200 channel_auth_open, :206 cross_user_leak, :211 webhook_sig_bypassed, :218 webhook_replayable, :172 build_ws_cmd (websocat), :182 build_sse_cmd (curl -sN); wired :431 run_channels_sweep, :245 _sweep_ws_cell, :349 _sweep_webhook_cell",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "JWT/OAuth/session is a deterministic CODE oracle: forge-acceptance differential, PKCE-missing discovery-doc read, session fixation, no-rotation-on-priv-change, revoked-token replay",
+          "source": "[CODE] exploit_floor.py:1949 parse_jwt_forge, :1968 parse_pkce_missing (+:1961 build_oidc_discovery_cmd), :1993 parse_session_fixation, :2002 parse_session_no_rotation, :2011 parse_revoked_replay; wired :4179 _sweep_auth_session, :4043 _sweep_authclass (crlf/smuggling/oauth_saml)",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Even AI/LLM/MCP classes have deterministic in-band oracles (verbatim-canary echo / recorded tool-call), not skill-only",
+          "source": "[CODE] exploit_floor.py:3550-3595 _sweep_ai imports ai_redteam canary_in_output/tool_invoked; docstring :3559-3565 'every verdict is a deterministic in-band oracle'",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "All the H5-named oracles ship DEFAULT-OFF, so a stock prod deploy runs none of them; the browser instrument + differential-authz floor + HAR-slice are the only new-surface proofs on by default",
+          "source": "[CODE] config.py:243 scanner_auth_oracles_enabled=False, :247 scanner_two_identity_authz_enabled=False, :293 scanner_graphql_authz_enabled=False, :302 scanner_channel_oracles_enabled=False, :312 scanner_ai_redteam_floor=False; vs :225 scanner_exploit_floor_enabled=True, :328/:335 browser+instrument True",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Browser auth-state is applied in-scope-only via a route interceptor; off-scope document navigations are aborted (no redirect-to-metadata follow), creds never attach off-scope",
+          "source": "[CODE] docker/browser/browser_server.py:821-838 _route (crawl) + :1071-1082 _route (instrument): abort off-scope document nav unless sso_allows_nav; attach cred_headers only when in_scope; auth sources :810/:1069 (_scoped_cred_headers + _auth_json_headers)",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "HAR-slice proof (finding-scoped request/response pair) is limited to four offline-computable API classes; DOM/stored-XSS and differential-authz live proof are an explicit deferred TODO",
+          "source": "[CODE] browser_ingest.py:55 _API_PROOF_CLASSES={idor_bola,bfla,auth_bypass,mass_assignment}, :397-399 docstring TODO(live-capture seam, deferred)",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "GraphQL/WebSocket/JWT-OAuth-session/AI classes ARE declared in the taxonomy enum (so cells materialize) independent of whether their oracle runs",
+          "source": "[CODE] taxonomy.py:81 WEBSOCKET, :82 WEBHOOK, :84 GRAPHQL, :89-93 AI_* classes, :31 XSS_DOM, :45 PROTOTYPE_POLLUTION",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "engine-v2 browse() Python tool only calls /crawl (not /instrument); /instrument is driven separately (agent browse.sh / exploit_floor), confirming no SPA-action path added at the tool layer",
+          "source": "[CODE] engine/tools/browser.py:64-69 (POST {base}/crawl only)",
+          "confidence": "HIGH"
+        }
+      ],
+      "current_state": [
+        "Browser sidecar = thin per-scan FastAPI, 3 endpoints only: GET /healthz unauth (browser_server.py:732), POST /crawl token+scope-gated (browser_server.py:737,745,749), POST /instrument token+scope-filtered (browser_server.py:1032,1043,1047)",
+        "/crawl: deterministic scope-bound BFS, per-request scope route interceptor aborting off-scope document navs (browser_server.py:821-838); auth via _scoped_cred_headers env creds + _auth_json_headers post-login auth.json applied in-scope-only (browser_server.py:810,835-836); opportunistic form/identifier-first login _try_login (browser_server.py:673-712); gated federated SSO _try_sso_login (browser_server.py:641-670, flag SCANNER_SSO_LOGIN); gated SPA storage-planting build_session_init_script (browser_server.py:539-555, flag SCANNER_BROWSER_AUTHED_CRAWL); gated mid-crawl reauth (browser_server.py:879-889, flag SCANNER_BROWSER_REAUTH); emits inv_browser log + api_discovery jsonl + HAR.gz + screenshots + manifest",
+        "/instrument: per-URL fresh page-load client-side proof, canary in URL fragment (XSS) + query (PP) then postMessage (browser_server.py:1086-1136); real-execution DOM-XSS via __domxss_exec (browser_server.py:399-409); prototype-pollution via live fresh-object read-back __domxss_pp_scan (browser_server.py:437-445,1114-1119); web-storage secret leak via live localStorage/sessionStorage structural match (browser_server.py:254-280,1127-1134). No step chaining, no post-action assertion",
+        "Instrument hit -> finding mapping is a 3-entry static table _INSTRUMENT_KIND_MAP {dom_xss->xss_dom, prototype_pollution, storage_leak->secrets_exposure} (browser_ingest.py:209-213); only executed==True hits become findings (browser_ingest.py:228)",
+        "GraphQL deterministic oracle library (pure, I/O-free): index_schema/build_query (graphql_authz.py:85,134), field_authz_verdict->bola/bfla (graphql_authz.py:201), bopla_exposure/bopla_writability (graphql_authz.py:242,268), find_self_cycle/build_deep_query/depth_unlimited (graphql_authz.py:294,310,333), build_batch_query/batch_unlimited (graphql_authz.py:321,338); wired exploit_floor.py:4751 _sweep_graphql, gated scanner_graphql_authz_enabled=False (config.py:293)",
+        "WebSocket/SSE/webhook deterministic oracle: build_ws_cmd/build_sse_cmd (channels.py:172,182), parse_ws_frames (channels.py:191), channel_auth_open (channels.py:200), cross_user_leak (channels.py:206), webhook_sig_bypassed/webhook_replayable (channels.py:211,218); wired run_channels_sweep/_sweep_ws_cell/_sweep_webhook_cell (channels.py:431,245,349), gated scanner_channel_oracles_enabled=False (config.py:302)",
+        "Recorded multi-step HTTP-flow oracle (state-carrying, NOT browser): replay_sequences with extract_vars/substitute + step_auth_bypassed/workflow_skip_succeeded/replay_succeeded (channels.py:471,102,123,151,157,162), same OFF flag (config.py:302)",
+        "JWT/OAuth/session deterministic oracle: parse_jwt_forge (exploit_floor.py:1949), parse_pkce_missing + build_oidc_discovery_cmd (exploit_floor.py:1968,1961), parse_session_fixation (exploit_floor.py:1993), parse_session_no_rotation (exploit_floor.py:2002), parse_revoked_replay (exploit_floor.py:2011); wired _sweep_auth_session (exploit_floor.py:4179), _sweep_authclass crlf/smuggling/oauth_saml (exploit_floor.py:4043), gated scanner_auth_oracles_enabled=False (config.py:243)",
+        "AI/LLM/MCP deterministic in-band oracle: _sweep_ai using ai_redteam canary_in_output/tool_invoked (exploit_floor.py:3550-3595), gated scanner_ai_redteam_floor=False (config.py:312)",
+        "Always-ON deterministic floor (scanner_exploit_floor_enabled=True, config.py:225): parse_sqlmap/parse_boolean_diff/parse_time_blind, parse_xss_reflection/classify_reflection/parse_dalfox, parse_ssti, parse_lfi, parse_openredirect, parse_crlf_split, parse_smuggling_desync, parse_nuclei, parse_upload_location/echo, parse_hygiene_headers, parse_cors, parse_host_header, parse_csrf, parse_http_downgrade, parse_verbose_error, parse_defaultcreds, parse_ratelimit, diff_access/diff_cross_tenant/diff_resource_ref, response_diff (exploit_floor.py:666,686,1005-2207,1240,1297,1387,1424)",
+        "Default-ON browser proofs: DOM-XSS/PP/storage via /instrument (config.py:328,335 both True since 2026-09-17; browser_instrument_on() config.py:342-347), plus HAR-slice finding-scoped proof for idor_bola/bfla/auth_bypass/mass_assignment (browser_ingest.py:55,178-202)",
+        "HAR-slice live-proof for DOM/stored-XSS and differential-authz is an explicit deferred TODO — the offline HAR slice cannot capture them (browser_ingest.py:397-399)"
+      ],
+      "hypotheses": [
+        {
+          "id": "H4",
+          "verdict": "CONFIRMED",
+          "note": "Browser client-side capability stops at instrument-based DOM-XSS + prototype-pollution + storage-leak (3 classes, single-page each). No browser-driven multi-step SPA state-change (login->navigate->act->assert) oracle. The only multi-step browser flows are login primitives (_try_login form/identifier-first; _try_sso_login federated, gated) whose job is to authenticate the crawl, not to perform-then-assert an app state transition. NUANCE: a multi-step STATE-CARRYING flow oracle DOES exist for the HTTP layer (channels.py replay_sequences: capture order_id step2 -> feed step4, verdicts step_auth_bypassed/workflow_skip_succeeded/replay_succeeded) but it runs via curl/_fire over /exec, is NOT browser/SPA-driven, and ships default-OFF (scanner_channel_oracles_enabled). So the missing capability is specifically 'assert a client-side/SPA state change after an authed in-browser action', e.g. a JS-only privilege toggle or client-routed workflow bypass whose effect never surfaces in a raw HTTP request/response pair."
+        },
+        {
+          "id": "H5",
+          "verdict": "REFUTED",
+          "note": "None of the three named classes is skill-only. GraphQL authz = full pure-code oracle (graphql_authz.py: field_authz_verdict/bopla_exposure/bopla_writability/depth_unlimited/batch_unlimited). WebSocket(+SSE+webhook) = pure-code oracle (channels.py: channel_auth_open/cross_user_leak/webhook_sig_bypassed/webhook_replayable). JWT/OAuth/session = pure-code oracle (exploit_floor.py: parse_jwt_forge/parse_pkce_missing/parse_session_fixation/parse_session_no_rotation/parse_revoked_replay). Even AI/MCP has deterministic oracles (ai_redteam canary_in_output/tool_invoked). The correct restatement: these are 'code-oracle-exists-but-default-OFF', not 'skill-only'. The gap a buyer would notice is coverage-shipped, not coverage-absent: a stock deploy runs the always-on floor + default-ON browser instrument/HAR-slice, but NOT GraphQL/WS/JWT-OAuth-session/two-identity/AI oracles unless an operator flips the flag."
+        }
+      ],
+      "questions": [
+        {
+          "q": "(a) Does client-side capability stop at instrument-based DOM-XSS + prototype-pollution + storage-leak, with NO multi-step SPA state-change (login->navigate->act->assert)?",
+          "answer": "YES. /instrument (browser_server.py:1032-1150) proves exactly those 3 classes, each on a single fresh page-load per URL. The browser has login flows (form + gated SSO) but no navigate->act->assert primitive. The only step-carrying/state flow oracle is HTTP-level (channels.py replay_sequences), not browser-driven, and default-OFF.",
+          "verdict": "CONFIRMED"
+        },
+        {
+          "q": "(b) Are GraphQL authz / WebSocket / JWT-OAuth-session taxonomy classes SKILL-ONLY with no deterministic oracle?",
+          "answer": "NO — all three have pure-Python deterministic verdict functions. GraphQL: graphql_authz.py (field_authz_verdict, bopla_*, depth/batch). WebSocket/SSE/webhook: channels.py Track B (channel_auth_open, cross_user_leak, webhook_sig_bypassed/replayable). JWT/OAuth/session: exploit_floor.py (parse_jwt_forge, parse_pkce_missing, parse_session_fixation/no_rotation, parse_revoked_replay). All are gated default-OFF, so they are 'built but not shipped-on', not skill-only.",
+          "verdict": "REFUTED"
+        },
+        {
+          "q": "(c) Map the browser API surface + auth-state handling + full deterministic-oracle inventory (which classes have a pure-code verdict today).",
+          "answer": "Surface: GET /healthz (unauth), POST /crawl (token+scope), POST /instrument (token+scope). Auth-state: in-scope-only via route interceptor (_scoped_cred_headers env creds + _auth_json_headers post-login auth.json); off-scope document navs aborted (no metadata-redirect follow); form/SSO login + gated storage-plant/reauth. Pure-code verdict TODAY: always-on floor (SQLi/XSS-reflected/SSTI/LFI/open-redirect/CRLF/smuggling/nuclei/upload/security-headers/CORS/host-header/CSRF/HTTP-downgrade/verbose-error/default-creds/rate-limit/differential-authz IDOR-BOLA-BFLA-auth_bypass via diff_access/diff_cross_tenant/diff_resource_ref) + default-ON browser (DOM-XSS/PP/storage-leak) + HAR-slice proof (idor_bola/bfla/auth_bypass/mass_assignment). Pure-code verdict but DEFAULT-OFF: GraphQL authz/BOPLA/depth/batch, WS/SSE/webhook + recorded-sequence multi-step, JWT-forge/PKCE/session-fixation/no-rotation/revoked-replay, two-identity BOLA, AI/LLM/MCP.",
+          "verdict": "CONFIRMED"
+        }
+      ],
+      "defects": [
+        {
+          "title": "No browser-driven multi-step SPA state-change oracle (H4 capability gap)",
+          "mechanism": "The browser proves only single-page client-side classes; a client-routed SPA where an authed action (JS privilege toggle, client-side workflow skip, cart/price mutation applied only in the SPA store) changes state without that change surfacing in a raw HTTP request/response pair is invisible: /instrument reloads each URL fresh with no chaining (browser_server.py:1086-1136), the HAR-slice proof is offline request/response only (browser_ingest.py:55,397-399), and the multi-step replay oracle is curl/HTTP-level not browser (channels.py:471). Capability label: AUTH_SESSION -> SPA_NAVIGATE -> CLIENT_ACTION -> CLIENT_STATE_ASSERT is absent.",
+          "module_flag": "DESIGN (D4): new gated /instrument-sibling browser flow-assert endpoint driven by /work/sequences.json (reuse channels.py Track A schema) under a new default-OFF flag e.g. scanner_browser_flow_assert; byte-identical when off. Buyer outcome: a Playwright-captured before/after DOM+storage assertion becomes the live PoC the HAR slice can't produce for DOM/stored-XSS and SPA-only authz.",
+          "severity": "MEDIUM",
+          "blast_radius": "Coverage gap on SPA-heavy targets for client-side-only state transitions; no correctness/safety impact. Competitor buyer-proof standard 'full attack-path + live PoC' is met for HTTP flows (when enabled) but not for in-SPA flows."
+        },
+        {
+          "title": "Full new-surface oracle suite (GraphQL/WS/JWT-OAuth-session/two-identity/AI) ships DEFAULT-OFF",
+          "mechanism": "Deterministic pure-code oracles exist and are wired into the wave (exploit_floor.py:4990-5023) but every gate defaults False: scanner_graphql_authz_enabled (config.py:293), scanner_channel_oracles_enabled (config.py:302), scanner_auth_oracles_enabled (config.py:243), scanner_two_identity_authz_enabled (config.py:247), scanner_ai_redteam_floor (config.py:312). A stock deploy therefore emits ZERO GraphQL/WS/webhook/JWT-forge/PKCE/session-rotation/two-identity/AI verdicts despite the code being present and tested — the H5 'gap' is a shipping decision, not missing capability.",
+          "module_flag": "DESIGN (D4): this is the existing flag surface; recommendation is an operator-facing capability profile (e.g. a single scanner_oracle_profile=full that ORs the individual gates) so a buyer demo turns the built moat on without per-flag archaeology. Individual flags stay default-OFF so byte-identical prod is preserved.",
+          "severity": "HIGH",
+          "blast_radius": "A buyer running the default image sees only the always-on floor + browser instrument and would wrongly conclude GraphQL/WS/auth-session coverage is absent. Directly undercuts the 'validation moat / deterministic confirm' differentiator the platform already owns in code."
+        },
+        {
+          "title": "HAR-slice live-proof for DOM/stored-XSS and differential-authz is a standing deferred TODO",
+          "mechanism": "sync_har_proof only attaches finding-scoped proof for the four offline-computable API classes (browser_ingest.py:55 _API_PROOF_CLASSES); DOM/stored-XSS and function-level-authz (admin response under low-priv session) proof need a live browser round-trip the offline HAR cannot capture, marked TODO (browser_ingest.py:397-399). DOM-XSS today carries only the /instrument executed:true snippet as PoC, not a rendered-pop artifact.",
+          "module_flag": "DESIGN (D4): fold a live capture (screenshot + DOM+storage snapshot at the executed hit) into the existing default-ON /instrument path so the proof-capsule carries a re-runnable artifact; no new flag needed since instrument is already ON, but gate the low-priv-admin-render capture under the existing two-identity flag. Buyer outcome: re-runnable PoC + negative control per client-side finding, matching the competitor buyer-proof bar.",
+          "severity": "MEDIUM",
+          "blast_radius": "Client-side and cross-identity findings ship with a weaker evidence artifact than the API classes; affects buyer-visible proof completeness, not detection correctness."
+        }
+      ],
+      "gaps": [
+        "AI/MCP oracle depth not fully audited this pass — confirmed _sweep_ai uses deterministic ai_redteam oracles (canary_in_output/tool_invoked) and is gated scanner_ai_redteam_floor=False, but the full ai_redteam.py builder/verdict set and its gray-box canary dependency (/work/ai_canaries.json) were not line-audited; flagged as [UNVERIFIED-DEPTH] beyond 'deterministic + default-OFF'.",
+        "docker-compose.yml pin values for scanner_graphql_authz_enabled / scanner_channel_oracles_enabled / scanner_auth_oracles_enabled were not read this pass — config.py defaults are all False; whether compose overrides any to true in a real deploy is [UNVERIFIED] here (CLAUDE.md flag-truth-table pattern shows compose can diverge from code default in both directions).",
+        "Whether /instrument is reached at all in engine-v2 was only partially traced: engine/tools/browser.py:64 calls /crawl only; the /instrument trigger path (docker/agent/browse.sh vs exploit_floor-driven) and its scan-mode gating (browser_instrument_on thorough-mode auto-on, config.py:342) were confirmed by flag but the exact live caller of POST /instrument in the engine-v2 path was not traced end-to-end — [UNVERIFIED] which component fires it per scan.",
+        "The recorded-sequence multi-step flow oracle (channels.py Track A) depends on an operator-authored /work/sequences.json; how/whether that file is ever populated automatically (vs operator-only) was not traced — if never auto-populated, the HTTP-level multi-step oracle is effectively operator-manual, widening the practical H4 gap.",
+        "H3 (does a confirmed primitive's capability token carry a proof ARTIFACT into hop N+1, or graph-only) is out of this WS but adjacent: browser_ingest carries proof only into finding-scoped evidence rows, not into a chain hop — not investigated here, deferred to the chain WS."
+      ]
+    }
+  },
+  {
+    "label": "WS-5 Intelligence:audit",
+    "result": {
+      "role": "WS-5 Decision-layer AUDITOR (design workstream, audit stage)",
+      "summary": "H2 REFINED (partly confirmed, partly refuted). A worker prompt has THREE parts with different natures: (1) the SYSTEM prompt is a near-identical STATIC template — the ~250-line DEEP_OFFENSIVE_VAPT string (methodology.py:13-251), invariant across every worker/scan except the OOB callback domain token (_oob_block, agents_runtime.py:922-940); (2) the per-wave TASK (_task_for, father.py:597-633) and (3) the reprompt (agents_runtime.py:962-994) are STATE-AWARE but they are DETERMINISTIC MECHANICAL TEMPLATES hydrated per-worker-per-wave from live ledger/brief/coverage state (the worker's own SKIP-LOCKED claimed cells, the live coverage board, a progress digest of confirmed findings + tested cells + tools fired) — string assembly, NOT LLM/planner-authored per-worker reasoning. Per-tick decision-making in the live engine-v2 loop is ENTIRELY DETERMINISTIC by default: Governor.decide (governor.py:32-39) returns stop/partial/continue from unresolved-count + a code-computed plateau flag + an off-by-default runaway backstop, a quiescence guard keeps draining while cells are claimable (father.py:1851), and target selection is a deterministic SKIP-LOCKED ledger claim (father.py:1191-1193). The ONE dynamic LLM planner — the Phase-2 boss-as-planner (boss.py / plan.py / plan_gate.py / policy.py) — IS genuinely wired into the LIVE father loop (run.py:285 -> father._boss_tick, father.py:1787), NOT a dead planner/reprompt path, but it is flag-gated scanner_engine_boss=False (config.py:417) and that flag is NOT pinned in docker-compose.yml, so the code default OFF wins and _boss_tick self-skips (father.py:1156): in a stock deploy the plan stays {}, plan_priority_classes()->[] (deterministic claim order), _plan_prefix->\"\" (no task prefix). Separately, the hierarchical planner/ package + entrypoint reprompt loop are DEAD under engine-v2 — run_scan()/scanner_orchestrator==\"planner\" (entrypoint.py:882) is never reached because SCANNER_ENGINE_V2 routes to _run_engine_v2() (entrypoint.py:1123, compose pins it true). Net: decision layer is deterministic-by-default; a complete, harvest-ready dynamic planner already exists but ships flag-dark.",
+      "evidence": [
+        {
+          "claim": "Worker SYSTEM prompt is a static template: _instructions() returns the fixed DEEP_OFFENSIVE_VAPT string + only the OOB block varies (whether OOB active + the domain string).",
+          "source": "[CODE] agents_runtime.py:917-920 (_instructions), :922-940 (_oob_block); methodology.py:13-251 (DEEP_OFFENSIVE_VAPT constant, no interpolation)",
+          "confidence": "HIGH",
+          "notes": "The only per-scan variation in the system prompt is the OOB callback domain token; methodology body is byte-identical for every worker in every scan."
+        },
+        {
+          "claim": "The per-wave worker TASK is state-aware: assembled from the live scan brief + live coverage board + this worker's own claimed open cells (worklist) + recon handoff + floor-signal triage + optional boss plan prefix.",
+          "source": "[CODE] father.py:597-633 (_task_for: prefix=brief+capability_ctx+board_totals+_plan_prefix; then _skills_block + _recon_handoff + _signal_triage_directive + _worklist_text(open_cells) + body); brief refreshed each wave at father.py:1781 (write_scan_brief)",
+          "confidence": "HIGH",
+          "notes": "State-aware but a DETERMINISTIC template hydrated from ledger/work-dir artifacts — no LLM authors it. worklist cells come from the SKIP-LOCKED claim, not a planner."
+        },
+        {
+          "claim": "The reprompt continuation is state-aware: it names the missing phase weapon, offensive-call count, coverage/finding counts, a progress digest (confirmed findings, tested cells, tools fired), and a re-asserted scope block, carried on the prior turn's history (stateful).",
+          "source": "[CODE] agents_runtime.py:962-994 (_reprompt), :1010-1021 (_progress_digest reads findings.jsonl + ledger_updates.jsonl), :996-1008 (_scope_block)",
+          "confidence": "HIGH",
+          "notes": "Again a mechanical template filled from live counters/artifacts, not planner reasoning. Reprompt loop bounded by SCANNER_ENGINE_MAX_REPROMPTS=6 x max_turns=40 (agents_runtime.py:808-838)."
+        },
+        {
+          "claim": "Per-tick stop decision is deterministic: Governor.decide returns stop on unresolved==0, partial on plateau, partial on an explicit runaway backstop (off by default), else continue.",
+          "source": "[CODE] governor.py:32-39 (decide), :41-48 (_runaway trips only when a limit is >0), :6-16 (FleetState.plateau)",
+          "confidence": "HIGH",
+          "notes": "No LLM in the stop path. plateau is computed in code from forward-progress deltas (father.py:1789-1811)."
+        },
+        {
+          "claim": "Plateau/quiescence per tick is code-computed: progress = new cells inserted (within recon-expansion budget) OR unresolved fell OR distinct confirmed findings grew; a partial decision only breaks the loop when NOT _has_claimable() (keep draining the queue).",
+          "source": "[CODE] father.py:1800-1811 (progress/plateau), :1817-1819 (_is_complete coverage-stop), :1841-1852 (governor.decide + quiescence guard)",
+          "confidence": "HIGH",
+          "notes": "Termination is progress/ledger-driven, not clock-driven; matches governor.py docstring."
+        },
+        {
+          "claim": "Target selection per tick is a deterministic SKIP-LOCKED ledger claim; the only 'read ledger to choose' inputs are claim_cells + _sample_open, with an advisory priority-class bias that is empty by default.",
+          "source": "[CODE] father.py:1178-1198 (_claim_worklist -> surf.claim_cells with priority_classes=self._plan_priority_classes()), :1141-1143 (_plan_priority_classes -> plan_priority_classes(self._plan)); plan.py:97-108 ([] for empty plan -> deterministic _CLASS_PRIORITY default)",
+          "confidence": "HIGH",
+          "notes": "With boss OFF, self._plan={} so priority_classes=[] -> claim uses the built-in deterministic class ordering."
+        },
+        {
+          "claim": "The Phase-2 boss (dynamic LLM planner) IS wired into the LIVE engine-v2 loop (run.py builds boss_fn and passes it to the live Father; father.run calls _boss_tick every wave), NOT a dead/legacy path.",
+          "source": "[CODE] run.py:254-261 (build_boss_execute_fn + _boss_fn), :285 (boss_fn=_boss_fn into Father used by run_engine); father.py:1787 (_boss_tick(brief) inside the main tick loop)",
+          "confidence": "HIGH",
+          "notes": "Live-wired but inert until the flag flips — 'flag-dark', not dead code."
+        },
+        {
+          "claim": "The boss tick is flag-gated OFF by default and self-skips: scanner_engine_boss defaults False in config and is NOT pinned in docker-compose, so the code default OFF wins and the plan stays {} -> byte-identical to today.",
+          "source": "[CODE] config.py:415-417 (scanner_engine_boss: bool = False); father.py:1156 (if self._boss_fn is None or not scanner_engine_boss: return); [QUERY] grep SCANNER_ENGINE_BOSS docker-compose.yml -> no match (only SCANNER_ENGINE_PLAYBOOK:-false and SCANNER_ENGINE_DIGEST:-1 present)",
+          "confidence": "HIGH",
+          "notes": "policy.py:124-132 shows SCANNER_ENGINE_BOSS also flips playbook-consume; both default OFF."
+        },
+        {
+          "claim": "When the boss IS validated, control stays deterministic: PlanGate validates+merges the candidate against the LIVE open surface + scope (never mints cells, widens scope, or keeps a dead scan alive); the plan only biases claim order + injects an advisory task prefix. 'LLM proposes, ledger disposes.'",
+          "source": "[CODE] plan_gate.py:30-92 (validate_plan/_validate merge-not-replace), :214-237 (_apply_rules: reject out-of-scope/no-class/no-surface); father.py:1152-1155 (docstring: TERMINATION IS UNCHANGED; plan reaches prompts+claim order only, never guard_tool_call)",
+          "confidence": "HIGH",
+          "notes": "Boss is advisory: any failure/None/empty -> prior plan stands (boss.py:149-175, plan_gate.py:41-47)."
+        },
+        {
+          "claim": "Even when live, the boss's actual inputs are narrower than build_boss_prompt supports: the live _boss_fn passes only brief + current_plan; board_totals, coverage_qa, and policy default to empty string.",
+          "source": "[CODE] run.py:260-261 (propose_plan(_boss_execute, brief=brief, current_plan=...)) vs boss.py:108-130 (build_boss_prompt accepts board_totals/coverage_qa/policy, default '')",
+          "confidence": "HIGH",
+          "notes": "The digests fold into `brief` via write_scan_brief (scan_brief.py), so the coverage board/policy sections would render '(none)' in the live boss prompt unless wired."
+        },
+        {
+          "claim": "The hierarchical planner/ package + entrypoint reprompt loop are DEAD under the default engine-v2 deploy: run_scan() (which gates the planner on scanner_orchestrator=='planner') is only reached when engine_v2 is false.",
+          "source": "[CODE] entrypoint.py:202 (engine_v2 = SCANNER_ENGINE_V2==true), :1123 (_run_engine_v2() if engine_v2 else run_scan()), :882-928 (planner path + reprompt loop live inside run_scan); [QUERY] grep SCANNER_ENGINE_V2 docker-compose.yml -> :168 ${SCANNER_ENGINE_V2:-true}",
+          "confidence": "HIGH",
+          "notes": "Confirms the standing memory note: engine-v2 is the only live orchestrator; planner+reprompt are dead-by-default."
+        },
+        {
+          "claim": "The reprompt STOP gate is a mechanical role-aware check, not a planner: non-offensive roles stop on the model's own stop; offensive workers stop once they fired the phase weapon AND recorded >=1 coverage cell — otherwise grind up to the reprompt cap.",
+          "source": "[CODE] agents_runtime.py:942-960 (_offensive_gate), :836 (break on gate OR attempts>max_reprompts OR budget<=0)",
+          "confidence": "HIGH",
+          "notes": "No decision-layer signal cuts a worker that is grinding-but-technically-progressing; ties to the WS-1 grind finding."
+        }
+      ],
+      "current_state": [
+        "Worker SYSTEM prompt = static: DEEP_OFFENSIVE_VAPT constant (methodology.py:13-251) + OOB block (agents_runtime.py:922-940); assembled at _instructions() agents_runtime.py:917-920.",
+        "Worker per-wave TASK = deterministic state-hydrated template: _task_for (father.py:597-633) concatenates live brief + board_totals + _plan_prefix + skills/recon-handoff/floor-triage/worklist(claimed cells)+body.",
+        "Reprompt = deterministic state-hydrated template: _reprompt (agents_runtime.py:962-994) + _progress_digest (agents_runtime.py:1010-1021) + _scope_block (agents_runtime.py:996-1008); loop at agents_runtime.py:812-838, bounded by max_reprompts=6 x max_turns=40.",
+        "Per-tick stop decision = deterministic Governor: governor.py:32-39 (decide) + :41-48 (_runaway, off by default).",
+        "Per-tick plateau/quiescence = code-computed in father.py:1789-1852 (progress deltas, _is_complete coverage-stop at :1817, quiescence guard at :1851).",
+        "Per-tick target selection = deterministic SKIP-LOCKED claim: father.py:1178-1198 (_claim_worklist -> claim_cells) with advisory priority_classes bias (father.py:1141-1143 -> plan.py:97-108, [] by default).",
+        "Dynamic LLM planner (boss) LIVE-wired but flag-dark: run.py:254-261,285 -> father.py:1787 (_boss_tick) -> self-skips at father.py:1156 because scanner_engine_boss=False (config.py:415-417), not pinned in docker-compose.yml.",
+        "Boss planner machinery (harvest-ready): boss.py:54-97 (build_boss_execute_fn), :149-175 (propose_plan), :108-130 (build_boss_prompt); plan_gate.py:30-92 (validate_plan, merge-not-replace + scope/class/surface rules); plan.py (read/write/merge_plan/render_plan_digest/plan_priority_classes); policy.py:135-161 (write_policy_file, inert unless consume gate on).",
+        "Boss->prompt/claim wiring points: father.py:296-307 (_plan_prefix REQUIRED-framed task prefix), :1141-1143 (_plan_priority_classes claim bias), :1145-1176 (_boss_tick validate+merge+persist+telemetry plan.revised), :1885 (plan_digest passed into build_specs).",
+        "Live boss inputs are narrower than the builder supports: run.py:260-261 passes only brief+current_plan; board_totals/coverage_qa/policy default '' (boss.py:108-130).",
+        "Hierarchical planner/ package + entrypoint reprompt loop DEAD under engine-v2: entrypoint.py:1123 routes to _run_engine_v2(); run_scan() planner gate at entrypoint.py:882 unreached (SCANNER_ENGINE_V2 pinned true, docker-compose.yml:168).",
+        "Governor runaway backstops (max_workers/invocations/wall) OFF by default; scan bounded by progress not clock (governor.py:41-48; run.py sets _mw=max_workers*4 as a lenient runaway-recon guard, father.py:1829-1836)."
+      ],
+      "hypotheses": [
+        {
+          "id": "H2",
+          "verdict": "REFINED (system prompt CONFIRMED static; task/reprompt REFUTED-static i.e. they ARE state-aware but deterministic; live dynamic planner exists but is flag-dark)",
+          "note": "Sharper truth: 'static system prompt + deterministic state-hydrated task/reprompt templates + a flag-dark LLM boss planner.' No per-tick LLM planning occurs in a stock deploy; all target selection and stop decisions are deterministic (Governor + SKIP-LOCKED ledger claim). The Phase-2 boss IS wired into the live loop (run.py:285 -> father.py:1787), so 'planner only in dead paths' is FALSE for the boss — it is live-wired but gated OFF (scanner_engine_boss=False, unpinned in compose). The separate hierarchical planner/ package + entrypoint reprompt loop ARE dead under engine-v2."
+        },
+        {
+          "id": "H2a",
+          "verdict": "SYSTEM-PROMPT-STATIC-CONFIRMED",
+          "note": "methodology.py:13-251 is a fixed constant; only _oob_block varies (agents_runtime.py:922-940). Every worker gets the same methodology."
+        },
+        {
+          "id": "H2b",
+          "verdict": "TASK-STATE-AWARE-CONFIRMED (deterministic, not planner)",
+          "note": "_task_for (father.py:597-633) hydrates the task from live brief/board/claimed-cells each wave; _reprompt (agents_runtime.py:962-994) hydrates from live progress. State-aware string assembly, no LLM author."
+        },
+        {
+          "id": "H2c",
+          "verdict": "DYNAMIC-PLANNER-WIRED-BUT-DARK",
+          "note": "Boss is in the live loop (run.py:285, father.py:1787) but scanner_engine_boss defaults False (config.py:417) and is not pinned in docker-compose -> _boss_tick self-skips (father.py:1156). Hierarchical planner/ package is dead (entrypoint.py:882 unreached under engine-v2)."
+        }
+      ],
+      "questions": [
+        {
+          "q": "(a) Are worker prompts near-identical static templates, or state-aware? Quote how the prompt is built (file:line).",
+          "answer": "BOTH, split by layer. SYSTEM prompt = near-identical static template: _instructions() = DEEP_OFFENSIVE_VAPT + _oob_block() (agents_runtime.py:917-920; methodology.py:13-251 is a fixed string with no interpolation; only the OOB callback domain varies, agents_runtime.py:922-940). The per-wave TASK is state-aware but deterministic: _task_for (father.py:597-633) builds `prefix = brief + capability_ctx + board_totals + _plan_prefix(plan_digest)` then appends `_skills_block + _recon_handoff + _signal_triage_directive + _worklist_text(open_cells) + body`, where open_cells are this worker's SKIP-LOCKED claimed cells and brief is re-derived each wave (father.py:1781). The reprompt is likewise state-aware: _reprompt (agents_runtime.py:962-994) injects the missing phase weapon, live coverage/finding counts, a _progress_digest (confirmed findings + tested cells + tools fired, agents_runtime.py:1010-1021), and a re-asserted scope block, carried on prior-turn history. None of the state-aware parts are LLM-authored.",
+          "verdict": "ANSWERED"
+        },
+        {
+          "q": "(b) What decision-making exists per tick today (governor continue/plateau/stop; boss plan.json; anything reading ledger state to choose targets)?",
+          "answer": "Per wave-tick (father.run loop, father.py:1762-1899): (1) deterministic Governor.decide -> stop(unresolved==0)/partial(plateau or off-by-default runaway)/continue (governor.py:32-39); (2) code-computed plateau from forward-progress deltas and a coverage-complete _is_complete stop (father.py:1789-1819); (3) a quiescence guard that only breaks on 'partial' when no cells remain claimable (father.py:1851); (4) deterministic target selection via SKIP-LOCKED claim_cells with an advisory priority_classes bias that is EMPTY by default (father.py:1191-1193, :1141-1143). The boss plan.json IS consulted (father.py:1787 _boss_tick -> validate_plan) but it is flag-gated OFF (scanner_engine_boss=False), so it contributes nothing in a stock deploy — plan stays {}, priority_classes=[], task prefix empty. The only components that read ledger state to choose targets are the deterministic _sample_open + claim_cells; no LLM chooses targets by default.",
+          "verdict": "ANSWERED"
+        },
+        {
+          "q": "(c) Is any dynamic planner wired into engine-v2's live loop, or only in dead planner/reprompt paths?",
+          "answer": "The Phase-2 boss-as-planner IS wired into engine-v2's LIVE loop — run.py:254-285 constructs boss_fn and passes it to the live Father, and father.run() calls _boss_tick every wave (father.py:1787). It is NOT a dead path. BUT it is flag-gated scanner_engine_boss=False (config.py:415-417) and that flag is not pinned in docker-compose.yml, so the code default OFF wins and _boss_tick self-skips (father.py:1156): it is 'live-wired but flag-dark', inert in a stock deploy. Separately, the hierarchical planner/ package (planner/coordinator.py etc.) and the entrypoint reprompt loop are genuinely DEAD under engine-v2, because they live inside run_scan()/scanner_orchestrator=='planner' (entrypoint.py:882) which is never reached when SCANNER_ENGINE_V2 is true (entrypoint.py:1123; compose pins it true at :168). So: exactly one dynamic planner touches the live loop (the boss), and it ships OFF.",
+          "verdict": "ANSWERED"
+        }
+      ],
+      "defects": [
+        {
+          "title": "Live boss prompt is starved of the coverage board + policy it was designed to read",
+          "mechanism": "run.py:260-261 calls propose_plan(brief=brief, current_plan=...) only; build_boss_prompt's board_totals/coverage_qa/policy params (boss.py:108-130) default to '' so those sections render '(none)'. When the flag is eventually flipped, the boss plans from the brief digest alone, blind to the live coverage-board totals and the assembled policy.md, weakening the very re-prioritisation it exists for.",
+          "severity": "LOW",
+          "blast_radius": "Only manifests when scanner_engine_boss=ON (off by default -> zero prod impact today). Affects plan quality, never termination or scope (PlanGate still bounds it).",
+          "module_flag": "run.py _boss_fn / scanner_engine_boss"
+        },
+        {
+          "title": "No decision-layer signal cuts a grinding-but-non-plateauing worker",
+          "mechanism": "The only per-worker stop is the mechanical _offensive_gate (agents_runtime.py:942-960: phase weapon fired + >=1 coverage recorded) or the reprompt cap (agents_runtime.py:836). A worker that keeps incrementing tool_calls without closing cells is neither a fleet-level plateau (new coverage lines count as progress, father.py:1800-1811) nor caught per-worker, so it grinds to max_reprompts x max_turns. This is the decision-layer face of the WS-1 grind finding.",
+          "severity": "MEDIUM",
+          "blast_radius": "Wall-clock/cost per scan; longer runs, not incorrect results. Present in the default deploy.",
+          "module_flag": "agents_runtime _offensive_gate / _reprompt (no flag)"
+        }
+      ],
+      "gaps": [
+        "No per-worker dynamic objective assignment exists: fan-out is round-robin by phase-group (father.py:1868-1875) and cells are a deterministic disjoint claim; nothing reasons 'send worker X at objective Y and here is why.' The boss can only bias global claim order + inject one shared plan-digest prefix, not author per-worker plans — a gap vs the competitor standard of a per-finding decision/reasoning + attack-path log.",
+        "The boss cannot escalate/deepen a confirmed primitive: it only orders/filters OPEN cells by class+glob (plan_gate.py:203-235). It has no channel to say 'a db_read was confirmed at endpoint E, now chain from it' — that is the deterministic chain floor's job, disjoint from the planner. So the decision layer has no LLM-in-the-loop chaining strategy (relevant to H3).",
+        "coverage_qa is a defined boss input (boss.py:108-130) but is never produced/passed anywhere in the live loop; no code computes a coverage-QA section for the planner.",
+        "Governor decisions are emitted as telemetry (father.py:1842-1843) but there is no decision/reasoning LOG persisted per wave that a buyer could inspect (why the fleet continued/stopped, what was prioritised) — the plan.revised event (father.py:1173-1176) is the only planner-side breadcrumb, and only when the flag is on.",
+        "Harvest-not-rebuild inventory (already exists to plan from, no rebuild needed): boss.py (bounded read-only LLM planner + propose_plan, fail-safe), plan_gate.py (deterministic validate+merge, LLM-proposes-ledger-disposes), plan.py (plan.json channel: merge_plan/render_plan_digest/plan_priority_classes claim bias), policy.py (human layer-1 policy.md, inert-until-consumed), governor.py (deterministic stop), _task_for/_reprompt/_progress_digest (state-hydration machinery), _plan_prefix + _plan_priority_classes (the two boss->execution seams), plan.revised recorder event (telemetry). A WS-5 upgrade should flip/extend these behind scanner_engine_boss, not build a new planner.",
+        "docker-compose.yml does not pin SCANNER_ENGINE_BOSS at all; unlike several 'Default ON but pinned false' knobs this one is default-OFF and unpinned, so OFF is consistent — but any future default flip must add an explicit compose pin to avoid silent divergence between bare-process and compose deploys."
+      ]
+    }
+  },
+  {
+    "label": "WS2:ledger-thrash",
+    "result": {
+      "role": "WS-2 Ledger cell-state THRASH forensics (systems-architect, read-only)",
+      "summary": "CONFIRMED the WS-1 \"coverage thrash\" mechanism empirically — but reframed by the data into TWO coupled pathologies, not one. (1) RECLAIM THRASH: cells cycle untested->testing(claim,attempts++)->lease-expire->reclaim->testing without terminalizing. The DB `ledger_cell.attempts` counter (each claim_cells does attempts+=1) proves it: applicable cells claimed >=2x = 622/2719 (23%) on prior scan 68a58881, 727/2122 (34%) on infinity 1f5fe7c8, and 428/2916 (15%, still climbing at only max=3 attempts 7h in) on the LIVE scan 84aea81a. Reclaim is PARTLY productive (blackboard handoff works: of >=2-attempt cells, ~51-64% eventually close tested_clean) but 35-48% die without a real result. LIVE smoking gun: 1654/1703 (97%) of currently-`testing` cells sit in expired-lease limbo (claimed_by set, lease_expires_at < now()) = exactly the re-claimable state, yet their last_progress is <5min because a periodic resolve pass (LIVE_CONVERGENCE, SYNC_INTERVAL_S=120) bumps last_progress independent of the lease — so the last_progress-based stuck-detector (STUCK_WINDOW_S=1200) never fires while the lease-based claim gate keeps re-handing them. Two clocks disagree. (2) STARVATION (the dominant terminal outcome, the flip side): while capacity concentrates on re-claiming the same ~600-720 cells, a comparable/larger set is NEVER claimed once (attempts=0) and gets swept to terminal `attempted` by finalize.py's retire-unreached sweep — 1054/2719 (39%) on 68a58881, 470/2122 (22%) on infinity. The `attempted` bucket therefore conflates cap-exhaustion (minor: the cap of 6 is rarely hit) with unreached-starvation (dominant: 81% and 55% of `attempted` cells have attempts=0). SELF-REPORT corroboration: ledger_updates.jsonl (agent coverage self-reports; no timestamp/worker/cell_id -> ordinal analysis) is 42.5%/36.9% redundant re-writes and 88.3%/91.3% of self-reported cells never get a terminal coverage line (endless \"testing\", up to 31 re-writes on one cell). NOTE ledger_updates.jsonl does NOT record claim/reclaim/worker transitions at all — it is the agent's self-graded coverage churn; the authoritative reclaim record is the DB attempts column.",
+      "current_state": [
+        "ledger_updates.jsonl schema = {endpoint,evidence,methods,state,vuln_class}; NO timestamp, NO worker_id, NO cell_id. [CODE] agents_runtime.py:699-702 record_coverage writes exactly these 5(+reason) keys; [QUERY] head -1 ledger_updates.jsonl keys -> ['endpoint','evidence','methods','state','vuln_class']; grep for ts/time/timestamp -> NONE. Line order = transition ordinal (append-only, fleet-shared).",
+        "Claim = the only place cells enter 'testing' + increment attempts: SELECT..FOR UPDATE SKIP LOCKED sets state='testing', claimed_by=worker, attempts=attempts+1, lease_expires_at=now()+lease. [CODE] ledger/service.py:1393-1417 (claim_cells).",
+        "Reclaim path 1 (immediate, on preempt/finish): release_cells / release_cells_by_ids null out claimed_by+lease; absorb to terminal 'attempted' ONLY when attempts>=cap. [CODE] ledger/service.py:1444-1505.",
+        "Reclaim path 2 (fallback, dead worker): reclaim_expired_leases nulls claimed_by+lease for open cells past lease; absorb to 'attempted' only when attempts>=cap. [CODE] ledger/service.py:1543-1570.",
+        "Attempt cap: code default 3 ('a cell 3 workers could not close is retired'), live/prod pins 6. [CODE] ledger/service.py:1237-1247 _attempt_cap default '3'; [QUERY] docker exec scanner-agent-84aea81a7e43 env -> SCANNER_LEDGER_ATTEMPT_CAP=6, SCANNER_LEDGER_LEASE_S=1800.",
+        "Terminal 'attempted' also set by a SECOND, cap-independent path: finalize retire-unreached sweeps every applicable untested/empty-testing cell to 'attempted' at scan end. [CODE] finalize.py:454-460 UPDATE ledger_cell SET state='attempted', na_reason='unreached: scan ended before this cell was tested'; [CODE] config.py:451 scanner_finalize_retire_unreached=True (default ON).",
+        "last_progress is stamped on claim AND on every resolve_cells match (coverage self-report), but lease_expires_at is stamped ONLY by claim -> the two diverge. [CODE] ledger/service.py:1412 (claim stamps both) vs resolve_cells cell.last_progress=now at :886/:909/:926/:1028 (bumps last_progress, never the lease).",
+        "count_claimable_cells (quiescence stop) and claim gate both treat state IN (untested,testing) with expired/NULL lease as claimable, ignoring last_progress. [CODE] ledger/service.py:1508-1521, 1399-1400."
+      ],
+      "evidence": [
+        {
+          "claim": "ledger_updates.jsonl has NO timestamp/worker/cell_id; only self-report churn. Analysis must use transition ordinals.",
+          "source": "[QUERY] head -1 ledger_updates.jsonl | py sorted(keys) -> ['endpoint','evidence','methods','state','vuln_class']; grep -m1 -E '\"(ts|time|timestamp|at|created)\"' -> NONE",
+          "confidence": "HIGH",
+          "notes": "Prior scan 68a58881 workdir tarball; matches [CODE] agents_runtime.py:699-702."
+        },
+        {
+          "claim": "Prior scan 68a58881 self-report file: 2450 lines / 1409 distinct (endpoint,class) cells; 42.5% redundant re-writes; 88.3% of cells never get a terminal coverage line; one cell re-written 31x.",
+          "source": "[QUERY] python3 thrash.py .../68a58881/ledger_updates.jsonl -> {file_lines:2450,distinct_cells:1409,redundant_ratio:0.425,cells_never_terminalized_in_file:1244(88.3%),max_lines_one_cell:31,cells_with_2plus_testing_lines:292}",
+          "confidence": "HIGH",
+          "notes": "endpoints sha1-hashed before counting; only aggregates surfaced."
+        },
+        {
+          "claim": "Infinity scan 1f5fe7c8 self-report file replicates the pattern: 2032 lines/1283 cells; 36.9% redundant; 91.3% never terminalize in-file; max 12 re-writes.",
+          "source": "[QUERY] python3 thrash.py .../1f5fe7c8/ledger_updates.jsonl -> {file_lines:2032,distinct_cells:1283,redundant_ratio:0.369,cells_never_terminalized_in_file:1171(91.3%),max_lines_one_cell:12}",
+          "confidence": "HIGH",
+          "notes": "Second independent workdir tarball; consistent -> not a one-off."
+        },
+        {
+          "claim": "DB is authoritative for reclaim. attempts histogram (applicable) 68a58881: 0->1125,1->972,2->206,3->231,4->183,5->1,6->1. Cells claimed >=2x = 622/2719 (22.9%); max 6, avg 1.04.",
+          "source": "[QUERY] psql SELECT attempts,count(*) FROM ledger_cell WHERE scan_id=68a5.. AND applicable GROUP BY attempts -> as listed; max/avg -> 6|1.04",
+          "confidence": "HIGH",
+          "notes": "tenant_xbow.ledger_cell; each attempt = one claim_cells increment."
+        },
+        {
+          "claim": "Infinity 1f5fe7c8 shows HEAVIER reclaim: attempts 0->503,1->892,2->187,3->136,4->181,5->124,6->99. Claimed >=2x = 727/2122 (34%); avg 1.70; 99 cells hit the cap of 6.",
+          "source": "[QUERY] psql same query scan_id=1f5f.. -> as listed; max/avg -> 6|1.70",
+          "confidence": "HIGH",
+          "notes": "avg 1.70 vs 1.04 -> reclaim intensity varies by target/run."
+        },
+        {
+          "claim": "Reclaim is partly productive, partly wasted. Of >=2-attempt cells, 68a58881: 401 closed tested_clean (64%) vs 218 died 'attempted' (35%). Infinity: 373 closed (51%) vs 346 died (48%).",
+          "source": "[QUERY] psql SELECT attempts,state,count(*) ... GROUP BY attempts,state -> 68a5 attempted@>=2={55,66,97}=218, tested_clean@>=2={148,165,86,1,1}=401; 1f5f attempted@>=2={69,80,86,58,53}=346, tested_clean@>=2={116,54,93,64,46}=373",
+          "confidence": "HIGH",
+          "notes": "Blackboard-handoff (prior_methods carried on re-claim, claim_cells:1429-1440) genuinely closes many cells on the 2nd-4th try."
+        },
+        {
+          "claim": "The 'attempted' terminal bucket is DOMINATED by never-claimed starvation, not cap-exhaustion. 68a58881 attempted=1303 of which attempts=0 ->1054 (81%); infinity attempted=853 of which attempts=0 ->470 (55%).",
+          "source": "[QUERY] psql SELECT attempts,count(*) FROM ledger_cell WHERE state='attempted' GROUP BY attempts -> 68a5: 0|1054,1|31,2|55,3|66,4|97 ; 1f5f: 0|470,1|37,2|69,3|80,4|86,5|58,6|53",
+          "confidence": "HIGH",
+          "notes": "attempts=0 'attempted' cannot come from reclaim (needs claimed_by/attempts>=cap) -> it is finalize.py:454-460 retire-unreached. Starvation share of applicable: 68a5 1054/2719=39%, 1f5f 470/2122=22%."
+        },
+        {
+          "claim": "LIVE scan 84aea81a (running ~7h): 97% of testing cells sit in expired-lease limbo = the re-claimable pending state. testing=1703 -> 1654 expired-lease(limbo) + 49 unclaimed(released), 0 claimed-live.",
+          "source": "[QUERY] psql SELECT CASE WHEN claimed_by IS NULL..WHEN lease_expires_at<now() THEN 'expired-lease(limbo)'.. FROM ledger_cell WHERE state='testing' -> unclaimed:49, expired-lease(limbo):1654",
+          "confidence": "HIGH",
+          "notes": "These 1654 will be re-claimed (attempts++) next wave. Live attempts>=2 already 428/2916; max only 3 (cap 6 not yet reached, will climb)."
+        },
+        {
+          "claim": "Two clocks disagree: every LIVE testing cell has last_progress <5min (max 3min) despite expired 30-min leases -> last_progress-based stuck-detection is blind to lease-limbo thrash.",
+          "source": "[QUERY] psql width_bucket(age since last_progress in min) for testing cells -> bucket<1m:354, 1-5m:1349; max age -> 3 min. Lease=1800s.",
+          "confidence": "HIGH",
+          "notes": "[INFER MEDIUM] periodic resolve pass (SYNC_INTERVAL_S=120, LIVE_CONVERGENCE=true) bumps last_progress on match (resolve_cells:1028) without touching the lease -> STUCK_WINDOW_S=1200 never fires."
+        },
+        {
+          "claim": "'Distinct workers per cell' is NOT retained anywhere. DB keeps only current claimed_by (last claimer); the file has no worker. Live worker pool = 13 distinct identities: wave0, wave1, and 11 floor-* pseudo-workers.",
+          "source": "[QUERY] psql SELECT count(DISTINCT claimed_by) WHERE claimed_by IS NOT NULL -> 13; DISTINCT masked -> wave0,wave1,floor-{upload,hygiene,authclass,access,nofamily,config,injection,logic,clientside,blind,ratelimit}",
+          "confidence": "HIGH",
+          "notes": "Upper bound of distinct workers touching a cell = its attempts (each claim potentially a different worker); exact per-cell history [UNVERIFIED - not persisted]."
+        }
+      ],
+      "questions": [
+        {
+          "q": "How often does a cell cycle claim->testing->reclaim->claim without terminalizing?",
+          "answer": "Widely. DB attempts>=2 (applicable): 68a58881 622/2719=23%, 1f5fe7c8 727/2122=34%, LIVE 84aea81a 428/2916=15% and climbing (7h in, max attempts only 3). Of reclaimed cells, 35% (68a5) / 48% (1f5f) never converge on a real result. LIVE: 1654/1703 (97%) of testing cells are in expired-lease limbo = pending the next reclaim right now.",
+          "verdict": "CONFIRMED"
+        },
+        {
+          "q": "Distribution of transitions per cell?",
+          "answer": "DB attempts (claims) per applicable cell — 68a58881: {0:1125,1:972,2:206,3:231,4:183,5:1,6:1}; 1f5fe7c8: {0:503,1:892,2:187,3:136,4:181,5:124,6:99}; LIVE: {0:337,1:2151,2:418,3:10}. Self-report lines per cell — 68a58881: {1:1037,2-3:256,4-5:83,6-10:19,11-20:8,21+:6} median 1, max 31.",
+          "verdict": "CONFIRMED"
+        },
+        {
+          "q": "How many distinct workers touch one cell?",
+          "answer": "Not measurable per-cell: neither the DB (only current claimed_by) nor the file (no worker field) retains claim history. Proxy upper bound = attempts (2-6). The live fleet has 13 distinct worker identities (wave0/1 + 11 floor-* pseudo-workers) sharing the pool.",
+          "verdict": "UNVERIFIED"
+        },
+        {
+          "q": "Time cells spend in 'testing'?",
+          "answer": "Not directly measurable. ledger_updates.jsonl has no timestamps (ordinals only). DB has no claim-time column; last_progress is conflated by resolve passes. Snapshot proxy: LIVE testing cells show last_progress <5min but 97% have 30-min leases already expired, so true dwell >> lease (1800s) and is masked. Lease=1800s bounds one claim's nominal life, not real dwell.",
+          "verdict": "PLAUSIBLE"
+        }
+      ],
+      "hypotheses": [
+        {
+          "id": "WS1-coverage-thrash: cells cycle claim/reclaim without terminalizing, stalling coverage",
+          "verdict": "CONFIRMED-reframed",
+          "note": "Reclaim thrash is real and measured (23-34% of applicable cells claimed >=2x; 97% of live testing cells in re-claimable limbo). BUT the dominant coverage-stall driver in FINALIZED scans is the coupled STARVATION: 39%/22% of applicable cells are never claimed once and are swept to 'attempted' unreached at finalize. Capacity concentrates on re-working a subset while another subset is never reached. The attempt-cap (6) is rarely hit, so cap-absorption is a minor contributor."
+        },
+        {
+          "id": "attempt-cap absorbs thrashed cells to 'attempted' during the run",
+          "verdict": "REFUTED-mostly",
+          "note": "Cap absorption requires attempts>=cap(6); only ~1-2 cells reached 6 on 68a58881 and ~152 on 1f5fe7c8. 81%/55% of 'attempted' cells have attempts=0 -> they came from finalize retire-unreached (finalize.py:454-460), not the reclaim cap. The cap is not doing the in-run termination its docstring claims for these runs."
+        },
+        {
+          "id": "stuck-detection catches thrashing cells",
+          "verdict": "REFUTED",
+          "note": "Stuck-detection is last_progress-based (STUCK_WINDOW_S=1200) but a periodic resolve pass bumps last_progress independent of the lease, so all 1654 limbo cells read <5min 'fresh' and are never flagged, while the lease-based claim gate re-hands them."
+        }
+      ],
+      "defects": [
+        {
+          "title": "last_progress and lease_expires_at are two disagreeing clocks -> stuck-detection blind to lease-limbo reclaim thrash",
+          "mechanism": "claim_cells stamps both last_progress and lease_expires_at; resolve_cells (fired every SYNC_INTERVAL_S=120 by LIVE_CONVERGENCE) bumps last_progress on every matched cell but never the lease. A cell claimed >30min ago (lease expired -> re-claimable) still reads last_progress<5min, so the last_progress-based stuck-detector (STUCK_WINDOW_S=1200) never preempts it while the lease-based claim gate keeps re-handing it. Live: 1654/1703 testing cells in exactly this state.",
+          "module_flag": "ledger/service.py claim_cells:1393-1417 vs resolve_cells:1028; father stuck-detection STUCK_WINDOW_S. Fix would be flag-gated default-OFF (e.g. tie stuck-detection to lease_expires_at, or a scanner_ledger_progress_extends_lease knob).",
+          "blast_radius": "Coverage stalls: capacity re-claims warm-but-stale cells instead of untested ones; masks genuine hangs.",
+          "severity": "HIGH"
+        },
+        {
+          "title": "'attempted' terminal state conflates reclaim-exhaustion with never-reached starvation -> honest-coverage and thrash metrics are muddled",
+          "mechanism": "Two code paths write state='attempted': (a) release/reclaim when attempts>=cap (real exhaustion), (b) finalize.py:454-460 retire-unreached (scanner_finalize_retire_unreached=True) sweeping any applicable untested/empty-testing cell at scan end. In finalized scans (b) dominates (81%/55% of 'attempted' have attempts=0). A reader counting 'attempted' as 'thrashed to death' overstates thrash and hides that 22-39% of the surface was never tested.",
+          "module_flag": "finalize.py:454-460 (scanner_finalize_retire_unreached, default True) + ledger release/reclaim cap absorption. Distinguish with a separate na_reason/state (e.g. 'unreached' vs 'attempted') behind a default-OFF flag; report.py coverage already treats attempted as not-resolved.",
+          "blast_radius": "Buyer-visible coverage %: a scan that reached completed can have 22-39% of applicable cells never probed, reported only as 'attempted'.",
+          "severity": "HIGH"
+        },
+        {
+          "title": "Capacity concentration: fleet re-claims a ~600-720 cell subset up to 6x while a comparable subset is never claimed once",
+          "mechanism": "claim_cells orders by vuln_class priority then updated_at then cell_id and re-hands expired-lease cells (which keep getting updated_at/last_progress bumped) ahead of never-touched cells that share priority. Net: the same subset is reclaimed repeatedly (attempts 2-6) while low-priority-class cells starve to finalize retire-unreached.",
+          "module_flag": "ledger/service.py claim_cells ORDER BY :1403 (array_position(ranked) NULLS LAST, updated_at, cell_id). A default-OFF 'prefer attempts=0 within a priority tier' tiebreak (ORDER BY ... , attempts ASC, updated_at) would spread capacity to unreached cells without changing class priority.",
+          "blast_radius": "22-39% unreached surface per scan; reclaim effort has diminishing returns (35-48% of reclaimed cells still never converge).",
+          "severity": "MEDIUM"
+        }
+      ],
+      "gaps": [
+        "ledger_updates.jsonl carries no timestamp, worker_id, or cell_id -> all file-side thrash characterization is by transition ORDINAL (append-only, fleet-shared line order), not wall-clock.",
+        "Per-cell distinct-worker count is not persisted (DB keeps only current claimed_by; file has no worker). Upper bound = attempts; exact history [UNVERIFIED].",
+        "True time-in-'testing' (dwell) is not directly measurable: no claim-timestamp column, and last_progress is conflated by periodic resolve passes; only a point-in-time snapshot of the live scan was read.",
+        "Live scan is a single point-in-time snapshot (running ~7h, max attempts 3); its attempts/limbo figures will climb toward the finalized-scan pattern but were not observed to completion (read-only, not disturbed).",
+        "proxy_log.db blind spot noted in brief (NVIDIA/nemotron only; this live scan runs openrouter/bunny) - not used here; DB ledger_cell was the authoritative source and was fully readable.",
+        "Whether reclaim uses distinct workers vs the same worker re-claiming is unknowable from stored state; the 13-identity pool bounds it but does not prove per-cell diversity."
+      ]
+    }
+  },
+  {
+    "label": "WS2:fail-catalog",
+    "result": {
+      "role": "WS-2 Observed-failure catalog (aggregate) — SYSTEMS-ARCHITECT / Abhedi Red",
+      "summary": "Aggregate observed-failure catalog built from 2 extracted prior workdirs (scan 68a58881 = duck-store.escape.tech; scan 1f5fe7c8 = \"infinity\"), the live scanner-cp log (uptime ~3h, dominated by live scan 84aea81a), and tenant_xbow read-only queries. 16 distinct failure classes tabulated with counts + one-line mechanism (file:line). The three loudest signals are all silent-loss / flood classes: (1) result-drop — ledger.resolve.update_unmatched=7,735 + finding_unmatched=1,750 in ONE scan: coverage/finding results whose (endpoint,vuln_class) matched no ledger cell were silently discarded and re-logged every reconcile tick (father.py:107 itself calls this \"the biggest hidden leak\"); (2) log flood — scan.method_switch=41,978 lines = 92% of the entire scanner-cp log, the watchdog re-emitting one pubsub event per stuck 'testing' cell every tick with zero DB persistence; (3) worker crash — worker_runs.status='error'=578/977=59%, dominated by provider \"ChatCompletion response has no choices\"=471. Coverage never resolves: 8,771 applicable cells retired to terminal 'attempted' (unreached) + 5,299 untested + 2,774 stuck 'testing'. Telemetry is near-blind: scan 68a58881 persisted 1 agent_message vs 12,143 tool_invocations (~12,000x). Most scans do not finish clean: cancelled=19 / failed=4 / partial=1 vs completed=18. FALSIFIED one belief: no real HTTP-409 respawn conflicts in this cp window (grep '409' matched TCP port numbers, not conflicts). This is a COUNTS catalog, not new root-causing; every count carries a [QUERY]/[CODE] source. READ-ONLY; live scan 84aea81a untouched; one bootstrap admin key seen in agent.log line 1 was redacted and not reproduced.",
+      "current_state": [
+        "Sources read READ-ONLY: /tmp/mako-ws2/68a58881-ae3b-4f36-90a9-bf254da13fcb/ (final workdir, agent.log 60,672 lines) and /tmp/mako-inf/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/ (infinity-fresh, files-only, NO logs/agent.log), extracted to temp dirs I own; docker logs scanner-cp (45,774 lines); psql tenant_xbow. [QUERY]",
+        "Scan 68a58881 target = duck-store.escape.tech (exploit_floor_signals.jsonl endpoints). It persisted 38 findings to DB but its agent.log shows 18,506 finding.duplicate_skipped — findings re-ingested every reconcile tick. [QUERY] grep event-name freq on agent.log",
+        "tenant_xbow.ledger_cell state distribution (ALL scans): na=48,322, attempted=8,771, untested=5,299, tested_clean=4,862, testing=2,774, blocked=455, confirmed=298. [QUERY] psql GROUP BY state",
+        "tenant_xbow.scans status (ALL): cancelled=19, completed=18, failed=4, partial=1, running=1. failed failure_reason = 'agent_exit_-1_after_0_attempts' and 'spawn_error: 404 ... pull access denied for scanner/zap'. [QUERY] psql GROUP BY status",
+        "tenant_xbow.worker_runs status (ALL): error=578, ok=270, partial=76, running=53. [QUERY] psql GROUP BY status",
+        "scan.method_switch is published via publish_event to pubsub/log only and is ABSENT from scan_events top-25 (tool.started=27,056 / tool.done=27,039 dominate) — the 41,978 cp-log method_switch lines have zero DB persistence. [CODE] poller.py:1160-1165; [QUERY] psql scan_events GROUP BY event_type"
+      ],
+      "defects": [
+        {
+          "title": "F1 update_unmatched — coverage results silently dropped",
+          "mechanism": "[CODE] ledger/service.py:949 ledger.resolve.update_unmatched — an agent coverage-update line whose (endpoint,vuln_class) matches no ledger cell is counted unmatched and discarded; the resolve path re-runs over the whole ledger_updates.jsonl each reconcile tick with no dedup, so the same drop re-logs. father.py:107 names this 'the biggest hidden leak'.",
+          "severity": "HIGH",
+          "blast_radius": "7,735 events in scan 68a58881 agent.log (vs only 2,481 ledger_updates.jsonl lines → ~3x re-log amplification). [QUERY] grep -c",
+          "module_flag": "src/scanner/ledger/service.py:949 (no flag — always on)"
+        },
+        {
+          "title": "F2 finding_unmatched — findings silently dropped from ledger resolve",
+          "mechanism": "[CODE] ledger/service.py:873 ledger.resolve.finding_unmatched — a finding whose (endpoint,vuln_class) matches no ledger cell is counted unmatched and not attached to coverage; re-logged per reconcile tick.",
+          "severity": "HIGH",
+          "blast_radius": "1,750 events in scan 68a58881 agent.log. [QUERY] grep -c",
+          "module_flag": "src/scanner/ledger/service.py:873"
+        },
+        {
+          "title": "F3 finding.duplicate_skipped flood",
+          "mechanism": "[CODE] agent_runtime/tools/findings.py:409 — every re-ingest of an already-persisted dedup_hash logs a skip; findings.jsonl is re-ingested each reconcile tick so all prior findings re-skip every pass.",
+          "severity": "MEDIUM",
+          "blast_radius": "18,506 events in scan 68a58881 agent.log vs 38 findings actually persisted to DB (~487x). [QUERY] event-name freq",
+          "module_flag": "src/scanner/agent_runtime/tools/findings.py:409"
+        },
+        {
+          "title": "F4 verification.failed — LLM verifier subagent unavailable (fail-open)",
+          "mechanism": "[CODE] hooks/verification.py:240 — verifier subagent execute_fn raised (timeout/egress/SDK/provider), fail-open keeps the finding but stamps verification_status='verifier_unavailable'. High rate means the LLM-verification tier is effectively non-functional for that scan and its failure is masked.",
+          "severity": "HIGH",
+          "blast_radius": "524 failed of 540 verification.spawned = 97% in scan 68a58881 agent.log. [QUERY] event-name freq",
+          "module_flag": "src/scanner/agent_runtime/hooks/verification.py:240"
+        },
+        {
+          "title": "F5 scan.method_switch debug flood",
+          "mechanism": "[CODE] poller.py:1160-1165 _watchdog_once — for EVERY cell stuck in state='testing' past WATCHDOG_STALE_SECONDS, publish one scan.method_switch event and bump last_progress; refires every watch tick while the cell stays stuck. Consumer is a 'future planner (WS3)' — currently no consumer, not persisted to scan_events.",
+          "severity": "MEDIUM",
+          "blast_radius": "41,978 lines = 92% of the 45,774-line scanner-cp log; scoped scan_id=84aea81a (live) = 43,353. [QUERY] docker logs grep -c + scan_id uniq",
+          "module_flag": "src/scanner/scheduler/poller.py:1160 (WATCHDOG_STALE_SECONDS)"
+        },
+        {
+          "title": "F6 worker_runs error — majority of worker runs crash",
+          "mechanism": "provider/LLM failures bubble to worker_runs.status='error'. Breakdown: 'ChatCompletion response has no choices (possible provider error payload)'=471, HTTP 429 Too Many Requests=91, 500=9, 400=6, 502=1.",
+          "severity": "HIGH",
+          "blast_radius": "578 error of 977 total worker_runs = 59% (ALL scans); no-choices alone = 471 = 81% of errors. [QUERY] psql worker_runs GROUP BY status, error",
+          "module_flag": "tenant_xbow.worker_runs (provider/proxy reliability; proxy_log.db blind to non-nemotron providers per directive)"
+        },
+        {
+          "title": "F7 retire_unreached sweep — applicable cells retired unprobed",
+          "mechanism": "[CODE] finalize.py:454-461 — at finalize, cells still untested (or 'testing' with empty methods_used) are UPDATEd to terminal 'attempted' with na_reason='unreached: scan ended before this cell was tested' so the scan can read 'completed'; attempted is not counted resolved (coverage % stays honest). Gated scanner_finalize_retire_unreached default ON.",
+          "severity": "MEDIUM",
+          "blast_radius": "8,771 cells in state='attempted' (ALL scans) = never actually probed. [QUERY] psql ledger_cell GROUP BY state",
+          "module_flag": "src/scanner/agent_runtime/finalize.py:454 · flag scanner_finalize_retire_unreached (config.py:451 default True)"
+        },
+        {
+          "title": "F8 never-reached cells (untested at end)",
+          "mechanism": "cells materialized into the ledger but never claimed/probed before the scan ended (pre-retire remainder, or scans not yet finalized).",
+          "severity": "MEDIUM",
+          "blast_radius": "5,299 cells in state='untested' (ALL scans). [QUERY] psql ledger_cell GROUP BY state",
+          "module_flag": "tenant_xbow.ledger_cell"
+        },
+        {
+          "title": "F9 stuck-'testing' limbo cells (method_switch fuel)",
+          "mechanism": "cells claimed into 'testing' but never resolved back to tested_clean/confirmed nor released; these are exactly what the watchdog re-fires method_switch on (F5).",
+          "severity": "MEDIUM",
+          "blast_radius": "2,774 cells in state='testing' (ALL scans). [QUERY] psql ledger_cell GROUP BY state",
+          "module_flag": "tenant_xbow.ledger_cell + poller.py:1147 watchdog"
+        },
+        {
+          "title": "F10 agent_messages vs tool_invocations divergence — telemetry near-blind",
+          "mechanism": "agent_messages telemetry table is near-empty relative to tool activity; the reasoning/message stream is not being persisted while tool_invocations flow normally (candidate emitter telemetry.agent_message_failed at telemetry.py:247).",
+          "severity": "MEDIUM",
+          "blast_radius": "scan 68a58881: 1 msg / 12,143 tools (~12,000x); 1f5fe7c8: 139 / 9,843; live 84aea81a: 76 / 5,983; several scans 0 msgs / 1,000+ tools. [QUERY] psql FULL OUTER JOIN",
+          "module_flag": "tenant_xbow.agent_messages · src/scanner/agent_runtime/engine/telemetry.py:247"
+        },
+        {
+          "title": "F11 scans not completing cleanly",
+          "mechanism": "most scans end cancelled (time-cap/manual → SIGKILL path) or failed rather than completed.",
+          "severity": "MEDIUM",
+          "blast_radius": "cancelled=19, failed=4, partial=1 vs completed=18 (ALL). failed reasons = 'agent_exit_-1_after_0_attempts' and zap image-pull 404 ('pull access denied for scanner/zap'). [QUERY] psql scans GROUP BY status",
+          "module_flag": "tenant_xbow.scans (failure_reason); scanner/zap image not present"
+        },
+        {
+          "title": "F12 cancel_sigkill grace cuts",
+          "mechanism": "[CODE] poller.py:972 poller.cancel_sigkill_sent — SIGTERM grace window expired, agent container SIGKILLed (risks losing un-flushed /work findings, the known SIGKILL-before-flush hazard).",
+          "severity": "LOW",
+          "blast_radius": "2 in scanner-cp current-uptime window (against 19 cancelled scans aggregate). [QUERY] docker logs grep -c",
+          "module_flag": "src/scanner/scheduler/poller.py:972 (grace_s)"
+        },
+        {
+          "title": "F13 exploit_floor.nofamily_inconclusive — floor fired, no class matched",
+          "mechanism": "[CODE] exploit_floor.py:3141 — a floor probe fired against a cell but no vuln family matched the response; counts['fired'] incremented, cell left inconclusive (not confirmed, not cleanly cleared → contributes to limbo).",
+          "severity": "LOW",
+          "blast_radius": "135 in scan 68a58881 agent.log. [QUERY] event-name freq",
+          "module_flag": "src/scanner/agent_runtime/engine/exploit_floor.py:3141"
+        },
+        {
+          "title": "F14 exploit_floor.logic_skipped — authz probe skipped, no identity",
+          "mechanism": "[CODE] exploit_floor.py:3949 — the deterministic authz/logic floor skips a cell because no auth-session identity is available (auth bootstrap gap).",
+          "severity": "LOW",
+          "blast_radius": "24 in scan 68a58881 agent.log. [QUERY] event-name freq",
+          "module_flag": "src/scanner/agent_runtime/engine/exploit_floor.py:3949"
+        },
+        {
+          "title": "F15 tool.started without tool.done (dangling invocations)",
+          "mechanism": "tool.started events with no matching tool.done — tool/agent crashed or was killed mid-call.",
+          "severity": "LOW",
+          "blast_radius": "17 dangling (tool.started=27,056 vs tool.done=27,039, ALL scans scan_events). [QUERY] psql scan_events GROUP BY event_type",
+          "module_flag": "tenant_xbow.scan_events"
+        },
+        {
+          "title": "F16 tool.blocked by guard hook",
+          "mechanism": "[CODE] scope/guard hooks blocked agent tool calls: tool.blocked.destructive + tool.blocked.exploit_forbidden.",
+          "severity": "LOW",
+          "blast_radius": "destructive=4, exploit_forbidden=2 in scan 68a58881 agent.log (guardrail working as designed; low volume). [QUERY] event-name freq",
+          "module_flag": "src/scanner/agent_runtime/hooks/bash.py, hooks/scope.py"
+        }
+      ],
+      "evidence": [
+        {
+          "claim": "ledger.resolve.update_unmatched=7,735 and ledger.resolve.finding_unmatched=1,750 in scan 68a58881",
+          "source": "[QUERY] ssh abhedi grep -c on /tmp/mako-ws2/68a58881-ae3b-4f36-90a9-bf254da13fcb/logs/agent.log → 7735 / 1750",
+          "confidence": "HIGH",
+          "notes": "vs 2,481 total ledger_updates.jsonl lines → resolve re-runs each reconcile tick, re-logging drops [INFER]"
+        },
+        {
+          "claim": "finding.duplicate_skipped=18,506 in scan 68a58881 (DB persisted only 38 findings)",
+          "source": "[QUERY] event-name freq (grep -oE '] <event> ') on agent.log = 18506; [QUERY] psql findings GROUP BY scan_id = 38",
+          "confidence": "HIGH",
+          "notes": "re-ingest amplification; findings.py:409 emitter"
+        },
+        {
+          "claim": "verification.spawned=540, verification.failed=524 (97%) in scan 68a58881",
+          "source": "[QUERY] event-name freq on agent.log = 540 / 524",
+          "confidence": "HIGH",
+          "notes": "[CODE] verification.py:240 fail-open → verifier_unavailable; findings survive"
+        },
+        {
+          "claim": "scan.method_switch=41,978 = 92% of 45,774-line scanner-cp log; scan_id=84aea81a=43,353",
+          "source": "[QUERY] docker logs scanner-cp | grep -c 'scan.method_switch'; | grep -oE 'scan_id=' | uniq -c",
+          "confidence": "HIGH",
+          "notes": "[CODE] poller.py:1160 watchdog per-stale-cell per-tick; not in scan_events (pubsub/log only)"
+        },
+        {
+          "claim": "worker_runs status: error=578, ok=270, partial=76, running=53 (ALL scans)",
+          "source": "[QUERY] psql tenant_xbow.worker_runs GROUP BY status",
+          "confidence": "HIGH",
+          "notes": "59% error rate"
+        },
+        {
+          "claim": "worker error breakdown: no-choices=471, 429=91, 500=9, 400=6, 502=1",
+          "source": "[QUERY] psql SELECT LEFT(error,70),count(*) WHERE status='error' GROUP BY 1",
+          "confidence": "HIGH",
+          "notes": "provider empty-completion dominant; proxy_log.db blind to non-nemotron per directive"
+        },
+        {
+          "claim": "ledger_cell states (ALL): na=48,322, attempted=8,771, untested=5,299, tested_clean=4,862, testing=2,774, blocked=455, confirmed=298",
+          "source": "[QUERY] psql tenant_xbow.ledger_cell GROUP BY state",
+          "confidence": "HIGH",
+          "notes": "attempted=retire_unreached sweep outcome (finalize.py:454); testing=2,774 feeds method_switch"
+        },
+        {
+          "claim": "agent_messages vs tool_invocations: 68a58881=1/12,143; 1f5fe7c8=139/9,843; 84aea81a=76/5,983",
+          "source": "[QUERY] psql FULL OUTER JOIN agent_messages/tool_invocations GROUP BY scan_id",
+          "confidence": "HIGH",
+          "notes": "telemetry.agent_messages near-empty; candidate emitter telemetry.py:247"
+        },
+        {
+          "claim": "scans status: cancelled=19, completed=18, failed=4, partial=1, running=1",
+          "source": "[QUERY] psql tenant_xbow.scans GROUP BY status + failure_reason agg",
+          "confidence": "HIGH",
+          "notes": "failed = agent_exit_-1_after_0_attempts + zap image pull 404"
+        },
+        {
+          "claim": "poller.cancel_sigkill_sent=2 in scanner-cp current-uptime window",
+          "source": "[QUERY] docker logs scanner-cp | grep -c poller.cancel_sigkill_sent",
+          "confidence": "HIGH",
+          "notes": "[CODE] poller.py:972; SIGTERM grace expired → SIGKILL"
+        },
+        {
+          "claim": "exploit_floor.nofamily_inconclusive=135, exploit_floor.logic_skipped=24 in scan 68a58881",
+          "source": "[QUERY] event-name freq on agent.log",
+          "confidence": "HIGH",
+          "notes": "[CODE] exploit_floor.py:3141 / :3949"
+        },
+        {
+          "claim": "scan_events: tool.started=27,056 vs tool.done=27,039 (17 dangling); governor.decision=1,589; floor.tick=608; scan.method_switch absent",
+          "source": "[QUERY] psql tenant_xbow.scan_events GROUP BY event_type ORDER BY count DESC LIMIT 25",
+          "confidence": "HIGH",
+          "notes": "method_switch not persisted → no historical per-scan count from DB (gap)"
+        },
+        {
+          "claim": "retire_unreached is flag-gated default ON and sets unprobed cells to terminal 'attempted'",
+          "source": "[CODE] finalize.py:454-461; config.py:451 scanner_finalize_retire_unreached: bool = True",
+          "confidence": "HIGH",
+          "notes": "na_reason='unreached: scan ended before this cell was tested'"
+        },
+        {
+          "claim": "No real HTTP-409 respawn conflicts in scanner-cp current window",
+          "source": "[QUERY] docker logs scanner-cp | grep '409' → matches were TCP port numbers (40910, 40998...), 0 HTTP-409 conflicts",
+          "confidence": "MEDIUM",
+          "notes": "FALSIFIES the 'dead-node 409 respawn' belief for this window; not a claim it never happens"
+        },
+        {
+          "claim": "infinity-fresh tarball is files-only (no logs/agent.log); corroborated via DB only",
+          "source": "[QUERY] ssh ls /tmp/mako-inf/1f5fe7c8.../logs/ = empty; ledger_updates.jsonl=2,032, findings.jsonl=40",
+          "confidence": "HIGH",
+          "notes": "limits infinity agent-event corroboration to DB rows"
+        },
+        {
+          "claim": "agent.log line 1 contained a generated bootstrap admin key",
+          "source": "[CODE] observed in /tmp/mako-ws2/.../logs/agent.log line 1 (config.py:371 _ensure_admin_api_key warning)",
+          "confidence": "HIGH",
+          "notes": "REDACTED, not reproduced — matches known [MEDIUM] issue 'Admin bearer key logged in full plaintext'"
+        }
+      ],
+      "hypotheses": [
+        {
+          "id": "H1: dead-node 409 respawn conflicts visible in cp log",
+          "verdict": "FALSIFIED",
+          "note": "grep '409' matched port numbers only; 0 HTTP-409 in current cp window. [QUERY]"
+        },
+        {
+          "id": "H2: unmatched drops are a per-scan one-off",
+          "verdict": "REJECTED",
+          "note": "7,735 update_unmatched > 2,481 distinct update lines in one scan → re-logged every reconcile tick, systemic not one-off [INFER from counts]"
+        },
+        {
+          "id": "H3: method_switch is persisted telemetry",
+          "verdict": "FALSIFIED",
+          "note": "absent from scan_events GROUP BY event_type; publish_event pubsub/log-only, poller.py:1163 comment says consumer is future WS3"
+        },
+        {
+          "id": "H4: LLM verifier tier is functional",
+          "verdict": "REJECTED for scan 68a58881",
+          "note": "524/540 = 97% verifier_unavailable; deterministic exploit_floor:* is what actually verified the DB findings, not the LLM verifier"
+        },
+        {
+          "id": "H5: worker errors are mostly rate-limits",
+          "verdict": "REJECTED",
+          "note": "429 rate-limits=91 but provider empty 'no choices'=471 dominates (81% of 578 errors)"
+        }
+      ],
+      "questions": [
+        {
+          "q": "Which failure class loses the most real security signal?",
+          "answer": "F1/F2 unmatched (9,485 combined in ONE scan) — coverage/finding results that matched no ledger cell were silently discarded; father.py:107 already flags this as the biggest hidden leak.",
+          "verdict": "HIGH"
+        },
+        {
+          "q": "Which failure class most drowns observability?",
+          "answer": "F5 scan.method_switch = 41,978 = 92% of the scanner-cp log, unconsumed and unpersisted; a watchdog re-firing per stuck 'testing' cell every tick.",
+          "verdict": "HIGH"
+        },
+        {
+          "q": "Why do 59% of worker_runs error?",
+          "answer": "Provider reliability: 'ChatCompletion response has no choices'=471 (empty completion) + HTTP 429/500/400/502=107; a model-provider/proxy failure, not scanner logic. Non-nemotron providers are blind to proxy_log.db.",
+          "verdict": "HIGH"
+        },
+        {
+          "q": "How much coverage is never actually probed?",
+          "answer": "8,771 cells retired to 'attempted' (unreached) + 5,299 untested + 2,774 stuck 'testing' across all scans; scans reach 'completed' via the retire sweep, coverage % stays honest by excluding 'attempted'.",
+          "verdict": "HIGH"
+        },
+        {
+          "q": "Is the agent-reasoning telemetry usable?",
+          "answer": "No — agent_messages is ~12,000x smaller than tool_invocations (1 vs 12,143 in scan 68a58881); the message stream is effectively not persisted.",
+          "verdict": "MEDIUM"
+        }
+      ],
+      "gaps": [
+        "method_switch is not persisted to scan_events (poller.py:1161 publish_event only) → no historical per-scan method_switch counts from DB; only the live scanner-cp log window (~3h, dominated by scan 84aea81a) is countable.",
+        "infinity-fresh.tar.gz is files-only (no logs/agent.log) → infinity agent-event counts (duplicate_skipped, unmatched, verification.failed) could not be measured from log, only DB rows.",
+        "Worker 'no choices'=471 cannot be attributed to a specific provider (OpenRouter/bunny) from these sources — proxy_log.db is nemotron-only per directive [UNVERIFIED provider attribution].",
+        "tool_invocations vs scan_events tool.started differ (12,143 for one scan vs 27,056 total tool.started all scans) — the two tool tables were not cross-reconciled; counts reported from their own table each.",
+        "Only 2 prior workdirs extracted (68a58881, 1f5fe7c8); the other tarballs (workdir-68a58881 pre-final, infinity-workdir) not separately counted — 68a58881-final is representative for per-scan log counts.",
+        "scanner-cp log is a rolling window (Up ~3h); cancelled/failed/sigkill lifetime totals come from tenant_xbow.scans, not the log."
+      ]
+    }
+  },
+  {
+    "label": "WS2:oob+driver",
+    "result": {
+      "role": "WS-2 — OOB honest-classification + model-driver forensics (systems-architect, read-only)",
+      "summary": "PART 1 (OOB honest-classification): The honest classifier FIRES exactly as designed in all three scans examined (prior nemotron 68a58881, prior bunny/OpenRouter infinity 1f5fe7c8, and the LIVE scan 84aea81a). classify_oob (service.py:77-97) derives the finding class from the callback PROTOCOL/beacon-provable label, never the agent's claim; sink-cluster (service.py:226-233, 279-292) collapses many callbacks per (host, honest_class) into one capped finding. Across the three scans the agent registered thousands of INFLATED OOB claims (cmdi, sqli, ssti, deserialization, lfi, rfi, nosqli, control, email_injection) yet ONLY ssrf and xxe were ever minted — every inflated/garbage claim that actually fired a scoped callback was downgraded to ssrf. The LIVE scan is the clearest proof: 17 callbacks the agent labeled `cmdi` (would-be CRITICAL RCE) were downgraded to ssrf and clustered into a single finding. The historical mass \"confirmed via OOB\" false-positive bug (one interaction → dozens of phantom cmdi/sqli/xss confirmations) is NOT present in any scan. Foreign-token and stale callbacks are correctly left unlinked. The jndi (ldap/rmi) path was not exercised (only empty-identity ldap connection-noise appeared, dropped at parse). PART 2 (model-driver forensics): WS-1's \"~1082 model HTTP errors\" is REFUTED as a large UNDERcount for nemotron and the \"100% max_turns_exceeded\" is CORROBORATED for the bunny route. Ground truth proxy_log.db (24,630 calls, ~24h, 100% nvidia/nemotron) shows 6,492 non-200 responses = 26.4% error rate (429×3578, 500×2834, client timeout/connect×49, 502×19, 504×12). agent.log surfaces only 13 of these (SDK retries mask the rest) plus 511 \"Max turns (12) exceeded\" verification failures that are actually just 10 distinct findings retried ~51× each — a retry-amplification, not 511 distinct HTTP errors. The OpenRouter/bunny blind spot is CONFIRMED: proxy_log.db logged zero non-nemotron traffic, and the infinity(bunny) workdir has no logs/agent.log at all, so its only failure signal is decisions.log — where 133/135 (98.5%) of entries are max_turns_exceeded, all tagged bunny.",
+      "current_state": [
+        "classify_oob(reg_class, protocol) [CODE service.py:77-97]: ldap/ldaps/rmi protocol -> 'jndi'; otherwise strip _QUALIFIERS from the agent's claim label and keep it ONLY if every remaining token maps to the SAME beacon-provable class in _DIRECT={ssrf,xxe} (service.py:74); any other/combined/garbage label (cmdi/sqli/rce/ssti/xss/nosqli/...) -> downgraded to 'ssrf' with an '(agent suspected <claim>)' note. The callback proves an outbound fetch, not the bug class.",
+        "Sink-cluster + cap [CODE service.py:226-233 pre-pass, 279-292 mint gate]: one auto-minted finding per (scan_id, target_host, honest_class); _MINTED_SINKS dedup; ceiling _oob_finding_cap() default 12, env SCANNER_OOB_MAX_FINDINGS [CODE service.py:100-106]. Every endpoint that reached the same sink is folded into one finding's sink_endpoints list, not fanned into rows.",
+        "Scan-scoping gate [CODE registry.py:140-200 correlate/_scan_scoped]: a callback confirms only when it carries a real interactsh identity (unique-id/full-id) AND, when a registration floor is supplied from oob_health.json checked_at, its timestamp is >= that floor; otherwise the Match is returned unlinked (evidenced, never a finding). parse_interactions [registry.py:72-85] drops any record missing both id and host — this silently discards ldap connection-log noise with empty identity.",
+        "Minted finding shape [CODE service.py:440-516 _upsert_oob_finding]: title 'Blind <honest_class> confirmed via OOB callback'; evidence_paths records vuln_class_claimed vs vuln_class_confirmed so a downgrade is transparent; severity from honest class [service.py:36-56], so a downgraded cmdi lands as ssrf=high, never critical.",
+        "Model driver telemetry: an OpenAI-compatible proxy (proxy.py) logs every nemotron call to proxy_log.db table `calls` (status/error/tokens) [QUERY schema]; the in-container agent.log records only errors that survive SDK retry and surface via verification.failed. Non-nemotron (bunny/OpenRouter) routes are not fronted by this proxy and, for the infinity scan, no agent.log was persisted to the workdir root at all."
+      ],
+      "evidence": [
+        {
+          "claim": "classify_oob derives class from protocol/beacon-provable label, downgrading inflated claims to ssrf; _DIRECT only maps ssrf/xxe; ldap/rmi->jndi.",
+          "source": "[CODE] C:/Users/ASUS/Desktop/abhdeii/autocan/src/scanner/agent_runtime/oob/service.py:66-97",
+          "confidence": "HIGH",
+          "notes": "jndi trusted ONLY from ldap/rmi PROTOCOL, never from an http/dns beacon a model tagged 'jndi'."
+        },
+        {
+          "claim": "PRIOR nemotron scan 68a58881 (duck-store.escape.tech): registry 962 tokens with inflated claims (xxe 326, ssti 157, cmdi 130, deserialization 117, xss 177, sqli 13, ssrf 36, nosqli 6); interactions 4603 (ldap 4337 = empty-identity connection-noise dropped at parse, dns 219, http 47).",
+          "source": "[QUERY] python over /tmp/mako-ws2/.../oob_registry.jsonl + oob_interactions.jsonl -> 'REGISTRY total tokens: 962 ... INTERACTIONS raw lines: 4603 protocol ALL {ldap:4337,dns:219,http:47}; identity-bearing 266 = dns 219+http 47'",
+          "confidence": "HIGH",
+          "notes": "zero ldap callbacks carried identity -> jndi path never fired; ldap lines are 172.174.201.47 BindRequest noise."
+        },
+        {
+          "claim": "68a58881 correlate+classify simulation: 31 scan-scoped linked matches (0 no-id, 0 stale), agent-claimed classes among them {ssrf:28, cmdi:1, nosqli:1, xxe:1} all honest-classified to {ssrf:30, xxe:1}; 47 foreign-token callbacks correctly unlinked.",
+          "source": "[QUERY] /tmp/mako-ws2/sim.py (faithful copy of extract_token/classify_oob/_scan_scoped) -> 'LINKED+SCOPED honest {ssrf:30,xxe:1}; claimed {ssrf:28,nosqli:1,xxe:1,cmdi:1}; foreign-token 47'",
+          "confidence": "HIGH",
+          "notes": "the cmdi and nosqli claims that fired were downgraded to ssrf; they folded into the single ssrf sink so no separate row."
+        },
+        {
+          "claim": "68a58881 actually minted only 2 auto-OOB findings, both honest (Blind ssrf, Blind xxe), and report.json carries 1 after dedup; grep for any inflated 'Blind cmdi/rce/ssti/sqli/deserialization/xss confirmed via OOB' returns NONE.",
+          "source": "[QUERY] grep -oiE 'Blind (cmdi|rce|ssti|sqli|nosqli|deserialization|xss|xxe|ssrf|jndi)[a-z_ ]* confirmed via OOB callback' findings.jsonl report.json report.md -> only 'Blind ssrf'(x1 findings, x1 report.json, x1 report.md) + 'Blind xxe'(x1 findings)",
+          "confidence": "HIGH",
+          "notes": "the other 5 findings.jsonl lines with verification_method=oob_callback are the agent's OWN 'SSRF via ...' findings (evidence_paths null), not the auto-mint path."
+        },
+        {
+          "claim": "PRIOR bunny/OpenRouter scan infinity 1f5fe7c8 (infinitycapital.bh): registry 1409 tokens (deserialization 216, ssrf 217, xxe 232, ssti 107, cmdi 81, rfi 92, lfi 86, sqli 79, open_redirect 99, ...); 1065 interactions (dns 969, http 96, no ldap); 38 scan-scoped linked, claims incl cmdi/sqli x2/ssti/ssti_xxe/email_injection/control/control_test -> honest {ssrf:28, xxe:10}.",
+          "source": "[QUERY] /tmp/mako-inf/sim2.py -> 'our-token matches 38, no-id 0, stale 0, foreign 46; LINKED+SCOPED {xxe:10,ssrf:28}; claimed {xxe:10,ssrf:20,email_injection:1,ssti:1,ssti_xxe:1,sqli:2,control:1,control_test:1,cmdi:1}'",
+          "confidence": "HIGH",
+          "notes": "8 inflated/garbage claims all downgraded to ssrf."
+        },
+        {
+          "claim": "infinity minted 7 OOB findings, ALL honest, with downgrade transparently stamped: e.g. claimed=email_injection->confirmed=ssrf, claimed=control->confirmed=ssrf, claimed=control_test->confirmed=ssrf; never an inflated class.",
+          "source": "[QUERY] /tmp/mako-inf/sim2.py findings.jsonl scan -> 'MINT Blind ssrf ... claimed=email_injection confirmed=ssrf' + 'claimed=control confirmed=ssrf' + 'claimed=control_test confirmed=ssrf' + 4 more ssrf/xxe",
+          "confidence": "HIGH",
+          "notes": "sink-cluster split into 7 because multiple distinct hosts; each honest."
+        },
+        {
+          "claim": "LIVE scan 84aea81a (in progress, oob file updated 03:58): registry 743 (deserialization 168, xxe 119, cmdi 72, ssrf 68, lfi 51, rfi 50, ssti 47, sqli 22, ...); 317 interactions (dns 178, http 139); 41 scan-scoped linked (0 no-id, 0 stale, 0 foreign) incl cmdi x17, command_injection x1, stored_xss x2, ssti/lfi/rfi/open_redirect/nosqli -> honest {ssrf:38, xxe:3}.",
+          "source": "[QUERY] /tmp/mako-live/simlive.py over read-only snapshot of live workdir -> 'LINKED+SCOPED {ssrf:38,xxe:3}; claimed {cmdi:17,ssrf:13,xxe:3,stored_xss:2,command_injection:1,ssti:1,lfi:1,rfi:1,open_redirect:1,nosqli:1}'",
+          "confidence": "HIGH",
+          "notes": "17 would-be CRITICAL cmdi false positives suppressed in real time."
+        },
+        {
+          "claim": "LIVE minted only 2 OOB findings: 'Blind ssrf' with claimed=cmdi/confirmed=ssrf (the 17 cmdi + 13 ssrf + others clustered to one) and 'Blind xxe' claimed=xxe/confirmed=xxe. Zero inflated.",
+          "source": "[QUERY] /tmp/mako-live/simlive.py findings.jsonl -> 'MINT x1 (Blind ssrf..., cmdi, ssrf); MINT x1 (Blind xxe..., xxe, xxe); live oob_callback finding lines: 2'",
+          "confidence": "HIGH",
+          "notes": "definitive live demonstration the mass-FP bug is dead."
+        },
+        {
+          "claim": "proxy_log.db ground truth: 24,630 calls (2026-09-28T22:58 -> 09-29T23:06), model_fwd = nvidia/nemotron-3-ultra 22,640 + nvidia/nemotron-3-super 1,990 ONLY. Zero bunny/OpenRouter/GLM/GPT. Status: 200x18138, 429x3578, 500x2834, 0(client)x49, 502x19, 504x12 = 6,492 non-200 (26.4%).",
+          "source": "[QUERY] sqlite3 proxy_log.db 'SELECT model_fwd,count(*)...' + 'SELECT status,count(*)...' -> as stated",
+          "confidence": "HIGH",
+          "notes": "error signatures: 429 Too Many Requests 3578, Internal server error 2832, ReadTimeout 23, 502 Bad Gateway 19, ConnectError 11+2, ConnectTimeout 3, WriteTimeout 1."
+        },
+        {
+          "claim": "68a58881 agent.log (60,672 lines) surfaces only 13 model HTTP errors via verification.failed (Error code 500 x8, Error code 429 x5) plus 511 'Max turns (12) exceeded' failures spanning only 10 distinct finding_ids; no content-filter/refusal/connection/timeout string present.",
+          "source": "[QUERY] grep over logs/agent.log -> 'verification.failed 524 = Max turns x511 + 500 x8 + 429 x5; distinct finding_ids that hit Max turns: 10; content_filter/refused/APIConnection/timeout/overloaded = 0'",
+          "confidence": "HIGH",
+          "notes": "'rate-limit' 1415 is a FALSE POSITIVE = finding titles 'No rate-limiting on sensitive endpoint'; 401/Unauthorized/403 are target responses, not driver errors."
+        },
+        {
+          "claim": "decisions.log: infinity(bunny) 135 bracketed entries, 133 = max_turns_exceeded (98.5%), ALL tagged bunny; 68a(nemotron) root decisions.log = 1 substantive nemotron summary entry.",
+          "source": "[QUERY] grep over /tmp/mako-inf/.../decisions.log -> 'total 135, max_turns_exceeded 133, model-tag bunny x135'; head 68a decisions.log -> single 'batch3-b-45-nemotron' summary",
+          "confidence": "HIGH",
+          "notes": "corroborates WS-1 '100% max_turns' for the bunny route specifically."
+        },
+        {
+          "claim": "Blind spot confirmed structurally: infinity(bunny) workdir has NO logs/ dir (no agent.log) and live scan has no logs/ at workdir root; both bypass proxy_log.db (nemotron-only).",
+          "source": "[QUERY] 'ls $I/logs -> NO logs/ dir in infinity'; 'sudo ls live/logs -> no logs/ at live root'",
+          "confidence": "HIGH",
+          "notes": "for non-nemotron routes the ONLY failure telemetry is decisions.log max_turns; HTTP-level errors are unobservable."
+        }
+      ],
+      "defects": [
+        {
+          "title": "Driver-error telemetry undercounts ~500x for surfaced-only counting (agent.log 13 vs proxy 6,492)",
+          "mechanism": "The in-container agent.log only records model errors that survive the SDK's internal retry and bubble up to verification.failed. The proxy meter shows 6,492 non-200 nemotron responses (26.4%) over the same window, but only 13 reach agent.log. Any forensic count taken from agent.log (or a naive grep) will radically undercount true driver-error volume; conversely a naive grep of 'rate-limit' (1415) or '401' overcounts on finding-title/target-response noise. There is no per-scan structured driver-error counter emitted from inside the container.",
+          "module_flag": "src/scanner/agent_runtime/engine/runtimes/agents_runtime.py (SDK driver) / proxy.py; proposed metric behind a new default-OFF flag e.g. SCANNER_DRIVER_ERROR_METRIC",
+          "severity": "MEDIUM",
+          "blast_radius": "Observability only — misleads capacity/reliability triage (WS-1's ~1082 figure is a symptom). No effect on scan correctness."
+        },
+        {
+          "title": "Verification max-turns retry amplification with no give-up/backoff",
+          "mechanism": "verification.failed logs 511 'Max turns (12) exceeded' across only 10 distinct finding_ids (~51 re-attempts each) — the deferred/finalize verification loop re-drives the same model against the same unverifiable finding every tick, each attempt burning up to 12 model turns. This is a material contributor to the nemotron 429 storm (3,578 rate-limit responses = 14.5% of all calls) and to cost, for zero new information.",
+          "module_flag": "src/scanner/agent_runtime/finalize.py verification loop; proposed per-finding attempt-cap + backoff behind a default-OFF flag e.g. SCANNER_VERIFY_MAX_ATTEMPTS (byte-identical when unset)",
+          "severity": "MEDIUM",
+          "blast_radius": "Cost + rate-limit pressure; can slow/stall a scan's tail. Bounded (10 findings here), but unbounded in principle over ticks."
+        },
+        {
+          "title": "Non-nemotron (bunny/OpenRouter) routes have no HTTP-level failure telemetry",
+          "mechanism": "proxy_log.db fronts only nemotron (100% of 24,630 rows). The infinity(bunny) scan persisted no logs/agent.log to its workdir root, so a bunny model returning text-only / bailing appears ONLY as decisions.log max_turns_exceeded (133/135). Whether those max_turns are driven by upstream 429/5xx or by the model not emitting tool calls is unknowable from persisted forensics — the failure mode is real (98.5% of turns wasted) but its cause is invisible.",
+          "module_flag": "model routing / agent_runtime run.py agent.log persistence; proposed: persist logs/agent.log for every route + a lightweight per-route status counter, default-OFF flag",
+          "severity": "HIGH",
+          "blast_radius": "A whole model route (here the entire infinity scan) can burn budget at ~98% wasted turns with no diagnosable signal; blocks route-quality comparison and SLA."
+        }
+      ],
+      "hypotheses": [
+        {
+          "id": "WS1: ~1082 model HTTP errors",
+          "verdict": "REFUTED (undercount)",
+          "note": "For the only workdir with an agent.log (nemotron 68a58881), agent.log surfaces just 13 HTTP errors (8x500,5x429). The ground-truth proxy_log.db shows 6,492 non-200 nemotron responses (26.4%) over ~24h — far above 1082. 1082 matches no measured quantity; it is likely a partial window or a conflation. True nemotron driver-error volume is ~6.5k; bunny errors are unmeasured."
+        },
+        {
+          "id": "WS1: 100% max_turns_exceeded in decisions.log",
+          "verdict": "CORROBORATED (bunny route)",
+          "note": "infinity(bunny) decisions.log = 133/135 (98.5%) max_turns_exceeded, all tagged bunny. NOT true of 68a(nemotron) root decisions.log (1 substantive entry). The claim holds specifically for the OpenRouter/bunny route."
+        },
+        {
+          "id": "OpenRouter/bunny proxy blind spot",
+          "verdict": "CONFIRMED",
+          "note": "proxy_log.db model_fwd is 100% nvidia/nemotron; zero bunny rows. infinity(bunny) workdir has no logs/agent.log. Non-nemotron failures are invisible except as decisions.log max_turns."
+        },
+        {
+          "id": "OOB honest-classification fires (no mass 'confirmed via OOB' FP)",
+          "verdict": "CONFIRMED",
+          "note": "Three scans, agent-claimed inflated classes (cmdi/sqli/ssti/deserialization/lfi/rfi/nosqli/control) all downgraded to ssrf; only ssrf+xxe ever minted; live scan suppressed 17 would-be CRITICAL cmdi FPs. Historical bug not present."
+        },
+        {
+          "id": "jndi (ldap/rmi) honest-classification path exercised",
+          "verdict": "NOT OBSERVED",
+          "note": "The only ldap traffic seen (4,337 lines in 68a) was empty-identity connection-noise dropped at parse_interactions; no identity-bearing ldap/rmi callback occurred, so the jndi branch did not fire in any sampled scan. Code path is present but unexercised by this evidence."
+        }
+      ],
+      "questions": [
+        {
+          "q": "Does honest-classification (protocol-classify + sink-cluster per classify_oob) actually fire on real data?",
+          "answer": "Yes. In all 3 scans the classifier downgraded every inflated/garbage agent claim (cmdi, sqli, ssti, deserialization, lfi, rfi, nosqli, control, control_test, email_injection, ssti_xxe) to ssrf, kept genuine ssrf/xxe, and sink-clustered dozens of callbacks into a handful of findings. Minted findings stamp vuln_class_claimed vs vuln_class_confirmed so downgrades are auditable.",
+          "verdict": "CONFIRMED"
+        },
+        {
+          "q": "Is there any mass 'confirmed via OOB' false-positive pattern (the historical bug)?",
+          "answer": "No. Zero inflated 'Blind cmdi/sqli/rce/ssti/deserialization/xss confirmed via OOB' findings in any of the three scans. 68a: 31 links -> 2 findings. infinity: 38 links -> 7 findings (multi-host). live: 41 links (incl 17 cmdi) -> 2 findings. Only ssrf+xxe classes appear.",
+          "verdict": "REFUTED (bug absent)"
+        },
+        {
+          "q": "Honest 'outbound-fetch proven, class not proven' vs trusted-claim behavior?",
+          "answer": "The pipeline explicitly implements the honest stance: title is always 'Blind ssrf/xxe/jndi confirmed via OOB callback' derived from the callback protocol, severity from the honest class (a downgraded cmdi becomes ssrf=high, never critical), and the description states 'This proves the server dereferenced attacker input; classified as blind <class> from the callback protocol (agent suspected <claim>)'.",
+          "verdict": "CONFIRMED"
+        },
+        {
+          "q": "Model-driver HTTP 4xx/5xx / timeout / content-filter / refusal counts (corroborate WS-1 ~1082)?",
+          "answer": "Ground truth proxy_log.db (nemotron only): 6,492 non-200 of 24,630 (26.4%): 429x3578, 500x2834, client timeout/connect x49, 502x19, 504x12. agent.log surfaces only 13 after SDK retry. No content-filter/refusal events in either source. WS-1's 1082 is an undercount for nemotron.",
+          "verdict": "REFUTED (true count ~6.5k, not 1082)"
+        },
+        {
+          "q": "Context-reset / transcript-cap (max_turns) events?",
+          "answer": "68a agent.log: 511 'Max turns (12) exceeded' (verification path) over 10 distinct findings = retry amplification, not distinct events; no explicit context-reset/reprompt/continuation entries logged. infinity decisions.log: 133/135 max_turns_exceeded (bunny). The turn-cap saturation is real and dominant on the bunny route.",
+          "verdict": "PARTIALLY CORROBORATED"
+        },
+        {
+          "q": "OpenRouter/bunny proxy blind spot real?",
+          "answer": "Yes — proxy_log.db is 100% nemotron; the infinity(bunny) scan has no agent.log and no proxy rows. Bunny failures are only inferable from decisions.log max_turns.",
+          "verdict": "CONFIRMED"
+        }
+      ],
+      "gaps": [
+        "No agent.log exists for the infinity(bunny) scan or at the live scan's workdir root (in-container), so a per-route model HTTP-error count for non-nemotron traffic cannot be produced from persisted forensics — only decisions.log max_turns is available. [QUERY: no logs/ dir in either]",
+        "The jndi (ldap/rmi) honest-classification branch was not exercised by any sampled scan (only empty-identity ldap noise), so its live behavior is unverified against real callbacks. [INFER from data]",
+        "proxy_log.db window (2026-09-28 22:58 -> 09-29 23:06) covers the nemotron scans but I did not scope the 6,492 errors to a single scan_id (the DB has no scan_id column; only ts/model). Per-scan attribution would need ts-window correlation. [QUERY: schema has no scan_id]",
+        "WS-1's exact '1082' source was not located; it matches neither agent.log (13) nor proxy (6,492) nor the 'rate-limit' FP (1415) nor 'Max turns' (511) — origin remains unidentified. [UNVERIFIED]",
+        "I did not cross-read the DB (tenant_xbow findings table) to confirm the on-disk findings.jsonl OOB findings match what was ingested; analysis is workdir-file based. Reconciliation with SELECT on the tenant schema would close this. [not performed - out of WS-2 file-forensics scope]",
+        "Sink-cluster cap (_oob_finding_cap default 12) was never hit in any sample (max 7 minted), so the pathological-fanout backstop itself is untested by this evidence. [INFER]"
+      ]
+    }
+  },
+  {
+    "label": "WS2:synthesis",
+    "result": "## WS-2 — Observed-Failure Forensics (Synthesizer Report Section)\n\n### Bottom line\nThe platform's silent-loss and flood pathways dominate every finalized scan: ledger `resolve` drops 9,485 coverage/finding results in a single scan while a watchdog re-emits 41,978 unconsumed `method_switch` lines (92% of the cp log), and 59% of worker runs crash on provider empty-completions. WS-1's \"coverage thrash\" is **CONFIRMED but reframed** — reclaim thrash is real (23-34% of applicable cells claimed ≥2×) yet the *dominant* coverage-stall driver is the coupled **starvation** (22-39% of applicable cells never claimed once, swept to terminal `attempted` at finalize). The OOB honest-classifier works exactly as designed in all three scans (17 would-be CRITICAL `cmdi` claims downgraded to `ssrf` live) — the historical mass-FP bug is dead.\n\n### Observed-Failure Catalog (aggregate)\n\n| Failure class | Aggregate count / scope | Mechanism (1 line) | Source [QUERY] |\n|---|---|---|---|\n| F1 coverage-result drop (`update_unmatched`) | 7,735 events / scan 68a58881 (vs 2,481 update lines → ~3× re-log) | coverage line whose (endpoint,vuln_class) matches no ledger cell is counted unmatched + discarded, re-run every reconcile tick | grep -c on agent.log → 7735; [CODE] ledger/service.py:949 |\n| F2 finding drop (`finding_unmatched`) | 1,750 events / scan 68a58881 | finding matching no ledger cell is dropped from coverage, re-logged per tick | grep -c on agent.log → 1750; [CODE] ledger/service.py:873 |\n| F3 `finding.duplicate_skipped` flood | 18,506 events / scan 68a58881 (38 findings persisted → ~487×) | every reconcile re-ingests findings.jsonl; each already-persisted dedup_hash re-logs a skip | event-freq on agent.log; [CODE] tools/findings.py:409 |\n| F4 LLM-verifier unavailable (fail-open) | 524 / 540 spawned = 97% / scan 68a58881 | verifier subagent raises (timeout/egress/SDK); fails open, stamps `verifier_unavailable`, masking a non-functional tier | event-freq on agent.log; [CODE] hooks/verification.py:240 |\n| F5 `scan.method_switch` debug flood | 41,978 lines = 92% of 45,774-line cp log (43,353 = live 84aea81a) | watchdog publishes one pubsub event per stuck `testing` cell per tick; no consumer, not persisted to scan_events | docker logs grep -c; [CODE] poller.py:1160-1165 |\n| F6 worker-run crashes | 578 / 977 = 59% error (no-choices=471=81% of errors, 429=91, 500=9, 400=6, 502=1) | provider/LLM failures bubble to `worker_runs.status='error'`; empty-completion dominates | psql worker_runs GROUP BY status,error |\n| F7 retire-unreached sweep | 8,771 cells → terminal `attempted` (all scans) | finalize UPDATEs untested / empty-`testing` applicable cells to `attempted` so scan reads `completed` | psql ledger_cell GROUP BY state; [CODE] finalize.py:454-461 · flag scanner_finalize_retire_unreached (config.py:451, default True) |\n| F8 never-reached (untested at end) | 5,299 cells `untested` (all scans) | cells materialized but never claimed/probed before scan end | psql ledger_cell GROUP BY state |\n| F9 stuck-`testing` limbo | 2,774 cells `testing` (all scans); LIVE 1,654/1,703 (97%) in expired-lease limbo | claimed into `testing`, never resolved nor released; exactly the re-claimable state feeding F5 | psql ledger_cell; [CODE] poller.py:1147 watchdog |\n| F10 reasoning telemetry near-blind | 1 msg / 12,143 tools (~12,000×), 68a58881; 139/9,843; 76/5,983 | agent_messages table near-empty vs tool_invocations; message stream not persisted | psql FULL OUTER JOIN; [CODE] telemetry.py:247 |\n| F11 scans not completing clean | cancelled=19 / failed=4 / partial=1 vs completed=18 | most scans end via SIGKILL/time-cap or fail (agent_exit_-1; zap image-pull 404) | psql scans GROUP BY status + failure_reason |\n| F12 cancel SIGKILL grace-cut | 2 / cp window | SIGTERM grace expired → agent container SIGKILLed (un-flushed /work loss hazard) | docker logs grep -c; [CODE] poller.py:972 |\n| F13 floor `nofamily_inconclusive` | 135 / scan 68a58881 | floor probe fired, no vuln family matched → cell left inconclusive (feeds limbo) | event-freq; [CODE] exploit_floor.py:3141 |\n| F14 floor `logic_skipped` | 24 / scan 68a58881 | authz/logic floor skips cell — no auth-session identity (bootstrap gap) | event-freq; [CODE] exploit_floor.py:3949 |\n| F15 dangling tool invocations | 17 (started=27,056 vs done=27,039, all scans) | tool.started with no tool.done — tool/agent killed mid-call | psql scan_events GROUP BY event_type |\n| F16 guard-blocked tool calls | destructive=4, exploit_forbidden=2 / scan 68a58881 | scope/guard hooks block agent tool calls (working as designed, low volume) | event-freq; [CODE] hooks/bash.py, hooks/scope.py |\n| F17 driver-error telemetry undercount | agent.log surfaces 13 vs proxy_log.db 6,492 non-200 (26.4% of 24,630) | SDK retries mask errors; only post-retry failures reach agent.log → ~500× undercount | sqlite3 proxy_log.db status GROUP BY; grep agent.log |\n| F18 verify max-turns retry amplification | 511 \"Max turns (12) exceeded\" over only 10 distinct finding_ids (~51× each) | finalize verification re-drives same model against same unverifiable finding every tick, no give-up/backoff; fuels the 3,578 nemotron 429s | grep agent.log; [CODE] finalize.py verify loop |\n| F19 non-nemotron route telemetry blind | infinity(bunny): 133/135 (98.5%) decisions.log = max_turns, no logs/agent.log, 0 proxy rows | proxy_log.db fronts nemotron only; bunny route's HTTP-level failures unobservable | sqlite3 proxy_log.db model_fwd (100% nemotron); ls infinity/logs → none |\n\n*(FALSIFIED belief: no real HTTP-409 respawn conflicts in the cp window — grep '409' matched TCP port numbers, not conflicts. [QUERY] docker logs scanner-cp grep '409')*\n\n### Cell-state thrash summary — empirical test of WS-1's claim\n\n**VERDICT: CONFIRMED (reframed into two coupled pathologies).** WS-1's single \"thrash\" is really *reclaim thrash* + *starvation*, and the DB `ledger_cell.attempts` column (incremented once per `claim_cells`, [CODE] ledger/service.py:1393-1417) is the authoritative record.\n\n**(1) Reclaim thrash — CONFIRMED.** Applicable cells claimed ≥2×: **622/2,719 (23%)** on 68a58881, **727/2,122 (34%)** on infinity 1f5fe7c8, **428/2,916 (15%, still climbing at max attempts=3, 7h in)** on LIVE 84aea81a. Partly productive (blackboard handoff closes 51-64% of ≥2-attempt cells `tested_clean`) but 35-48% die without a result. LIVE smoking gun: **1,654/1,703 (97%)** of `testing` cells sit in expired-lease limbo (`claimed_by` set, `lease_expires_at < now()`) = the re-claimable state, yet `last_progress < 5min` because the periodic resolve pass (SYNC_INTERVAL_S=120) bumps `last_progress` without touching the lease.\n\n**(2) Starvation — CONFIRMED as the dominant terminal outcome.** The `attempted` bucket is dominated by *never-claimed* cells, not cap-exhaustion: `attempts=0` share of `attempted` = **1,054/1,303 (81%)** on 68a58881, **470/853 (55%)** on infinity. Starvation share of the applicable surface: **39%** (68a58881) and **22%** (infinity).\n\n**REFUTED sub-claims:**\n- *\"attempt-cap absorbs thrashed cells in-run\"* → REFUTED. Cap (prod=6, [QUERY] env SCANNER_LEDGER_ATTEMPT_CAP=6) is rarely hit: ~1-2 cells reached 6 on 68a58881; 81%/55% of `attempted` came from finalize retire-unreached (finalize.py:454-460), not the cap.\n- *\"stuck-detection catches thrashing cells\"* → REFUTED. STUCK_WINDOW_S=1200 is `last_progress`-based; the resolve pass keeps limbo cells reading `<5min` fresh so all 1,654 are never flagged while the lease-based claim gate re-hands them. **Two clocks disagree** (`last_progress` vs `lease_expires_at`) — HIGH-severity architectural defect.\n\nSelf-report corroboration (ledger_updates.jsonl, ordinal-only — no ts/worker/cell_id): 42.5% / 36.9% redundant re-writes; 88.3% / 91.3% of cells never terminalize in-file; one cell re-written 31×. Note this file records the agent's coverage churn, **not** claim/reclaim transitions — the DB is authoritative for thrash.\n\n### OOB honest-classification verdict\n\n**CONFIRMED WORKING — historical mass-FP bug ABSENT in all three scans.** `classify_oob` ([CODE] service.py:77-97) derives the finding class from the callback **protocol / beacon-provable label**, never the agent's claim: only `ssrf`/`xxe` are in `_DIRECT`; `ldap`/`rmi` protocol → `jndi`; every other/garbage label → downgraded to `ssrf` with an `(agent suspected <claim>)` note. Sink-cluster (service.py:226-233, 279-292) collapses many callbacks per (host, honest_class) into one capped finding.\n\nAcross the three scans the agent registered thousands of inflated claims (`cmdi, sqli, ssti, deserialization, lfi, rfi, nosqli, control, email_injection`) yet **only `ssrf` and `xxe` were ever minted:**\n- 68a58881: 31 scoped links → **2 findings** (Blind ssrf, Blind xxe); 47 foreign-token callbacks correctly unlinked.\n- infinity 1f5fe7c8: 38 links (incl. email_injection/control/ssti/sqli/cmdi) → **7 honest findings** (multi-host), each stamping `vuln_class_claimed` vs `vuln_class_confirmed`.\n- LIVE 84aea81a: 41 links including **17 `cmdi` (would-be CRITICAL RCE) downgraded to `ssrf`** and clustered → **2 findings**. Definitive live proof the mass-FP bug is dead.\n\nDowngraded severity is honest (a suppressed `cmdi` lands as `ssrf`=high, never critical). Foreign-token and stale callbacks are left unlinked. **`jndi` (ldap/rmi) path NOT exercised** — the only ldap traffic (4,337 lines) was empty-identity connection-noise dropped at parse; the branch exists but is unverified against a real callback.\n\n### Gaps\n\n- **No wall-clock for file-side thrash.** `ledger_updates.jsonl` carries no timestamp, worker_id, or cell_id — all file characterization is by append-only transition ordinal, not time. [QUERY head -1 keys → 5 fields, no ts]\n- **Per-cell distinct-worker count not persisted.** DB keeps only current `claimed_by`; upper bound = `attempts` (2-6). Live pool = 13 identities (wave0/1 + 11 floor-*), but per-cell diversity is [UNVERIFIED].\n- **True time-in-`testing` (dwell) not measurable.** No claim-timestamp column; `last_progress` conflated by resolve passes; only a point-in-time LIVE snapshot read.\n- **LIVE scan is one snapshot** (~7h, max attempts=3, read-only, undisturbed) — its attempts/limbo figures will climb toward the finalized pattern but were not observed to completion.\n- **Non-nemotron routes have no HTTP-level telemetry.** proxy_log.db is 100% nemotron; the infinity(bunny) workdir has no `logs/agent.log`. Bunny/OpenRouter failures are inferable only from decisions.log max_turns; 6,492 nemotron errors also cannot be scoped per-scan (DB has no scan_id column, only ts/model).\n- **WS-1's exact \"1082\" figure has no matching quantity** — not agent.log (13), proxy (6,492), \"rate-limit\" FP (1,415), nor \"Max turns\" (511). Origin [UNVERIFIED].\n- **`method_switch` not persisted to scan_events** (pubsub/log-only, poller.py:1161) → no historical per-scan counts from DB; only the ~3h live cp-log window is countable.\n- **infinity-fresh tarball is files-only (no agent.log)** → its duplicate_skipped/unmatched/verification counts are DB-derived only.\n- **Sink-cluster cap** (`_oob_finding_cap` default 12) never hit (max 7 minted) → the pathological-fanout backstop itself is untested by this evidence. [INFER]\n- **`jndi` honest-classification branch unexercised** by any sampled scan — live behavior against a real ldap/rmi callback unverified.\n- **on-disk findings.jsonl not reconciled against the tenant_xbow findings table** (out of file-forensics scope); a SELECT would close the OOB ingest-parity gap."
+  }
+]

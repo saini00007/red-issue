@@ -1,0 +1,4 @@
+# command: timeout 20 curl -s -m 18 -o /dev/null -H 'Referer: http://oobf7a764e95756.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/s5' https://duck-store.escape.tech/api/v1/admin/orders
+# exit_code: 0
+# ---
+

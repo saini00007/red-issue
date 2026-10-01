@@ -1,0 +1,13 @@
+[
+  ["targets_plain_email", {"targets": "info@example.com"}],
+  ["targets_named", {"targets": "[\"Info <info@example.com>\"]"}],
+  ["to_field", {"to": "[\"info@example.com\"]", "targets": ""}],
+  ["both", {"to": "[\"info@example.com>\"]", "targets": "[\"info@example.com\"]"}],
+  ["replyTo_field", {"replyTo": "attacker@example.com"}],
+  ["from_field", {"from": "attacker@example.com"}],
+  ["subject_only_sqli", {"subject": "ICMARK'"}],
+  ["msg_only_sqli", {"msg": "ICMARK'"}],
+  ["cname_sqli", {"cname": "ICMARK'"}],
+  ["tel_sqli", {"tel": "3612345'"}],
+  ["fname_sqli", {"fname": "ICMARK'"}]
+]

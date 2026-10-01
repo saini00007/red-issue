@@ -1,0 +1,17 @@
+# command: timeout 15 curl -s -m 13 -o - -D - -w '\nHTTP_STATUS:%{http_code}' 'https://duck-store.escape.tech/api/v1/orders/checkout,(custom'
+# exit_code: 0
+# ---
+
+HTTP/2 422 
+alt-svc: h3=":443"; ma=2592000
+content-type: application/json
+date: Tue, 29 Sep 2026 11:45:20 GMT
+server: uvicorn
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+via: 1.1 Caddy
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+content-length: 166
+
+{"detail":[{"type":"int_parsing","loc":["path","order_id"],"msg":"Input should be a valid integer, unable to parse string as an integer","input":"checkout,(custom"}]}
+HTTP_STATUS:422

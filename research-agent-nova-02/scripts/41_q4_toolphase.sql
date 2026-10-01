@@ -1,0 +1,3 @@
+select 'phaseid_null', count(*) filter (where phase_id is null), count(*) from tenant_xbow.tool_invocations;
+select 'tool_status', tool_name, status, count(*) from tenant_xbow.tool_invocations group by 2,3 order by 4 desc limit 30;
+select 'phase_windows', scan_id, phase_name, status, started_at, completed_at from tenant_xbow.scan_phases where phase_name in ('reconnaissance','exploitation') order by 1,4 limit 12;

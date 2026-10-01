@@ -1,0 +1,54 @@
+=== UA chrome
+200  /                                   x-matched-path: /
+200  /contact                            x-matched-path: /contact
+403  /about                               | x-vercel-mitigated: challenge
+403  /services                            | x-vercel-mitigated: challenge
+307  /insights                           x-matched-path: /[slug]
+403  /api/send                            | x-vercel-mitigated: challenge
+403  /api/contact                         | x-vercel-mitigated: challenge
+400  /_next/image                        
+200  /robots.txt                         x-matched-path: /robots.txt
+200  /sitemap.xml                        x-matched-path: /sitemap.xml
+307  /atom.xml                           x-matched-path: /[slug]
+404  /feeds/all.atom.xml                 x-matched-path: /404
+403  /login                               | x-vercel-mitigated: challenge
+307  /admin                              x-matched-path: /[slug]
+404  /api/auth/login                     x-matched-path: /404
+404  /_next/static/chunks/webpack.js     x-matched-path: /_next/static/not-found.txt
+403  /favicon.ico                         | x-vercel-mitigated: challenge
+307  /manifest.json                      x-matched-path: /[slug]
+307  /.env                               x-matched-path: /[slug]
+404  /.git/config                        x-matched-path: /404
+404  /api/health                         x-matched-path: /404
+403  /_vercel/insights/view               | x-vercel-mitigated: challenge
+404  /api/preview                        x-matched-path: /404
+404  /insights/slug                      x-matched-path: /404
+403  /en                                  | x-vercel-mitigated: challenge
+403  /ar                                  | x-vercel-mitigated: challenge
+=== UA gbot
+403  /                                    | x-vercel-mitigated: challenge
+403  /contact                             | x-vercel-mitigated: challenge
+200  /about                              x-matched-path: /about
+307  /services                           x-matched-path: /[slug]
+403  /insights                            | x-vercel-mitigated: challenge
+405  /api/send                           x-matched-path: /api/send
+404  /api/contact                        x-matched-path: /404
+400  /_next/image                        
+200  /robots.txt                         x-matched-path: /robots.txt
+403  /sitemap.xml                         | x-vercel-mitigated: challenge
+403  /atom.xml                            | x-vercel-mitigated: challenge
+404  /feeds/all.atom.xml                 x-matched-path: /404
+307  /login                              x-matched-path: /[slug]
+403  /admin                               | x-vercel-mitigated: challenge
+403  /api/auth/login                      | x-vercel-mitigated: challenge
+403  /_next/static/chunks/webpack.js      | x-vercel-mitigated: challenge
+403  /favicon.ico                         | x-vercel-mitigated: challenge
+307  /manifest.json                      x-matched-path: /[slug]
+403  /.env                                | x-vercel-mitigated: challenge
+404  /.git/config                        x-matched-path: /404
+403  /api/health                          | x-vercel-mitigated: challenge
+404  /_vercel/insights/view              x-matched-path: /404
+404  /api/preview                        x-matched-path: /404
+403  /insights/slug                       | x-vercel-mitigated: challenge
+307  /en                                 x-matched-path: /[slug]
+307  /ar                                 x-matched-path: /[slug]

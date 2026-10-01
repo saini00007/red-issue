@@ -1,0 +1,20 @@
+# command: cd /work/evidence && for i in 1 2 3; do code=$(curl -s -o R_try$i.json -D R_try$i.hdr -w '%{http_code}' -X POST "https://www.infinitycapital.bh/api/send" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36" -H "Origin: https://www.infinitycapital.bh" -H "Referer: https://www.infinitycapital.bh/contact" --max-time 45 -F "fname=Security" -F "lname=Verifier" -F "areacode=" -F "tel=+9730000" -F "cname=Independent Verification" -F "subject=Independent Security Verification" -F "msg=AUTOMATED NON-DESTRUCTIVE SECURITY VERIFICATION." -F "check=bot" -F "targets=relayproof@nonexistent-domain-zzz9q7x.invalid"); echo "attempt$i -> $code : $(head -c 300 R_try$i.json)"; [ "$code" != "429" ] && break; done
+# tool: break
+# exit_code: 1
+# ts: 2026-09-30T12:07:44.713881+00:00
+# ---
+
+attempt1 -> 429 : Too Many Requests
+
+Too Many Requests
+bom1::84cnc-1790770064208-daeec04077af
+attempt2 -> 429 : Too Many Requests
+
+Too Many Requests
+bom1::zdmbh-1790770064491-cda6f53c66b5
+attempt3 -> 429 : Too Many Requests
+
+Too Many Requests
+bom1::wvb58-1790770064701-d7e9739ddfbd
+
+[exit=1]

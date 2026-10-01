@@ -1,0 +1,11 @@
+# command: cd /work/evidence && echo "=== control: does the SITE still serve (is whole site down, or only /api/send)? ==="; curl -s -o /dev/null -w "GET / -> %{http_code}\n" https://www.infinitycapital.bh/; curl -s -o /dev/null -w "GET /contact -> %{http_code}\n" https://www.infinitycapital.bh/contact
+# tool: curl
+# exit_code: 35
+# ts: 2026-09-30T12:07:14.929097+00:00
+# ---
+
+=== control: does the SITE still serve (is whole site down, or only /api/send)? ===
+GET / -> 200
+GET /contact -> 000
+
+[exit=35]

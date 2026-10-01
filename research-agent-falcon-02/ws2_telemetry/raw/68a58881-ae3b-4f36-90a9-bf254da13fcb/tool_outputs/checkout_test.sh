@@ -1,0 +1,2 @@
+#!/bin/bash
+curl -s -X POST -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZjFhYmM5YjEtNzNiYy00OTI3LWIxOTktMzdlYzJjZjI4Zjg2IiwidXNlcm5hbWUiOiJhdHRhY2tlcjEiLCJyb2xlIjoidXNlciIsImV4cCI6MTc5MDY1ODkwMX0.EV-ojy8Mvz0_C2k3UT_UU5s--NJUNZvW1H-HvE_0xVI" -H "Content-Type: application/json" -d '{}' https://duck-store.escape.tech/api/v1/orders/checkout

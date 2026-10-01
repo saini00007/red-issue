@@ -1,0 +1,58 @@
+# command: cd /work/evidence && TS=$(date +%s); curl -s -v -X POST https://www.infinitycapital.bh/api/send \
+  -F "fname=Verifier" -F "lname=Probe" -F "areacode=+973" -F "tel=3000000" \
+  -F "cname=Verifier Org" -F "subject=General Inquiry" \
+  -F "msg=Independent verification request $TS." \
+  -F "check=" -F "targets=test-verification" \
+  -o VERIF_single_empty.body 2> VERIF_single_empty.verbose; echo "exit=$?"; echo "=== verbose (tail) ==="; tail -40 VERIF_single_empty.verbose; echo "=== body ==="; cat VERIF_single_empty.body 2>/dev/null
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-30T12:06:45.475010+00:00
+# ---
+
+exit=0
+=== verbose (tail) ===
+*   Certificate level 2: Public key type RSA (4096/152 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 3: Public key type RSA (4096/152 Bits/secBits), signed using sha256WithRSAEncryption
+*   subjectAltName: "www.infinitycapital.bh" matches cert's "www.infinitycapital.bh"
+* OpenSSL verify result: 0
+* SSL certificate verified via OpenSSL.
+* Established connection to www.infinitycapital.bh (76.76.21.241 port 443) from 172.22.0.2 port 35252 
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://www.infinitycapital.bh/api/send
+* [HTTP/2] [1] [:method: POST]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: www.infinitycapital.bh]
+* [HTTP/2] [1] [:path: /api/send]
+* [HTTP/2] [1] [user-agent: curl/8.21.0]
+* [HTTP/2] [1] [accept: */*]
+* [HTTP/2] [1] [content-length: 1067]
+* [HTTP/2] [1] [content-type: multipart/form-data; boundary=------------------------E2lqw3CuL91kBZleqwtxXs]
+} [5 bytes data]
+> POST /api/send HTTP/2
+> Host: www.infinitycapital.bh
+> User-Agent: curl/8.21.0
+> Accept: */*
+> Content-Length: 1067
+> Content-Type: multipart/form-data; boundary=------------------------E2lqw3CuL91kBZleqwtxXs
+> 
+} [1067 bytes data]
+* upload completely sent off: 1067 bytes
+{ [5 bytes data]
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+{ [122 bytes data]
+< HTTP/2 429 
+< cache-control: private, no-store, max-age=0
+< content-type: text/plain; charset=utf-8
+< server: Vercel
+< x-vercel-id: bom1::n74m2-1790770005462-cac2742c06bc
+< x-vercel-mitigated: deny
+< content-length: 75
+< date: Wed, 30 Sep 2026 12:06:45 GMT
+< 
+{ [5 bytes data]
+* Connection #0 to host www.infinitycapital.bh:443 left intact
+=== body ===
+Too Many Requests
+
+Too Many Requests
+bom1::n74m2-1790770005462-cac2742c06bc

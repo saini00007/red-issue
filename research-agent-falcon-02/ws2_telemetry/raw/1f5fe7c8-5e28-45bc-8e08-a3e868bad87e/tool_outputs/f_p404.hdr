@@ -1,0 +1,9 @@
+HTTP/2 403 
+cache-control: private, no-store, max-age=0
+content-type: text/html; charset=utf-8
+server: Vercel
+x-vercel-challenge-token: 2.1790718717.60.YzI3ZjMxYTFjN2JkY2E1MGJlYWIyNzc1MjNlYmQ1YTk7ZWQ0YTFmMDE7N2I5ZjFiODdkOTljMTAzZGU2OTBkZjQzMjQxNTg0N2Y0YjE0NDMyMTszO5BMy9NiqK2X9XFYc85pFiCdROuRSCriw/lFUpvkE+QnGRR9QW+AUR6ISW9kus2jUIAGiyT9xL9fSYXkrKkSGwIgkT26ZzLl.a7df3b2c3621d8cd5e6664539f5c1431
+x-vercel-id: bom1::1790718717-itzgA3TuPElUNWvevaAiR9NNEUyV38NL
+x-vercel-mitigated: challenge
+date: Tue, 29 Sep 2026 21:51:57 GMT
+

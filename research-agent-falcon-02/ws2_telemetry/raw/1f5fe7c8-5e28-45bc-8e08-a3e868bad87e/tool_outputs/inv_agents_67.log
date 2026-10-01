@@ -1,0 +1,8 @@
+# command: mkdir -p /work/evidence && cd /work/evidence && echo ok && date
+# tool: date
+# exit_code: 0
+# ts: 2026-09-30T12:08:11.252097+00:00
+# ---
+
+ok
+Wed Sep 30 12:08:11 UTC 2026

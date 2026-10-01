@@ -1,0 +1,97 @@
+# command: timeout 15 curl -s -m 13 -o - -w '\nHTTP_STATUS:%{http_code}' 'https://duck-store.escape.tech/login?username=%2Fproc%2Fself%2Fenviron'
+# exit_code: 0
+# ---
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+  <!-- Primary Meta Tags -->
+  <title>Duck Store - Vulnerable Web App by Escape | Security Testing & Training Platform</title>
+  <meta name="title" content="Duck Store - Vulnerable Web App by Escape | Security Testing & Training Platform" />
+  <meta name="description"
+    content="Intentionally vulnerable e-commerce platform for security testing, pentesting training, and API security learning. Features OWASP Top 10, business logic flaws, and GraphQL security issues. Built by Escape.tech" />
+  <meta name="keywords"
+    content="vulnerable web application, security testing, pentesting, OWASP Top 10, API security, GraphQL security, DAST, business logic vulnerabilities, security training, Escape, escape.tech, intentionally vulnerable app, security lab, cybersecurity education, IDOR, SQL injection, XSS, SSRF, JWT vulnerabilities" />
+  <meta name="author" content="Escape - https://escape.tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://duck-store.escape.tech" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://duck-store.escape.tech" />
+  <meta property="og:title" content="Duck Store - Vulnerable Web App by Escape | Security Testing Platform" />
+  <meta property="og:description"
+    content="Intentionally vulnerable e-commerce platform for security testing and training. Features OWASP Top 10, business logic flaws, API & GraphQL security issues. Built by Escape.tech" />
+  <meta property="og:site_name" content="Duck Store by Escape" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://duck-store.escape.tech" />
+  <meta name="twitter:title" content="Duck Store - Vulnerable Web App by Escape | Security Testing Platform" />
+  <meta name="twitter:description"
+    content="Intentionally vulnerable e-commerce platform for security testing and training. Features OWASP Top 10, business logic flaws, API & GraphQL security issues. Built by Escape.tech" />
+  <meta name="twitter:site" content="@escapetech" />
+  <meta name="twitter:creator" content="@escapetech" />
+
+  <!-- Additional SEO -->
+  <meta name="application-name" content="Duck Store - Vulnerable App by Escape" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <meta name="category" content="Security, Cybersecurity, Education, Testing" />
+  <meta name="coverage" content="Worldwide" />
+  <meta name="distribution" content="Global" />
+  <meta name="rating" content="General" />
+
+  <!-- Schema.org structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Duck Store - Vulnerable Web App by Escape",
+    "applicationCategory": "SecurityApplication",
+    "operatingSystem": "Web",
+    "description": "Intentionally vulnerable e-commerce platform for security testing, pentesting training, and API security learning. Features OWASP Top 10, business logic flaws, and GraphQL security issues.",
+    "author": {
+      "@type": "Organization",
+      "name": "Escape",
+      "url": "https://escape.tech"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "keywords": "vulnerable web application, security testing, pentesting, OWASP Top 10, API security, business logic vulnerabilities"
+  }
+  </script>
+
+  <link rel="icon" type="image/x-icon" href="/duckstore-ico.png" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="author" href="/humans.txt" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script type="module" crossorigin src="/assets/index.CkGp-KSH.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index.jvj0dRK3.css">
+</head>
+
+<body>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZF3R1PBBS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-MZF3R1PBBS');
+  </script>
+  <div id="root"></div>
+</body>
+
+</html>
+HTTP_STATUS:200

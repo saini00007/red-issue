@@ -1,0 +1,17 @@
+# command: cd /work && curl -s -o /tmp/ic_contact.html -D /tmp/ic_contact.hdr "https://www.infinitycapital.bh/contact" --max-time 30; echo "EXIT=$?"; head -20 /tmp/ic_contact.hdr; wc -c /tmp/ic_contact.html
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-30T12:07:50.373608+00:00
+# ---
+
+EXIT=0
+HTTP/2 429 
+cache-control: private, no-store, max-age=0
+content-type: text/plain; charset=utf-8
+server: Vercel
+x-vercel-id: bom1::v54tj-1790770070369-8c248f3e617b
+x-vercel-mitigated: deny
+content-length: 75
+date: Wed, 30 Sep 2026 12:07:50 GMT
+
+75 /tmp/ic_contact.html

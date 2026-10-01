@@ -1,0 +1,21 @@
+{
+  "seed": "https://www.infinitycapital.bh/contact",
+  "routes": [
+    "https://www.infinitycapital.bh/contact"
+  ],
+  "xhr": [
+    {
+      "url": "https://www.infinitycapital.bh/.well-known/vercel/security/static/challenge.v2.wasm",
+      "method": "GET",
+      "post_data": null
+    }
+  ],
+  "forms": [],
+  "js_endpoints": [],
+  "js_secrets": [],
+  "screenshots": [
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/browser/shots/0.png"
+  ],
+  "har": "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/browser/www.infinitycapital.bh_1790743208.har.gz",
+  "pages_crawled": 1
+}

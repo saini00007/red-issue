@@ -1,0 +1,612 @@
+[
+  {
+    "key": "thrash",
+    "role": "WS-2 Ledger cell-state THRASH forensics (systems-architect, read-only)",
+    "summary": "CONFIRMED the WS-1 \"coverage thrash\" mechanism empirically — but reframed by the data into TWO coupled pathologies, not one. (1) RECLAIM THRASH: cells cycle untested->testing(claim,attempts++)->lease-expire->reclaim->testing without terminalizing. The DB `ledger_cell.attempts` counter (each claim_cells does attempts+=1) proves it: applicable cells claimed >=2x = 622/2719 (23%) on prior scan 68a58881, 727/2122 (34%) on infinity 1f5fe7c8, and 428/2916 (15%, still climbing at only max=3 attempts 7h in) on the LIVE scan 84aea81a. Reclaim is PARTLY productive (blackboard handoff works: of >=2-attempt cells, ~51-64% eventually close tested_clean) but 35-48% die without a real result. LIVE smoking gun: 1654/1703 (97%) of currently-`testing` cells sit in expired-lease limbo (claimed_by set, lease_expires_at < now()) = exactly the re-claimable state, yet their last_progress is <5min because a periodic resolve pass (LIVE_CONVERGENCE, SYNC_INTERVAL_S=120) bumps last_progress independent of the lease — so the last_progress-based stuck-detector (STUCK_WINDOW_S=1200) never fires while the lease-based claim gate keeps re-handing them. Two clocks disagree. (2) STARVATION (the dominant terminal outcome, the flip side): while capacity concentrates on re-claiming the same ~600-720 cells, a comparable/larger set is NEVER claimed once (attempts=0) and gets swept to terminal `attempted` by finalize.py's retire-unreached sweep — 1054/2719 (39%) on 68a58881, 470/2122 (22%) on infinity. The `attempted` bucket therefore conflates cap-exhaustion (minor: the cap of 6 is rarely hit) with unreached-starvation (dominant: 81% and 55% of `attempted` cells have attempts=0). SELF-REPORT corroboration: ledger_updates.jsonl (agent coverage self-reports; no timestamp/worker/cell_id -> ordinal analysis) is 42.5%/36.9% redundant re-writes and 88.3%/91.3% of self-reported cells never get a terminal coverage line (endless \"testing\", up to 31 re-writes on one cell). NOTE ledger_updates.jsonl does NOT record claim/reclaim/worker transitions at all — it is the agent's self-graded coverage churn; the authoritative reclaim record is the DB attempts column.",
+    "current_state": [
+      "ledger_updates.jsonl schema = {endpoint,evidence,methods,state,vuln_class}; NO timestamp, NO worker_id, NO cell_id. [CODE] agents_runtime.py:699-702 record_coverage writes exactly these 5(+reason) keys; [QUERY] head -1 ledger_updates.jsonl keys -> ['endpoint','evidence','methods','state','vuln_class']; grep for ts/time/timestamp -> NONE. Line order = transition ordinal (append-only, fleet-shared).",
+      "Claim = the only place cells enter 'testing' + increment attempts: SELECT..FOR UPDATE SKIP LOCKED sets state='testing', claimed_by=worker, attempts=attempts+1, lease_expires_at=now()+lease. [CODE] ledger/service.py:1393-1417 (claim_cells).",
+      "Reclaim path 1 (immediate, on preempt/finish): release_cells / release_cells_by_ids null out claimed_by+lease; absorb to terminal 'attempted' ONLY when attempts>=cap. [CODE] ledger/service.py:1444-1505.",
+      "Reclaim path 2 (fallback, dead worker): reclaim_expired_leases nulls claimed_by+lease for open cells past lease; absorb to 'attempted' only when attempts>=cap. [CODE] ledger/service.py:1543-1570.",
+      "Attempt cap: code default 3 ('a cell 3 workers could not close is retired'), live/prod pins 6. [CODE] ledger/service.py:1237-1247 _attempt_cap default '3'; [QUERY] docker exec scanner-agent-84aea81a7e43 env -> SCANNER_LEDGER_ATTEMPT_CAP=6, SCANNER_LEDGER_LEASE_S=1800.",
+      "Terminal 'attempted' also set by a SECOND, cap-independent path: finalize retire-unreached sweeps every applicable untested/empty-testing cell to 'attempted' at scan end. [CODE] finalize.py:454-460 UPDATE ledger_cell SET state='attempted', na_reason='unreached: scan ended before this cell was tested'; [CODE] config.py:451 scanner_finalize_retire_unreached=True (default ON).",
+      "last_progress is stamped on claim AND on every resolve_cells match (coverage self-report), but lease_expires_at is stamped ONLY by claim -> the two diverge. [CODE] ledger/service.py:1412 (claim stamps both) vs resolve_cells cell.last_progress=now at :886/:909/:926/:1028 (bumps last_progress, never the lease).",
+      "count_claimable_cells (quiescence stop) and claim gate both treat state IN (untested,testing) with expired/NULL lease as claimable, ignoring last_progress. [CODE] ledger/service.py:1508-1521, 1399-1400."
+    ],
+    "evidence": [
+      {
+        "claim": "ledger_updates.jsonl has NO timestamp/worker/cell_id; only self-report churn. Analysis must use transition ordinals.",
+        "source": "[QUERY] head -1 ledger_updates.jsonl | py sorted(keys) -> ['endpoint','evidence','methods','state','vuln_class']; grep -m1 -E '\"(ts|time|timestamp|at|created)\"' -> NONE",
+        "confidence": "HIGH",
+        "notes": "Prior scan 68a58881 workdir tarball; matches [CODE] agents_runtime.py:699-702."
+      },
+      {
+        "claim": "Prior scan 68a58881 self-report file: 2450 lines / 1409 distinct (endpoint,class) cells; 42.5% redundant re-writes; 88.3% of cells never get a terminal coverage line; one cell re-written 31x.",
+        "source": "[QUERY] python3 thrash.py .../68a58881/ledger_updates.jsonl -> {file_lines:2450,distinct_cells:1409,redundant_ratio:0.425,cells_never_terminalized_in_file:1244(88.3%),max_lines_one_cell:31,cells_with_2plus_testing_lines:292}",
+        "confidence": "HIGH",
+        "notes": "endpoints sha1-hashed before counting; only aggregates surfaced."
+      },
+      {
+        "claim": "Infinity scan 1f5fe7c8 self-report file replicates the pattern: 2032 lines/1283 cells; 36.9% redundant; 91.3% never terminalize in-file; max 12 re-writes.",
+        "source": "[QUERY] python3 thrash.py .../1f5fe7c8/ledger_updates.jsonl -> {file_lines:2032,distinct_cells:1283,redundant_ratio:0.369,cells_never_terminalized_in_file:1171(91.3%),max_lines_one_cell:12}",
+        "confidence": "HIGH",
+        "notes": "Second independent workdir tarball; consistent -> not a one-off."
+      },
+      {
+        "claim": "DB is authoritative for reclaim. attempts histogram (applicable) 68a58881: 0->1125,1->972,2->206,3->231,4->183,5->1,6->1. Cells claimed >=2x = 622/2719 (22.9%); max 6, avg 1.04.",
+        "source": "[QUERY] psql SELECT attempts,count(*) FROM ledger_cell WHERE scan_id=68a5.. AND applicable GROUP BY attempts -> as listed; max/avg -> 6|1.04",
+        "confidence": "HIGH",
+        "notes": "tenant_xbow.ledger_cell; each attempt = one claim_cells increment."
+      },
+      {
+        "claim": "Infinity 1f5fe7c8 shows HEAVIER reclaim: attempts 0->503,1->892,2->187,3->136,4->181,5->124,6->99. Claimed >=2x = 727/2122 (34%); avg 1.70; 99 cells hit the cap of 6.",
+        "source": "[QUERY] psql same query scan_id=1f5f.. -> as listed; max/avg -> 6|1.70",
+        "confidence": "HIGH",
+        "notes": "avg 1.70 vs 1.04 -> reclaim intensity varies by target/run."
+      },
+      {
+        "claim": "Reclaim is partly productive, partly wasted. Of >=2-attempt cells, 68a58881: 401 closed tested_clean (64%) vs 218 died 'attempted' (35%). Infinity: 373 closed (51%) vs 346 died (48%).",
+        "source": "[QUERY] psql SELECT attempts,state,count(*) ... GROUP BY attempts,state -> 68a5 attempted@>=2={55,66,97}=218, tested_clean@>=2={148,165,86,1,1}=401; 1f5f attempted@>=2={69,80,86,58,53}=346, tested_clean@>=2={116,54,93,64,46}=373",
+        "confidence": "HIGH",
+        "notes": "Blackboard-handoff (prior_methods carried on re-claim, claim_cells:1429-1440) genuinely closes many cells on the 2nd-4th try."
+      },
+      {
+        "claim": "The 'attempted' terminal bucket is DOMINATED by never-claimed starvation, not cap-exhaustion. 68a58881 attempted=1303 of which attempts=0 ->1054 (81%); infinity attempted=853 of which attempts=0 ->470 (55%).",
+        "source": "[QUERY] psql SELECT attempts,count(*) FROM ledger_cell WHERE state='attempted' GROUP BY attempts -> 68a5: 0|1054,1|31,2|55,3|66,4|97 ; 1f5f: 0|470,1|37,2|69,3|80,4|86,5|58,6|53",
+        "confidence": "HIGH",
+        "notes": "attempts=0 'attempted' cannot come from reclaim (needs claimed_by/attempts>=cap) -> it is finalize.py:454-460 retire-unreached. Starvation share of applicable: 68a5 1054/2719=39%, 1f5f 470/2122=22%."
+      },
+      {
+        "claim": "LIVE scan 84aea81a (running ~7h): 97% of testing cells sit in expired-lease limbo = the re-claimable pending state. testing=1703 -> 1654 expired-lease(limbo) + 49 unclaimed(released), 0 claimed-live.",
+        "source": "[QUERY] psql SELECT CASE WHEN claimed_by IS NULL..WHEN lease_expires_at<now() THEN 'expired-lease(limbo)'.. FROM ledger_cell WHERE state='testing' -> unclaimed:49, expired-lease(limbo):1654",
+        "confidence": "HIGH",
+        "notes": "These 1654 will be re-claimed (attempts++) next wave. Live attempts>=2 already 428/2916; max only 3 (cap 6 not yet reached, will climb)."
+      },
+      {
+        "claim": "Two clocks disagree: every LIVE testing cell has last_progress <5min (max 3min) despite expired 30-min leases -> last_progress-based stuck-detection is blind to lease-limbo thrash.",
+        "source": "[QUERY] psql width_bucket(age since last_progress in min) for testing cells -> bucket<1m:354, 1-5m:1349; max age -> 3 min. Lease=1800s.",
+        "confidence": "HIGH",
+        "notes": "[INFER MEDIUM] periodic resolve pass (SYNC_INTERVAL_S=120, LIVE_CONVERGENCE=true) bumps last_progress on match (resolve_cells:1028) without touching the lease -> STUCK_WINDOW_S=1200 never fires."
+      },
+      {
+        "claim": "'Distinct workers per cell' is NOT retained anywhere. DB keeps only current claimed_by (last claimer); the file has no worker. Live worker pool = 13 distinct identities: wave0, wave1, and 11 floor-* pseudo-workers.",
+        "source": "[QUERY] psql SELECT count(DISTINCT claimed_by) WHERE claimed_by IS NOT NULL -> 13; DISTINCT masked -> wave0,wave1,floor-{upload,hygiene,authclass,access,nofamily,config,injection,logic,clientside,blind,ratelimit}",
+        "confidence": "HIGH",
+        "notes": "Upper bound of distinct workers touching a cell = its attempts (each claim potentially a different worker); exact per-cell history [UNVERIFIED - not persisted]."
+      }
+    ],
+    "questions": [
+      {
+        "q": "How often does a cell cycle claim->testing->reclaim->claim without terminalizing?",
+        "answer": "Widely. DB attempts>=2 (applicable): 68a58881 622/2719=23%, 1f5fe7c8 727/2122=34%, LIVE 84aea81a 428/2916=15% and climbing (7h in, max attempts only 3). Of reclaimed cells, 35% (68a5) / 48% (1f5f) never converge on a real result. LIVE: 1654/1703 (97%) of testing cells are in expired-lease limbo = pending the next reclaim right now.",
+        "verdict": "CONFIRMED"
+      },
+      {
+        "q": "Distribution of transitions per cell?",
+        "answer": "DB attempts (claims) per applicable cell — 68a58881: {0:1125,1:972,2:206,3:231,4:183,5:1,6:1}; 1f5fe7c8: {0:503,1:892,2:187,3:136,4:181,5:124,6:99}; LIVE: {0:337,1:2151,2:418,3:10}. Self-report lines per cell — 68a58881: {1:1037,2-3:256,4-5:83,6-10:19,11-20:8,21+:6} median 1, max 31.",
+        "verdict": "CONFIRMED"
+      },
+      {
+        "q": "How many distinct workers touch one cell?",
+        "answer": "Not measurable per-cell: neither the DB (only current claimed_by) nor the file (no worker field) retains claim history. Proxy upper bound = attempts (2-6). The live fleet has 13 distinct worker identities (wave0/1 + 11 floor-* pseudo-workers) sharing the pool.",
+        "verdict": "UNVERIFIED"
+      },
+      {
+        "q": "Time cells spend in 'testing'?",
+        "answer": "Not directly measurable. ledger_updates.jsonl has no timestamps (ordinals only). DB has no claim-time column; last_progress is conflated by resolve passes. Snapshot proxy: LIVE testing cells show last_progress <5min but 97% have 30-min leases already expired, so true dwell >> lease (1800s) and is masked. Lease=1800s bounds one claim's nominal life, not real dwell.",
+        "verdict": "PLAUSIBLE"
+      }
+    ],
+    "hypotheses": [
+      {
+        "id": "WS1-coverage-thrash: cells cycle claim/reclaim without terminalizing, stalling coverage",
+        "verdict": "CONFIRMED-reframed",
+        "note": "Reclaim thrash is real and measured (23-34% of applicable cells claimed >=2x; 97% of live testing cells in re-claimable limbo). BUT the dominant coverage-stall driver in FINALIZED scans is the coupled STARVATION: 39%/22% of applicable cells are never claimed once and are swept to 'attempted' unreached at finalize. Capacity concentrates on re-working a subset while another subset is never reached. The attempt-cap (6) is rarely hit, so cap-absorption is a minor contributor."
+      },
+      {
+        "id": "attempt-cap absorbs thrashed cells to 'attempted' during the run",
+        "verdict": "REFUTED-mostly",
+        "note": "Cap absorption requires attempts>=cap(6); only ~1-2 cells reached 6 on 68a58881 and ~152 on 1f5fe7c8. 81%/55% of 'attempted' cells have attempts=0 -> they came from finalize retire-unreached (finalize.py:454-460), not the reclaim cap. The cap is not doing the in-run termination its docstring claims for these runs."
+      },
+      {
+        "id": "stuck-detection catches thrashing cells",
+        "verdict": "REFUTED",
+        "note": "Stuck-detection is last_progress-based (STUCK_WINDOW_S=1200) but a periodic resolve pass bumps last_progress independent of the lease, so all 1654 limbo cells read <5min 'fresh' and are never flagged, while the lease-based claim gate re-hands them."
+      }
+    ],
+    "defects": [
+      {
+        "title": "last_progress and lease_expires_at are two disagreeing clocks -> stuck-detection blind to lease-limbo reclaim thrash",
+        "mechanism": "claim_cells stamps both last_progress and lease_expires_at; resolve_cells (fired every SYNC_INTERVAL_S=120 by LIVE_CONVERGENCE) bumps last_progress on every matched cell but never the lease. A cell claimed >30min ago (lease expired -> re-claimable) still reads last_progress<5min, so the last_progress-based stuck-detector (STUCK_WINDOW_S=1200) never preempts it while the lease-based claim gate keeps re-handing it. Live: 1654/1703 testing cells in exactly this state.",
+        "module_flag": "ledger/service.py claim_cells:1393-1417 vs resolve_cells:1028; father stuck-detection STUCK_WINDOW_S. Fix would be flag-gated default-OFF (e.g. tie stuck-detection to lease_expires_at, or a scanner_ledger_progress_extends_lease knob).",
+        "blast_radius": "Coverage stalls: capacity re-claims warm-but-stale cells instead of untested ones; masks genuine hangs.",
+        "severity": "HIGH"
+      },
+      {
+        "title": "'attempted' terminal state conflates reclaim-exhaustion with never-reached starvation -> honest-coverage and thrash metrics are muddled",
+        "mechanism": "Two code paths write state='attempted': (a) release/reclaim when attempts>=cap (real exhaustion), (b) finalize.py:454-460 retire-unreached (scanner_finalize_retire_unreached=True) sweeping any applicable untested/empty-testing cell at scan end. In finalized scans (b) dominates (81%/55% of 'attempted' have attempts=0). A reader counting 'attempted' as 'thrashed to death' overstates thrash and hides that 22-39% of the surface was never tested.",
+        "module_flag": "finalize.py:454-460 (scanner_finalize_retire_unreached, default True) + ledger release/reclaim cap absorption. Distinguish with a separate na_reason/state (e.g. 'unreached' vs 'attempted') behind a default-OFF flag; report.py coverage already treats attempted as not-resolved.",
+        "blast_radius": "Buyer-visible coverage %: a scan that reached completed can have 22-39% of applicable cells never probed, reported only as 'attempted'.",
+        "severity": "HIGH"
+      },
+      {
+        "title": "Capacity concentration: fleet re-claims a ~600-720 cell subset up to 6x while a comparable subset is never claimed once",
+        "mechanism": "claim_cells orders by vuln_class priority then updated_at then cell_id and re-hands expired-lease cells (which keep getting updated_at/last_progress bumped) ahead of never-touched cells that share priority. Net: the same subset is reclaimed repeatedly (attempts 2-6) while low-priority-class cells starve to finalize retire-unreached.",
+        "module_flag": "ledger/service.py claim_cells ORDER BY :1403 (array_position(ranked) NULLS LAST, updated_at, cell_id). A default-OFF 'prefer attempts=0 within a priority tier' tiebreak (ORDER BY ... , attempts ASC, updated_at) would spread capacity to unreached cells without changing class priority.",
+        "blast_radius": "22-39% unreached surface per scan; reclaim effort has diminishing returns (35-48% of reclaimed cells still never converge).",
+        "severity": "MEDIUM"
+      }
+    ],
+    "gaps": [
+      "ledger_updates.jsonl carries no timestamp, worker_id, or cell_id -> all file-side thrash characterization is by transition ORDINAL (append-only, fleet-shared line order), not wall-clock.",
+      "Per-cell distinct-worker count is not persisted (DB keeps only current claimed_by; file has no worker). Upper bound = attempts; exact history [UNVERIFIED].",
+      "True time-in-'testing' (dwell) is not directly measurable: no claim-timestamp column, and last_progress is conflated by periodic resolve passes; only a point-in-time snapshot of the live scan was read.",
+      "Live scan is a single point-in-time snapshot (running ~7h, max attempts 3); its attempts/limbo figures will climb toward the finalized-scan pattern but were not observed to completion (read-only, not disturbed).",
+      "proxy_log.db blind spot noted in brief (NVIDIA/nemotron only; this live scan runs openrouter/bunny) - not used here; DB ledger_cell was the authoritative source and was fully readable.",
+      "Whether reclaim uses distinct workers vs the same worker re-claiming is unknowable from stored state; the 13-identity pool bounds it but does not prove per-cell diversity."
+    ]
+  },
+  {
+    "key": "oobdriver",
+    "role": "WS-2 — OOB honest-classification + model-driver forensics (systems-architect, read-only)",
+    "summary": "PART 1 (OOB honest-classification): The honest classifier FIRES exactly as designed in all three scans examined (prior nemotron 68a58881, prior bunny/OpenRouter infinity 1f5fe7c8, and the LIVE scan 84aea81a). classify_oob (service.py:77-97) derives the finding class from the callback PROTOCOL/beacon-provable label, never the agent's claim; sink-cluster (service.py:226-233, 279-292) collapses many callbacks per (host, honest_class) into one capped finding. Across the three scans the agent registered thousands of INFLATED OOB claims (cmdi, sqli, ssti, deserialization, lfi, rfi, nosqli, control, email_injection) yet ONLY ssrf and xxe were ever minted — every inflated/garbage claim that actually fired a scoped callback was downgraded to ssrf. The LIVE scan is the clearest proof: 17 callbacks the agent labeled `cmdi` (would-be CRITICAL RCE) were downgraded to ssrf and clustered into a single finding. The historical mass \"confirmed via OOB\" false-positive bug (one interaction → dozens of phantom cmdi/sqli/xss confirmations) is NOT present in any scan. Foreign-token and stale callbacks are correctly left unlinked. The jndi (ldap/rmi) path was not exercised (only empty-identity ldap connection-noise appeared, dropped at parse). PART 2 (model-driver forensics): WS-1's \"~1082 model HTTP errors\" is REFUTED as a large UNDERcount for nemotron and the \"100% max_turns_exceeded\" is CORROBORATED for the bunny route. Ground truth proxy_log.db (24,630 calls, ~24h, 100% nvidia/nemotron) shows 6,492 non-200 responses = 26.4% error rate (429×3578, 500×2834, client timeout/connect×49, 502×19, 504×12). agent.log surfaces only 13 of these (SDK retries mask the rest) plus 511 \"Max turns (12) exceeded\" verification failures that are actually just 10 distinct findings retried ~51× each — a retry-amplification, not 511 distinct HTTP errors. The OpenRouter/bunny blind spot is CONFIRMED: proxy_log.db logged zero non-nemotron traffic, and the infinity(bunny) workdir has no logs/agent.log at all, so its only failure signal is decisions.log — where 133/135 (98.5%) of entries are max_turns_exceeded, all tagged bunny.",
+    "current_state": [
+      "classify_oob(reg_class, protocol) [CODE service.py:77-97]: ldap/ldaps/rmi protocol -> 'jndi'; otherwise strip _QUALIFIERS from the agent's claim label and keep it ONLY if every remaining token maps to the SAME beacon-provable class in _DIRECT={ssrf,xxe} (service.py:74); any other/combined/garbage label (cmdi/sqli/rce/ssti/xss/nosqli/...) -> downgraded to 'ssrf' with an '(agent suspected <claim>)' note. The callback proves an outbound fetch, not the bug class.",
+      "Sink-cluster + cap [CODE service.py:226-233 pre-pass, 279-292 mint gate]: one auto-minted finding per (scan_id, target_host, honest_class); _MINTED_SINKS dedup; ceiling _oob_finding_cap() default 12, env SCANNER_OOB_MAX_FINDINGS [CODE service.py:100-106]. Every endpoint that reached the same sink is folded into one finding's sink_endpoints list, not fanned into rows.",
+      "Scan-scoping gate [CODE registry.py:140-200 correlate/_scan_scoped]: a callback confirms only when it carries a real interactsh identity (unique-id/full-id) AND, when a registration floor is supplied from oob_health.json checked_at, its timestamp is >= that floor; otherwise the Match is returned unlinked (evidenced, never a finding). parse_interactions [registry.py:72-85] drops any record missing both id and host — this silently discards ldap connection-log noise with empty identity.",
+      "Minted finding shape [CODE service.py:440-516 _upsert_oob_finding]: title 'Blind <honest_class> confirmed via OOB callback'; evidence_paths records vuln_class_claimed vs vuln_class_confirmed so a downgrade is transparent; severity from honest class [service.py:36-56], so a downgraded cmdi lands as ssrf=high, never critical.",
+      "Model driver telemetry: an OpenAI-compatible proxy (proxy.py) logs every nemotron call to proxy_log.db table `calls` (status/error/tokens) [QUERY schema]; the in-container agent.log records only errors that survive SDK retry and surface via verification.failed. Non-nemotron (bunny/OpenRouter) routes are not fronted by this proxy and, for the infinity scan, no agent.log was persisted to the workdir root at all."
+    ],
+    "evidence": [
+      {
+        "claim": "classify_oob derives class from protocol/beacon-provable label, downgrading inflated claims to ssrf; _DIRECT only maps ssrf/xxe; ldap/rmi->jndi.",
+        "source": "[CODE] C:/Users/ASUS/Desktop/abhdeii/autocan/src/scanner/agent_runtime/oob/service.py:66-97",
+        "confidence": "HIGH",
+        "notes": "jndi trusted ONLY from ldap/rmi PROTOCOL, never from an http/dns beacon a model tagged 'jndi'."
+      },
+      {
+        "claim": "PRIOR nemotron scan 68a58881 (duck-store.escape.tech): registry 962 tokens with inflated claims (xxe 326, ssti 157, cmdi 130, deserialization 117, xss 177, sqli 13, ssrf 36, nosqli 6); interactions 4603 (ldap 4337 = empty-identity connection-noise dropped at parse, dns 219, http 47).",
+        "source": "[QUERY] python over /tmp/mako-ws2/.../oob_registry.jsonl + oob_interactions.jsonl -> 'REGISTRY total tokens: 962 ... INTERACTIONS raw lines: 4603 protocol ALL {ldap:4337,dns:219,http:47}; identity-bearing 266 = dns 219+http 47'",
+        "confidence": "HIGH",
+        "notes": "zero ldap callbacks carried identity -> jndi path never fired; ldap lines are 172.174.201.47 BindRequest noise."
+      },
+      {
+        "claim": "68a58881 correlate+classify simulation: 31 scan-scoped linked matches (0 no-id, 0 stale), agent-claimed classes among them {ssrf:28, cmdi:1, nosqli:1, xxe:1} all honest-classified to {ssrf:30, xxe:1}; 47 foreign-token callbacks correctly unlinked.",
+        "source": "[QUERY] /tmp/mako-ws2/sim.py (faithful copy of extract_token/classify_oob/_scan_scoped) -> 'LINKED+SCOPED honest {ssrf:30,xxe:1}; claimed {ssrf:28,nosqli:1,xxe:1,cmdi:1}; foreign-token 47'",
+        "confidence": "HIGH",
+        "notes": "the cmdi and nosqli claims that fired were downgraded to ssrf; they folded into the single ssrf sink so no separate row."
+      },
+      {
+        "claim": "68a58881 actually minted only 2 auto-OOB findings, both honest (Blind ssrf, Blind xxe), and report.json carries 1 after dedup; grep for any inflated 'Blind cmdi/rce/ssti/sqli/deserialization/xss confirmed via OOB' returns NONE.",
+        "source": "[QUERY] grep -oiE 'Blind (cmdi|rce|ssti|sqli|nosqli|deserialization|xss|xxe|ssrf|jndi)[a-z_ ]* confirmed via OOB callback' findings.jsonl report.json report.md -> only 'Blind ssrf'(x1 findings, x1 report.json, x1 report.md) + 'Blind xxe'(x1 findings)",
+        "confidence": "HIGH",
+        "notes": "the other 5 findings.jsonl lines with verification_method=oob_callback are the agent's OWN 'SSRF via ...' findings (evidence_paths null), not the auto-mint path."
+      },
+      {
+        "claim": "PRIOR bunny/OpenRouter scan infinity 1f5fe7c8 (infinitycapital.bh): registry 1409 tokens (deserialization 216, ssrf 217, xxe 232, ssti 107, cmdi 81, rfi 92, lfi 86, sqli 79, open_redirect 99, ...); 1065 interactions (dns 969, http 96, no ldap); 38 scan-scoped linked, claims incl cmdi/sqli x2/ssti/ssti_xxe/email_injection/control/control_test -> honest {ssrf:28, xxe:10}.",
+        "source": "[QUERY] /tmp/mako-inf/sim2.py -> 'our-token matches 38, no-id 0, stale 0, foreign 46; LINKED+SCOPED {xxe:10,ssrf:28}; claimed {xxe:10,ssrf:20,email_injection:1,ssti:1,ssti_xxe:1,sqli:2,control:1,control_test:1,cmdi:1}'",
+        "confidence": "HIGH",
+        "notes": "8 inflated/garbage claims all downgraded to ssrf."
+      },
+      {
+        "claim": "infinity minted 7 OOB findings, ALL honest, with downgrade transparently stamped: e.g. claimed=email_injection->confirmed=ssrf, claimed=control->confirmed=ssrf, claimed=control_test->confirmed=ssrf; never an inflated class.",
+        "source": "[QUERY] /tmp/mako-inf/sim2.py findings.jsonl scan -> 'MINT Blind ssrf ... claimed=email_injection confirmed=ssrf' + 'claimed=control confirmed=ssrf' + 'claimed=control_test confirmed=ssrf' + 4 more ssrf/xxe",
+        "confidence": "HIGH",
+        "notes": "sink-cluster split into 7 because multiple distinct hosts; each honest."
+      },
+      {
+        "claim": "LIVE scan 84aea81a (in progress, oob file updated 03:58): registry 743 (deserialization 168, xxe 119, cmdi 72, ssrf 68, lfi 51, rfi 50, ssti 47, sqli 22, ...); 317 interactions (dns 178, http 139); 41 scan-scoped linked (0 no-id, 0 stale, 0 foreign) incl cmdi x17, command_injection x1, stored_xss x2, ssti/lfi/rfi/open_redirect/nosqli -> honest {ssrf:38, xxe:3}.",
+        "source": "[QUERY] /tmp/mako-live/simlive.py over read-only snapshot of live workdir -> 'LINKED+SCOPED {ssrf:38,xxe:3}; claimed {cmdi:17,ssrf:13,xxe:3,stored_xss:2,command_injection:1,ssti:1,lfi:1,rfi:1,open_redirect:1,nosqli:1}'",
+        "confidence": "HIGH",
+        "notes": "17 would-be CRITICAL cmdi false positives suppressed in real time."
+      },
+      {
+        "claim": "LIVE minted only 2 OOB findings: 'Blind ssrf' with claimed=cmdi/confirmed=ssrf (the 17 cmdi + 13 ssrf + others clustered to one) and 'Blind xxe' claimed=xxe/confirmed=xxe. Zero inflated.",
+        "source": "[QUERY] /tmp/mako-live/simlive.py findings.jsonl -> 'MINT x1 (Blind ssrf..., cmdi, ssrf); MINT x1 (Blind xxe..., xxe, xxe); live oob_callback finding lines: 2'",
+        "confidence": "HIGH",
+        "notes": "definitive live demonstration the mass-FP bug is dead."
+      },
+      {
+        "claim": "proxy_log.db ground truth: 24,630 calls (2026-09-28T22:58 -> 09-29T23:06), model_fwd = nvidia/nemotron-3-ultra 22,640 + nvidia/nemotron-3-super 1,990 ONLY. Zero bunny/OpenRouter/GLM/GPT. Status: 200x18138, 429x3578, 500x2834, 0(client)x49, 502x19, 504x12 = 6,492 non-200 (26.4%).",
+        "source": "[QUERY] sqlite3 proxy_log.db 'SELECT model_fwd,count(*)...' + 'SELECT status,count(*)...' -> as stated",
+        "confidence": "HIGH",
+        "notes": "error signatures: 429 Too Many Requests 3578, Internal server error 2832, ReadTimeout 23, 502 Bad Gateway 19, ConnectError 11+2, ConnectTimeout 3, WriteTimeout 1."
+      },
+      {
+        "claim": "68a58881 agent.log (60,672 lines) surfaces only 13 model HTTP errors via verification.failed (Error code 500 x8, Error code 429 x5) plus 511 'Max turns (12) exceeded' failures spanning only 10 distinct finding_ids; no content-filter/refusal/connection/timeout string present.",
+        "source": "[QUERY] grep over logs/agent.log -> 'verification.failed 524 = Max turns x511 + 500 x8 + 429 x5; distinct finding_ids that hit Max turns: 10; content_filter/refused/APIConnection/timeout/overloaded = 0'",
+        "confidence": "HIGH",
+        "notes": "'rate-limit' 1415 is a FALSE POSITIVE = finding titles 'No rate-limiting on sensitive endpoint'; 401/Unauthorized/403 are target responses, not driver errors."
+      },
+      {
+        "claim": "decisions.log: infinity(bunny) 135 bracketed entries, 133 = max_turns_exceeded (98.5%), ALL tagged bunny; 68a(nemotron) root decisions.log = 1 substantive nemotron summary entry.",
+        "source": "[QUERY] grep over /tmp/mako-inf/.../decisions.log -> 'total 135, max_turns_exceeded 133, model-tag bunny x135'; head 68a decisions.log -> single 'batch3-b-45-nemotron' summary",
+        "confidence": "HIGH",
+        "notes": "corroborates WS-1 '100% max_turns' for the bunny route specifically."
+      },
+      {
+        "claim": "Blind spot confirmed structurally: infinity(bunny) workdir has NO logs/ dir (no agent.log) and live scan has no logs/ at workdir root; both bypass proxy_log.db (nemotron-only).",
+        "source": "[QUERY] 'ls $I/logs -> NO logs/ dir in infinity'; 'sudo ls live/logs -> no logs/ at live root'",
+        "confidence": "HIGH",
+        "notes": "for non-nemotron routes the ONLY failure telemetry is decisions.log max_turns; HTTP-level errors are unobservable."
+      }
+    ],
+    "defects": [
+      {
+        "title": "Driver-error telemetry undercounts ~500x for surfaced-only counting (agent.log 13 vs proxy 6,492)",
+        "mechanism": "The in-container agent.log only records model errors that survive the SDK's internal retry and bubble up to verification.failed. The proxy meter shows 6,492 non-200 nemotron responses (26.4%) over the same window, but only 13 reach agent.log. Any forensic count taken from agent.log (or a naive grep) will radically undercount true driver-error volume; conversely a naive grep of 'rate-limit' (1415) or '401' overcounts on finding-title/target-response noise. There is no per-scan structured driver-error counter emitted from inside the container.",
+        "module_flag": "src/scanner/agent_runtime/engine/runtimes/agents_runtime.py (SDK driver) / proxy.py; proposed metric behind a new default-OFF flag e.g. SCANNER_DRIVER_ERROR_METRIC",
+        "severity": "MEDIUM",
+        "blast_radius": "Observability only — misleads capacity/reliability triage (WS-1's ~1082 figure is a symptom). No effect on scan correctness."
+      },
+      {
+        "title": "Verification max-turns retry amplification with no give-up/backoff",
+        "mechanism": "verification.failed logs 511 'Max turns (12) exceeded' across only 10 distinct finding_ids (~51 re-attempts each) — the deferred/finalize verification loop re-drives the same model against the same unverifiable finding every tick, each attempt burning up to 12 model turns. This is a material contributor to the nemotron 429 storm (3,578 rate-limit responses = 14.5% of all calls) and to cost, for zero new information.",
+        "module_flag": "src/scanner/agent_runtime/finalize.py verification loop; proposed per-finding attempt-cap + backoff behind a default-OFF flag e.g. SCANNER_VERIFY_MAX_ATTEMPTS (byte-identical when unset)",
+        "severity": "MEDIUM",
+        "blast_radius": "Cost + rate-limit pressure; can slow/stall a scan's tail. Bounded (10 findings here), but unbounded in principle over ticks."
+      },
+      {
+        "title": "Non-nemotron (bunny/OpenRouter) routes have no HTTP-level failure telemetry",
+        "mechanism": "proxy_log.db fronts only nemotron (100% of 24,630 rows). The infinity(bunny) scan persisted no logs/agent.log to its workdir root, so a bunny model returning text-only / bailing appears ONLY as decisions.log max_turns_exceeded (133/135). Whether those max_turns are driven by upstream 429/5xx or by the model not emitting tool calls is unknowable from persisted forensics — the failure mode is real (98.5% of turns wasted) but its cause is invisible.",
+        "module_flag": "model routing / agent_runtime run.py agent.log persistence; proposed: persist logs/agent.log for every route + a lightweight per-route status counter, default-OFF flag",
+        "severity": "HIGH",
+        "blast_radius": "A whole model route (here the entire infinity scan) can burn budget at ~98% wasted turns with no diagnosable signal; blocks route-quality comparison and SLA."
+      }
+    ],
+    "hypotheses": [
+      {
+        "id": "WS1: ~1082 model HTTP errors",
+        "verdict": "REFUTED (undercount)",
+        "note": "For the only workdir with an agent.log (nemotron 68a58881), agent.log surfaces just 13 HTTP errors (8x500,5x429). The ground-truth proxy_log.db shows 6,492 non-200 nemotron responses (26.4%) over ~24h — far above 1082. 1082 matches no measured quantity; it is likely a partial window or a conflation. True nemotron driver-error volume is ~6.5k; bunny errors are unmeasured."
+      },
+      {
+        "id": "WS1: 100% max_turns_exceeded in decisions.log",
+        "verdict": "CORROBORATED (bunny route)",
+        "note": "infinity(bunny) decisions.log = 133/135 (98.5%) max_turns_exceeded, all tagged bunny. NOT true of 68a(nemotron) root decisions.log (1 substantive entry). The claim holds specifically for the OpenRouter/bunny route."
+      },
+      {
+        "id": "OpenRouter/bunny proxy blind spot",
+        "verdict": "CONFIRMED",
+        "note": "proxy_log.db model_fwd is 100% nvidia/nemotron; zero bunny rows. infinity(bunny) workdir has no logs/agent.log. Non-nemotron failures are invisible except as decisions.log max_turns."
+      },
+      {
+        "id": "OOB honest-classification fires (no mass 'confirmed via OOB' FP)",
+        "verdict": "CONFIRMED",
+        "note": "Three scans, agent-claimed inflated classes (cmdi/sqli/ssti/deserialization/lfi/rfi/nosqli/control) all downgraded to ssrf; only ssrf+xxe ever minted; live scan suppressed 17 would-be CRITICAL cmdi FPs. Historical bug not present."
+      },
+      {
+        "id": "jndi (ldap/rmi) honest-classification path exercised",
+        "verdict": "NOT OBSERVED",
+        "note": "The only ldap traffic seen (4,337 lines in 68a) was empty-identity connection-noise dropped at parse_interactions; no identity-bearing ldap/rmi callback occurred, so the jndi branch did not fire in any sampled scan. Code path is present but unexercised by this evidence."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Does honest-classification (protocol-classify + sink-cluster per classify_oob) actually fire on real data?",
+        "answer": "Yes. In all 3 scans the classifier downgraded every inflated/garbage agent claim (cmdi, sqli, ssti, deserialization, lfi, rfi, nosqli, control, control_test, email_injection, ssti_xxe) to ssrf, kept genuine ssrf/xxe, and sink-clustered dozens of callbacks into a handful of findings. Minted findings stamp vuln_class_claimed vs vuln_class_confirmed so downgrades are auditable.",
+        "verdict": "CONFIRMED"
+      },
+      {
+        "q": "Is there any mass 'confirmed via OOB' false-positive pattern (the historical bug)?",
+        "answer": "No. Zero inflated 'Blind cmdi/sqli/rce/ssti/deserialization/xss confirmed via OOB' findings in any of the three scans. 68a: 31 links -> 2 findings. infinity: 38 links -> 7 findings (multi-host). live: 41 links (incl 17 cmdi) -> 2 findings. Only ssrf+xxe classes appear.",
+        "verdict": "REFUTED (bug absent)"
+      },
+      {
+        "q": "Honest 'outbound-fetch proven, class not proven' vs trusted-claim behavior?",
+        "answer": "The pipeline explicitly implements the honest stance: title is always 'Blind ssrf/xxe/jndi confirmed via OOB callback' derived from the callback protocol, severity from the honest class (a downgraded cmdi becomes ssrf=high, never critical), and the description states 'This proves the server dereferenced attacker input; classified as blind <class> from the callback protocol (agent suspected <claim>)'.",
+        "verdict": "CONFIRMED"
+      },
+      {
+        "q": "Model-driver HTTP 4xx/5xx / timeout / content-filter / refusal counts (corroborate WS-1 ~1082)?",
+        "answer": "Ground truth proxy_log.db (nemotron only): 6,492 non-200 of 24,630 (26.4%): 429x3578, 500x2834, client timeout/connect x49, 502x19, 504x12. agent.log surfaces only 13 after SDK retry. No content-filter/refusal events in either source. WS-1's 1082 is an undercount for nemotron.",
+        "verdict": "REFUTED (true count ~6.5k, not 1082)"
+      },
+      {
+        "q": "Context-reset / transcript-cap (max_turns) events?",
+        "answer": "68a agent.log: 511 'Max turns (12) exceeded' (verification path) over 10 distinct findings = retry amplification, not distinct events; no explicit context-reset/reprompt/continuation entries logged. infinity decisions.log: 133/135 max_turns_exceeded (bunny). The turn-cap saturation is real and dominant on the bunny route.",
+        "verdict": "PARTIALLY CORROBORATED"
+      },
+      {
+        "q": "OpenRouter/bunny proxy blind spot real?",
+        "answer": "Yes — proxy_log.db is 100% nemotron; the infinity(bunny) scan has no agent.log and no proxy rows. Bunny failures are only inferable from decisions.log max_turns.",
+        "verdict": "CONFIRMED"
+      }
+    ],
+    "gaps": [
+      "No agent.log exists for the infinity(bunny) scan or at the live scan's workdir root (in-container), so a per-route model HTTP-error count for non-nemotron traffic cannot be produced from persisted forensics — only decisions.log max_turns is available. [QUERY: no logs/ dir in either]",
+      "The jndi (ldap/rmi) honest-classification branch was not exercised by any sampled scan (only empty-identity ldap noise), so its live behavior is unverified against real callbacks. [INFER from data]",
+      "proxy_log.db window (2026-09-28 22:58 -> 09-29 23:06) covers the nemotron scans but I did not scope the 6,492 errors to a single scan_id (the DB has no scan_id column; only ts/model). Per-scan attribution would need ts-window correlation. [QUERY: schema has no scan_id]",
+      "WS-1's exact '1082' source was not located; it matches neither agent.log (13) nor proxy (6,492) nor the 'rate-limit' FP (1415) nor 'Max turns' (511) — origin remains unidentified. [UNVERIFIED]",
+      "I did not cross-read the DB (tenant_xbow findings table) to confirm the on-disk findings.jsonl OOB findings match what was ingested; analysis is workdir-file based. Reconciliation with SELECT on the tenant schema would close this. [not performed - out of WS-2 file-forensics scope]",
+      "Sink-cluster cap (_oob_finding_cap default 12) was never hit in any sample (max 7 minted), so the pathological-fanout backstop itself is untested by this evidence. [INFER]"
+    ]
+  },
+  {
+    "key": "catalog",
+    "role": "WS-2 Observed-failure catalog (aggregate) — SYSTEMS-ARCHITECT / Abhedi Red",
+    "summary": "Aggregate observed-failure catalog built from 2 extracted prior workdirs (scan 68a58881 = duck-store.escape.tech; scan 1f5fe7c8 = \"infinity\"), the live scanner-cp log (uptime ~3h, dominated by live scan 84aea81a), and tenant_xbow read-only queries. 16 distinct failure classes tabulated with counts + one-line mechanism (file:line). The three loudest signals are all silent-loss / flood classes: (1) result-drop — ledger.resolve.update_unmatched=7,735 + finding_unmatched=1,750 in ONE scan: coverage/finding results whose (endpoint,vuln_class) matched no ledger cell were silently discarded and re-logged every reconcile tick (father.py:107 itself calls this \"the biggest hidden leak\"); (2) log flood — scan.method_switch=41,978 lines = 92% of the entire scanner-cp log, the watchdog re-emitting one pubsub event per stuck 'testing' cell every tick with zero DB persistence; (3) worker crash — worker_runs.status='error'=578/977=59%, dominated by provider \"ChatCompletion response has no choices\"=471. Coverage never resolves: 8,771 applicable cells retired to terminal 'attempted' (unreached) + 5,299 untested + 2,774 stuck 'testing'. Telemetry is near-blind: scan 68a58881 persisted 1 agent_message vs 12,143 tool_invocations (~12,000x). Most scans do not finish clean: cancelled=19 / failed=4 / partial=1 vs completed=18. FALSIFIED one belief: no real HTTP-409 respawn conflicts in this cp window (grep '409' matched TCP port numbers, not conflicts). This is a COUNTS catalog, not new root-causing; every count carries a [QUERY]/[CODE] source. READ-ONLY; live scan 84aea81a untouched; one bootstrap admin key seen in agent.log line 1 was redacted and not reproduced.",
+    "current_state": [
+      "Sources read READ-ONLY: /tmp/mako-ws2/68a58881-ae3b-4f36-90a9-bf254da13fcb/ (final workdir, agent.log 60,672 lines) and /tmp/mako-inf/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/ (infinity-fresh, files-only, NO logs/agent.log), extracted to temp dirs I own; docker logs scanner-cp (45,774 lines); psql tenant_xbow. [QUERY]",
+      "Scan 68a58881 target = duck-store.escape.tech (exploit_floor_signals.jsonl endpoints). It persisted 38 findings to DB but its agent.log shows 18,506 finding.duplicate_skipped — findings re-ingested every reconcile tick. [QUERY] grep event-name freq on agent.log",
+      "tenant_xbow.ledger_cell state distribution (ALL scans): na=48,322, attempted=8,771, untested=5,299, tested_clean=4,862, testing=2,774, blocked=455, confirmed=298. [QUERY] psql GROUP BY state",
+      "tenant_xbow.scans status (ALL): cancelled=19, completed=18, failed=4, partial=1, running=1. failed failure_reason = 'agent_exit_-1_after_0_attempts' and 'spawn_error: 404 ... pull access denied for scanner/zap'. [QUERY] psql GROUP BY status",
+      "tenant_xbow.worker_runs status (ALL): error=578, ok=270, partial=76, running=53. [QUERY] psql GROUP BY status",
+      "scan.method_switch is published via publish_event to pubsub/log only and is ABSENT from scan_events top-25 (tool.started=27,056 / tool.done=27,039 dominate) — the 41,978 cp-log method_switch lines have zero DB persistence. [CODE] poller.py:1160-1165; [QUERY] psql scan_events GROUP BY event_type"
+    ],
+    "defects": [
+      {
+        "title": "F1 update_unmatched — coverage results silently dropped",
+        "mechanism": "[CODE] ledger/service.py:949 ledger.resolve.update_unmatched — an agent coverage-update line whose (endpoint,vuln_class) matches no ledger cell is counted unmatched and discarded; the resolve path re-runs over the whole ledger_updates.jsonl each reconcile tick with no dedup, so the same drop re-logs. father.py:107 names this 'the biggest hidden leak'.",
+        "severity": "HIGH",
+        "blast_radius": "7,735 events in scan 68a58881 agent.log (vs only 2,481 ledger_updates.jsonl lines → ~3x re-log amplification). [QUERY] grep -c",
+        "module_flag": "src/scanner/ledger/service.py:949 (no flag — always on)"
+      },
+      {
+        "title": "F2 finding_unmatched — findings silently dropped from ledger resolve",
+        "mechanism": "[CODE] ledger/service.py:873 ledger.resolve.finding_unmatched — a finding whose (endpoint,vuln_class) matches no ledger cell is counted unmatched and not attached to coverage; re-logged per reconcile tick.",
+        "severity": "HIGH",
+        "blast_radius": "1,750 events in scan 68a58881 agent.log. [QUERY] grep -c",
+        "module_flag": "src/scanner/ledger/service.py:873"
+      },
+      {
+        "title": "F3 finding.duplicate_skipped flood",
+        "mechanism": "[CODE] agent_runtime/tools/findings.py:409 — every re-ingest of an already-persisted dedup_hash logs a skip; findings.jsonl is re-ingested each reconcile tick so all prior findings re-skip every pass.",
+        "severity": "MEDIUM",
+        "blast_radius": "18,506 events in scan 68a58881 agent.log vs 38 findings actually persisted to DB (~487x). [QUERY] event-name freq",
+        "module_flag": "src/scanner/agent_runtime/tools/findings.py:409"
+      },
+      {
+        "title": "F4 verification.failed — LLM verifier subagent unavailable (fail-open)",
+        "mechanism": "[CODE] hooks/verification.py:240 — verifier subagent execute_fn raised (timeout/egress/SDK/provider), fail-open keeps the finding but stamps verification_status='verifier_unavailable'. High rate means the LLM-verification tier is effectively non-functional for that scan and its failure is masked.",
+        "severity": "HIGH",
+        "blast_radius": "524 failed of 540 verification.spawned = 97% in scan 68a58881 agent.log. [QUERY] event-name freq",
+        "module_flag": "src/scanner/agent_runtime/hooks/verification.py:240"
+      },
+      {
+        "title": "F5 scan.method_switch debug flood",
+        "mechanism": "[CODE] poller.py:1160-1165 _watchdog_once — for EVERY cell stuck in state='testing' past WATCHDOG_STALE_SECONDS, publish one scan.method_switch event and bump last_progress; refires every watch tick while the cell stays stuck. Consumer is a 'future planner (WS3)' — currently no consumer, not persisted to scan_events.",
+        "severity": "MEDIUM",
+        "blast_radius": "41,978 lines = 92% of the 45,774-line scanner-cp log; scoped scan_id=84aea81a (live) = 43,353. [QUERY] docker logs grep -c + scan_id uniq",
+        "module_flag": "src/scanner/scheduler/poller.py:1160 (WATCHDOG_STALE_SECONDS)"
+      },
+      {
+        "title": "F6 worker_runs error — majority of worker runs crash",
+        "mechanism": "provider/LLM failures bubble to worker_runs.status='error'. Breakdown: 'ChatCompletion response has no choices (possible provider error payload)'=471, HTTP 429 Too Many Requests=91, 500=9, 400=6, 502=1.",
+        "severity": "HIGH",
+        "blast_radius": "578 error of 977 total worker_runs = 59% (ALL scans); no-choices alone = 471 = 81% of errors. [QUERY] psql worker_runs GROUP BY status, error",
+        "module_flag": "tenant_xbow.worker_runs (provider/proxy reliability; proxy_log.db blind to non-nemotron providers per directive)"
+      },
+      {
+        "title": "F7 retire_unreached sweep — applicable cells retired unprobed",
+        "mechanism": "[CODE] finalize.py:454-461 — at finalize, cells still untested (or 'testing' with empty methods_used) are UPDATEd to terminal 'attempted' with na_reason='unreached: scan ended before this cell was tested' so the scan can read 'completed'; attempted is not counted resolved (coverage % stays honest). Gated scanner_finalize_retire_unreached default ON.",
+        "severity": "MEDIUM",
+        "blast_radius": "8,771 cells in state='attempted' (ALL scans) = never actually probed. [QUERY] psql ledger_cell GROUP BY state",
+        "module_flag": "src/scanner/agent_runtime/finalize.py:454 · flag scanner_finalize_retire_unreached (config.py:451 default True)"
+      },
+      {
+        "title": "F8 never-reached cells (untested at end)",
+        "mechanism": "cells materialized into the ledger but never claimed/probed before the scan ended (pre-retire remainder, or scans not yet finalized).",
+        "severity": "MEDIUM",
+        "blast_radius": "5,299 cells in state='untested' (ALL scans). [QUERY] psql ledger_cell GROUP BY state",
+        "module_flag": "tenant_xbow.ledger_cell"
+      },
+      {
+        "title": "F9 stuck-'testing' limbo cells (method_switch fuel)",
+        "mechanism": "cells claimed into 'testing' but never resolved back to tested_clean/confirmed nor released; these are exactly what the watchdog re-fires method_switch on (F5).",
+        "severity": "MEDIUM",
+        "blast_radius": "2,774 cells in state='testing' (ALL scans). [QUERY] psql ledger_cell GROUP BY state",
+        "module_flag": "tenant_xbow.ledger_cell + poller.py:1147 watchdog"
+      },
+      {
+        "title": "F10 agent_messages vs tool_invocations divergence — telemetry near-blind",
+        "mechanism": "agent_messages telemetry table is near-empty relative to tool activity; the reasoning/message stream is not being persisted while tool_invocations flow normally (candidate emitter telemetry.agent_message_failed at telemetry.py:247).",
+        "severity": "MEDIUM",
+        "blast_radius": "scan 68a58881: 1 msg / 12,143 tools (~12,000x); 1f5fe7c8: 139 / 9,843; live 84aea81a: 76 / 5,983; several scans 0 msgs / 1,000+ tools. [QUERY] psql FULL OUTER JOIN",
+        "module_flag": "tenant_xbow.agent_messages · src/scanner/agent_runtime/engine/telemetry.py:247"
+      },
+      {
+        "title": "F11 scans not completing cleanly",
+        "mechanism": "most scans end cancelled (time-cap/manual → SIGKILL path) or failed rather than completed.",
+        "severity": "MEDIUM",
+        "blast_radius": "cancelled=19, failed=4, partial=1 vs completed=18 (ALL). failed reasons = 'agent_exit_-1_after_0_attempts' and zap image-pull 404 ('pull access denied for scanner/zap'). [QUERY] psql scans GROUP BY status",
+        "module_flag": "tenant_xbow.scans (failure_reason); scanner/zap image not present"
+      },
+      {
+        "title": "F12 cancel_sigkill grace cuts",
+        "mechanism": "[CODE] poller.py:972 poller.cancel_sigkill_sent — SIGTERM grace window expired, agent container SIGKILLed (risks losing un-flushed /work findings, the known SIGKILL-before-flush hazard).",
+        "severity": "LOW",
+        "blast_radius": "2 in scanner-cp current-uptime window (against 19 cancelled scans aggregate). [QUERY] docker logs grep -c",
+        "module_flag": "src/scanner/scheduler/poller.py:972 (grace_s)"
+      },
+      {
+        "title": "F13 exploit_floor.nofamily_inconclusive — floor fired, no class matched",
+        "mechanism": "[CODE] exploit_floor.py:3141 — a floor probe fired against a cell but no vuln family matched the response; counts['fired'] incremented, cell left inconclusive (not confirmed, not cleanly cleared → contributes to limbo).",
+        "severity": "LOW",
+        "blast_radius": "135 in scan 68a58881 agent.log. [QUERY] event-name freq",
+        "module_flag": "src/scanner/agent_runtime/engine/exploit_floor.py:3141"
+      },
+      {
+        "title": "F14 exploit_floor.logic_skipped — authz probe skipped, no identity",
+        "mechanism": "[CODE] exploit_floor.py:3949 — the deterministic authz/logic floor skips a cell because no auth-session identity is available (auth bootstrap gap).",
+        "severity": "LOW",
+        "blast_radius": "24 in scan 68a58881 agent.log. [QUERY] event-name freq",
+        "module_flag": "src/scanner/agent_runtime/engine/exploit_floor.py:3949"
+      },
+      {
+        "title": "F15 tool.started without tool.done (dangling invocations)",
+        "mechanism": "tool.started events with no matching tool.done — tool/agent crashed or was killed mid-call.",
+        "severity": "LOW",
+        "blast_radius": "17 dangling (tool.started=27,056 vs tool.done=27,039, ALL scans scan_events). [QUERY] psql scan_events GROUP BY event_type",
+        "module_flag": "tenant_xbow.scan_events"
+      },
+      {
+        "title": "F16 tool.blocked by guard hook",
+        "mechanism": "[CODE] scope/guard hooks blocked agent tool calls: tool.blocked.destructive + tool.blocked.exploit_forbidden.",
+        "severity": "LOW",
+        "blast_radius": "destructive=4, exploit_forbidden=2 in scan 68a58881 agent.log (guardrail working as designed; low volume). [QUERY] event-name freq",
+        "module_flag": "src/scanner/agent_runtime/hooks/bash.py, hooks/scope.py"
+      }
+    ],
+    "evidence": [
+      {
+        "claim": "ledger.resolve.update_unmatched=7,735 and ledger.resolve.finding_unmatched=1,750 in scan 68a58881",
+        "source": "[QUERY] ssh abhedi grep -c on /tmp/mako-ws2/68a58881-ae3b-4f36-90a9-bf254da13fcb/logs/agent.log → 7735 / 1750",
+        "confidence": "HIGH",
+        "notes": "vs 2,481 total ledger_updates.jsonl lines → resolve re-runs each reconcile tick, re-logging drops [INFER]"
+      },
+      {
+        "claim": "finding.duplicate_skipped=18,506 in scan 68a58881 (DB persisted only 38 findings)",
+        "source": "[QUERY] event-name freq (grep -oE '] <event> ') on agent.log = 18506; [QUERY] psql findings GROUP BY scan_id = 38",
+        "confidence": "HIGH",
+        "notes": "re-ingest amplification; findings.py:409 emitter"
+      },
+      {
+        "claim": "verification.spawned=540, verification.failed=524 (97%) in scan 68a58881",
+        "source": "[QUERY] event-name freq on agent.log = 540 / 524",
+        "confidence": "HIGH",
+        "notes": "[CODE] verification.py:240 fail-open → verifier_unavailable; findings survive"
+      },
+      {
+        "claim": "scan.method_switch=41,978 = 92% of 45,774-line scanner-cp log; scan_id=84aea81a=43,353",
+        "source": "[QUERY] docker logs scanner-cp | grep -c 'scan.method_switch'; | grep -oE 'scan_id=' | uniq -c",
+        "confidence": "HIGH",
+        "notes": "[CODE] poller.py:1160 watchdog per-stale-cell per-tick; not in scan_events (pubsub/log only)"
+      },
+      {
+        "claim": "worker_runs status: error=578, ok=270, partial=76, running=53 (ALL scans)",
+        "source": "[QUERY] psql tenant_xbow.worker_runs GROUP BY status",
+        "confidence": "HIGH",
+        "notes": "59% error rate"
+      },
+      {
+        "claim": "worker error breakdown: no-choices=471, 429=91, 500=9, 400=6, 502=1",
+        "source": "[QUERY] psql SELECT LEFT(error,70),count(*) WHERE status='error' GROUP BY 1",
+        "confidence": "HIGH",
+        "notes": "provider empty-completion dominant; proxy_log.db blind to non-nemotron per directive"
+      },
+      {
+        "claim": "ledger_cell states (ALL): na=48,322, attempted=8,771, untested=5,299, tested_clean=4,862, testing=2,774, blocked=455, confirmed=298",
+        "source": "[QUERY] psql tenant_xbow.ledger_cell GROUP BY state",
+        "confidence": "HIGH",
+        "notes": "attempted=retire_unreached sweep outcome (finalize.py:454); testing=2,774 feeds method_switch"
+      },
+      {
+        "claim": "agent_messages vs tool_invocations: 68a58881=1/12,143; 1f5fe7c8=139/9,843; 84aea81a=76/5,983",
+        "source": "[QUERY] psql FULL OUTER JOIN agent_messages/tool_invocations GROUP BY scan_id",
+        "confidence": "HIGH",
+        "notes": "telemetry.agent_messages near-empty; candidate emitter telemetry.py:247"
+      },
+      {
+        "claim": "scans status: cancelled=19, completed=18, failed=4, partial=1, running=1",
+        "source": "[QUERY] psql tenant_xbow.scans GROUP BY status + failure_reason agg",
+        "confidence": "HIGH",
+        "notes": "failed = agent_exit_-1_after_0_attempts + zap image pull 404"
+      },
+      {
+        "claim": "poller.cancel_sigkill_sent=2 in scanner-cp current-uptime window",
+        "source": "[QUERY] docker logs scanner-cp | grep -c poller.cancel_sigkill_sent",
+        "confidence": "HIGH",
+        "notes": "[CODE] poller.py:972; SIGTERM grace expired → SIGKILL"
+      },
+      {
+        "claim": "exploit_floor.nofamily_inconclusive=135, exploit_floor.logic_skipped=24 in scan 68a58881",
+        "source": "[QUERY] event-name freq on agent.log",
+        "confidence": "HIGH",
+        "notes": "[CODE] exploit_floor.py:3141 / :3949"
+      },
+      {
+        "claim": "scan_events: tool.started=27,056 vs tool.done=27,039 (17 dangling); governor.decision=1,589; floor.tick=608; scan.method_switch absent",
+        "source": "[QUERY] psql tenant_xbow.scan_events GROUP BY event_type ORDER BY count DESC LIMIT 25",
+        "confidence": "HIGH",
+        "notes": "method_switch not persisted → no historical per-scan count from DB (gap)"
+      },
+      {
+        "claim": "retire_unreached is flag-gated default ON and sets unprobed cells to terminal 'attempted'",
+        "source": "[CODE] finalize.py:454-461; config.py:451 scanner_finalize_retire_unreached: bool = True",
+        "confidence": "HIGH",
+        "notes": "na_reason='unreached: scan ended before this cell was tested'"
+      },
+      {
+        "claim": "No real HTTP-409 respawn conflicts in scanner-cp current window",
+        "source": "[QUERY] docker logs scanner-cp | grep '409' → matches were TCP port numbers (40910, 40998...), 0 HTTP-409 conflicts",
+        "confidence": "MEDIUM",
+        "notes": "FALSIFIES the 'dead-node 409 respawn' belief for this window; not a claim it never happens"
+      },
+      {
+        "claim": "infinity-fresh tarball is files-only (no logs/agent.log); corroborated via DB only",
+        "source": "[QUERY] ssh ls /tmp/mako-inf/1f5fe7c8.../logs/ = empty; ledger_updates.jsonl=2,032, findings.jsonl=40",
+        "confidence": "HIGH",
+        "notes": "limits infinity agent-event corroboration to DB rows"
+      },
+      {
+        "claim": "agent.log line 1 contained a generated bootstrap admin key",
+        "source": "[CODE] observed in /tmp/mako-ws2/.../logs/agent.log line 1 (config.py:371 _ensure_admin_api_key warning)",
+        "confidence": "HIGH",
+        "notes": "REDACTED, not reproduced — matches known [MEDIUM] issue 'Admin bearer key logged in full plaintext'"
+      }
+    ],
+    "hypotheses": [
+      {
+        "id": "H1: dead-node 409 respawn conflicts visible in cp log",
+        "verdict": "FALSIFIED",
+        "note": "grep '409' matched port numbers only; 0 HTTP-409 in current cp window. [QUERY]"
+      },
+      {
+        "id": "H2: unmatched drops are a per-scan one-off",
+        "verdict": "REJECTED",
+        "note": "7,735 update_unmatched > 2,481 distinct update lines in one scan → re-logged every reconcile tick, systemic not one-off [INFER from counts]"
+      },
+      {
+        "id": "H3: method_switch is persisted telemetry",
+        "verdict": "FALSIFIED",
+        "note": "absent from scan_events GROUP BY event_type; publish_event pubsub/log-only, poller.py:1163 comment says consumer is future WS3"
+      },
+      {
+        "id": "H4: LLM verifier tier is functional",
+        "verdict": "REJECTED for scan 68a58881",
+        "note": "524/540 = 97% verifier_unavailable; deterministic exploit_floor:* is what actually verified the DB findings, not the LLM verifier"
+      },
+      {
+        "id": "H5: worker errors are mostly rate-limits",
+        "verdict": "REJECTED",
+        "note": "429 rate-limits=91 but provider empty 'no choices'=471 dominates (81% of 578 errors)"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Which failure class loses the most real security signal?",
+        "answer": "F1/F2 unmatched (9,485 combined in ONE scan) — coverage/finding results that matched no ledger cell were silently discarded; father.py:107 already flags this as the biggest hidden leak.",
+        "verdict": "HIGH"
+      },
+      {
+        "q": "Which failure class most drowns observability?",
+        "answer": "F5 scan.method_switch = 41,978 = 92% of the scanner-cp log, unconsumed and unpersisted; a watchdog re-firing per stuck 'testing' cell every tick.",
+        "verdict": "HIGH"
+      },
+      {
+        "q": "Why do 59% of worker_runs error?",
+        "answer": "Provider reliability: 'ChatCompletion response has no choices'=471 (empty completion) + HTTP 429/500/400/502=107; a model-provider/proxy failure, not scanner logic. Non-nemotron providers are blind to proxy_log.db.",
+        "verdict": "HIGH"
+      },
+      {
+        "q": "How much coverage is never actually probed?",
+        "answer": "8,771 cells retired to 'attempted' (unreached) + 5,299 untested + 2,774 stuck 'testing' across all scans; scans reach 'completed' via the retire sweep, coverage % stays honest by excluding 'attempted'.",
+        "verdict": "HIGH"
+      },
+      {
+        "q": "Is the agent-reasoning telemetry usable?",
+        "answer": "No — agent_messages is ~12,000x smaller than tool_invocations (1 vs 12,143 in scan 68a58881); the message stream is effectively not persisted.",
+        "verdict": "MEDIUM"
+      }
+    ],
+    "gaps": [
+      "method_switch is not persisted to scan_events (poller.py:1161 publish_event only) → no historical per-scan method_switch counts from DB; only the live scanner-cp log window (~3h, dominated by scan 84aea81a) is countable.",
+      "infinity-fresh.tar.gz is files-only (no logs/agent.log) → infinity agent-event counts (duplicate_skipped, unmatched, verification.failed) could not be measured from log, only DB rows.",
+      "Worker 'no choices'=471 cannot be attributed to a specific provider (OpenRouter/bunny) from these sources — proxy_log.db is nemotron-only per directive [UNVERIFIED provider attribution].",
+      "tool_invocations vs scan_events tool.started differ (12,143 for one scan vs 27,056 total tool.started all scans) — the two tool tables were not cross-reconciled; counts reported from their own table each.",
+      "Only 2 prior workdirs extracted (68a58881, 1f5fe7c8); the other tarballs (workdir-68a58881 pre-final, infinity-workdir) not separately counted — 68a58881-final is representative for per-scan log counts.",
+      "scanner-cp log is a rolling window (Up ~3h); cancelled/failed/sigkill lifetime totals come from tenant_xbow.scans, not the log."
+    ]
+  }
+]

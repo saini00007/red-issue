@@ -1,0 +1,7 @@
+# command: timeout 15 curl -s -m 13 -o - -w '\nHTTP_STATUS:%{http_code}\nCTYPE:%{content_type}' https://duck-store.escape.tech/api/v1/auth/login
+# exit_code: 0
+# ---
+
+{"detail":"Method Not Allowed"}
+HTTP_STATUS:405
+CTYPE:application/json

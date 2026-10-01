@@ -1,0 +1,28 @@
+        ___
+       __H__
+ ___ ___[,]_____ ___ ___  {1.10.8#stable}
+|_ -| . [)]     | .'| . |
+|___|_  [']_|_|_|__,|  _|
+      |_|V...       |_|   https://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 11:52:02 /2026-09-30/
+
+[11:52:02] [INFO] fetched random HTTP User-Agent header value 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36' from file '/usr/share/sqlmap/data/txt/user-agents.txt'
+[1/1] URL:
+GET https://www.infinitycapital.bh/404?q=test
+do you want to test this URL? [Y/n/q]
+> Y
+[11:52:02] [INFO] testing URL 'https://www.infinitycapital.bh/404?q=test'
+[11:52:02] [INFO] using '/home/kali/.local/share/sqlmap/output/results-09302026_1152am.csv' as the CSV results file in multiple targets mode
+[11:52:02] [INFO] testing connection to the target URL
+[11:52:02] [ERROR] detected invalid data for declared content encoding 'br' ('BrotliError: truncated Brotli stream')
+[11:52:02] [WARNING] turning off page compression
+[11:52:02] [CRITICAL] page not found (404)
+[11:52:02] [WARNING] HTTP error codes detected during run:
+404 (Not Found) - 1 times
+[11:52:02] [INFO] you can find results of scanning in multiple targets mode inside the CSV file '/home/kali/.local/share/sqlmap/output/results-09302026_1152am.csv'
+
+[*] ending @ 11:52:02 /2026-09-30/
+

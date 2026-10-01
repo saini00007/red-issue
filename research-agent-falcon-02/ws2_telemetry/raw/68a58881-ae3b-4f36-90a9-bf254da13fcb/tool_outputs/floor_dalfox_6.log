@@ -1,0 +1,6 @@
+# command: timeout 300 dalfox url https://duck-store.escape.tech/api/v1/reviews/product/1/stats --silence --format json --no-color --skip-bav
+# exit_code: 0
+# ---
+
+[
+{}]

@@ -1,0 +1,10 @@
+# command: curl -X GET "https://duck-store.escape.tech/api/v1/users/me" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYjk4YjBhOTEtNzY3Zi00MDgwLWIyZWUtYzE3OGYwMDg3MjhiIiwidXNlcm5hbWUiOiJ0ZXN0dXNlckFfMTIzIiwicm9sZSI6InVzZXIiLCJleHAiOjE3OTA2OTU0Mzh9.J59tThpOLOZtutUZrAljNP6a0QpJfGmkjTTuo6CjOm8" --max-time 10 2>&1
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:22:38.700793+00:00
+# ---
+
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+  0      0   0      0   0      0      0      0                              0100     32 100     32   0      0     72      0                              0100     32 100     32   0      0     72      0                              0100     32 100     32   0      0     72      0                              0
+{"detail":"Invalid UUID format"}

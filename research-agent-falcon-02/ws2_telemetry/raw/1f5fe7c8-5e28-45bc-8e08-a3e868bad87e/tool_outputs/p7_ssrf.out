@@ -1,0 +1,14 @@
+oob-http-abs                 400 84 text/plain; charset=utf-8
+oob-https-abs                400 84 text/plain; charset=utf-8
+oob-protocol-rel             400 84 text/plain; charset=utf-8
+cloud-metadata               400 84 text/plain; charset=utf-8
+localhost-3000               400 84 text/plain; charset=utf-8
+localhost-8080               400 84 text/plain; charset=utf-8
+ipv6-localhost               400 84 text/plain; charset=utf-8
+decimal-loopback             400 84 text/plain; charset=utf-8
+--- next.config remotePatterns probe: try non-ctfassets hosts ---
+example-com                  400 84 text/plain; charset=utf-8
+self-robots                  400 84 text/plain; charset=utf-8
+port22                       400 84 text/plain; charset=utf-8
+--- what did oob fetch return (content-type) ---
+/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/p7_ssrf.sh: line 27: xxd: command not found

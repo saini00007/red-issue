@@ -1,0 +1,5 @@
+https://www.infinitycapital.bh/contact?x=1&cb=1&q=test
+https://www.infinitycapital.bh/404?q=test
+https://www.infinitycapital.bh/?id=1&search=test&page=2
+https://www.infinitycapital.bh/api/?id=1&page=2
+https://www.infinitycapital.bh/contact?cb=1&q=test

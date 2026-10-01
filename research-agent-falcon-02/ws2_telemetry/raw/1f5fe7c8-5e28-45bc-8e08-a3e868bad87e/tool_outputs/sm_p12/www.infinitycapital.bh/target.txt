@@ -1,0 +1,1 @@
+https://www.infinitycapital.bh/?page=2 (GET)  # /usr/bin/sqlmap -u https://www.infinitycapital.bh/?page=2 --batch --level=3 --risk=2 --technique=BEUST --threads=3 --timeout=20 --output-dir=/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sm_p12

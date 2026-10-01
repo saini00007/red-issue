@@ -1,0 +1,14 @@
+# command: cd /work/evidence && od -c VERIF_single_empty.body | head -10; echo "=== size ==="; wc -c VERIF_single_empty.body
+# tool: od
+# exit_code: 0
+# ts: 2026-09-30T12:07:21.827548+00:00
+# ---
+
+0000000   T   o   o       M   a   n   y       R   e   q   u   e   s   t
+0000020   s  \n  \n   T   o   o       M   a   n   y       R   e   q   u
+0000040   e   s   t   s  \n   b   o   m   1   :   :   n   7   4   m   2
+0000060   -   1   7   9   0   7   7   0   0   0   5   4   6   2   -   c
+0000100   a   c   2   7   4   2   c   0   6   b   c
+0000113
+=== size ===
+75 VERIF_single_empty.body

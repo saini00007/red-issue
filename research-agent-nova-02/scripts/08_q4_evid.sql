@@ -1,0 +1,11 @@
+select 'findings_total', count(*) from tenant_xbow.findings;
+select 'findings_with_evidence_row', count(*) from tenant_xbow.findings f where exists (select 1 from tenant_xbow.evidence_object e where e.finding_id=f.finding_id);
+select 'findings_verified', verified::text, count(*) from tenant_xbow.findings group by 2;
+select 'evidence_total', count(*) from tenant_xbow.evidence_object;
+select 'evidence_with_finding', (finding_id is not null)::text, count(*) from tenant_xbow.evidence_object group by 2;
+select 'chain_node', count(*) from tenant_xbow.chain_node;
+select 'chain_edge', count(*) from tenant_xbow.chain_edge;
+select 'coverage_ledger', count(*) from tenant_xbow.coverage_ledger;
+select 'tool_invocations', count(*) from tenant_xbow.tool_invocations;
+select 'scan_events', count(*) from tenant_xbow.scan_events;
+select 'oob_token', count(*) from tenant_xbow.oob_token;

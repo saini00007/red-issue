@@ -1,0 +1,15 @@
+# command: cd /work && for i in 1 2 3 4 5 6; do code=$(curl -s -o /tmp/c$i.html -w '%{http_code}' --max-time 30 -A "Mozilla/5.0 (compatible; SecVerifier/2.0)" https://www.infinitycapital.bh/contact); echo "try$i -> $code ($(wc -c </tmp/c$i.html) bytes)"; sleep 6; done
+# tool: sleep
+# exit_code: 0
+# ts: 2026-09-30T12:07:19.916927+00:00
+# ---
+
+try1 -> 429 (75 bytes)
+try2 -> 429 (75 bytes)
+try3 -> 429 (75 bytes)
+try4 -> 429 (75 bytes)
+try5 -> 200 (41185 bytes)
+try6 -> 000 ( bytes)
+
+[exit=0]
+bash: line 1: /tmp/c6.html: No such file or directory

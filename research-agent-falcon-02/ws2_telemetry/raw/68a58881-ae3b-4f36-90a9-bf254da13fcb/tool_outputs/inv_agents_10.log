@@ -1,0 +1,8 @@
+# command: curl -s "https://duck-store.escape.tech/api/v1/products" -H "Accept: application/json" -w "\nHTTP_CODE:%{http_code}\n" --max-time 15
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:33:26.140885+00:00
+# ---
+
+
+HTTP_CODE:307

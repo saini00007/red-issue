@@ -1,0 +1,6 @@
+# command: curl -s -X GET "https://duck-store.escape.tech/api/v1/products" -H "Accept: application/json" | jq .
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:33:05.549118+00:00
+# ---
+

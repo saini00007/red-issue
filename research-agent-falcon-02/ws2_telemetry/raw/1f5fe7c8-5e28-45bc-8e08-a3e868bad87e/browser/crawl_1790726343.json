@@ -1,0 +1,71 @@
+{
+  "seed": "https://www.infinitycapital.bh/contact",
+  "routes": [
+    "https://www.infinitycapital.bh/contact",
+    "https://www.infinitycapital.bh/",
+    "https://www.infinitycapital.bh/investment-portfolio",
+    "https://www.infinitycapital.bh/investment-philosophy",
+    "https://www.infinitycapital.bh/about",
+    "https://www.infinitycapital.bh/privacy-terms"
+  ],
+  "xhr": [
+    {
+      "url": "https://www.infinitycapital.bh/?_rsc=q8yh0",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://www.infinitycapital.bh/investment-portfolio?_rsc=q8yh0",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://www.infinitycapital.bh/investment-philosophy?_rsc=q8yh0",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://www.infinitycapital.bh/about?_rsc=q8yh0",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://www.infinitycapital.bh/investment-portfolio?_rsc=19zvn",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://www.infinitycapital.bh/?_rsc=7d80p",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://www.infinitycapital.bh/investment-philosophy?_rsc=7d80p",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://www.infinitycapital.bh/about?_rsc=7d80p",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://www.infinitycapital.bh/contact?_rsc=7d80p",
+      "method": "GET",
+      "post_data": null
+    }
+  ],
+  "forms": [],
+  "js_endpoints": [],
+  "js_secrets": [],
+  "screenshots": [
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/browser/shots/0.png",
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/browser/shots/1.png",
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/browser/shots/2.png",
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/browser/shots/3.png",
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/browser/shots/4.png",
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/browser/shots/5.png"
+  ],
+  "har": "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/browser/www.infinitycapital.bh_1790726343.har.gz",
+  "pages_crawled": 6
+}

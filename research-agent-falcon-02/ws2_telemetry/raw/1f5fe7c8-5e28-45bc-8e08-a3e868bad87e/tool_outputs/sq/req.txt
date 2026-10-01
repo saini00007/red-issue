@@ -1,0 +1,10 @@
+POST /api/send HTTP/1.1
+Host: www.infinitycapital.bh
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36
+Accept: application/json
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 165
+Referer: https://www.infinitycapital.bh/contact
+Connection: close
+
+fname=Test&lname=User&areacode=%2B973&tel=12345678&cname=probeuser&subject=Investment+Opportunities&msg=hello+test+message&check=on&targets=info%40infinitycapital.bh

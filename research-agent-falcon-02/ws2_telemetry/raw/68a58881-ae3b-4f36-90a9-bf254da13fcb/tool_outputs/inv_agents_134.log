@@ -1,0 +1,9 @@
+# command: curl -X POST "https://duck-store.escape.tech/graphql" -H "Content-Type: application/json" -d '{"query":"{ __schema { types { name } } }"}' 2>&1
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:09:12.016650+00:00
+# ---
+
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+  0      0   0      0   0      0      0      0                              0100     43   0      0 100     43      0     82                              0100     43   0      0 100     43      0     82                              0100     43   0      0 100     43      0     82                              0

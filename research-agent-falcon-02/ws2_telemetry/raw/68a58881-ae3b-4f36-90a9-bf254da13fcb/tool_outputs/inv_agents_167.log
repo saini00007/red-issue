@@ -1,0 +1,10 @@
+# command: cd /work && sqlmap -u "https://duck-store.escape.tech/api/v1/auth/login" --data='{"username":"test","password":"test"}' -H "Content-Type: application/json" --batch --level=5 --risk=3 --threads=4 --technique=BEUSTQ --ignore-code=401 2>&1 | tee tool_outputs/sqlmap_apilogin3.log
+# tool: sqlmap
+# exit_code: 124
+# ts: 2026-09-29T16:34:50.553634+00:00
+# ---
+
+
+[exec timeout after 300s]
+
+[exit=124]

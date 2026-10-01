@@ -1,0 +1,10 @@
+# command: cd $WORK_PATH 2>/dev/null || cd .; UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/126"; for i in 1 2 3; do curl -sk -A "$UA" "https://www.infinitycapital.bh/?id=1&search=test&page=2" -o tool_outputs/p$i.html; done; wc -c tool_outputs/p1.html tool_outputs/p2.html tool_outputs/p3.html
+# tool: wc
+# exit_code: 0
+# ts: 2026-09-30T12:08:48.038627+00:00
+# ---
+
+27355 tool_outputs/p1.html
+27355 tool_outputs/p2.html
+27355 tool_outputs/p3.html
+82065 total

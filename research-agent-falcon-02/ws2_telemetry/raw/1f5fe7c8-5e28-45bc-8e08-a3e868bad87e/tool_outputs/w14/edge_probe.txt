@@ -1,0 +1,18 @@
+### https://www.infinitycapital.bh/
+HTTP/2 429 
+content-type: text/plain; charset=utf-8
+x-vercel-id: bom1::t229v-1790746973391-f5fdc7a94922
+x-vercel-mitigated: deny
+CODE=429 SIZE=75
+### https://www.infinitycapital.bh/?id=1
+HTTP/2 429 
+content-type: text/plain; charset=utf-8
+x-vercel-id: bom1::nnshv-1790746973650-06f0ec7c175d
+x-vercel-mitigated: deny
+CODE=429 SIZE=75
+### https://www.infinitycapital.bh/contact
+HTTP/2 429 
+content-type: text/plain; charset=utf-8
+x-vercel-id: bom1::bk8tg-1790746973931-f3cad4bfb913
+x-vercel-mitigated: deny
+CODE=429 SIZE=75

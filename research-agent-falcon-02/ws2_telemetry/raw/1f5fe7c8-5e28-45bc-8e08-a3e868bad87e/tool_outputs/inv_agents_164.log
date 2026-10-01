@@ -1,0 +1,67 @@
+# command: cd /work && grep -o '"[^"]*param[^"]*"[^,]*' scan_brief.md | head -50; echo ---; sed -n '1,120p' scan_brief.md | grep -n "http" | head -60
+# tool: grep
+# exit_code: 0
+# ts: 2026-09-30T11:36:23.796875+00:00
+# ---
+
+---
+3:**Target(s):** https://www.infinitycapital.bh/
+39:- https://www.infinitycapital.bh/#id
+40:- https://www.infinitycapital.bh/#page
+41:- https://www.infinitycapital.bh/#search
+42:- https://www.infinitycapital.bh/#zzz
+43:- https://www.infinitycapital.bh/404
+44:- https://www.infinitycapital.bh/?$p
+45:- https://www.infinitycapital.bh/?id=1&search=test&page=2
+46:- https://www.infinitycapital.bh/?page=2
+47:- https://www.infinitycapital.bh/?zzz=1
+48:- https://www.infinitycapital.bh/_next/image#q
+49:- https://www.infinitycapital.bh/_next/image#url
+50:- https://www.infinitycapital.bh/_next/image#w
+51:- https://www.infinitycapital.bh/_next/image?url=
+52:- https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080
+53:- https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=75
+54:- https://www.infinitycapital.bh/api/
+55:- https://www.infinitycapital.bh/api/#id
+56:- https://www.infinitycapital.bh/api/?id=1
+57:- https://www.infinitycapital.bh/api/contact
+58:- https://www.infinitycapital.bh/api/send
+59:- https://www.infinitycapital.bh/atom.xml
+60:- https://www.infinitycapital.bh/contact#cb
+61:- https://www.infinitycapital.bh/contact#x
+62:- https://www.infinitycapital.bh/contact?$q
+63:- https://www.infinitycapital.bh/contact?cb=1
+64:- https://www.infinitycapital.bh/contact?x=1
+65:- https://www.infinitycapital.bh/feeds/all.atom.xml
+69:- https://www.infinitycapital.bh/_next/image#url :: sqli
+70:- https://www.infinitycapital.bh/?zzz=1 :: sqli
+71:- https://www.infinitycapital.bh/?id=1&search=test&page=2 :: sqli
+72:- https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080 :: sqli
+73:- https://www.infinitycapital.bh/_next/image#w :: sqli
+74:- https://www.infinitycapital.bh/api/?id=1 :: sqli
+75:- https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=75 :: sqli
+76:- https://www.infinitycapital.bh/api/contact :: sqli
+77:- https://www.infinitycapital.bh/contact?$q :: sqli
+78:- https://www.infinitycapital.bh/contact#cb :: sqli
+79:- https://www.infinitycapital.bh/_next/image#q :: sqli
+80:- https://www.infinitycapital.bh/contact#x :: sqli
+83:- missing security headers: Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy at https://www.infinitycapital.bh
+84:- missing HSTS (Strict-Transport-Security) on an HTTPS origin at https://www.infinitycapital.bh
+85:- missing security headers: Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy at http://www.infinitycapital.bh
+88:- missing security headers: Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy at https://www.infinitycapital.bh
+89:- missing HSTS (Strict-Transport-Security) on an HTTPS origin at https://www.infinitycapital.bh
+93:- Boolean-blind SQL injection in `page` at https://www.infinitycapital.bh/
+94:- Boolean-blind SQL injection in `id` at https://www.infinitycapital.bh/api/
+95:- missing security headers: Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy at https://www.infinitycapital.bh
+96:- missing HSTS (Strict-Transport-Security) on an HTTPS origin at https://www.infinitycapital.bh
+97:- missing security headers: Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy at https://www.infinitycapital.bh
+98:- missing HSTS (Strict-Transport-Security) on an HTTPS origin at https://www.infinitycapital.bh
+101:- https://www.infinitycapital.bh/{login,signup,register,api/auth/login,api/login,admin} :: auth_surface_discovery — Target is fully blocked by Vercel WAF (`x-vercel-mitigated: deny`, HTTP 403 on every path including /, /login, /register, /robots.txt) from this scanner network. Browser crawl (browse_url) also failed. No page content, therefore no login form or registration surface is reachable -> no authentication surface exists to bootstrap; cannot register/login or test an authenticated surface.
+102:- https://www.infinitycapital.bh/api/ :: sqli — Target fully blocked at Vercel WAF edge from this network: every method/path/header/encoding returns HTTP 403 with header x-vercel-mitigated: deny BEFORE the application origin. No SQL/SQL-evaluation sink is reachable, so injection cannot be exercised or ruled out; cell is blocked, not clean.
+103:- https://www.infinitycapital.bh/api/ :: nosqli — Edge WAF denies all requests to /api/ before app logic; no NoSQL/document store reachable. Blocked, not clean.
+104:- https://www.infinitycapital.bh/api/ :: cmdi — Edge WAF denies all requests to /api/ before app logic; no command-exec sink reachable. Blocked, not clean.
+105:- https://www.infinitycapital.bh/api/ :: ssti — Edge WAF denies all requests to /api/ before app logic; no template render sink reachable. Blocked, not clean.
+106:- https://www.infinitycapital.bh/api/ :: xxe — Edge WAF denies the request before any XML parser runs; additionally disproved the floor's 'confirmed XXE callback' — the OOB domain is a wildcard resolver, so resolution/callback is not evidence the app parsed the entity. XXE neither proven nor testable. Blocked.
+107:- https://www.infinitycapital.bh/api/ :: deserialization — Edge WAF denies all requests to /api/ before app logic; no deserializer reachable. Blocked, not clean.
+108:- https://www.infinitycapital.bh/api/ :: lfi — Edge WAF denies all requests to /api/ before app logic; no file-read sink reachable. Blocked, not clean.
+109:- https://www.infinitycapital.bh/api/ :: rfi — Edge WAF denies all requests to /api/ before app logic; no remote-include sink reachable. Blocked, not clean.

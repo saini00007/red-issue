@@ -1,0 +1,10 @@
+# command: timeout 15 curl -s -m 13 -o /dev/null -D - http://www.infinitycapital.bh
+# exit_code: 0
+# ---
+
+HTTP/1.0 308 Permanent Redirect
+Content-Type: text/plain
+Location: https://www.infinitycapital.bh/
+Refresh: 0;url=https://www.infinitycapital.bh/
+server: Vercel
+

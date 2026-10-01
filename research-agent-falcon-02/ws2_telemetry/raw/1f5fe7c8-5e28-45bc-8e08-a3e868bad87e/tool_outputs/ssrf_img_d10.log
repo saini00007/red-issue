@@ -1,0 +1,33 @@
+=== SSRF probes on /_next/image?url= ===
+oob_root       HTTP=403 size=33983 type=text/html; charset=utf-8
+<!DOCTYPE html><html lang="en" data-astro-cid-4wdtffzm><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"
+oob_png        HTTP=400 size=84 type=text/plain; charset=utf-8
+Bad request
+
+INVALID_IMAGE_OPTIMIZE_REQUEST
+
+bom1::hfz5b-1790725171887-a3146ae1e2dd
+
+oob_https      HTTP=403 size=33995 type=text/html; charset=utf-8
+<!DOCTYPE html><html lang="en" data-astro-cid-4wdtffzm><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"
+self           HTTP=400 size=84 type=text/plain; charset=utf-8
+Bad request
+
+INVALID_IMAGE_OPTIMIZE_REQUEST
+
+bom1::tgtxz-1790725172335-6f9d91001f42
+
+metadata       HTTP=400 size=84 type=text/plain; charset=utf-8
+Bad request
+
+INVALID_IMAGE_OPTIMIZE_REQUEST
+
+bom1::s45gv-1790725172491-80e745b38737
+
+localfile      HTTP=403 size=33980 type=text/html; charset=utf-8
+<!DOCTYPE html><html lang="en" data-astro-cid-4wdtffzm><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"
+proto_rel      HTTP=403 size=33979 type=text/html; charset=utf-8
+<!DOCTYPE html><html lang="en" data-astro-cid-4wdtffzm><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"
+=== no-url control ===
+HTTP=403
+DONE

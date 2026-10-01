@@ -1,0 +1,10 @@
+empty                        500 len=0 mit=None
+     
+no_targets                   500 len=0 mit=None
+     
+with_targets                 200 len=194 mit=None
+     {"data":null,"error":{"statusCode":422,"name":"validation_error","message":"Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format."}}
+multipart                    200 len=194 mit=None
+     {"data":null,"error":{"message":"Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format.","name":"validation_error","statusCode":422}}
+GET                          405 len=0 mit=None
+     

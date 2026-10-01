@@ -1,0 +1,1 @@
+select table_name, column_name, data_type from information_schema.columns where table_schema='tenant_xbow' and table_name in ('tool_invocations','agent_messages','oob_token','findings') order by table_name, ordinal_position;

@@ -1,0 +1,163 @@
+# SCAN BRIEF — shared common knowledge (read this FIRST)
+
+**Target(s):** https://duck-store.escape.tech/
+**RoE:** Authorized black-box VAPT. IN-SCOPE ONLY, proof-not-damage (read a marker / arithmetic-time-boolean oracle / OOB callback), no destructive ops.
+
+**Tech/fingerprint:** not yet fingerprinted
+
+**AUTH SESSION:** unauthenticated — self-register per the `authenticated-testing` skill (register 2 accounts, log in, write /work/auth.json), then re-read this brief.
+
+**PLAYBOOK PHASES — cover these methodology phases (prompt directive; coverage stays ledger-driven):**
+- A0_subdomain_discovery
+- A1_fingerprinting_recon
+- A1_5_osint
+- A9_ssl_tls
+- A2_content_discovery
+- A4_5_url_corpus
+- A4_6_js_mining
+- A4_7_param_discovery
+- A3_vulnerability_scanning
+- A4_authentication_testing
+- A5_xss_testing
+- A6_configuration_headers
+- A7_injection_advanced
+- A8_access_control_idor
+- A_HTTP_layer
+- A_oauth_saml_sso
+- A_client_side
+- A10_infrastructure
+- A_checkpoint_state
+- A_gap_closure
+- A11_dedup_enrichment
+- A12_fp_verification_report
+
+**Discovered surface (sample):**
+- GET https://duck-store.escape.tech/login
+- https://duck-store.escape.tech/api
+- https://duck-store.escape.tech/api/login
+- https://duck-store.escape.tech/api/v1
+- https://duck-store.escape.tech/api/v1/admin/orders
+- https://duck-store.escape.tech/api/v1/admin/stats
+- https://duck-store.escape.tech/api/v1/admin/users
+- https://duck-store.escape.tech/api/v1/admin/users/testuserB
+- https://duck-store.escape.tech/api/v1/auth/login
+- https://duck-store.escape.tech/api/v1/auth/login/totp
+- https://duck-store.escape.tech/api/v1/auth/register
+- https://duck-store.escape.tech/api/v1/cart
+- https://duck-store.escape.tech/api/v1/cart/add
+- https://duck-store.escape.tech/api/v1/docs
+- https://duck-store.escape.tech/api/v1/openapi.json
+- https://duck-store.escape.tech/api/v1/orders
+- https://duck-store.escape.tech/api/v1/orders/checkout
+- https://duck-store.escape.tech/api/v1/orders/checkout,(custom
+- https://duck-store.escape.tech/api/v1/orders/coupons
+- https://duck-store.escape.tech/api/v1/orders/coupons#code
+- https://duck-store.escape.tech/api/v1/orders/coupons?code=%27
+- https://duck-store.escape.tech/api/v1/products
+- https://duck-store.escape.tech/api/v1/products/#limit
+- https://duck-store.escape.tech/api/v1/products/#skip
+- https://duck-store.escape.tech/api/v1/products/1
+- https://duck-store.escape.tech/api/v1/products/?limit=10
+- https://duck-store.escape.tech/api/v1/products/?skip=0
+- https://duck-store.escape.tech/api/v1/products/?skip=0&limit=100
+- https://duck-store.escape.tech/api/v1/products/filter/by-color
+- https://duck-store.escape.tech/api/v1/products/filter/by-color#color
+
+**Coverage:** 138 cell(s) tested, 200 open (sampled).
+Top OPEN cells to close (attack these — do NOT repeat proven ground):
+- https://duck-store.escape.tech/login#username :: sqli
+- https://duck-store.escape.tech/api/v1/orders/checkout,(custom :: sqli
+- https://duck-store.escape.tech/api :: sqli
+- https://duck-store.escape.tech/api/v1/testimonials/#limit :: sqli
+- https://duck-store.escape.tech/login#password :: sqli
+- https://duck-store.escape.tech/api/v1/testimonials/13 :: sqli
+- https://duck-store.escape.tech/api/v1/admin/users/testuserB :: sqli
+- https://duck-store.escape.tech/api/v1/products/#limit :: sqli
+- https://duck-store.escape.tech/api/v1/auth/register :: sqli
+- https://duck-store.escape.tech/api/v1/reviews/product/1#skip :: sqli
+- https://duck-store.escape.tech/graphql :: sqli
+- https://duck-store.escape.tech/api/v1/users/ :: nosqli
+
+**Confirmed findings so far (20):**
+- XXE via SVG/XML External Entity in Login Username Parameter
+- missing security headers: Content-Security-Policy, Referrer-Policy at https://duck-store.escape.tech
+- Unauthenticated access to protected endpoint: https://duck-store.escape.tech/api/v1/products/
+- Unauthenticated access to protected endpoint: https://duck-store.escape.tech/api/v1/testimonials/?skip=0&limit=50&featured_only=false
+- Unauthenticated access to protected endpoint: https://duck-store.escape.tech/api/v1/products/
+- Unauthenticated access to protected endpoint: https://duck-store.escape.tech/api/v1/testimonials/
+- Unauthenticated access to protected endpoint: https://duck-store.escape.tech/api/v1/products/2
+- Unauthenticated access to protected endpoint: https://duck-store.escape.tech/api/v1/reviews/product/1?skip=0&limit=20
+- Unauthenticated access to protected endpoint: https://duck-store.escape.tech/api/v1/products/?skip=0&limit=100
+- Unauthenticated access to protected endpoint: https://duck-store.escape.tech/api/v1/reviews/product/2?skip=0&limit=20
+- Unauthenticated access to protected endpoint: https://duck-store.escape.tech/api/v1/products/?skip=0&limit=3
+- No rate-limiting on sensitive endpoint https://duck-store.escape.tech/auth/me
+- No rate-limiting on sensitive endpoint https://duck-store.escape.tech/login
+- No rate-limiting on sensitive endpoint https://duck-store.escape.tech/totp/status
+- No rate-limiting on sensitive endpoint https://duck-store.escape.tech/api/v1/auth/login/totp
+- No rate-limiting on sensitive endpoint https://duck-store.escape.tech/auth/login/totp
+- missing security headers: Content-Security-Policy, Referrer-Policy at https://duck-store.escape.tech
+- missing security headers: Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy at http://duck-store.escape.tech:443
+- Unauthenticated access to protected endpoint: https://duck-store.escape.tech/api/v1/users/
+- Unauthenticated access to protected endpoint: https://duck-store.escape.tech/api/v1/orders/coupons
+
+**RULED OUT / ALREADY TRIED (do NOT re-test these):**
+- https://duck-store.escape.tech/api/v1/uploads/import-from-url :: sqli — sqlmap tested with proper authentication; URL parameter not injectable (returns 400 for invalid URLs, parameter not dynamic)
+- https://duck-store.escape.tech/api/v1/reviews/product/1?skip=0&limit=20 :: sqli — sqlmap --smart --level=2 --risk=2 on 'skip' parameter returned not injectable; 422 errors on test payloads
+- https://duck-store.escape.tech/api/v1/reviews/product/1?skip=0&limit=20 :: sqli — sqlmap --smart --level=2 --risk=2 on 'limit' parameter returned not injectable; 422 errors on test payloads
+- https://duck-store.escape.tech/api/v1/products/?skip=0&limit=100 :: sqli — sqlmap tested skip and limit parameters with level=5, risk=3, all techniques - no injection found. Returns 422 on malformed payloads (validation).
+- https://duck-store.escape.tech/api/v1/products/filter/by-color :: nosqli — Tested NoSQL injection on color parameter with $ne, $gt, $regex operators - no injection found, returns same results
+- https://duck-store.escape.tech/api/v1/users/ :: sqli — sqlmap tested with proper authentication on skip/limit params; parameters appear dynamic but not injectable (422 errors on injection attempts). Higher level scans timed out.
+- https://duck-store.escape.tech/api/v1/products/?skip=0&limit=100 :: sqli — sqlmap tested on skip/limit params; skip appears dynamic but not injectable (422 errors on injection attempts), limit not dynamic
+- https://duck-store.escape.tech/api/v1/reviews/product/1?limit=10 :: sqli — sqlmap tested GET parameter 'limit' with level=2, risk=1 - not injectable
+- https://duck-store.escape.tech/api/v1/auth/login :: sqli — sqlmap tested username/password JSON parameters; neither appears dynamic or injectable (401 errors on invalid credentials)
+- https://duck-store.escape.tech/api/v1/products/1 :: sqli — Path parameter validated as integer (422 on non-integer input); sqlmap found no injectable parameters
+- https://duck-store.escape.tech/api/v1/products/?skip=0&limit=100 :: sqli — ['sqlmap']
+- https://duck-store.escape.tech/api/v1/reviews/product/1?skip=0 :: sqli — sqlmap tested GET parameter 'skip' with level=2, risk=1 - not injectable
+- https://duck-store.escape.tech/api/v1/products/1 :: sqli — ['sqlmap']
+- https://duck-store.escape.tech/api/v1/products/filter/by-color :: sqli — ['sqlmap']
+- https://duck-store.escape.tech/api/v1/uploads/import-from-url :: ssrf — SSRF confirmed via OOB callback - server fetches attacker-controlled URL
+- https://duck-store.escape.tech/api/v1/testimonials/?skip=0&limit=50&featured_only=false :: sqli — ['sqlmap']
+- https://duck-store.escape.tech/api/v1/auth/login :: sqli — sqlmap tested both username and password JSON parameters with boolean-based and time-based techniques - neither parameter appears injectable
+- https://duck-store.escape.tech/api/v1/uploads/fetch-url :: ssrf — SSRF confirmed via OOB callback - server fetches attacker-controlled URL
+- https://duck-store.escape.tech/api/v1/users/ :: sqli — sqlmap tested URI injection on /api/v1/users/ - no injectable parameters found
+- https://duck-store.escape.tech/api/v1/auth/login :: nosqli — Strict input validation rejects non-string types; all NoSQLi payloads return 422 validation errors
+- https://duck-store.escape.tech/api/v1/auth/login :: sqli — ['sqlmap']
+- https://duck-store.escape.tech/api/v1/uploads/import-from-url :: sqli — ['sqlmap']
+- https://duck-store.escape.tech/api/v1/reviews/product/10?skip=0&limit=20 :: sqli — ['sqlmap']
+- https://duck-store.escape.tech/api/v1/cart/add :: sqli — ['sqlmap']
+- https://duck-store.escape.tech/api/v1/users/ :: sqli — ['sqlmap']
+
+**TOOLS RUN + report paths:**
+- zap/ (reports on disk)
+- evidence/ (reports on disk)
+
+**SCANNER FOUND — confirm or discard (unverified — prove before reporting):**
+- https://duck-store.escape.tech/login :: file_upload — uploaded `s5ue5f7708967ac.html` via `username`; not retrievable at 6 route(s) — model triage
+- https://duck-store.escape.tech/login :: xxe — SVG/XML external-entity doc -> http://oob44fd443fb14a.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/ (callback = confirmed document-parse XXE)
+- https://duck-store.escape.tech/api/v1/testimonials/?skip=0&limit=50&featured_only=false :: file_upload — uploaded `s5u72e6dc136905.html` via `file`; not retrievable at 6 route(s) — model triage
+- https://duck-store.escape.tech/api/v1/testimonials/?skip=0&limit=50&featured_only=false :: xxe — SVG/XML external-entity doc -> http://oobcaf780474d18.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/ (callback = confirmed document-parse XXE)
+- https://duck-store.escape.tech/api/v1/products/?skip=0&limit=100 :: file_upload — uploaded `s5u2b19fc9373c3.html` via `file`; not retrievable at 6 route(s) — model triage
+- https://duck-store.escape.tech/api/v1/products/?skip=0&limit=100 :: xxe — SVG/XML external-entity doc -> http://oob79af7b1b83cd.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/ (callback = confirmed document-parse XXE)
+- https://duck-store.escape.tech/api/v1/reviews/product/1/stats :: file_upload — uploaded `s5ud6ab76be344f.html` via `file`; not retrievable at 6 route(s) — model triage
+- https://duck-store.escape.tech/api/v1/reviews/product/1/stats :: xxe — SVG/XML external-entity doc -> http://oob54514091625b.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/ (callback = confirmed document-parse XXE)
+- https://duck-store.escape.tech/api/v1/users/me/profile :: file_upload — uploaded `s5u5ea7ee8cd363.html` via `file`; not retrievable at 6 route(s) — model triage
+- https://duck-store.escape.tech/api/v1/users/me/profile :: xxe — SVG/XML external-entity doc -> http://oob453ff25bd940.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/ (callback = confirmed document-parse XXE)
+- https://duck-store.escape.tech/api/v1/docs :: file_upload — uploaded `s5u322024fe1814.html` via `file`; not retrievable at 6 route(s) — model triage
+- https://duck-store.escape.tech/api/v1/docs :: xxe — SVG/XML external-entity doc -> http://oobd4f5bf56eb36.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/ (callback = confirmed document-parse XXE)
+- https://duck-store.escape.tech/products/1 :: file_upload — uploaded `s5uc0ccfbb56f26.html` via `file`; not retrievable at 6 route(s) — model triage
+- https://duck-store.escape.tech/products/1 :: xxe — SVG/XML external-entity doc -> http://oob4442d2a6151d.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/ (callback = confirmed document-parse XXE)
+- https://duck-store.escape.tech/api/v1/auth/register :: file_upload — uploaded `s5u56b1616a76c0.html` via `file`; not retrievable at 6 route(s) — model triage
+- https://duck-store.escape.tech/api/v1/auth/register :: xxe — SVG/XML external-entity doc -> http://oobeb14de10c3e5.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/ (callback = confirmed document-parse XXE)
+- https://duck-store.escape.tech/api/v1/testimonials/ :: file_upload — uploaded `s5u2e691090cffe.html` via `skip`; not retrievable at 6 route(s) — model triage
+- https://duck-store.escape.tech/api/v1/testimonials/ :: xxe — SVG/XML external-entity doc -> http://oob6ad1c73b727a.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/ (callback = confirmed document-parse XXE)
+- https://duck-store.escape.tech/api/v1/testimonials/ :: file_upload — uploaded `s5u468c391b7781.html` via `limit`; not retrievable at 6 route(s) — model triage
+- https://duck-store.escape.tech/api/v1/testimonials/ :: xxe — SVG/XML external-entity doc -> http://oob85e5cb9d02f6.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/ (callback = confirmed document-parse XXE)
+- https://duck-store.escape.tech/api/v1/uploads/fetch-url :: file_upload — uploaded `s5u49ac5bb0e0d4.html` via `file`; not retrievable at 6 route(s) — model triage
+- https://duck-store.escape.tech/api/v1/uploads/fetch-url :: xxe — SVG/XML external-entity doc -> http://oobc604a0aab706.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/ (callback = confirmed document-parse XXE)
+- https://duck-store.escape.tech/api/v1/users/ :: file_upload — uploaded `s5u6fefb589f57e.html` via `file`; not retrievable at 6 route(s) — model triage
+- https://duck-store.escape.tech/api/v1/users/ :: xxe — SVG/XML external-entity doc -> http://oob41acf291dae7.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/ (callback = confirmed document-parse XXE)
+- https://duck-store.escape.tech/api/v1/products/ :: file_upload — uploaded `s5u6f69c300e54d.html` via `skip`; not retrievable at 6 route(s) — model triage
+
+**OOB callback domain:** datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in
+
+Do NOT re-run recon or re-test cells already tested/confirmed above. Spend every call on OPEN cells and the AUTHENTICATED surface.

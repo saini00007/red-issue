@@ -1,0 +1,37 @@
+waiting out the Vercel 429 cooldown -> 200
+
+=== 1. repeat the SAME baseline value 5x (measures natural variance) ===
+  run0 code=200 hash=a9bb5d7f3142
+  run1 code=200 hash=a9bb5d7f3142
+  run2 code=200 hash=a9bb5d7f3142
+  run3 code=200 hash=a9bb5d7f3142
+  run4 code=200 hash=a9bb5d7f3142
+  distinct canonical hashes for an identical payload: 1
+
+=== 2. TRUE vs FALSE vs BASELINE on each injectable-candidate field ===
+  fname    base  code=200 hash=a9bb5d7f3142
+  fname    true  code=200 hash=a9bb5d7f3142
+  fname    false code=200 hash=a9bb5d7f3142
+  -> fname: TRUE/FALSE/BASE differ? False
+
+  lname    base  code=200 hash=a9bb5d7f3142
+  lname    true  code=200 hash=a9bb5d7f3142
+  lname    false code=200 hash=a9bb5d7f3142
+  -> lname: TRUE/FALSE/BASE differ? False
+
+  cname    base  code=200 hash=a9bb5d7f3142
+  cname    true  code=200 hash=a9bb5d7f3142
+  cname    false code=200 hash=a9bb5d7f3142
+  -> cname: TRUE/FALSE/BASE differ? False
+
+  subject  base  code=200 hash=a9bb5d7f3142
+  subject  true  code=200 hash=a9bb5d7f3142
+  subject  false code=200 hash=a9bb5d7f3142
+  -> subject: TRUE/FALSE/BASE differ? False
+
+  msg      base  code=200 hash=a9bb5d7f3142
+  msg      true  code=200 hash=a9bb5d7f3142
+  msg      false code=200 hash=a9bb5d7f3142
+  -> msg: TRUE/FALSE/BASE differ? False
+
+done

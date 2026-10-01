@@ -1,0 +1,1 @@
+fname=SecTest&lname=Verifier&areacode=%2B973&tel=3600000&cname=BASELINE&subject=Baseline&msg=baseline+legit-target+test&check=0&targets=info%40infinitycapital.bh

@@ -1,0 +1,16 @@
+=== POST /api/send ===
+code=403 size=33994
+<!DOCTYPE html><html lang="en" data-astro-cid-4wdtffzm><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#000"><title>Vercel Security Checkpoint</title><style>.spinner[data-astro-cid-ijmsm3te]{flex-direction:column;justify-content:center;align-items:center;display:flex}.spinner-circle[data-astro-cid-ijmsm3te]{transform
+=== GET /api/send ===
+code=403 size=33984
+=== _next/image ===
+code=403 size=34004
+=== path sweep ===
+https://www.infinitycapital.bh/                              403 33993
+https://www.infinitycapital.bh/contact                       403 33988
+https://www.infinitycapital.bh/api/                          403 33989
+https://www.infinitycapital.bh/404                           403 33992
+https://www.infinitycapital.bh/robots.txt                    403 34002
+https://www.infinitycapital.bh/sitemap.xml                   403 33990
+https://www.infinitycapital.bh/atom.xml                      403 33987
+https://www.infinitycapital.bh/feeds/all.atom.xml            403 33993

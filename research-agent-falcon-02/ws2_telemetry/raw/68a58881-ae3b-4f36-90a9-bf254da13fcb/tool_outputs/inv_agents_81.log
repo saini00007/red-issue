@@ -1,0 +1,7 @@
+# command: curl -s -X POST "https://duck-store.escape.tech/api/v1/auth/register" -H "Content-Type: application/json" -d '{"username": "attackerB", "email": "attackerb@duck-store.escape.tech", "password": "TestPass123!"}' | head -200
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T15:46:42.601919+00:00
+# ---
+
+{"username":"attackerB","email":"attackerb@duck-store.escape.tech","id":"9ad3dd65-f4b2-45c9-a19a-43791c57872a","created_at":"2026-09-29T15:46:42.426156","role":"user","first_name":null,"last_name":null,"avatar_url":null,"bio":null,"account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":true}

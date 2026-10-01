@@ -1,0 +1,8 @@
+# command: cd /work && curl -s -X POST "https://duck-store.escape.tech/api/v1/auth/login" -H "Content-Type: application/json" -d '{"username":"test","password":"test"}' -w "\nHTTP %{http_code}\n"
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:29:36.928558+00:00
+# ---
+
+{"detail":"Invalid username or password"}
+HTTP 401

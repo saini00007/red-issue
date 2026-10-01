@@ -1,0 +1,10 @@
+# command: curl -X POST "https://duck-store.escape.tech/api/v1/auth/login" -H "Content-Type: application/json" -d '{"username":"test","password":"test"}' 2>&1
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:01:21.129177+00:00
+# ---
+
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+  0      0   0      0   0      0      0      0                              0100     78 100     41 100     37     87     79                              0100     78 100     41 100     37     87     79                              0100     78 100     41 100     37     87     78                              0
+{"detail":"Invalid username or password"}

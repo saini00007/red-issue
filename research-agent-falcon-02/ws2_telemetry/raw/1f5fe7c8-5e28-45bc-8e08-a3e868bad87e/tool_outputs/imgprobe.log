@@ -1,0 +1,8 @@
+control-ctfassets                        code=400 size=84 Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::rp676-1790741894353-10c15d8fded5
+loopback-127                             code=400 size=84 Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::cwlql-1790741895178-7efdb51dbeb5
+loopback-localhost                       code=400 size=84 Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::6lx2t-1790741895823-3dc27fb2f5a1
+metadata-linklocal                       code=400 size=84 Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::gr8fx-1790741896154-ece181614f30
+userinfo-bypass                          code=400 size=84 Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::s45gv-1790741896779-654106a3ecb2
+oob-plain                                code=400 size=84 Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::s5v82-1790741897132-93a86f6cfd96
+oob-ctf-subdomain                        code=400 size=84 Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::t8qrm-1790741897679-7f225ba4aaec
+file-scheme                              code=400 size=84 Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::w68vk-1790741897924-347d65f4bcd4

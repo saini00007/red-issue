@@ -1,0 +1,24 @@
+# command: cd /work; pgrep -af "run.sh|sqlmap" | head; echo "---"; ls -la tool_outputs/w13/; wc -l tool_outputs/w13/sqlmap_send.log
+# tool: pgrep
+# exit_code: 0
+# ts: 2026-09-30T01:59:38.257423+00:00
+# ---
+
+8372 [sqlmap] <defunct>
+8373 [sqlmap] <defunct>
+8374 [sqlmap] <defunct>
+8375 [sqlmap] <defunct>
+10082 [sqlmap] <defunct>
+15498 [sqlmap] <defunct>
+53940 [sqlmap] <defunct>
+58046 [sqlmap] <defunct>
+59759 [sqlmap] <defunct>
+62359 [sqlmap] <defunct>
+---
+total 20
+drwxr-xr-x  3 kali kali 4096 Sep 30 01:49 .
+drwxr-xr-x 31 kali kali 4096 Sep 30 01:58 ..
+-rwxr-xr-x  1 kali kali  546 Sep 30 01:49 run.sh
+drwxr-xr-x  3 kali kali 4096 Sep 30 01:54 sqlmap_fname
+-rw-r--r--  1 kali kali   19 Sep 30 01:54 sqlmap_send.log
+1 tool_outputs/w13/sqlmap_send.log

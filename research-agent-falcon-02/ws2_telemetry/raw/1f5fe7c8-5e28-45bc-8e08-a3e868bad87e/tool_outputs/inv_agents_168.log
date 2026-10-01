@@ -1,0 +1,7 @@
+# command: cd /work && grep -o '.\{300\}api/send.\{600\}' tool_outputs/js/275-ea7b562607231006.js | head -3
+# tool: grep
+# exit_code: 0
+# ts: 2026-09-30T11:37:17.672679+00:00
+# ---
+
+or(let D=0;D<w.length;D++)if(""!==w[D]){l=!0;break}l?(0,u.D6)(0,0):V()},[w]);let V=async()=>{let l=new FormData;l.set("fname",i),l.set("lname",s),l.set("areacode",d),l.set("tel",c),l.set("cname",m),l.set("subject",n),l.set("msg",r),l.set("check",z),l.set("targets",a.targets);try{let D=await fetch("/api/send",{method:"POST",body:l}).then(l=>l.json());null!==D.data?k("success"):k("fail")}catch(l){k("fail")}},b=l=>{x(ll().sanitize(l.target.value)),A.current.style.height="inherit",A.current.style.height="".concat(A.current.scrollHeight,"px")},j=l=>""!==l,N=l=>/^[a-zA-Z\s-]+$/.test(l)?"":"Invalid name";return(0,F.jsxs)("article",{className:la().contact,children:[(0,F.jsxs)("section",{className:la().col1,children:[(0,F.jsx)("div",{className:la().heading,children:(0,F.jsx)("h1",{children:"Contact"})}),(0,F.jsxs)("address",{className:la().info,children:[(0,F.jsx)("section",{children:(0,v.h)(t.address)})

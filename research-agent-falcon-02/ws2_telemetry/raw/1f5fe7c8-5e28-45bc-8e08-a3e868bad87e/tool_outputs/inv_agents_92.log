@@ -1,0 +1,36 @@
+# command: cd /work && python3 - <<'PY'
+import urllib.request
+def s(*a): return ''.join(map(chr,a))
+UA=s(77,111,122,105,108,108,97,47,53,46,48)
+base='https://www.infinitycapital.bh'
+paths=['/_next/static/chunks/275-ea7b562607231006.js.map',
+ '/_next/static/chunks/app/%5Bslug%5D/page-b4cf0ec49dd0c737.js.map',
+ '/_next/static/chunks/main-app.js.map','/_next/build-manifest.json','/_next/app-build-manifest.json',
+ '/_next/routes-manifest.json','/_next/server/app-paths-manifest.json','/_next/static/chunks/webpack.js.map',
+ '/.vercel/project.json','/_next/image?url=../../package.json']
+for p in paths:
+    try:
+        r=urllib.request.urlopen(urllib.request.Request(base+p,headers={'User-Agent':UA}),timeout=15)
+        b=r.read(); print(r.status,len(b),p)
+        if b'{"' in b[:5] or b'{' in b[:2]: print('   ',b[:300])
+    except Exception as e:
+        body=b''
+        try: body=e.read()[:60]
+        except: pass
+        print(getattr(e,'code','ERR'),p,body)
+PY
+# tool: python3
+# exit_code: 0
+# ts: 2026-09-30T11:12:55.636548+00:00
+# ---
+
+404 /_next/static/chunks/275-ea7b562607231006.js.map b'Not Found'
+404 /_next/static/chunks/app/%5Bslug%5D/page-b4cf0ec49dd0c737.js.map b'Not Found'
+404 /_next/static/chunks/main-app.js.map b'Not Found'
+404 /_next/build-manifest.json b'<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/>'
+404 /_next/app-build-manifest.json b'<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/>'
+404 /_next/routes-manifest.json b'<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/>'
+404 /_next/server/app-paths-manifest.json b'<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/>'
+404 /_next/static/chunks/webpack.js.map b'Not Found'
+404 /.vercel/project.json b'<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/>'
+400 /_next/image?url=../../package.json b'Bad request\n\nINVALID_IMAGE_OPTIMIZE_REQUEST\n\nbom1::2p4rv-179'

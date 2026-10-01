@@ -1,0 +1,4 @@
+select data_type from information_schema.columns where table_schema='tenant_xbow' and table_name='findings' and column_name='evidence_paths';
+select coalesce(nullif(detected_by_agent,''),'(null)'), count(*) from tenant_xbow.findings group by 1 order by 2 desc limit 10;
+select case when evidence_paths::text is null or evidence_paths::text in ('','[]','null') then 'empty' else 'nonempty' end, count(*) from tenant_xbow.findings group by 1;
+select case when verified then 'true' else 'false' end v, case when evidence_paths::text is null or evidence_paths::text in ('','[]','null') then 'no_evidence' else 'has_evidence' end e, count(*) from tenant_xbow.findings group by 1,2 order by 1,2;

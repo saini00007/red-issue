@@ -1,0 +1,17 @@
+OOB HOST: oob7ad8f3c10d11.dau2p4ghgqag02k5emggc5xu6hph3973.oast.abhedi.co.in
+BASELINE: HTTP/2 200 
+age: 22131
+cache-control: public, max-age=31536000, must-revalidate
+content-disposition: inline; filename="Ahmed_Taleb_updated-min.jpg"
+content-security-policy: script-src 'none'; frame-src 'none'; sandbox;
+content-type: image/jpeg
+date: Tue, 29 Sep 2026 21:37:56 GMT
+last-modified: Fri, 28 Jun 2024 08:22:23 GMT
+server: Vercel
+strict-transport-security: max-age=63072000
+vary: Accept
+x-v
+BODY: b'\xff\xd8\xff\xdb\x00C\x00\x08\x08\x08\x08\t\x08\t\n\n\t\r\x0e\x0c\x0e\r\x13\x11\x10\x10\x11\x13\x1c\x14\x16\x14\x16\x14\x1c+\x1b\x1f\x1b\x1b\x1f\x1b+&.%#%.&D5//5DNB>BN_UU_wqw\x9c\x9c\xd1\xff\xdb\x00C\x01\x08\x08\x08\x08\t\x08\t\n\n\t\r\x0e\x0c\x0e\r\x13\x11\x10\x10\x11\x13\x1c\x14\x16\x14\x16\x14\x1c+\x1b\x1f\x1b\x1b\x1f\x1b+&.%#%.&D5//5DNB>BN_UU_wqw\x9c\x9c\xd1\xff\xc2\x00\x11\x08\x02\xa3\x02\x92\x03\x01"\x00\x02\x11\x01\x03\x11\x01\xff\xc4\x00\x1c\x00\x00\x01\x05\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x02\x04\x05\x06\x01\x07\x08\xff\xc4\x00\x1b\x01\x00\x03\x01\x01\x01\x01'
+TGT: http://oob7ad8f3c10d11.dau2p4ghgqag02k5emggc5xu6hph3973.oast.abhedi.co => CODE=400 SZ=84 CT=text/plain; charset=utf-8
+TGT: http://oob7ad8f3c10d11.dau2p4ghgqag02k5emggc5xu6hph3973.oast.abhedi.co => CODE=400 SZ=84 CT=text/plain; charset=utf-8
+TGT: https://www.infinitycapital.bh/atom.xml => CODE=400 SZ=84 CT=text/plain; charset=utf-8

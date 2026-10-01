@@ -1,0 +1,15 @@
+https://www.infinitycapital.bh/?id=1&search=test&page=2
+https://www.infinitycapital.bh/?page=2
+https://www.infinitycapital.bh/?zzz=1
+https://www.infinitycapital.bh/?$p
+https://www.infinitycapital.bh/contact?x=1
+https://www.infinitycapital.bh/contact?cb=1
+https://www.infinitycapital.bh/contact?$q
+https://www.infinitycapital.bh/api/?id=1
+https://www.infinitycapital.bh/api/
+https://www.infinitycapital.bh/api/contact
+https://www.infinitycapital.bh/api/send
+https://www.infinitycapital.bh/_next/image?url=&w=&q=
+https://www.infinitycapital.bh/404
+https://www.infinitycapital.bh/atom.xml
+https://www.infinitycapital.bh/feeds/all.atom.xml

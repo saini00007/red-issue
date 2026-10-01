@@ -1,0 +1,19 @@
+# command: timeout 15 curl -s -m 13 -o - -D - -w '\nHTTP_STATUS:%{http_code}\nCTYPE:%{content_type}' 'https://www.infinitycapital.bh/_next/image?w=http%3A%2F%2Fs5r84819a8a.example.net%2Fs5r'
+# exit_code: 0
+# ---
+
+HTTP/2 429 
+cache-control: private, no-store, max-age=0
+content-type: text/plain; charset=utf-8
+server: Vercel
+x-vercel-id: bom1::44bql-1790722342320-3fd2ef1dbc05
+x-vercel-mitigated: deny
+content-length: 75
+date: Tue, 29 Sep 2026 22:52:22 GMT
+
+Too Many Requests
+
+Too Many Requests
+bom1::44bql-1790722342320-3fd2ef1dbc05
+HTTP_STATUS:429
+CTYPE:text/plain; charset=utf-8

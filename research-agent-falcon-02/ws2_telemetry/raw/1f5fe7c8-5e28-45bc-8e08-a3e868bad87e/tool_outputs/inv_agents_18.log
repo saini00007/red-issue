@@ -1,0 +1,7 @@
+# command: cd /work/evidence && grep -o '@[a-zA-Z0-9._-]*infinity[a-zA-Z0-9._-]*' chunk_*.js contact.html | sort -u | head -20
+# tool: grep
+# exit_code: 0
+# ts: 2026-09-30T12:01:57.753351+00:00
+# ---
+
+contact.html:@infinitycapital.bh

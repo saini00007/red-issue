@@ -1,0 +1,56 @@
+# command: curl -X GET "https://duck-store.escape.tech/login" --max-time 10 2>&1 | head -50
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:22:17.395996+00:00
+# ---
+
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+  0      0   0      0   0      0      0      0                              0<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+  <!-- Primary Meta Tags -->
+  <title>Duck Store - Vulnerable Web App by Escape | Security Testing & Training Platform</title>
+  <meta name="title" content="Duck Store - Vulnerable Web App by Escape | Security Testing & Training Platform" />
+  <meta name="description"
+    content="Intentionally vulnerable e-commerce platform for security testing, pentesting training, and API security learning. Features OWASP Top 10, business logic flaws, and GraphQL security issues. Built by Escape.tech" />
+  <meta name="keywords"
+    content="vulnerable web application, security testing, pentesting, OWASP Top 10, API security, GraphQL security, DAST, business logic vulnerabilities, security training, Escape, escape.tech, intentionally vulnerable app, security lab, cybersecurity education, IDOR, SQL injection, XSS, SSRF, JWT vulnerabilities" />
+  <meta name="author" content="Escape - https://escape.tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://duck-store.escape.tech" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://duck-store.escape.tech" />
+  <meta property="og:title" content="Duck Store - Vulnerable Web App by Escape | Security Testing Platform" />
+  <meta property="og:description"
+    content="Intentionally vulnerable e-commerce platform for security testing and training. Features OWASP Top 10, business logic flaws, API & GraphQL security issues. Built by Escape.tech" />
+  <meta property="og:site_name" content="Duck Store by Escape" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://duck-store.escape.tech" />
+  <meta name="twitter:title" content="Duck Store - Vulnerable Web App by Escape | Security Testing Platform" />
+  <meta name="twitter:description"
+    content="Intentionally vulnerable e-commerce platform for security testing and training. Features OWASP Top 10, business logic flaws, API & GraphQL security issues. Built by Escape.tech" />
+  <meta name="twitter:site" content="@escapetech" />
+  <meta name="twitter:creator" content="@escapetech" />
+
+  <!-- Additional SEO -->
+  <meta name="application-name" content="Duck Store - Vulnerable App by Escape" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <meta name="category" content="Security, Cybersecurity, Education, Testing" />
+  <meta name="coverage" content="Worldwide" />
+  <meta name="distribution" content="Global" />
+  <meta name="rating" content="General" />
+
+  <!-- Schema.org structured data -->
+  <script type="application/ld+json">
+  {

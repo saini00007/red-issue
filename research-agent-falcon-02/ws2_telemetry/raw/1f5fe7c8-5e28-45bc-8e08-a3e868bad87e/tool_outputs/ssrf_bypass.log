@@ -1,0 +1,10 @@
+== is a non-allowlisted external image fetched? (should 307/404 if allowlist blocks) ==
+403 sz=33980 redir=
+403 sz=33970 redir=
+== allowlist bypass attempts (redirect/DNS/parser confusion) ==
+400 sz=84 redir=
+403 sz=33971 redir=
+400 sz=84 redir=
+== does the optimizer fetch its OWN allowlisted host with a path traversal to internal? ==
+200 sz=48055 redir=
+DONE

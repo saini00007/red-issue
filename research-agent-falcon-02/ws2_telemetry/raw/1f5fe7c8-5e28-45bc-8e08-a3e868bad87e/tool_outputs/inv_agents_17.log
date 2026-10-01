@@ -1,0 +1,7 @@
+# command: cd /work/evidence && grep -o 'subjects:.\{0,300\}' chunk_275-ea7b562607231006.js | head -5; echo "=== email config ==="; grep -o '.\{200\}infinitycapital[^\"]\{0,60\}' chunk_275-ea7b562607231006.js | head -10
+# tool: grep
+# exit_code: 0
+# ts: 2026-09-30T12:01:55.236294+00:00
+# ---
+
+=== email config ===

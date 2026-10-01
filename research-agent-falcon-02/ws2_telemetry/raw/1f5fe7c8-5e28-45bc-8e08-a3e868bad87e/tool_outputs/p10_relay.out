@@ -1,0 +1,15 @@
+### T1: targets = attacker-controlled external address
+{"data":{"id":"01a0efc5-db30-725d-885e-1144a5b02edf"},"error":null}
+HTTP=200
+
+### T2: targets = second arbitrary victim (relay proof)
+{"data":{"id":"01a0efc5-dd5c-71d8-a381-1a7c126011d8"},"error":null}
+HTTP=200
+
+### T3: targets with Name <addr> form (Resend allows)
+{"data":{"id":"01a0efc5-df87-7074-9cd2-23a128d9628e"},"error":null}
+HTTP=200
+
+### T4: multiple recipients (mass relay)
+{"data":{"id":"01a0efc5-e173-7141-b045-4a79ea284254"},"error":null}
+HTTP=200

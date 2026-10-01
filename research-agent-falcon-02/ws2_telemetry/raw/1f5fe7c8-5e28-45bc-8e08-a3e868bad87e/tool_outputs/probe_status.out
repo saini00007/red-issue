@@ -1,0 +1,9 @@
+[/] HTTP/2 200  |  | content-length: 27355
+[/api/] HTTP/2 403  | x-vercel-mitigated: challenge | 
+[/404] HTTP/2 403  | x-vercel-mitigated: challenge | 
+[/about] HTTP/2 403  | x-vercel-mitigated: challenge | 
+[/contact] HTTP/2 403  | x-vercel-mitigated: challenge | 
+[/feed.xml] HTTP/2 403  | x-vercel-mitigated: challenge | 
+[/login] HTTP/2 403  | x-vercel-mitigated: challenge | 
+[/_next/static/css/32a0546faf171957.css] HTTP/2 403  | x-vercel-mitigated: challenge | 
+[/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=75] HTTP/2 403  | x-vercel-mitigated: challenge | 

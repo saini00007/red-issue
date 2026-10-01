@@ -1,0 +1,56 @@
+# command: curl -s -X GET "https://duck-store.escape.tech/api/v1/products" -H "Accept: application/json" -v 2>&1 | head -50
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:33:15.272036+00:00
+# ---
+
+Note: Unnecessary use of -X or --request, GET is already inferred.
+* Host duck-store.escape.tech:443 was resolved.
+* IPv6: (none)
+* IPv4: 51.15.242.155
+*   Trying 51.15.242.155:443...
+* ALPN: curl offers h2,http/1.1
+} [5 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+} [1701 bytes data]
+* SSL Trust Anchors:
+*   CAfile: /etc/ssl/certs/ca-certificates.crt
+*   CApath: /etc/ssl/certs
+{ [5 bytes data]
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+{ [1210 bytes data]
+* TLSv1.3 (IN), TLS change cipher, Change cipher spec (1):
+{ [1 bytes data]
+* TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+{ [19 bytes data]
+* TLSv1.3 (IN), TLS handshake, Certificate (11):
+{ [3433 bytes data]
+* TLSv1.3 (IN), TLS handshake, CERT verify (15):
+{ [80 bytes data]
+* TLSv1.3 (IN), TLS handshake, Finished (20):
+{ [36 bytes data]
+* TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+} [1 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Finished (20):
+} [36 bytes data]
+* SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256 / X25519MLKEM768 / id-ecPublicKey
+* ALPN: server accepted h2
+* Server certificate:
+*   subject: CN=duck-store.escape.tech
+*   start date: Aug  9 10:17:47 2026 GMT
+*   expire date: Nov  7 10:17:46 2026 GMT
+*   issuer: C=US; O=Let's Encrypt; CN=YE2
+*   Certificate level 0: Public key type EC/prime256v1 (256/128 Bits/secBits), signed using ecdsa-with-SHA384
+*   Certificate level 1: Public key type EC/secp384r1 (384/192 Bits/secBits), signed using ecdsa-with-SHA384
+*   Certificate level 2: Public key type EC/secp384r1 (384/192 Bits/secBits), signed using ecdsa-with-SHA384
+*   Certificate level 3: Public key type EC/secp384r1 (384/192 Bits/secBits), signed using ecdsa-with-SHA384
+*   subjectAltName: "duck-store.escape.tech" matches cert's "duck-store.escape.tech"
+* OpenSSL verify result: 0
+* SSL certificate verified via OpenSSL.
+* Established connection to duck-store.escape.tech (51.15.242.155 port 443) from 172.21.0.2 port 33062 
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://duck-store.escape.tech/api/v1/products
+* [HTTP/2] [1] [:method: GET]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: duck-store.escape.tech]
+* [HTTP/2] [1] [:path: /api/v1/products]

@@ -1,0 +1,13 @@
+# command: timeout 15 curl -s -m 13 -o /dev/null -D - 'https://www.infinitycapital.bh/api/?id=crlfa0196c0ef106%0D%0AX-Crlf-Probe%3A+crlfa0196c0ef106'
+# exit_code: 0
+# ---
+
+HTTP/2 403 
+cache-control: private, no-store, max-age=0
+content-type: text/html; charset=utf-8
+server: Vercel
+x-vercel-challenge-token: 2.1790722032.60.MGE2N2UyZWRmYTBjNjI3ODQ0MTJiYmY5MzYwNjgwMmE7YzY4ZjE5ZTA7NzU1NTgxMmU5MmIyNDAyOTIxNTUyYTRkMjYzN2QyNTgxYWM2NjFiNjszO+/o2H944rq9SMVP1kW6xeCL/SnGJNUEo1lyiTQC0BVR6ue+/9ncIet6RhDAgji2U30UEruUnGVZox9cCckvfPdOHC6Cvq2x.a086953c69677ec31e30452487090359
+x-vercel-id: bom1::1790722032-Lp9cUaN3KrKKaLymtUNqXMC76EDKAa28
+x-vercel-mitigated: challenge
+date: Tue, 29 Sep 2026 22:47:12 GMT
+

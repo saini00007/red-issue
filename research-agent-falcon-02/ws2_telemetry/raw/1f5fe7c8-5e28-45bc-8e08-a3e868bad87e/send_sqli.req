@@ -1,0 +1,7 @@
+POST /api/send HTTP/1.1
+Host: www.infinitycapital.bh
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36
+Content-Type: application/x-www-form-urlencoded
+Connection: close
+
+fname=sqlmapProbe&lname=Security&areacode=973&tel=5551234&cname=QATester&subject=Hello&msg=TestBody&check=on&targets=sec%40infinitycapital.bh

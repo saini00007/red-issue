@@ -1,0 +1,25 @@
+=== is the 403 the Vercel WAF checkpoint or app output? ===
+HTTP/2 200 
+x-matched-path: /robots.txt
+x-vercel-cache: HIT
+x-vercel-id: bom1::gm2jf-1790725194589-ff6e1098c2ff
+
+=== oracle: nonexistent path on the ALLOWED cdn host ===
+HTTP/2 404 
+content-type: text/plain; charset=utf-8
+x-vercel-cache: MISS
+body:
+The page could not be found
+
+NOT_FOUND
+
+bom1::7jdhp-1790725194732-617becb14ae1
+
+=== oracle: real image on allowed host (control) ===
+HTTP=403 sz=33995 ct=text/html; charset=utf-8
+ssrf_verify.sh: line 17: xxd: command not found
+
+=== OOB registry check for my token ===
+not in registry file
+no oob_interactions.jsonl
+DONE

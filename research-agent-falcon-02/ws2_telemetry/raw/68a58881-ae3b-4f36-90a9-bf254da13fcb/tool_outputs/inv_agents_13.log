@@ -1,0 +1,8 @@
+# command: curl -s -X POST "https://duck-store.escape.tech/api/v1/cart/add" -H "Content-Type: application/json" -H "Accept: application/json" -d '{"product_id": 1, "quantity": -5}' -w "\nHTTP_CODE:%{http_code}\n" --max-time 15
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:33:46.213177+00:00
+# ---
+
+{"detail":"Not authenticated"}
+HTTP_CODE:401

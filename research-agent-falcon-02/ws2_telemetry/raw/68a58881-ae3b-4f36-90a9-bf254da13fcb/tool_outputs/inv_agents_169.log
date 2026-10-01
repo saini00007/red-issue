@@ -1,0 +1,10 @@
+# command: cd /work && sqlmap -u "https://duck-store.escape.tech/api/v1/products/?skip=0&limit=100" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYjk4YjBhOTEtNzY3Zi00MDgwLWIyZWUtYzE3OGYwMDg3MjhiIiwidXNlcm5hbWUiOiJ0ZXN0dXNlckFfMTIzIiwicm9sZSI6InVzZXIiLCJleHAiOjE3OTA2OTU0Mzh9.J59tThpOLOZtutUZrAljNP6a0QpJfGmkjTTuo6CjOm8" --batch --level=5 --risk=3 --threads=4 --technique=BEUSTQ 2>&1 | tee tool_outputs/sqlmap_products_skip.log
+# tool: sqlmap
+# exit_code: 124
+# ts: 2026-09-29T16:45:20.463066+00:00
+# ---
+
+
+[exec timeout after 300s]
+
+[exit=124]

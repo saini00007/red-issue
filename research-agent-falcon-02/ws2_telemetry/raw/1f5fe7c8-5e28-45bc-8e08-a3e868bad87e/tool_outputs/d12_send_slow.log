@@ -1,0 +1,8 @@
+### FROM_SPOOF /api/send 429 Too Many Requests  Too Many Requests bom1::n6tp5-1790745494382-5735008ae87a
+### REPLY_TO /api/send 429 Too Many Requests  Too Many Requests bom1::zxzs2-1790745524738-3a6850ad1372
+### HEADERS /api/send ERR ReadTimeout HTTPSConnectionPool(host='www.infinitycapital.bh', port=443): Read timed out. (read timeout=30)
+### GET /api/domains 429 Too Many Requests  Too Many Requests bom1::hxptp-1790745615115-009a118bb305
+### GET /api/contacts ERR HTTPSConnectionPool(host='www.infinitycapital.bh', port=443): Read timed out. (r
+### GET /api/keys 429 Too Many Requests  Too Many Requests bom1::h2vqc-1790745702532-e6b8f14bae60
+### GET /api/emails 429 Too Many Requests  Too Many Requests bom1::5kbfj-1790745732692-53ed808b6e6a
+### GET /api/send/domains 429 Too Many Requests  Too Many Requests bom1::ngxph-1790745762767-170bb7eb7d54

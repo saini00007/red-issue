@@ -1,0 +1,17 @@
+=== known-good contentful CDN ===
+ctfassets(known good)                    HTTP=200 sz=45805 ssrf_allowlist.sh: line 8: file: command not found
+=== same host, private-ish paths ===
+ctfassets root                           HTTP=404 sz=79 ssrf_allowlist.sh: line 8: file: command not found
+ctfassets traversal                      HTTP=403 sz=33991 ssrf_allowlist.sh: line 8: file: command not found
+ctfassets enc traversal                  HTTP=404 sz=79 ssrf_allowlist.sh: line 8: file: command not found
+=== subdomain of allowed domain ===
+evil.ctfassets.net                       HTTP=400 sz=84 ALLOWLIST-REJECT
+ctfassets prefix-trick                   HTTP=403 sz=33994 ssrf_allowlist.sh: line 8: file: command not found
+x-prefix ctfassets                       HTTP=400 sz=84 ALLOWLIST-REJECT
+=== the target itself (self-fetch) ===
+self robots.txt                          HTTP=403 sz=33985 ssrf_allowlist.sh: line 8: file: command not found
+self favicon                             HTTP=400 sz=84 ALLOWLIST-REJECT
+=== localhost variants ===
+localhost:3000                           HTTP=400 sz=84 ALLOWLIST-REJECT
+127.0.0.1                                HTTP=403 sz=33984 ssrf_allowlist.sh: line 8: file: command not found
+DONE

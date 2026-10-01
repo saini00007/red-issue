@@ -1,0 +1,15 @@
+# command: cd /work/evidence && grep -o 'api/send' *.js | sort | uniq -c; echo "---"; grep -o '.\{300\}api/send.\{500\}' 489-c3a66469350d58bd.js | head -5
+# tool: grep
+# exit_code: 0
+# ts: 2026-09-30T12:02:46.822494+00:00
+# ---
+
+      1 275-ea7b562607231006.js:api/send
+      1 c275.js:api/send
+      1 c_275-ea7b562607231006.js:api/send
+      1 chunk-275-ea7b562607231006.js:api/send
+      1 chunk275.js:api/send
+      1 chunk_275-ea7b562607231006.js:api/send
+      1 found_275-ea7b562607231006.js:api/send
+      1 js_275-ea7b562607231006.js:api/send
+---

@@ -1,0 +1,25 @@
+{
+  "seed": "https://www.infinitycapital.bh/",
+  "routes": [
+    "https://www.infinitycapital.bh/",
+    "https://www.infinitycapital.bh/investment-portfolio",
+    "https://www.infinitycapital.bh/investment-philosophy",
+    "https://www.infinitycapital.bh/about",
+    "https://www.infinitycapital.bh/contact",
+    "https://www.infinitycapital.bh/privacy-terms"
+  ],
+  "xhr": [],
+  "forms": [],
+  "js_endpoints": [],
+  "js_secrets": [],
+  "screenshots": [
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/browser/shots/0.png",
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/browser/shots/1.png",
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/browser/shots/2.png",
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/browser/shots/3.png",
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/browser/shots/4.png",
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/browser/shots/5.png"
+  ],
+  "har": "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/browser/www.infinitycapital.bh_1790730221.har.gz",
+  "pages_crawled": 6
+}

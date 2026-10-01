@@ -1,0 +1,8 @@
+# command: curl -s -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZDg3NTIxMzYtNTEwMS00NmY5LWJhODktZDI4NTA3MTM5NmRhIiwidXNlcm5hbWUiOiJ0ZXN0dXNlcl9uZXciLCJyb2xlIjoidXNlciIsImV4cCI6MTc5MDcwMTA5OH0.CjwiHT4Pzn4mYKbCR3xOo89e-g6mZpAQlz8TCcKBfLI" \
+  https://duck-store.escape.tech/api/v1/users/me/profile
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:36:35.261426+00:00
+# ---
+
+{"username":"testuser_new","email":"testnew@duck-store.escape.tech","id":"d8752136-5101-46f9-ba89-d285071396da","created_at":"2026-09-29T16:28:07.226140","role":"user","first_name":null,"last_name":null,"avatar_url":null,"bio":null,"account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":true}

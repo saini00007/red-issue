@@ -1,0 +1,28 @@
+=== A. /_next/image param injection ===
+q=75 baseline                                  200 len=48055    0.29s image/jpeg
+q=75' single quote                             400 len=84       0.13s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::7qtbz-1790755180322-c32eecd44729 
+q=75 AND SLEEP(3)                              400 len=84       0.09s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::sj5qm-1790755180433-82de8bf79ccb 
+q=75 pg_sleep(3)                               400 len=84       0.11s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::bqpq4-1790755180545-17655d8bd102 
+q=75 WAITFOR 3s                                400 len=84       0.13s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::jpq62-1790755180665-227dda27e339 
+q UNION SELECT 1                               400 len=84       0.10s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::vzwqj-1790755180769-24f98fe7ef7c 
+w=1080' OR 1=1--                               400 len=84       0.11s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::9skj2-1790755180884-53cf682a7078 
+w=-1*3*400 arith                               400 len=84       0.13s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::44r5w-1790755181005-80f2b26cf067 
+w=+1+1+1                                       400 len=84       0.13s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::4z995-1790755181147-a2a9ee05f423 
+w=1e3                                          400 len=84       0.12s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::gp2lm-1790755181270-b6a6e3b6c0c4 
+w=0x100                                        400 len=84       0.12s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::gp2lm-1790755181383-167307dc1840 
+w=2147483648 overflow                          400 len=84       0.10s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::4n4dm-1790755181485-2981d3ab9375 
+w=-1 union                                     400 len=84       0.10s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::q5v9t-1790755181587-6db7ce0f82f3 
+w duplicate 1080&1080                          400 len=84       0.09s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::gp2lm-1790755181680-d5b9c472b1de 
+
+=== B. url= SSRF / host-validation bypass ===
+url=baseline-ctf                               200 len=45805    0.14s image/jpeg
+url=at-127.0.0.1                               400 len=84       0.11s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::4n5ht-1790755181928-4003b8493270 
+url=at-localhost                               400 len=84       0.12s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::gp2lm-1790755182046-558cece64537 
+url=dotdot-meta                                400 len=84       0.12s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::f5fck-1790755182167-92a651cc17f4 
+url=pct-slash                                  400 len=84       0.12s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::z9hpt-1790755182283-e0a31bcd0ccb 
+url=port-8443                                  502 len=122     27.38s An error occurred with this application.  ROUTER_EXTERNAL_TARGET_CONNECTION_ERROR  bom1::sj5qm-1790755182393-315534849950 
+url=pct-host                                   400 len=84       0.13s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::7zw8v-1790755209789-9838456cda89 
+url=gopher                                     400 len=84       0.12s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::xmgr7-1790755209922-b08ffa2517dc 
+url=dict                                       400 len=84       0.12s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::7xgsr-1790755210036-523bcfadbb0a 
+url=file                                       400 len=84       0.17s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::nzs8q-1790755210213-d19938e7a1bb 
+url=http-plain                                 400 len=84       0.12s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::2289s-1790755210321-6c00180bb834 

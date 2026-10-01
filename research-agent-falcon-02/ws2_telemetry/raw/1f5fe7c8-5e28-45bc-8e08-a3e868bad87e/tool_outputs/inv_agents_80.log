@@ -1,0 +1,8 @@
+# command: cd /work/evidence && grep -oE 'targets["'"'"']?\s*:\s*"[^"]*"' contact.html home.html js_*.js 2>/dev/null | head; echo "---email refs---"; grep -oE '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}' contact.html | sort -u | head
+# tool: grep
+# exit_code: 0
+# ts: 2026-09-30T12:08:40.465703+00:00
+# ---
+
+---email refs---
+info@infinitycapital.bh

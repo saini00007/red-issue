@@ -1,0 +1,8 @@
+set -u
+q() { docker exec scanner-postgres psql -U scanner -d scanner -X -A -F' | ' -t -c "$1" 2>&1; }
+echo "=== C1 per-scan roster (43 rows) ==="
+q "select left(scan_id::text,8), coalesce(status,''), coalesce(mode,''), to_char(started_at,'MM-DD HH24:MI'), to_char(completed_at,'MM-DD HH24:MI'), left(coalesce(engine_models,'<NULL>'),150) from tenant_xbow.scans order by coalesce(started_at, created_at);"
+echo "=== C2 model-family census across scans.engine_models ==="
+q "select case when engine_models ilike '%nemotron%' then 'nemotron' when engine_models ilike '%openrouter%' then 'openrouter' when engine_models ilike '%bunny%' then 'bunny' when engine_models is null or engine_models='' then '<EMPTY>' else 'other' end fam, count(*) from tenant_xbow.scans group by 1 order by 2 desc;"
+echo "=== C3 scans overlapping proxy window (2026-09-28 22:58 -> 2026-09-29 23:07 UTC) ==="
+q "select case when engine_models ilike '%nemotron%' then 'nemotron' when engine_models ilike '%openrouter%' then 'openrouter' when engine_models ilike '%bunny%' then 'bunny' when engine_models is null or engine_models='' then '<EMPTY>' else 'other' end fam, count(*) filter (where started_at < '2026-09-29 23:07+00') as started_before_window_end, count(*) filter (where coalesce(completed_at,started_at) > '2026-09-28 22:58+00') as ended_after_window_start, count(*) from tenant_xbow.scans where started_at is not null group by 1 order by 1;"

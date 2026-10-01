@@ -1,0 +1,20 @@
+# command: cat /tmp/ic_home.html; echo; echo "=== retry with browser UA ==="; curl -s -o /tmp/ic_home2.html -D /tmp/ic_home2.hdr "https://www.infinitycapital.bh/" -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15" -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" -H "Accept-Language: en-US,en;q=0.9" --max-time 30; head -20 /tmp/ic_home2.hdr; wc -c /tmp/ic_home2.html
+# tool: cat
+# exit_code: 0
+# ts: 2026-09-30T12:07:54.221029+00:00
+# ---
+
+Too Many Requests
+
+Too Many Requests
+bom1::54kp6-1790770070374-af52aab0e0d6
+=== retry with browser UA ===
+HTTP/2 429 
+cache-control: private, no-store, max-age=0
+content-type: text/html; charset=utf-8
+server: Vercel
+x-vercel-id: bom1::bhzll-1790770074202-b26333b4dec7
+x-vercel-mitigated: deny
+date: Wed, 30 Sep 2026 12:07:54 GMT
+
+7069 /tmp/ic_home2.html

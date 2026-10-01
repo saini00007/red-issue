@@ -1,0 +1,7 @@
+# command: cd /work/evidence && grep -o '"/api/[a-zA-Z0-9/_-]*"' chunk_*.js | sort -u | head -30
+# tool: grep
+# exit_code: 0
+# ts: 2026-09-30T12:01:49.066095+00:00
+# ---
+
+chunk_275-ea7b562607231006.js:"/api/send"

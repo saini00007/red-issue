@@ -1,0 +1,2 @@
+select event_type, count(*) from tenant_xbow.scan_events where event_type in ('stop_gate.block','verification.spawned','verification.done','scan.completed','worker.reconnect','engine.level_resolved') group by 1;
+select 'finding_unmatched_logs', count(*) from tenant_xbow.scan_events where event_type like '%unmatched%';

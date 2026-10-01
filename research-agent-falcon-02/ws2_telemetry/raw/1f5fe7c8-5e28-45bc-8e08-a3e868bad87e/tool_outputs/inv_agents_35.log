@@ -1,0 +1,10 @@
+# command: cd /work/evidence && echo "### T4: comma-separated multi-recipient fan-out" && curl -sS -o t4.out -w "HTTP=%{http_code} bytes=%{size_download}\n" -X POST https://www.infinitycapital.bh/api/send -F "fname=Verify" -F "lname=Test" -F "areacode=973" -F "tel=0000000" -F "cname=Independent Verifier" -F "subject=authz probe C" -F "msg=probe C body" -F "check=x" --form-string "targets=fanout-a-01@guardrailcheck.invalid, fanout-b-01@guardrailcheck.invalid, fanout-c-01@guardrailcheck.invalid"; echo "--- body ---"; cat t4.out; echo
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-30T12:06:01.235303+00:00
+# ---
+
+### T4: comma-separated multi-recipient fan-out
+HTTP=200 bytes=67
+--- body ---
+{"data":{"id":"01a0f235-1669-72df-b87f-d07365643025"},"error":null}

@@ -1,0 +1,12 @@
+### /api/send injection matrix (differential oracle = response body/time)
+baseline-valid                           HTTP=200 sz=194 t=0.764751 {"data":null,"error":{"message":"Invalid `to` field. The email address needs to follow the `email@ex
+empty                                    HTTP=500 sz=0 t=0.411586 
+fname-quote                              HTTP=500 sz=0 t=0.768157 
+fname-boolean-true                       HTTP=200 sz=194 t=0.705695 {"data":null,"error":{"message":"Invalid `to` field. The email address needs to follow the `email@ex
+fname-boolean-false                      HTTP=200 sz=194 t=0.618971 {"data":null,"error":{"statusCode":422,"name":"validation_error","message":"Invalid `to` field. The 
+tel-sqli-time                            HTTP=500 sz=0 t=0.602988 
+msg-sqli-union                           HTTP=500 sz=0 t=0.465631 
+cname-boolean                            HTTP=429 sz=75 t=0.307566 Too Many RequestsToo Many Requestsbom1::ch492-1790741994554-64cef21f9268
+targets-array                            HTTP=500 sz=0 t=0.620581 
+targets-oob-probe                        HTTP=200 sz=194 t=0.703517 {"data":null,"error":{"message":"Invalid `to` field. The email address needs to follow the `email@ex
+DONE

@@ -1,0 +1,19 @@
+
+                     __     _
+   ____  __  _______/ /__  (_)
+  / __ \/ / / / ___/ / _ \/ /
+ / / / / /_/ / /__/ /  __/ /
+/_/ /_/\__,_/\___/_/\___/_/   v3.11.1
+
+		projectdiscovery.io
+
+[[34mINF[0m] Current nuclei version: v3.11.1 ([93munknown[0m) - remove '-duc' flag to enable update checks
+[[34mINF[0m] Current nuclei-templates version: v10.4.9 ([93munknown[0m) - remove '-duc' flag to enable update checks
+[[34mINF[0m] New templates added in latest release: 123
+[[34mINF[0m] Templates loaded for current scan: 7036
+[[34mINF[0m] Executing 7036 signed templates from projectdiscovery/nuclei-templates
+[[34mINF[0m] Targets loaded for current scan: 1
+[[34mINF[0m] Templates clustered: 471 (Reduced 405 Requests)
+[[34mINF[0m] Using Interactsh Server: oast.live
+[[34mINF[0m] Scan completed in 1h1m. 0 matches found.
+[[34mINF[0m] HTTP connections: 10805 total, 1572 new, 9233 reused (85.5%)

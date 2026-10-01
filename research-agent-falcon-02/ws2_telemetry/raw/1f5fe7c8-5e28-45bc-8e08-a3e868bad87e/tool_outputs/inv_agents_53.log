@@ -1,0 +1,8 @@
+# command: cd /work && diff <(cat /tmp/c5.html) /work/ICV3_contact.html >/dev/null 2>&1 && echo "IDENTICAL to prior saved contact page" || echo "DIFFERS from prior saved page"; echo "size live=$(wc -c </tmp/c5.html) saved=$(wc -c </work/ICV3_contact.html)"
+# tool: diff
+# exit_code: 0
+# ts: 2026-09-30T12:07:26.914386+00:00
+# ---
+
+IDENTICAL to prior saved contact page
+size live=41185 saved=41185

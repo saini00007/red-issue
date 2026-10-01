@@ -1,0 +1,10 @@
+# command: cd /work && grep -o 'targets[^,;]\{0,120\}' tool_outputs/js/275-ea7b562607231006.js | head -20; echo ===; grep -o 'initialFormData[^;]\{0,400\}' tool_outputs/js/275-ea7b562607231006.js | head -5; echo ===; grep -o 'targets:"[^"]*"' tool_outputs/js/*.js | head
+# tool: grep
+# exit_code: 0
+# ts: 2026-09-30T11:37:20.591475+00:00
+# ---
+
+targets"
+targets)
+===
+===

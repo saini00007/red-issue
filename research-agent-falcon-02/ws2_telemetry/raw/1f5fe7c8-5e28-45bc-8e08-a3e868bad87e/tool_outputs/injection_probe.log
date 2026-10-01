@@ -1,0 +1,4 @@
+  File "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/injection_probe.py", line 32
+    form("cname", '{"$where":"sleep(1)||test(/x/,\\'%s\\')"%s}' % (NOSQL, D)))
+                                                       ^
+SyntaxError: unexpected character after line continuation character

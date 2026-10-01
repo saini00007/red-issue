@@ -1,0 +1,10 @@
+# command: cd $WORK_PATH/tool_outputs && nohup bash sm_serial.sh > sm_serial.log 2>&1 & echo launched; sleep 6; cat $WORK_PATH/tool_outputs/sm_serial.log
+# tool: sleep
+# exit_code: 124
+# ts: 2026-09-30T00:35:08.718155+00:00
+# ---
+
+
+[exec timeout after 300s]
+
+[exit=124]

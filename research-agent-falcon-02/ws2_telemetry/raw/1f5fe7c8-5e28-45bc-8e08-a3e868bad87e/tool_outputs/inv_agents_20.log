@@ -1,0 +1,10 @@
+# command: cd /work/evidence && grep -o '.\{150\}@infinitycapital.\{150\}' contact.html | head -5
+# tool: grep
+# exit_code: 0
+# ts: 2026-09-30T12:02:00.285444+00:00
+# ---
+
+0 0005</a></p><p>F: <a class="Contact_telNum__3h0Pz" href="tel:+973 1710 0004">+973 1710 0004</a></p><a class="Contact_email__saj6M" href="mailto:info@infinitycapital.bh">info@infinitycapital.bh</a></section></address></section><section class="Contact_col2__7d6JJ"><div><div class="Contact_labelWrapper__2ym5A"><labe
+f="tel:+973 1710 0005">+973 1710 0005</a></p><p>F: <a href="tel:+973 1710 0004">+973 1710 0004</a></p><a class="Footer_email__1bSh_" href="mailto:info@infinitycapital.bh">info@infinitycapital.bh</a></section></address></div><div class="Footer_backToTop__E4_qB" tabindex="0"><svg class="Footer_arrowUp__ySAoc" viewBox
+ph\"}],\"nodeType\":\"document\"},\"tel1Label\":\"T: \",\"tel1\":\"+973 1710 0005\",\"tel2Label\":\"F: \",\"tel2\":\"+973 1710 0004\",\"email\":\"info@infinitycapital.bh\"}}],[\"$\",\"$L46\",null,{\"className\":\"wrapper\"}]]}]}]}]]}]\n"])</script><script>self.__next_f.push([1,"47:I[5515,[\"341\",\"static/chunks/34
+ph\"}],\"nodeType\":\"document\"},\"tel1Label\":\"T: \",\"tel1\":\"+973 1710 0005\",\"tel2Label\":\"F: \",\"tel2\":\"+973 1710 0004\",\"email\":\"info@infinitycapital.bh\"}},\"subjects\":[\"Investment Opportunities\",\"Partnership Inquiries\",\"Media \u0026 Press Relations\"],\"targets\":[\"info@infinitycapital.bh\

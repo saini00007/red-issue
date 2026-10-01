@@ -1,0 +1,9 @@
+oob1             ERR 403 34012 HTTP Error 403: Forbidden 0.1s
+oob2             ERR 400 84 HTTP Error 400: Bad Request 0.1s
+metadata         ERR 403 33983 HTTP Error 403: Forbidden 0.2s
+   BODY: b'<!DOCTYPE html><html lang="en" data-astro-cid-4wdtffzm><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#000"><title>Ve'
+localhost        ERR 403 33994 HTTP Error 403: Forbidden 0.1s
+   BODY: b'<!DOCTYPE html><html lang="en" data-astro-cid-4wdtffzm><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#000"><title>Ve'
+self             ERR 400 84 HTTP Error 400: Bad Request 0.1s
+   BODY: b'Bad request\n\nINVALID_IMAGE_OPTIMIZE_REQUEST\n\nbom1::xhmb7-1790753837124-8ce94ed4f09b\n'
+ctf              200 45805 image/jpeg 0.2s

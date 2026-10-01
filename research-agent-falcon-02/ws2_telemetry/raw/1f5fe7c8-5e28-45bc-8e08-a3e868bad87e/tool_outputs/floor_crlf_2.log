@@ -1,0 +1,26 @@
+# command: timeout 15 curl -s -m 13 -o /dev/null -D - 'https://www.infinitycapital.bh/contact?x=crlf27a50b5f9902%0D%0AX-Crlf-Probe%3A+crlf27a50b5f9902'
+# exit_code: 0
+# ---
+
+HTTP/2 200 
+accept-ranges: bytes
+access-control-allow-origin: *
+age: 2654090
+cache-control: public, max-age=0, must-revalidate
+content-disposition: inline
+content-security-policy: default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' vercel.live cdn.vercel-insights.com; style-src 'self' 'unsafe-inline' https://p.typekit.net https://use.typekit.net; img-src 'self' data: https: cdn.contentful.com https://images.ctfassets.net; media-src 'self' https://videos.ctfassets.net; font-src 'self' data: https://use.typekit.net; connect-src 'self' https://cdn.contentful.com https://api.contentful.com https://email.resend.com; frame-src 'self' https://vercel.live/; object-src 'none'; base-uri 'self'; form-action 'self' https://email.resend.com;
+content-type: text/html; charset=utf-8
+date: Tue, 29 Sep 2026 23:10:20 GMT
+etag: "135cfff137e3ceeb4875e1833a53c68e"
+referrer-policy: strict-origin-when-cross-origin
+server: Vercel
+strict-transport-security: max-age=63072000
+vary: RSC, Next-Router-State-Tree, Next-Router-Prefetch
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-matched-path: /contact
+x-vercel-cache: HIT
+x-vercel-id: bom1::87zm9-1790723420885-542e04fbabd6
+x-xss-protection: 1; mode=block
+content-length: 41185
+

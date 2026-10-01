@@ -1,0 +1,20 @@
+# command: tail -12 /work/tool_outputs/sqlmap_send.log 2>/dev/null; echo "=== http code seen by sqlmap ==="; grep -c "403" /work/tool_outputs/sqlmap_send.log 2>/dev/null
+# tool: tail
+# exit_code: 0
+# ts: 2026-09-30T11:32:26.439191+00:00
+# ---
+
+[11:30:56] [INFO] using a random (non-scanner) User-Agent and browser-like headers to bypass the WAF/IPS
+[11:30:56] [INFO] testing if the target URL content is stable
+[11:30:58] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+how do you want to proceed? [(C)ontinue/(s)tring/(r)egex/(q)uit] C
+[11:30:58] [INFO] searching for dynamic content
+[11:30:59] [CRITICAL] target URL content appears to be heavily dynamic. sqlmap is going to retry the request(s)
+[11:31:05] [WARNING] target URL content appears to be too dynamic. Switching to '--text-only' 
+[11:31:05] [INFO] testing if (custom) POST parameter '#1*' is dynamic
+[11:31:12] [INFO] (custom) POST parameter '#1*' appears to be dynamic
+[11:31:28] [INFO] testing for SQL injection on (custom) POST parameter '#1*'
+[11:31:28] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[11:32:06] [WARNING] target appears to be rate-limiting requests; sqlmap is backing off and throttling accordingly (consider raising '--delay' or lowering '--threads')
+=== http code seen by sqlmap ===
+2

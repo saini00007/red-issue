@@ -1,0 +1,18 @@
+### A. Is `to` a real field? try documented Resend-style naming
+ targets= (floor's guess)     -> b'{"data":null,"error":{"statusCode":429,"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded"}}'
+ to= (Resend param)           -> b''
+ to= alone, no targets        -> b''
+ email= alone                 -> b''
+ recipient= alone             -> b''
+ only to=, nothing else       -> b''
+ only targets=, nothing else  -> b'{"data":null,"error":{"statusCode":429,"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded"}}'
+ only email=                  -> b''
+
+### B. Confirm cc mass-assignment is repeatable (3 tries, unique ids)
+  try0 -> b'{"data":null,"error":{"statusCode":429,"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded"}}'
+  try1 -> b'{"data":null,"error":{"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded","statusCode":429}}'
+  try2 -> b'{"data":null,"error":{"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded","statusCode":429}}'
+
+### C. bcc alone (does quota apply? did cc bypass it?)
+  bcc0 -> b'{"data":null,"error":{"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded","statusCode":429}}'
+  bcc1 -> b'{"data":null,"error":{"statusCode":429,"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded"}}'

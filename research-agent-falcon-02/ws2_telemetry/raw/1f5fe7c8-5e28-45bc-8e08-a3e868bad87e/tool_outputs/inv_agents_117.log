@@ -1,0 +1,21 @@
+# command: cd "$WORK_PATH"; grep -n "injectable" tool_outputs/sqlmap_send.log | tail -5; echo "--- full send log tail 12 ---"; tail -12 tool_outputs/sqlmap_send.log
+# tool: grep
+# exit_code: 0
+# ts: 2026-09-30T11:34:41.248445+00:00
+# ---
+
+25:[11:18:51] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+29:[11:18:51] [WARNING] heuristic (basic) test shows that POST parameter 'fname' might not be injectable
+--- full send log tail 12 ---
+[11:20:40] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (MySQL comment)'
+[11:20:53] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (MySQL comment)'
+[11:21:01] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (NOT - MySQL comment)'
+[11:21:11] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (Microsoft Access comment)'
+[11:21:20] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (Microsoft Access comment)'
+[11:21:29] [INFO] testing 'MySQL RLIKE boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause'
+[11:21:43] [INFO] testing 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (MAKE_SET)'
+[11:22:00] [INFO] testing 'MySQL OR boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (MAKE_SET)'
+[11:22:13] [INFO] testing 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (ELT)'
+[11:22:54] [INFO] testing 'MySQL OR boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (ELT)'
+[11:23:24] [INFO] testing 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)'
+[11:24:44] [INFO] testing 'MySQL OR boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)'

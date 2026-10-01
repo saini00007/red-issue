@@ -1,0 +1,18 @@
+# command: cd $WORK_PATH 2>/dev/null || cd .; for u in "https://www.infinitycapital.bh/" "https://www.infinitycapital.bh/_next/image?url=%2Ffavicon.ico&w=1080&q=75" "https://www.infinitycapital.bh/contact?cb=1&q=test" "https://www.infinitycapital.bh/?id=1&page=2" "https://www.infinitycapital.bh/404?q=test" "https://www.infinitycapital.bh/api/send"; do echo "=== $u"; curl -sk -o /dev/null -w "code=%{http_code} size=%{size_download} type=%{content_type}\n" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" "$u"; done
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-30T12:02:44.824619+00:00
+# ---
+
+=== https://www.infinitycapital.bh/
+code=200 size=27355 type=text/html; charset=utf-8
+=== https://www.infinitycapital.bh/_next/image?url=%2Ffavicon.ico&w=1080&q=75
+code=200 size=7406 type=image/x-icon
+=== https://www.infinitycapital.bh/contact?cb=1&q=test
+code=200 size=41185 type=text/html; charset=utf-8
+=== https://www.infinitycapital.bh/?id=1&page=2
+code=200 size=27355 type=text/html; charset=utf-8
+=== https://www.infinitycapital.bh/404?q=test
+code=404 size=28986 type=text/html; charset=utf-8
+=== https://www.infinitycapital.bh/api/send
+code=405 size=0 type=

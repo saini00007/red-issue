@@ -1,0 +1,19 @@
+# command: curl -s -i -X GET https://www.infinitycapital.bh/ 2>&1 | head -60
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-30T12:06:09.029532+00:00
+# ---
+
+HTTP/2 429 
+cache-control: private, no-store, max-age=0
+content-type: text/plain; charset=utf-8
+server: Vercel
+x-vercel-id: bom1::q7jw4-1790769969029-f6eec926136d
+x-vercel-mitigated: deny
+content-length: 75
+date: Wed, 30 Sep 2026 12:06:09 GMT
+
+Too Many Requests
+
+Too Many Requests
+bom1::q7jw4-1790769969029-f6eec926136d

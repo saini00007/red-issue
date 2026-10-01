@@ -1,0 +1,77 @@
+# command: cd /work 2>/dev/null || cd .; ls tool_outputs | grep -Ei "sqlmap|cmd_send" ; echo "=== cmd_send_sqlmap.sh"; cat tool_outputs/cmd_send_sqlmap.sh 2>/dev/null | head -40; echo "=== master log tail"; grep -Ei "injectable|is vulnerable|CRITICAL|sqlmap identified" tool_outputs/SQLMAP_MASTER.log 2>/dev/null | tail -30
+# tool: ls
+# exit_code: 0
+# ts: 2026-09-30T12:09:54.207726+00:00
+# ---
+
+SQLMAP_MASTER.log
+run_sqlmap.sh
+sqlmap
+sqlmap_404.log
+sqlmap_404_q.log
+sqlmap_404b.log
+sqlmap_all.log
+sqlmap_all_params.log
+sqlmap_api
+sqlmap_api.log
+sqlmap_api2.log
+sqlmap_apisend.log
+sqlmap_batch2.log
+sqlmap_cname
+sqlmap_contact
+sqlmap_contact.log
+sqlmap_contact2.log
+sqlmap_d10
+sqlmap_d10.log
+sqlmap_final.log
+sqlmap_fname
+sqlmap_get
+sqlmap_home
+sqlmap_home.log
+sqlmap_home_q.log
+sqlmap_image.log
+sqlmap_img
+sqlmap_img.log
+sqlmap_img1.log
+sqlmap_lname
+sqlmap_nextimage.stdout
+sqlmap_page
+sqlmap_queries.log
+sqlmap_root
+sqlmap_root.log
+sqlmap_send
+sqlmap_send.log
+sqlmap_send2
+sqlmap_send2.log
+sqlmap_send_full.log
+sqlmap_send_run.log
+sqlmap_send_run1.log
+sqlmap_send_run2.log
+sqlmap_serial.log
+=== cmd_send_sqlmap.sh
+=== master log tail
+[09:34:47] [CRITICAL] heuristics detected that the target is protected by some kind of WAF/IPS
+[09:34:48] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+[09:34:49] [CRITICAL] target URL content appears to be heavily dynamic. sqlmap is going to retry the request(s)
+[09:38:07] [INFO] POST parameter 'fname' appears to be 'OR boolean-based blind - WHERE or HAVING clause' injectable 
+[09:53:34] [WARNING] POST parameter 'fname' does not seem to be injectable
+[09:54:26] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+[09:54:28] [WARNING] heuristic (basic) test shows that GET parameter 'url' might not be injectable
+[10:15:53] [CRITICAL] heuristics detected that the target is protected by some kind of WAF/IPS
+[10:15:54] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+[10:15:55] [CRITICAL] target URL content appears to be heavily dynamic. sqlmap is going to retry the request(s)
+[10:16:11] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+[10:16:12] [WARNING] heuristic (basic) test shows that GET parameter 'q' might not be injectable
+[10:16:17] [CRITICAL] heuristics detected that the target is protected by some kind of WAF/IPS
+[10:16:20] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+[10:16:25] [CRITICAL] target URL content appears to be heavily dynamic. sqlmap is going to retry the request(s)
+[10:41:15] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+[10:41:16] [WARNING] heuristic (basic) test shows that GET parameter 'id' might not be injectable
+[11:06:17] [WARNING] heuristic (basic) test shows that GET parameter 'id' might not be injectable
+[11:14:28] [INFO] GET parameter 'id' appears to be 'OR boolean-based blind - WHERE or HAVING clause' injectable 
+[11:20:57] [CRITICAL] considerable lagging has been detected in connection response(s). Please use as high value for option '--time-sec' as possible (e.g. 10 or more)
+[11:24:46] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+[11:24:47] [WARNING] heuristic (basic) test shows that GET parameter 'q' might not be injectable
+[11:24:51] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+[11:24:52] [WARNING] heuristic (basic) test shows that GET parameter 'q' might not be injectable
+[11:35:05] [CRITICAL] connection timed out to the target URL. sqlmap is going to retry the request(s)

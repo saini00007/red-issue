@@ -1,0 +1,7 @@
+# command: cd /work && cat tool_outputs/p2_sm1.log
+# tool: cat
+# exit_code: 0
+# ts: 2026-09-30T11:44:44.374078+00:00
+# ---
+
+#################### sqlmap :: https://www.infinitycapital.bh/?id=1&search=test&page=2

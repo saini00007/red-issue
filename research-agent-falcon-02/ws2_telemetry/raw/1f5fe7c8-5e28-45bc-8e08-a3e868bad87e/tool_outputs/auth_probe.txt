@@ -1,0 +1,23 @@
+AUTH BOOTSTRAP PROBE — www.infinitycapital.bh — 2026-09-29
+All requests: curl -sk, both HTTP/2 and HTTP/1.1, browser-like headers/UA.
+
+/            -> 403 (x-vercel-mitigated: deny) body "Forbidden" 70 bytes
+/login       -> 403
+/signin      -> 403
+/signup      -> 403
+/register    -> 403
+/api/login   -> 403
+/admin       -> 403
+/contact     -> 403
+/about       -> 403
+/robots.txt  -> 403
+/sitemap.xml -> 403
+/manifest.json -> 403
+http:// root -> 308 -> https (same 403 after redirect)
+Homepage HTML body = Vercel dark-mode 403 error page; contains zero application
+markup and no login/sign-up link.
+browse_url(headless Chromium) -> tool error, no crawl possible.
+
+Conclusion: no reachable content => no login/registration endpoint to discover,
+no session can be established. auth.json written as {} (no auth surface
+reachable from this network).

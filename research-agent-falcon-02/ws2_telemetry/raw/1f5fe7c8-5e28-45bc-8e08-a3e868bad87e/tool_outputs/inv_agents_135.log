@@ -1,0 +1,11 @@
+# command: cd "$WORK_PATH"; for u in "https://www.infinitycapital.bh/?id=1&page=2" "https://www.infinitycapital.bh/404?q=test" "https://www.infinitycapital.bh/contact?cb=1&q=test&x=1" "https://www.infinitycapital.bh/_next/image?url=&w=100&q=75" "https://www.infinitycapital.bh/api/?id=1&page=2"; do code=$(curl -s -o /tmp/b.out -w "%{http_code} %{size_download}" -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120 Safari/537.36' "$u"); echo "$code  $u  marker:$(grep -c ICMARK9 /tmp/b.out)"; done
+# tool: cd
+# exit_code: 0
+# ts: 2026-09-30T12:01:51.006885+00:00
+# ---
+
+200 27355  https://www.infinitycapital.bh/?id=1&page=2  marker:0
+404 28986  https://www.infinitycapital.bh/404?q=test  marker:0
+200 41185  https://www.infinitycapital.bh/contact?cb=1&q=test&x=1  marker:0
+400 84  https://www.infinitycapital.bh/_next/image?url=&w=100&q=75  marker:0
+308 15  https://www.infinitycapital.bh/api/?id=1&page=2  marker:0

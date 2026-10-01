@@ -1,0 +1,42 @@
+# command: cd /work/evidence && grep -o '/_next/static/chunks/[^"]*\.js' contact.html | sort -u > chunklist.txt && cat chunklist.txt && while read f; do n=$(echo "$f" | sed 's#/#_#g'); curl -s -o "chunk_$n" --url "https://www.infinitycapital.bh/$f"; done < chunklist.txt; ls -la chunk_*
+# tool: grep
+# exit_code: 0
+# ts: 2026-09-30T12:01:46.427229+00:00
+# ---
+
+/_next/static/chunks/117-4ba60eb06d2ce296.js
+/_next/static/chunks/275-ea7b562607231006.js
+/_next/static/chunks/341-553bcb827a52d4aa.js
+/_next/static/chunks/489-c3a66469350d58bd.js
+/_next/static/chunks/71-fbecd7aa70f9e321.js
+/_next/static/chunks/711-90c81a42d9859d8d.js
+/_next/static/chunks/743-7f9d0b5cebfd0486.js
+/_next/static/chunks/app/layout-2aac163e3ced1001.js
+/_next/static/chunks/app/page-85182612bc0d92d0.js
+/_next/static/chunks/fd9d1056-3902e23722a6b2db.js
+/_next/static/chunks/main-app-2dcde4753ea0d175.js
+/_next/static/chunks/polyfills-42372ed130431b0a.js
+/_next/static/chunks/webpack-e401313d27ef7f61.js
+-rw-r--r-- 1 kali kali 124362 Sep 30 10:08 chunk_117-4ba60eb06d2ce296.js
+-rw-r--r-- 1 kali kali 328197 Sep 30 11:40 chunk_275-ea7b562607231006.js
+-rw-r--r-- 1 kali kali 115295 Sep 30 10:08 chunk_341-553bcb827a52d4aa.js
+-rw-r--r-- 1 kali kali 125646 Sep 30 11:40 chunk_489-c3a66469350d58bd.js
+-rw-r--r-- 1 kali kali  38805 Sep 30 10:08 chunk_71-fbecd7aa70f9e321.js
+-rw-r--r-- 1 kali kali  43522 Sep 30 10:08 chunk_711-90c81a42d9859d8d.js
+-rw-r--r-- 1 kali kali  50426 Sep 30 10:08 chunk_743-7f9d0b5cebfd0486.js
+-rw-r--r-- 1 kali kali     15 Sep 30 12:01 chunk___next_static_chunks_117-4ba60eb06d2ce296.js
+-rw-r--r-- 1 kali kali     15 Sep 30 12:01 chunk___next_static_chunks_275-ea7b562607231006.js
+-rw-r--r-- 1 kali kali     15 Sep 30 12:01 chunk___next_static_chunks_341-553bcb827a52d4aa.js
+-rw-r--r-- 1 kali kali     15 Sep 30 12:01 chunk___next_static_chunks_489-c3a66469350d58bd.js
+-rw-r--r-- 1 kali kali     15 Sep 30 12:01 chunk___next_static_chunks_71-fbecd7aa70f9e321.js
+-rw-r--r-- 1 kali kali     15 Sep 30 12:01 chunk___next_static_chunks_711-90c81a42d9859d8d.js
+-rw-r--r-- 1 kali kali     15 Sep 30 12:01 chunk___next_static_chunks_743-7f9d0b5cebfd0486.js
+-rw-r--r-- 1 kali kali     15 Sep 30 12:01 chunk___next_static_chunks_app_layout-2aac163e3ced1001.js
+-rw-r--r-- 1 kali kali     15 Sep 30 12:01 chunk___next_static_chunks_app_page-85182612bc0d92d0.js
+-rw-r--r-- 1 kali kali     15 Sep 30 12:01 chunk___next_static_chunks_fd9d1056-3902e23722a6b2db.js
+-rw-r--r-- 1 kali kali     15 Sep 30 12:01 chunk___next_static_chunks_main-app-2dcde4753ea0d175.js
+-rw-r--r-- 1 kali kali     15 Sep 30 12:01 chunk___next_static_chunks_polyfills-42372ed130431b0a.js
+-rw-r--r-- 1 kali kali     15 Sep 30 12:01 chunk___next_static_chunks_webpack-e401313d27ef7f61.js
+-rw-r--r-- 1 kali kali 172834 Sep 30 08:01 chunk_fd9d1056-3902e23722a6b2db.js
+-rw-r--r-- 1 kali kali    173 Sep 30 09:36 chunk_page-85182612bc0d92d0.js
+-rw-r--r-- 1 kali kali   1006 Sep 30 11:53 chunk_urls.txt

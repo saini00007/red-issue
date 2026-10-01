@@ -1,0 +1,9 @@
+# command: cd /work/evidence && grep -o 'targets.\{0,200\}' contact.html | head -5; echo "---- emails in page ----"; grep -oE '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}' contact.html | sort -u
+# tool: grep
+# exit_code: 0
+# ts: 2026-09-30T12:02:50.708249+00:00
+# ---
+
+targets\":[\"info@infinitycapital.bh\"]}}]},\"sub\":\"true\"}]\n"])</script><script>self.__next_f.push([1,"d:[[\"$\",\"meta\",\"0\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1, m
+---- emails in page ----
+info@infinitycapital.bh

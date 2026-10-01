@@ -1,0 +1,7 @@
+# command: timeout 15 curl -s -m 13 -o - -w '\nHTTP_STATUS:%{http_code}\nCTYPE:%{content_type}' 'https://www.infinitycapital.bh/?id=1'
+# exit_code: 28
+# ---
+
+
+HTTP_STATUS:000
+CTYPE:

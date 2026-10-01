@@ -1,0 +1,19 @@
+=== paced re-test ===
+REAL image (control)               HTTP=200 sz=45805 ct=image/jpeg cache=x-vercel-cache: HIT
+ÿØÿÛC		
+
+	++&.%#%.&D5//5DNB>B
+missing path on allowed CDN        HTTP=404 sz=79 ct=text/plain; charset=utf-8 cache=x-vercel-cache: MISS
+The page could not be found
+
+NOT_FOUND
+
+bom1::gskwd-17907252
+
+=== does the optimizer return attacker-controlled BYTES? try a text/JSON path on allowed CDN host ===
+root of allowed CDN                HTTP=403 sz=33988 ct=text/html; charset=utf-8 cache=x-vercel-cache: MISS
+<!DOCTYPE html><html lang="en" data-astro-cid-4wdtffzm><head
+
+=== VERCEL WAF behaviour on my own host (control for 403) ===
+plain /robots.txt                  HTTP=403
+DONE

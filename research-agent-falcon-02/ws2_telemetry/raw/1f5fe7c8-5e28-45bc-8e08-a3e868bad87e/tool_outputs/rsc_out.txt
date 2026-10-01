@@ -1,0 +1,27 @@
+home len 27354
+### env/token leakage in server-rendered flight payload
+ NEXT_PUBLIC_                       0  []
+ SPACE_ID                           0  []
+ ACCESS_TOKEN                       0  []
+ cdnToken                           1  ['images.ctfassets.net/yts1dx0j7jj5/yRvqRHKqEsbLvrma0OXqV/4b646']
+ env assignment                     0  []
+ bearer/jwt                         0  []
+ any 24+ char b64ish in inline script 0  []
+
+### RSC flight request (Next.js server data) - does it leak more?
+rsc len 14734
+  rsc token    []
+  rsc env      []
+  rsc secret   []
+
+### Build manifest / buildId + non-exposed files
+ buildId: []
+
+### source maps exposed?
+ sample chunk ['/_next/static/chunks/webpack-e401313d27ef7f61.js', '/_next/static/chunks/fd9d1056-3902e23722a6b2db.js', '/_next/static/chunks/117-4ba60eb06d2ce296.js']
+  /_next/static/chunks/webpack-e401313d27ef7f61.js             map_len=9
+  /_next/static/chunks/fd9d1056-3902e23722a6b2db.js            map_len=9
+  /_next/static/chunks/117-4ba60eb06d2ce296.js                 map_len=9
+  /_next/static/chunks/main-app-2dcde4753ea0d175.js            map_len=9
+  /_next/static/chunks/341-553bcb827a52d4aa.js                 map_len=9
+  /_next/static/chunks/71-fbecd7aa70f9e321.js                  map_len=9

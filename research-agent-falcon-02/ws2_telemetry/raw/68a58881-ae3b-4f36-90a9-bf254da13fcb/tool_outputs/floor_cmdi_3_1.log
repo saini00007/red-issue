@@ -1,0 +1,7 @@
+# command: timeout 20 curl -s -m 18 -o /dev/null -w '\nHTTP_STATUS:%{http_code}\nTIME_TOTAL:%{time_total}' 'https://duck-store.escape.tech/api/v1/reviews/product/1?limit=%7Csleep+5'
+# exit_code: 0
+# ---
+
+
+HTTP_STATUS:422
+TIME_TOTAL:0.448112

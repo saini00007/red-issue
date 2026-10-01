@@ -1,0 +1,6 @@
+# command: timeout 300 dalfox url https://duck-store.escape.tech/api/v1/users/4b7de2b0-df9e-4829-8994-a92be430dba2 --silence --format json --no-color --skip-bav
+# exit_code: 0
+# ---
+
+[
+{}]

@@ -1,0 +1,5 @@
+GET /api/v1/users/cb4dbfeb-fjda-49a2-b0d9-ac0e15635d5d* HTTP/1.1
+Host: duck-store.escape.tech
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: close

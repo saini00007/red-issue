@@ -1,0 +1,10 @@
+# command: cd "$WORK_PATH"; grep -E "oob2818b1ea4d5d|oob3688dfbd5433|oob51c5d3c5c180|oob9547867ac3b4" oob_registry.jsonl | tail -20
+# tool: grep
+# exit_code: 0
+# ts: 2026-09-30T11:32:59.722231+00:00
+# ---
+
+{"token": "oob2818b1ea4d5d", "cell_id": null, "vuln_class": "ssti", "endpoint": "POST https://www.infinitycapital.bh/api/send", "param": "fname", "method": "oob-http"}
+{"token": "oob3688dfbd5433", "cell_id": null, "vuln_class": "xxe", "endpoint": "POST https://www.infinitycapital.bh/api/send", "param": "msg", "method": "oob-http"}
+{"token": "oob51c5d3c5c180", "cell_id": null, "vuln_class": "command_injection", "endpoint": "POST https://www.infinitycapital.bh/api/send", "param": "fname", "method": "oob-http"}
+{"token": "oob9547867ac3b4", "cell_id": null, "vuln_class": "sqli_blind_dns", "endpoint": "POST https://www.infinitycapital.bh/api/send", "param": "tel", "method": "oob-dns"}

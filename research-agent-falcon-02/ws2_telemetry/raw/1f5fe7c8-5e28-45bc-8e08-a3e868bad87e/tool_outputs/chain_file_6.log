@@ -1,0 +1,9 @@
+# command: timeout 15 curl -s -m 13 -o - -w '\nHTTP_STATUS:%{http_code}' 'https://www.infinitycapital.bh/api/?id=appsettings.json'
+# exit_code: 0
+# ---
+
+Too Many Requests
+
+Too Many Requests
+bom1::wbxts-1790721419583-aca82d48261d
+HTTP_STATUS:429

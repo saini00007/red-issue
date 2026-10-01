@@ -1,0 +1,7 @@
+# command: timeout 15 sh -c 'printf '"'"'%s'"'"' '"'"'<html><!--s5u2fb603d3b8ff--></html>'"'"' > /tmp/up_$$.html; curl -s -m 13 -o - -w '"'"'\nHTTP_STATUS:%{http_code}\nCTYPE:%{content_type}'"'"' -F '"'"'page=@/tmp/up_$$.html;type=text/html;filename=s5u2fb603d3b8ff.html'"'"' https://www.infinitycapital.bh/_next/image'
+# exit_code: 26
+# ---
+
+
+HTTP_STATUS:000
+CTYPE:

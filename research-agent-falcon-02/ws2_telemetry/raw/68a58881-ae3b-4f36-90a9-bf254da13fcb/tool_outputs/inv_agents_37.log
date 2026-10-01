@@ -1,0 +1,9 @@
+# command: curl -s -X GET "https://duck-store.escape.tech/api/v1/admin/stats" \
+  -H "Authorization: Bearer eyJhbGciOiAibm9uZSIsICJ0eXAiOiAiSldUIn0.eyJ1c2VyX2lkIjogImQ4NzUyMTM2LTUxMDEtNDZmOS1iYTg5LWQyODUwNzEzOTZkYSIsICJ1c2VybmFtZSI6ICJ0ZXN0dXNlcl9uZXciLCAicm9sZSI6ICJhZG1pbiIsICJleHAiOiAxNzkwNzAxMDk4fQ." \
+  -H "Content-Type: application/json"
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:35:56.677894+00:00
+# ---
+
+{"detail":"Admin access required"}

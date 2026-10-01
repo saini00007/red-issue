@@ -1,0 +1,15 @@
+ssrf_oob                 code=400 ct=text/plain; charset=utf-8 sz=84
+ssrf_meta                code=400 ct=text/plain; charset=utf-8 sz=84
+ssrf_local               code=400 ct=text/plain; charset=utf-8 sz=84
+lfi_passwd               code=403 ct=text/plain; charset=utf-8 sz=59
+w_sqli                   code=400 ct=text/plain; charset=utf-8 sz=84
+q_sqli                   code=400 ct=text/plain; charset=utf-8 sz=84
+w_nosqli                 code=400 ct=text/plain; charset=utf-8 sz=84
+q_nosqli                 code=400 ct=text/plain; charset=utf-8 sz=84
+crlf_q                   code=400 ct=text/plain; charset=utf-8 sz=84
+--- /api/send OOB field SSRF attempts ---
+ssti_msg                 {"data":{"id":"01a0ef4f-cfdd-710a-8510-9a97f02d9feb"},"error":null} HTTP=200
+cmdi_msg                 {"data":{"id":"01a0ef4f-d18f-712b-a049-c6e32ed21e67"},"error":null} HTTP=200
+oob_url                  {"data":{"id":"01a0ef4f-d32c-73b2-b9d5-0b4fd86b1ea8"},"error":null} HTTP=200
+xml_body                 
+DONE

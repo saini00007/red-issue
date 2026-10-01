@@ -1,0 +1,752 @@
+[
+  {
+    "label": "WS3:cross-cutting",
+    "agentId": "ad42fc77d31ee45fb",
+    "result": {
+      "role": "WS-3 Cross-cutting comparison synthesist (Source B)",
+      "competitor": "Cross-cutting: XBOW vs FireCompass vs Escape vs Abhedi Red",
+      "summary": "Capability-comparison across the three competitors + Abhedi on the four buyer-decisive axes. AXIS 1 — chained exploitation w/ proof-carry: all three competitors ship it (XBOW agent-driven multi-bug paths [Moderna API-key→SQLi→IDOR <18h]; FireCompass has the BROADEST chaining, extending into app-to-network and app-to-identity/AD lateral movement on a MITRE ATT&CK graph; Escape chains business-logic/authorization across multi-identity sessions). Abhedi's differentiator is a DETERMINISTIC capability-graph chain floor (chain/floor.py + chain/capabilities.py GRANTS/ENABLES table, Capability StrEnum) that fires the next-hop probe from a CONFIRMED primitive with the LLM never in the proof path — but the executed-chain FINDING writer is default-OFF (scanner_executed_chain_findings=False, config.py:254) and Abhedi is web/API only (no network/AD). AXIS 2 — deterministic-oracle validation: this is Abhedi's genuine edge. Every competitor's validation still routes through an LLM/agent (XBOW 'validator agents' = LLM + programmatic; Escape independent 'Reporter' agent re-reproduces; FireCompass 4-stage hypothesis→signature-eval pipeline), whereas Abhedi's exploit_floor.py is a large pure-Python oracle library (parse_sqlmap/nuclei/dalfox, response_diff, diff_access/diff_cross_tenant, parse_cors/host_header/csrf) that is ON by default (scanner_exploit_floor_enabled=True, config.py:225). Competitor FP claims: FireCompass <2%, Escape ≤4%, XBOW near-zero (no %). AXIS 3 — client-side/browser execution proof: Abhedi leads. Only XBOW mentions any browser confirmation, and narrowly ('headless-browser XSS confirmation' inside its validator [^x1]); FireCompass and Escape describe none. Abhedi's browser sidecar proves THREE client-side classes by live Chromium execution (browser_ingest.py instrument_hit_to_finding, executed==True only: dom_xss→xss_dom, prototype_pollution, storage_leak→secrets_exposure), ON by default (config.py:328,335). AXIS 4 — buyer-visible X→Y→Z narrative: competitors currently ship the more buyer-polished artifact (XBOW full 'case file' = attack path + working exploit + decision log + remediation; FireCompass ready-to-run Python PoC + audit trail; Escape request-sequence + user-scopes + reasoning logs + framework-specific fixes). Abhedi has the raw machinery (reporting/service.py proof-capsule + executed_chains section + per-hop granting-finding context; reporting/narrative.py risk/methodology/per-finding narratives; the capability graph's edge_rationale is the literal 'found X → grants cap → enables Z' spine) AND a unique deterministic-rationale backbone competitors lack — but its flagship executed-chain storyline rides the default-OFF chain flag and its narrative prose is an LLM call, so a stock deploy under-tells the story its oracles could support. MARKET GAP: 'proof of exploit is table stakes' (COMPARISON.md takeaway #1) — competitors compete on scope (FireCompass) / specialist depth (Escape) / evidentiary credibility (XBOW). Abhedi's defensible whitespace is the two axes where its mechanism is structurally different, not just re-worded: deterministic code-oracle validation (Axis 2) and live client-side execution proof (Axis 3). Its exposure is Axis 1/4 packaging (default-OFF chain findings, no network/AD, no named CI-regression product) — machinery present, not switched on for the buyer-facing story.",
+      "mechanisms": [
+        {
+          "capability": "chained-exploitation",
+          "mechanism": "XBOW: agent-driven multi-bug attack paths — 'thousands of agents' + a five-stage Learn→Map→Coordinate→Attack→Prove pipeline chain discrete bugs end-to-end (case study: Moderna API key→SQLi→IDOR in <18h). Chaining logic lives in the agent orchestration, LLM-in-loop.",
+          "source": "[COMPETITOR] COMPARISON.md feature matrix 'Multi-step exploit/attack-path chaining' row + [^x1]/[^x2]",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "chained-exploitation",
+          "mechanism": "FireCompass: BROADEST chaining of the three — credential reuse + app-to-app + app-to-network AND app-to-identity/AD lateral movement, modeled on a MITRE ATT&CK-aligned graph. Extends past web/API into infrastructure and directory lateral movement.",
+          "source": "[COMPETITOR] COMPARISON.md 'Multi-step exploit/attack-path chaining' row + [^f3]",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "chained-exploitation",
+          "mechanism": "Escape: business-logic/authorization chains across multi-identity sessions; chained findings compound into CI regression tests. Chaining is scoped to authz/BOLA/IDOR depth rather than infra.",
+          "source": "[COMPETITOR] COMPARISON.md 'Multi-step exploit/attack-path chaining' row + [^e3]",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "chained-exploitation",
+          "mechanism": "Abhedi: DETERMINISTIC chain floor — fires the one next-hop probe a CONFIRMED primitive unlocks (SSRF→cloud metadata, LFI→read config secrets, open-redirect→SSRF) driven by a pure capability table (Capability StrEnum: INTERNAL_HTTP/DB_READ/CREDENTIAL/SESSION/RCE/FILE_READ/METADATA_ACCESS/CLOUD_STORAGE/PII_READ/REDIRECT; GRANTS+ENABLES maps). LLM is never in the chain/proof path. Writes an executed-chain finding (verification_method='executed_chain'). GATED DEFAULT-OFF: scanner_executed_chain_findings=False (config.py:254), SSRF cloud-exfil hop scanner_ssrf_cloud_exfil=False (config.py:261). Web/API only — no network/AD lateral movement.",
+          "source": "[CODE] src/scanner/agent_runtime/chain/floor.py:1-227, chain/capabilities.py:22-214, config.py:254,261",
+          "confidence": "HIGH"
+        },
+        {
+          "capability": "deterministic-validation",
+          "mechanism": "XBOW: independent 'validator' agents combining LLM + programmatic checks (e.g. headless-browser XSS confirmation) — the confirm step is still an LLM-bearing agent. Near-zero FP claimed, no % stated.",
+          "source": "[COMPETITOR] COMPARISON.md 'Exploit validation / proof-of-exploit' row + [^x1]; Numbers-at-a-glance FP row",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "deterministic-validation",
+          "mechanism": "FireCompass: four-stage validation pipeline hypothesis→live execution→signature evaluation→evidence; 'no exploit, no alert' gating; claims <2% false positives. Signature-eval stage, not a published pure-code oracle set.",
+          "source": "[COMPETITOR] COMPARISON.md 'Exploit validation' + 'Autonomous AI exploitation' rows + [^f1]/[^f2]",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "deterministic-validation",
+          "mechanism": "Escape: independent 'Reporter' agent re-reproduces EVERY finding before filing; ≤4% FP on DAST. Re-reproduction is an agent step, LLM-in-loop.",
+          "source": "[COMPETITOR] COMPARISON.md 'Exploit validation' row + [^e2]",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "deterministic-validation",
+          "mechanism": "Abhedi: large pure-Python deterministic oracle library — parse_sqlmap/parse_nuclei/parse_dalfox tool-output oracles, response_diff (DiffVerdict), authz diff oracles diff_access/diff_cross_tenant/diff_resource_ref, header oracles parse_cors/parse_host_header/parse_csrf/parse_http_downgrade, classify_reflection for XSS. Confirmation is code, not an LLM judge. ON by default: scanner_exploit_floor_enabled=True (config.py:225). Structurally distinct from all three competitors' LLM/agent re-validation.",
+          "source": "[CODE] src/scanner/agent_runtime/engine/exploit_floor.py:1005,1016,1063,1240,1297,1387,1424,1592,1614,1633,686; config.py:225",
+          "confidence": "HIGH"
+        },
+        {
+          "capability": "client-side-proof",
+          "mechanism": "XBOW: only competitor to name any browser-based confirmation, and narrowly — 'headless-browser XSS confirmation' as one check inside the validator agent. No prototype-pollution or web-storage-leak client-side proof described.",
+          "source": "[COMPETITOR] COMPARISON.md 'Exploit validation' row + [^x1]",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "client-side-proof",
+          "mechanism": "FireCompass: no client-side/browser execution-proof mechanism described — validation is live-execution + signature evaluation, not DOM execution.",
+          "source": "[COMPETITOR] COMPARISON.md (absence across 'Exploit validation' row + [^f2]; no browser mechanism listed)",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "client-side-proof",
+          "mechanism": "Escape: no client-side/browser execution proof described — strengths are DAST + Cascade + business-logic/GraphQL, server-side oriented.",
+          "source": "[COMPETITOR] COMPARISON.md (absence; 'Exploit validation' + [^e2]/[^e5] describe no DOM-execution proof)",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "client-side-proof",
+          "mechanism": "Abhedi: Playwright/Chromium sidecar proves THREE client-side classes by LIVE execution — instrument_hit_to_finding writes a finding only when executed==True (canary confirmed real execution in Chromium, not a taint/string guess). _INSTRUMENT_KIND_MAP: dom_xss→xss_dom, prototype_pollution→prototype_pollution, storage_leak→secrets_exposure. ON by default: scanner_browser_enabled=True (config.py:328), scanner_browser_instrument_enabled=True (config.py:335). Deepest client-side proof in the set.",
+          "source": "[CODE] src/scanner/agent_runtime/browser_ingest.py:209-258; config.py:328,335,347",
+          "confidence": "HIGH"
+        },
+        {
+          "capability": "report-narrative",
+          "mechanism": "XBOW: full 'case file' report — attack path + working exploit + decision log + remediation guidance. The 'decision log' makes the agent's reasoning buyer-legible; most polished narrative artifact of the three.",
+          "source": "[COMPETITOR] COMPARISON.md 'Reporting format / evidence' row (XBOW)",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "report-narrative",
+          "mechanism": "FireCompass: reproduction steps + request/response pairs + ready-to-run Python PoC + audit trail. Buyer proof standard is a runnable PoC the customer can re-execute.",
+          "source": "[COMPETITOR] COMPARISON.md 'Reporting format / evidence' row (FireCompass)",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "report-narrative",
+          "mechanism": "Escape: request sequence + user scopes + working exploit + full reasoning logs + framework-specific fixes. Narrative foregrounds authorization context (which user scope reached what) and remediation tailored to the stack.",
+          "source": "[COMPETITOR] COMPARISON.md 'Reporting format / evidence' row (Escape)",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "report-narrative",
+          "mechanism": "Abhedi: report machinery = per-finding proof capsule (_render_capsule: method + redacted request/response), OOB proof (humanized interactsh callback), an executed_chains section (_executed_chain_finding: per-hop granting-finding + proof + attacker_narrative 'why this is real'), plus reporting/narrative.py LLM call producing risk_narrative + methodology_narrative + per-finding 'what an attacker gains'. The capability graph's edge_rationale is the literal deterministic 'found X → grants capability → enables Z' spine competitors lack. BUT the executed-chain story rides the default-OFF chain flag, the proof-capsule enforcement gate is off (scanner_require_proof_capsule=False, config.py:494), and narrative prose is a (non-deterministic) LLM call.",
+          "source": "[CODE] src/scanner/reporting/service.py:67-90,205-321,422-488; reporting/narrative.py:45-139; chain/capabilities.py:165; config.py:494",
+          "confidence": "HIGH"
+        }
+      ],
+      "evidence": [
+        {
+          "claim": "COMPARISON.md's #1 market takeaway: 'proof of exploit' is now table stakes — all three lead with near-identical language (autonomous agents, exploit validation, sub-single-digit FP, chained multi-stage paths); real fights are one layer down in scope (FireCompass), specialist depth (Escape), evidentiary credibility (XBOW). Implication: a new entrant (Abhedi) cannot win on the proof framing alone; it must differentiate on mechanism.",
+          "source": "[COMPETITOR] COMPARISON.md 'Market takeaways' #1 (line 118)",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "Every competitor's validation still contains an LLM/agent in the confirm path (XBOW validator agents = LLM+programmatic; Escape independent Reporter agent re-reproduces; FireCompass hypothesis→signature-eval). None publishes a pure-code oracle library. This is the structural opening for Abhedi's deterministic exploit_floor oracles (Axis 2).",
+          "source": "[COMPETITOR] COMPARISON.md 'Exploit validation / proof-of-exploit' row + [^x1]/[^f2]/[^e2]",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "Competitor false-positive claims are all self-reported and un-audited: FireCompass <2%, Escape ≤4% (DAST), XBOW near-zero with no % stated. COMPARISON.md takeaway #2: independent verification is the market's biggest unmet need — nearly every headline claim is vendor-sourced.",
+          "source": "[COMPETITOR] COMPARISON.md 'Numbers at a glance' FP row (line 95) + 'Market takeaways' #2 (line 119)",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "Only XBOW names any browser-based confirmation and only for XSS ('headless-browser XSS confirmation'); FireCompass and Escape describe no client-side/DOM execution proof. Abhedi's three live-Chromium classes (DOM-XSS, prototype-pollution, web-storage secret leak) exceed every competitor's described client-side depth.",
+          "source": "[COMPETITOR] COMPARISON.md 'Exploit validation' row + [^x1] vs [CODE] browser_ingest.py:209-258",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "FireCompass alone chains into app-to-network and app-to-identity/AD lateral movement on a MITRE ATT&CK graph; XBOW and Escape (and Abhedi) are web/API-scoped for chaining. Abhedi README confirms it is a 'web-application VAPT platform' (no network/AD chaining).",
+          "source": "[COMPETITOR] COMPARISON.md 'Multi-step exploit/attack-path chaining' row + [^f3]; [CODE] README.md:5",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Abhedi's chained-exploitation and executed-chain report narrative are BUILT but default-OFF in a stock deploy (scanner_executed_chain_findings=False config.py:254; scanner_ssrf_cloud_exfil=False config.py:261), whereas its deterministic-oracle validation (config.py:225) and client-side browser proof (config.py:328,335) are default-ON. So on Axes 2 and 3 Abhedi ships live; on Axes 1 and 4 the flagship storyline is gated off unless an operator opts in.",
+          "source": "[CODE] src/scanner/config.py:225,254,261,328,335,494",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Business-logic/authorization (BOLA/IDOR) remains a genuinely underserved market gap (COMPARISON.md takeaway #4) — only Escape (BLST algorithm) built its architecture around it. Abhedi ships deterministic authz oracles (diff_access/diff_cross_tenant/diff_resource_ref) but does not foreground a named BLST-class flagship the way Escape does.",
+          "source": "[COMPETITOR] COMPARISON.md 'Market takeaways' #4 (line 121) + [^e5] vs [CODE] exploit_floor.py:1297,1387,1424",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "XBOW ships the most buyer-polished narrative artifact (full case file WITH a decision log); FireCompass ships a re-runnable Python PoC; Escape foregrounds user-scope authz context + framework-specific fixes. These set the buyer bar Abhedi's report must clear on packaging even where its underlying proof (deterministic oracle + live browser execution) is stronger.",
+          "source": "[COMPETITOR] COMPARISON.md 'Reporting format / evidence' row (all three)",
+          "confidence": "MEDIUM"
+        }
+      ],
+      "gaps_vs_abhedi": [
+        "Network / infrastructure / Active-Directory lateral-movement chaining: FireCompass chains app-to-network and app-to-identity/AD on a MITRE ATT&CK graph; Abhedi is web/API only (chain floor hops are SSRF/LFI/redirect, no directory or host lateral movement). [COMPARISON.md chaining row + [^f3]]",
+        "Named business-logic/authorization flagship: Escape's proprietary BLST algorithm + multi-user/role-based testing is a headline product line; Abhedi has the deterministic authz oracles (diff_access/diff_cross_tenant) but not a foregrounded, named BLST-equivalent methodology. [COMPARISON.md BOLA/IDOR row + [^e5]]",
+        "CI/PR-triggered regression testing as a shipped product: Escape's chained findings compound into CI regression tests with native GitHub Actions/GitLab/Jenkins/Azure DevOps/Bitbucket/CircleCI integrations; FireCompass has CI-aligned cadence + Day-1 CVE validation. Abhedi is REST+WebSocket submit with no named CI integrations. [COMPARISON.md CI/CD rows]",
+        "Buyer-facing 'case file' packaging with a decision/reasoning log: XBOW's case file and Escape's 'full reasoning logs' present the agent's decision trail to the buyer as a first-class artifact; Abhedi's richest narrative (executed-chain story) is behind a default-OFF flag in a stock deploy. [COMPARISON.md reporting row + [CODE] config.py:254]",
+        "Re-runnable exploit PoC handed to the customer: FireCompass ships a ready-to-run Python PoC in the report; Abhedi carries proof capsules (request/response) and attacker_narrative but not a packaged re-executable PoC script. [COMPARISON.md reporting row]",
+        "Independent / third-party benchmark credibility: Escape has a Doyensec-adjacent head-to-head; XBOW has named real-world CVEs (Microsoft/Bing/Exim) + a $250K Chrome bounty. Abhedi's benchmark harness is internal (self-scored). This is the market's biggest unmet need (takeaway #2) and cuts against every vendor including Abhedi. [COMPARISON.md research/credibility table + takeaway #2]",
+        "Attack-surface discovery / EASM breadth: FireCompass (mature NextGen EASM) and Escape (shadow-API discovery) offer whole-portfolio surface discovery; Abhedi takes a supplied target/scope rather than discovering the surface. [COMPARISON.md EASM row]"
+      ],
+      "buyer_proof_standards": [
+        "'No exploit, no alert' / proof-of-exploit gating — a finding is only filed if an exploit actually executed (FireCompass explicit; XBOW Prove stage; Escape Reporter re-reproduction). [COMPARISON.md 'Autonomous AI exploitation' + 'Exploit validation' rows]",
+        "Sub-single-digit false-positive rate as a headline number: FireCompass <2%, Escape ≤4% (DAST), XBOW near-zero (validator agents) — all self-reported and un-audited. [COMPARISON.md FP claim row (line 95)]",
+        "Working exploit + request/response evidence pair attached to every finding (all three). [COMPARISON.md 'Reporting format / evidence' row]",
+        "Full attack-path / kill-chain shown end-to-end, with a decision or reasoning log (XBOW case file; Escape full reasoning logs). [COMPARISON.md reporting row]",
+        "Re-runnable proof: FireCompass ships a ready-to-run Python PoC; Escape shows the request sequence + user scopes so the buyer can replay the authz break. [COMPARISON.md reporting row]",
+        "Remediation tied to the finding: XBOW remediation guidance; Escape framework-specific fixes. [COMPARISON.md reporting row]",
+        "Independent / benchmarked corroboration as an emerging buyer standard: Escape's Doyensec head-to-head + named CVEs (Keycloak); XBOW's real-world CVE portfolio + HackerOne rank. Buyers increasingly expect proof that is not purely vendor-sourced. [COMPARISON.md research/credibility table + takeaway #2]"
+      ]
+    }
+  },
+  {
+    "label": "WS3:web-verify",
+    "agentId": "a91fa0a42ad0b271a",
+    "result": {
+      "role": "WS-3 Public-web claim verifier (Source D) — independent public-source verification of the most load-bearing competitor mechanism claims for XBOW, FireCompass, and Escape, plus current buyer-facing proof standards the competitor-research files under-emphasize. Read-only; web-only; no exploit reproduction; public buyer-facing claims only.",
+      "competitor": "XBOW / FireCompass / Escape (cross-competitor public-web verification pass)",
+      "summary": "Web is reachable; I verified the core load-bearing mechanism claims against primary vendor pages plus independent sources, and falsified two framings. CONFIRMED verbatim from vendor sites: (1) XBOW's five-stage Learn/Map/Coordinate/Attack/Prove pipeline with \"Independent validators confirm exploitability, eliminating false positives that can result from AI hallucinations\" and a harness that \"validates every finding with a working exploit\"; (2) FireCompass's \"no exploit, no alert\" proof gating — \"Every confirmed finding ships with a working Python proof-of-concept exploit... and full evidence,\" \"<2% false positives\" vs \"40 to 70 percent\" for scanners, and multi-stage app→API→identity/AD chaining aligned to the full MITRE ATT&CK kill chain; (3) Escape Cascade's orchestrator/coverage/exploitation/reporter multi-agent design, where the reporter agent \"independently reproduces each one on the live target\" and is \"deliberately isolated... so its verification stays independent,\" multi-identity BOLA testing, and proven findings that become an \"unlimited regression test [that] re-runs on every release, inside your CI/CD.\" Two important cross-cutting findings the research files under-weight: (A) FireCompass's headline \"XBEN 104/104\" benchmark IS XBOW's own open-source benchmark (github.com/xbow-engineering/validation-benchmarks), which independent sources report is SATURATED as of mid-2026 with its vulns \"trained into the models\" — so a 100% score is a weak differentiator, and an independent practitioner piece warns \"A percentage with no context is marketing, not evidence.\" (B) FALSIFIED: the task's \"Escape API security deterministic testing\" framing is NOT how Escape markets itself — its public mechanism is \"feedback-driven\"/\"adaptive\" (Sourcing/Strong-Typing Inference) and RL-based agentic, never \"deterministic\"; the deterministic-validation vocabulary is Abhedi's own, not Escape's. FireCompass's four-stage validation pipeline (hypothesis→live-exec→signature→evidence) is NOT on its buyer-facing CART page — it appears only in a single technical blog post, so it is lower-confidence as a buyer-visible claim.",
+      "mechanisms": [
+        {
+          "capability": "chained-exploitation",
+          "mechanism": "XBOW: five-stage pipeline Learn→Map→Coordinate→Attack→Prove; a coordinator directs a fleet of agents that 'reason through and chain vulnerabilities with an extensive offensive toolkit to reach the non-obvious paths scanners never find,' then independent validators confirm exploitability before a finding surfaces.",
+          "source": "[WEB] https://xbow.com/platform",
+          "confidence": "HIGH"
+        },
+        {
+          "capability": "deterministic-validation",
+          "mechanism": "XBOW: 'The harness validates every finding with a working exploit, so the model's output becomes proven risk, not more triage.' Validators are independent agents (an LLM or a programmatic check, e.g. a steerable headless browser confirming a payload actually executed) run as a distinct 'Prove' stage to suppress AI-hallucination false positives.",
+          "source": "[WEB] https://xbow.com/platform",
+          "confidence": "HIGH"
+        },
+        {
+          "capability": "client-side-proof",
+          "mechanism": "XBOW: 'An extensive offensive toolkit: industry-standard and custom tools, a steerable headless browser' — the browser is the execution-proof surface for client-side classes (dossier: headless browser visits target and confirms JS payload executed for XSS).",
+          "source": "[WEB] https://xbow.com/platform ; corroborated [COMPETITOR] competitor-research/xbow/dossier.md",
+          "confidence": "HIGH"
+        },
+        {
+          "capability": "benchmark-proof-standard",
+          "mechanism": "XBOW: authored + open-sourced a 104-challenge containerized benchmark (26 vuln categories); each challenge embeds a hidden flag 'accessible only through successful end-to-end exploitation, eliminating false-positive ambiguity'; kept confidential pre-release so it wasn't in model training. This is now the de-facto industry proof artifact competitors benchmark against ('XBEN').",
+          "source": "[WEB] https://github.com/xbow-engineering/validation-benchmarks ; https://www.emergentmind.com/topics/xbow-benchmark",
+          "confidence": "HIGH"
+        },
+        {
+          "capability": "deterministic-validation",
+          "mechanism": "FireCompass: 'no exploit, no alert' gating — 'Every confirmed finding ships with a working Python proof-of-concept exploit, exact steps to reproduce, and full evidence,' and this validation step is credited as the mechanism holding false positives '<2%' vs '40 to 70 percent' for DAST scanners.",
+          "source": "[WEB] https://firecompass.com/continuous-automated-red-teaming-cart-explained/",
+          "confidence": "HIGH"
+        },
+        {
+          "capability": "chained-exploitation",
+          "mechanism": "FireCompass CART: 'links individual findings across apps, APIs, and identity systems into multi-stage attack paths'; 'App-to-network pivots test whether an exploited web app can reach internal infrastructure or Active Directory'; 'follows the full MITRE ATT&CK kill chain: initial access, execution, persistence, privilege escalation, lateral movement' — with a live MITRE-aligned attack-path graph.",
+          "source": "[WEB] https://firecompass.com/continuous-automated-red-teaming-cart-explained/",
+          "confidence": "HIGH"
+        },
+        {
+          "capability": "report-narrative",
+          "mechanism": "FireCompass 'harness engineering' thesis: an LLM alone cannot execute/hold-state/validate/govern a pentest; the platform routes tasks across multiple frontier models plus its own purpose-built small language models (SLMs) for high-volume triage, with a deterministic safety gateway (asset allowlist, per-host token-bucket rate limiter, env-tagged creds so UAT≠prod, kill switch, append-only audit trail).",
+          "source": "[COMPETITOR] competitor-research/firecompass/dossier.md ; partially [WEB] https://firecompass.com/ (harness post referenced) — NOT on the buyer-facing CART page",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "deterministic-validation",
+          "mechanism": "Escape Cascade: a separate Reporter agent 'receives candidate findings from exploitation agents and independently reproduces each one on the live target, collecting its own evidence before filing an issue,' and is 'deliberately isolated from exploitation agent-to-exploitation agent messaging so its verification stays independent' — de-biased second-agent verification, the strongest independent-verification design of the three.",
+          "source": "[WEB] https://escape.tech/blog/introducing-cascade-the-multi-agent-penetration-testing/",
+          "confidence": "HIGH"
+        },
+        {
+          "capability": "chained-exploitation",
+          "mechanism": "Escape Cascade: orchestrator-centric multi-agent swarm (orchestrator plans/spawns/decides-completion; coverage agent audits for gaps with no exploit tools; dynamically-spawned exploitation agents run in parallel per task; shared message bus + knowledge store propagate discoveries) — spins up only the specialists a target needs rather than fixed per-class agents.",
+          "source": "[WEB] https://escape.tech/blog/introducing-cascade-the-multi-agent-penetration-testing/",
+          "confidence": "HIGH"
+        },
+        {
+          "capability": "two-identity-authz",
+          "mechanism": "Escape: 'Cascade holds several user identities at the same time, each in its own isolated browser session. That's the only way to answer \"can user A read user B's order?\" and it's how broken object-level authorization and privilege escalation become findable' (multi-tenant/multi-role BOLA/IDOR).",
+          "source": "[WEB] https://escape.tech/blog/introducing-cascade-the-multi-agent-penetration-testing/",
+          "confidence": "HIGH"
+        },
+        {
+          "capability": "regression-persistence",
+          "mechanism": "Escape: proven finding → permanent test — 'what Cascade proves once becomes an unlimited regression test. It re-runs on every release, inside your CI/CD.' A compounding DAST-linked regression artifact per proven finding; unique to Escape among the three.",
+          "source": "[WEB] https://escape.tech/blog/introducing-cascade-the-multi-agent-penetration-testing/",
+          "confidence": "HIGH"
+        },
+        {
+          "capability": "business-logic-dast",
+          "mechanism": "Escape DAST: 'Go further than payload based testing... Escape uncovers deep security issues like BOLAs, IDORs, and Access Control flaws' via feedback-driven/adaptive API+graph exploration (Sourcing Inference + Strong Typing Inference), native GraphQL testing — NOT marketed as 'deterministic' (that framing is unsupported by Escape's public copy).",
+          "source": "[WEB] https://escape.tech/product/dast ; [COMPETITOR] competitor-research/escape/dossier.md",
+          "confidence": "HIGH"
+        }
+      ],
+      "evidence": [
+        {
+          "claim": "XBOW 'Prove' stage verbatim: 'Independent validators confirm exploitability, eliminating false positives that can result from AI hallucinations.' and 'The harness validates every finding with a working exploit, so the model's output becomes proven risk, not more triage.'",
+          "source": "[WEB] https://xbow.com/platform",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "XBOW reached #1 on HackerOne's US leaderboard (first autonomous system to do so, June 2025) — independently reported by multiple outlets, not only XBOW PR.",
+          "source": "[WEB] https://www.techrepublic.com/article/news-ai-xbow-tops-hackerone-us-leaderboad/ ; https://www.helpnetsecurity.com/2025/06/25/xbow-ai-funding/",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "XBOW benchmark = open-source, 104 containerized challenges, flag 'accessible only through successful end-to-end exploitation, eliminating false-positive ambiguity'; kept confidential pre-release to avoid training contamination.",
+          "source": "[WEB] https://github.com/xbow-engineering/validation-benchmarks ; https://www.emergentmind.com/topics/xbow-benchmark",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "FALSIFICATION / decay signal: the XBOW/XBEN benchmark is reported SATURATED as of mid-2026 with its underlying vulns 'trained into the models' — so headline 100%/104-of-104 scores (incl. FireCompass's, and third-party 'pentestkit 104/104') are weak differentiators, and multiple non-XBOW agents already hit 76.9%–100%.",
+          "source": "[WEB] https://www.emergentmind.com/topics/xbow-benchmark ; https://github.com/lordx64/pentestkit ; https://arxiv.org/html/2508.20816v1",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Independent practitioner proof-standard critique of AI-pentest benchmarks: 'Lab benchmarks overstate real capability. CTF style completion is not the same as validated discovery on a messy production system,' and 'A percentage with no context is marketing, not evidence' — demand reproducible runs, exploit artifacts, false-positive rates, hint-free confirmation.",
+          "source": "[WEB] https://dev.to/darkmoonx/how-to-read-ai-pentest-benchmark-claims-xben-96-percent-scores-and-what-they-hide-2epj",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "FireCompass proof gating verbatim: 'Every confirmed finding ships with a working Python proof-of-concept exploit, exact steps to reproduce, and full evidence.' plus 'False positive rates under 2 percent' vs 'DAST tools typically produce 40 to 70 percent false positives.'",
+          "source": "[WEB] https://firecompass.com/continuous-automated-red-teaming-cart-explained/",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "FireCompass 'XBEN 104/104 (96.15% first attempt), fully autonomous, no human hints' — CONFIRMED as a published claim, but self-reported and measured on XBOW's now-saturated open benchmark; independent verification absent.",
+          "source": "[WEB] https://firecompass.com/best-agentic-ai-penetration-testing-platforms-for-web-apps-and-apis-in-2026/ ; benchmark provenance https://github.com/xbow-engineering/validation-benchmarks",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "FireCompass HackerOne 'Top 3 on $5,000/month' — coverage exists (Yahoo Finance, Morningstar, PR Newswire) but all traces to FireCompass's own release; its own disclosed data shows only 19/150 reports (12.7%) accepted and 38.7% duplicates — a transparency signal that the 'Top 3' headline hides a low acceptance/high-duplicate rate.",
+          "source": "[WEB] https://finance.yahoo.com/technology/ai/articles/ai-pentest-agent-reaches-hackerones-140000433.html ; https://www.morningstar.com/news/pr-newswire/20260728io13614/",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "Escape Cascade independent verification verbatim: reporter agent 'independently reproduces each one on the live target, collecting its own evidence before filing an issue' and is 'deliberately isolated... so its verification stays independent.'",
+          "source": "[WEB] https://escape.tech/blog/introducing-cascade-the-multi-agent-penetration-testing/",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Escape compounding regression verbatim: 'what Cascade proves once becomes an unlimited regression test. It re-runs on every release, inside your CI/CD.'",
+          "source": "[WEB] https://escape.tech/blog/introducing-cascade-the-multi-agent-penetration-testing/",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Escape multi-identity BOLA verbatim: 'Cascade holds several user identities at the same time, each in its own isolated browser session... broken object-level authorization and privilege escalation become findable.'",
+          "source": "[WEB] https://escape.tech/blog/introducing-cascade-the-multi-agent-penetration-testing/",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "FALSIFICATION: Escape does NOT market 'deterministic' testing; its public framing is 'Go further than payload based testing' via in-house feedback-driven/adaptive AI DAST (BLST: Sourcing/Strong-Typing Inference) and RL-based agentic Cascade. The Escape DAST page 'does not explicitly address brute-force vs. deterministic testing.' The 'deterministic-validation' vocabulary belongs to Abhedi, not Escape.",
+          "source": "[WEB] https://escape.tech/product/dast ; [COMPETITOR] competitor-research/escape/dossier.md",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "FALSIFICATION: FireCompass's four-stage validation pipeline (hypothesis→live-execution→signature-evaluation→evidence-assembly) is NOT present on the buyer-facing CART page — it appears only in one technical blog post ('Why an LLM Alone Cannot Run an AI Pentest'). As a buyer-visible mechanism it is weaker than the dossier implies.",
+          "source": "[WEB] https://firecompass.com/continuous-automated-red-teaming-cart-explained/ (absence) ; [COMPETITOR] competitor-research/firecompass/dossier.md",
+          "confidence": "MEDIUM"
+        }
+      ],
+      "gaps_vs_abhedi": [
+        "[INFER/LOW — needs code-audit confirmation] Compounding per-finding regression artifact: Escape converts every proven finding into a permanent CI/CD regression test that re-runs on every build ('proved once becomes an unlimited regression test'). Abhedi's memory mentions cross-scan retest but not a per-finding regression test auto-promoted into a continuously-running DAST. [WEB] escape.tech/blog/introducing-cascade...",
+        "[INFER/LOW] Independent de-biased verifier as a distinct agent role: Escape's Reporter agent is structurally isolated from exploitation-agent messaging and re-proves on the live target before filing. Abhedi validates via oracles/exploit-floor but a separately-isolated second-agent re-verification role is not evident from public/CLAUDE.md material. [WEB] escape.tech/blog/introducing-cascade...",
+        "[INFER/LOW] Publicly-published, open-source benchmark as a buyer-facing proof artifact: XBOW open-sourced XBEN (github.com/xbow-engineering/validation-benchmarks); FireCompass publishes an XBEN methodology report; Escape publishes head-to-head benchmarks vs a raw frontier model + named competitors. Abhedi has an internal BM-1..7 benchmark track but no published/buyer-visible benchmark disclosure. [WEB] github.com/xbow-engineering/validation-benchmarks",
+        "[INFER/LOW] App→network→Active Directory / identity-system lateral movement in the chain: both FireCompass ('App-to-network pivots... Active Directory', full MITRE kill chain) and XBOW/Escape emphasize cross-tier chaining; Abhedi's chaining (SSRF cloud-exfil, executed-chain writer) is web/API-centric and does not publicly claim AD/network lateral movement. [WEB] firecompass.com/continuous-automated-red-teaming-cart-explained/",
+        "[INFER/LOW] Attack-surface discovery 'from your name alone' + dark-web/leaked-credential monitoring (FireCompass EASM/CTEM) and agentless application-layer ASM incl. shadow-API discovery from JS/repos (Escape/XBOW). Abhedi is scan-scoped per-target; broad continuous EASM/dark-web recon is not a stated capability. [WEB] firecompass.com/, escape.tech/product/attack-surface-management",
+        "[INFER/LOW] Multi-model task routing + purpose-built small language models (SLMs) for high-volume triage economics (FireCompass) and dynamic on-demand specialist-agent spawning (Escape). Abhedi is model-agnostic via api_base/proxy but does not publicly claim per-task model-registry routing or its own SLMs. [COMPETITOR] competitor-research/firecompass/dossier.md",
+        "[INFER/LOW] Buyer-facing 'case file' transparency: XBOW ships a full reproducible trace per finding (chained path, working exploit, complete decision/tactic log, remediation) 'nothing hidden behind a severity score.' Abhedi produces proof-capsules but the depth/packaging of a buyer-ready reasoning-log case file is not publicly established. [WEB] xbow.com/platform"
+      ],
+      "buyer_proof_standards": [
+        "Working, reproducible exploit per finding (not a scanner flag) — XBOW 'validates every finding with a working exploit'; FireCompass ships 'a working Python proof-of-concept exploit, exact steps to reproduce, and full evidence'; Escape 'proves every finding with a working exploit.' [WEB] xbow.com/platform, firecompass.com/continuous-automated-red-teaming-cart-explained/, escape.tech/blog/introducing-cascade...",
+        "Independent re-verification before a finding is reported — XBOW independent validator agents; Escape isolated Reporter agent that reproduces on the live target. [WEB] xbow.com/platform, escape.tech/blog/introducing-cascade...",
+        "Disclosed false-positive rate as a headline proof metric — FireCompass '<2%' (vs 40–70% scanners); Escape '≤4%' / '+63% more complex true positives vs legacy DAST.' [WEB] firecompass.com/continuous-automated-red-teaming-cart-explained/, escape.tech/product/dast",
+        "Flag-capture on an open-source containerized benchmark (end-to-end exploitation, no false-positive ambiguity) — the XBEN/XBOW 104-challenge suite is the shared industry proof standard; report a hint-free, single-attempt, false-positive-inclusive score, NOT a bare percentage. [WEB] github.com/xbow-engineering/validation-benchmarks, dev.to/darkmoonx/how-to-read-ai-pentest-benchmark-claims-xben...",
+        "Published head-to-head benchmarks vs a raw frontier model AND named competitors on public targets (Escape: Cascade vs Claude Code/Opus, Aikido, Xbow on Juice Shop; Doyensec-run Fider/Photoview) — third-party-run comparisons carry more weight than self-scored ones. [COMPETITOR] competitor-research/escape/dossier.md",
+        "Reproducible reasoning/decision log ('case file') + exact request sequence and user scopes per finding — XBOW full decision/tactic log; Escape 'exact request sequence, user scopes involved, reasoning logs.' [WEB] xbow.com/platform, escape.tech/blog/introducing-cascade...",
+        "Compounding regression-test artifact — Escape turns each proven finding into a CI/CD regression test that re-runs every release, proving durability, not just point-in-time discovery. [WEB] escape.tech/blog/introducing-cascade...",
+        "Live, external, adversarial validation — participation on public HackerOne leaderboards (XBOW #1 US; FireCompass Top-3), disclosed with acceptance/duplicate rates so buyers can judge signal vs volume. [WEB] techrepublic.com/article/news-ai-xbow-tops-hackerone-us-leaderboad/, finance.yahoo.com/technology/ai/articles/ai-pentest-agent-reaches-hackerones-140000433.html",
+        "Auditor-ready, compliance-mapped reporting with append-only/cryptographically-timestamped audit trail (FireCompass: PCI DSS 4.0, SOC 2 Type II, DORA, ISO 27001; XBOW: 40+ frameworks; Escape: SOC 2/PCI/ISO evidence in hours). [COMPETITOR] competitor-research/firecompass/dossier.md, competitor-research/escape/dossier.md",
+        "Practitioner skeptic's bar the whole category is now measured against: 'A percentage with no context is marketing, not evidence' — demand reproducible runs, exploit artifacts, disclosed false-positive rate, and confirmation the run was hint-free. [WEB] dev.to/darkmoonx/how-to-read-ai-pentest-benchmark-claims-xben..."
+      ]
+    }
+  },
+  {
+    "label": "WS3:firecompass",
+    "agentId": "a4945ecd78aa64d9a",
+    "result": {
+      "role": "WS-3 FireCompass competitor reader (Source B)",
+      "competitor": "FireCompass",
+      "summary": "FireCompass markets one \"agentic AI\" offensive-security platform spanning EASM/attack-surface discovery, web+API+network/infra pentesting, red-team-style multi-stage chaining, and CTEM/AEV — all under a \"reasoning proposes, execution proves\" thesis. Its deepest self-disclosed machinery lives in one blog (\"Why an LLM Alone Cannot Run an AI Penetration Test,\" ai-penetration-tes.md): a \"harness\" of (a) multi-model routing via a benchmarked model registry plus purpose-built small LMs for triage economics; (b) specialized agents (surface-map, recon, vuln, auth/credential, business-logic, chain/lateral-movement, evidence) communicating through a shared persistent state machine so 30–100-step chains survive an agent failure; (c) a four-stage validation pipeline (hypothesis → live execution → signature evaluation → evidence assembly) credited as the mechanism behind <2% false positives; and (d) a deterministic safety gateway (asset whitelist per-dispatch, per-host token-bucket rate limiter, environment-tagged credentials blocking UAT→prod, safe-payload rules blocking Modify/Update/Delete by default, kill switch, RBAC/ABAC, append-only cryptographically-timestamped audit trail). Continuous coverage is framed as trigger-driven (new-asset / deployment / new-CVE / release-cadence fire tests; Day-1 CVE validation; one-click revalidation) rather than calendar-based, layered on passive+active recon that builds a searchable org-wide entity graph \"from your name alone\" plus credential-leak and dark-web monitoring. Validation is gated (\"no exploit, no alert\"); the client-side-secrets research (shipped-to-the-bro.md) shows a concrete Detect → Validate → Controlled-Exploit model with cross-program correlation. Buyer-proof reporting = per-finding proof-of-exploit + reproduction steps + ready-to-run Python + request/response pairs + OWASP-2025 mapping, a compliance-mapped forensic audit trail (PCI DSS 4.0 / SOC 2 Type II / DORA / ISO 27001), a live MITRE ATT&CK attack-path graph, and two public \"proof\" instruments: an XBEN benchmark report (100/104 first-attempt, 104/104 with bounded retries, single fixed model, black-box, OWASP-APTS-mapped) and a live HackerOne experiment. CRITICAL CAVEAT (falsification): essentially all of this is FireCompass-authored; the dossier/COMPARISON find no independent teardown, no academic corroboration, no CVE credits, and several internally inconsistent figures (FP-rate comparators, Hype-Cycle counts, Explorer credit math) plus CMS content/URL mismatches — so mechanisms are self-described, not verified, and confidence is capped at MEDIUM.",
+      "mechanisms": [
+        {
+          "capability": "continuous-coverage / trigger-driven-cadence",
+          "mechanism": "Testing is fired by events rather than a calendar: four capabilities each bound to a trigger — a new asset/subdomain fires discovery, a deployment or fresh CVE fires a pentest, a confirmed exploitable finding fires chaining, and the release cadence fires continuous re-test. Includes Day-1 CVE validation for new disclosures and one-click revalidation to confirm fixes; can align to CI/CD.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-ai-agent-web-appli.md; page-https-firecompass-com-adversarial-exposu.md; page-https-firecompass-com-firecompass-agenti.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "attack-surface-coverage / name-alone-EASM",
+          "mechanism": "Passive recon (WHOIS, search engines, social engineering) runs alongside active recon (probes, banner capture, service fingerprinting) with contextual attribution to build a searchable entity graph of domains/subdomains/IPs/services/service-banners/web-pages/public-code, starting from just the org name; API endpoints are pulled from JS files, docs and traffic. Claimed visibility scaling ~20%→>99% of surface.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-external-attack-su.md; page-https-firecompass-com-continuous-threat-.md; page-https-firecompass-com-continuous-automat.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "attack-surface-coverage / multi-stage-hunting-playbooks",
+          "mechanism": "A 'geographically/globally distributed sensor network' runs 'Multi-Stage Hunting Playbooks' executing 'over 30,000 attacks and checks' across network/web/cloud assets, plus a portal of 100+ tailored attack playbooks; continuous risk hunting surfaces critical risks within 24–72h. (Older CART/EASM-era framing.)",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-continuous-threat-.md; page-https-firecompass-com-external-attack-su.md",
+          "confidence": "LOW"
+        },
+        {
+          "capability": "attack-surface-coverage / leak-and-darkweb-monitoring",
+          "mechanism": "Automatic scanning for leaked credentials, secrets and source code across the surface web, plus dark-web monitoring of hidden forums/marketplaces for org data being sold/discussed, wired as a standing alerting feed into the exposure program.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-continuous-threat-.md; page-https-firecompass-com-penetration-testin.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "deterministic-validation / no-exploit-no-alert-gate",
+          "mechanism": "Every candidate finding is executed against the live target and its response checked against an 'exploitation signature'; ambiguous results are re-tested and anything that fails is discarded rather than emitted as low-confidence noise. This validation gate (not model accuracy) is the stated cause of the sub-2% false-positive claim, vs 40–70% for scanners / 50–70% for unvalidated model output.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-adversarial-exposu.md; page-https-firecompass-com-ai-penetration-tes.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "deterministic-validation / four-stage-pipeline",
+          "mechanism": "A named four-stage validation pipeline — hypothesis → live execution → signature evaluation → evidence assembly — sits between the model's proposed finding and the report; framed as engineering discipline in the validation layer, explicitly not model quality.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-ai-penetration-tes.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "deterministic-validation / active-validation-of-passive-risk",
+          "mechanism": "Passive/OSINT findings are re-validated by active fingerprinting, probing and CVE-specific payloads to strip false positives, plus adversary simulation to surface low-hanging exposed assets; claimed 'up to 98% accuracy'.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-external-attack-su.md; page-https-firecompass-com-continuous-threat-.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "client-side-proof / detect-validate-controlled-exploit",
+          "mechanism": "For client-side secrets: (1) Detect candidate secrets in shipped/client-side code (bundles, source maps, config endpoints); (2) Validate the secret is live and unrestricted (unscoped); (3) Controlled Exploit = a single, bounded exploitation action proving real impact without damaging action. Findings are correlated across programs/products to expose recurring org habits (same org surfaced twice). Modeled as Origin→Embed→Deliver→Read→Result.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-shipped-to-the-bro.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "chained-exploitation / dedicated-chain-agent",
+          "mechanism": "Validated findings feed a dedicated chain agent that attempts credential reuse across services and app pivoting — app-to-app, app-to-network, and app-to-identity/Active-Directory lateral movement plus privilege escalation — turning an isolated medium finding into its true critical path; framed as full MITRE ATT&CK kill-chain automation with no human steering.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-ai-penetration-tes.md; page-https-www-firecompass-com-.md; page-https-firecompass-com-firecompass-agenti.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "chained-exploitation / attack-tree-construction",
+          "mechanism": "Automated pentest builds 'attack trees' — chained CVEs, authentication attacks, web-app vulns, process injection and lateral movement — as the distinction from a static-CVSS vulnerability scan; three canonical marketed chains: UAT→prod via base64 auth-token in a .js file, WAF bypass via origin-IP discovery, and .git→DB-creds→SSH-root→exfil.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-penetration-testin.md; page-https-firecompass-com-ai-agent-web-appli.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "orchestration / shared-state-machine-agents",
+          "mechanism": "Separate specialized agents (surface mapping, recon, vuln assessment, auth/credential handling, business logic, chain/lateral movement, evidence collection) each carry their own scope validation, rate limiting and audit logging, and communicate through a persistent state machine rather than directly — so attack state (what was tried/worked/blocked, which credentials are held) survives an individual agent's failure and stays coherent across 30–100+ step chains, independent of any model's conversation history.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-ai-penetration-tes.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "orchestration / multi-model-routing-and-SLMs",
+          "mechanism": "A model registry continuously benchmarks candidate frontier models and routes each task class (hypothesis generation, chain construction, exploit-code, context analysis) to the best performer; intelligence is decoupled from execution so a new model drops in without touching execution infra. Purpose-built small language models handle high-volume classification/triage for accuracy and unit-economics at ~2,000-app scale.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-ai-penetration-tes.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "safety-gateway / deterministic-control-plane",
+          "mechanism": "A deterministic (non-LLM) safety gateway that no agent action bypasses: input/output firewall around the model, asset whitelist checked before every dispatch, per-agent capability controls, per-target-host token-bucket rate limiter, environment-tagged credentials so UAT creds can't reach production, safe-payload rules blocking Modify/Update/Delete by default, operator kill switch, RBAC/ABAC, and an append-only cryptographically-timestamped audit trail. Governing principle: a non-deterministic model is never what decides scope or safety.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-ai-penetration-tes.md; page-https-firecompass-com-adversarial-exposu.md; page-https-www-firecompass-com-.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "report-narrative / proof-capsule-per-finding",
+          "mechanism": "Every reported finding ships a working proof-of-exploit, steps to reproduce, ready-to-run Python PoC, and captured request/response pairs, mapped to OWASP Top 10:2025 with business impact + severity — generated from one underlying data model that serves both executive and engineering audiences.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-ai-agent-web-appli.md; page-https-firecompass-com-ai-penetration-tes.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "report-narrative / compliance-mapped-audit-trail",
+          "mechanism": "Every command/request/response is captured at the execution layer into an append-only, cryptographically-timestamped audit log positioned as buyer non-repudiation evidence mapped to PCI DSS 4.0, SOC 2 Type II, DORA and ISO 27001; a live MITRE ATT&CK-aligned attack-path graph is rendered during the run for the buyer to watch.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-adversarial-exposu.md; page-https-www-firecompass-com-.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "report-narrative / benchmark-as-buyer-proof",
+          "mechanism": "A gated technical report packages benchmark performance as buyer proof with a disclosed protocol: 100/104 XBEN first-attempt (96.15%), 104/104 with a bounded best-of-N retry policy, black-box on the original challenges, a single fixed frontier model held identical across all 104, first-attempt scored separately from retries 'so the number can be checked,' ~19 min/challenge, with scope-enforcement/safe-payloads/append-only logging mapped to the OWASP Autonomous Penetration Testing Standard (APTS).",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-xben-benchmark-rep.md; firecompass/dossier.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "report-narrative / live-in-the-open-validation",
+          "mechanism": "A live authorized HackerOne experiment (handle firecompass-ai, ~$5k/month, Apr–Jul 2026) used as external proof, published with full methodology AND limitations (self-disclosed top-3 US leaderboards, #1 OWASP A01, #2 Highest Critical Reputation; external figures add a 12.7% acceptance and 38.7% duplicate rate that are less flattering than the ranking).",
+          "source": "[COMPETITOR] firecompass/dossier.md; firecompass/external-research.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "go-to-market / self-serve-credit-metered-trial",
+          "mechanism": "A productized credit-metered freemium on-ramp (Explorer: 4,000 credits/yr split Agent/Recon, 1 credit=$1, quarterly expiry; Enterprise Pilot: 11,250 credits, 30-day white-glove) lets a buyer point autonomous agents at an authorized asset and review every finding with its proof — lowering trial friction vs enterprise sales cycles.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-explorer-.md",
+          "confidence": "MEDIUM"
+        }
+      ],
+      "evidence": [
+        {
+          "claim": "Sub-2% false-positive rate is attributed to a validation gate ('no exploit, no alert' / four-stage pipeline), not model quality; contrasted with 40–70% for DAST scanners and 50–70% for unvalidated model output.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-ai-penetration-tes.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "Harness (tools+orchestration+controls) claimed to deliver 3X–10X a plain frontier model with tools, versus ~2X per model generation — the 'engine vs vehicle' thesis that the moat is orchestration/governance, not the model.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-ai-penetration-tes.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "Enterprise attack chains run 30–100+ discrete steps held by a structured state machine, not the model's context window.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-ai-penetration-tes.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "XBEN: 100/104 first attempt (96.15%), 104/104 with bounded retries, single fixed frontier model, black-box, ~19 min/challenge, mapped to OWASP APTS; Acuart 12/12 PoC-validated; DVWA full — all self-reported, with no independent corroboration found.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-xben-benchmark-rep.md; firecompass/dossier.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "Client-side-secrets study: 12 candidates → 7 program-validated across 10 programs, via Detect→Validate→Controlled-Exploit plus cross-program correlation of recurring org habits.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-shipped-to-the-bro.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "Chaining explicitly includes app-to-identity/Active-Directory lateral movement and a live MITRE ATT&CK attack-path graph watched during the run.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-www-firecompass-com-.md; page-https-firecompass-com-firecompass-agenti.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "Scope covers web + API + network/infrastructure pentesting in one SKU (Infra PT Agent), broader than web/API-only rivals; deployable as SaaS in minutes or an internal appliance in <1 hour.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-firecompass-agenti.md; firecompass/COMPARISON.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "Audit trail is append-only + cryptographically timestamped and mapped to PCI DSS 4.0 / SOC 2 Type II / DORA / ISO 27001; a separate PTaaS line adds human-signed (e.g. CREST) compliance attestation the autonomous run does not itself provide.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-adversarial-exposu.md; page-https-firecompass-com-ai-agent-web-appli.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "No CVEs credited to FireCompass, no independent academic/neutral teardown of the harness architecture, and only 3 G2 reviews — the thinnest independent validation of the three competitors; several internally inconsistent figures on its own site.",
+          "source": "[COMPETITOR] firecompass/COMPARISON.md; firecompass/dossier.md",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "'Multi-Stage Hunting Playbooks' running 30,000+ attacks/checks via a 'geographically distributed sensor network' and 24–72h risk-hunting are older CART/EASM-era marketing framing, distinct from the newer agentic-harness narrative.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-continuous-threat-.md; page-https-firecompass-com-continuous-automat.md",
+          "confidence": "LOW"
+        },
+        {
+          "claim": "Multiple crawled URLs serve mismatched content (PTaaS URL renders CTEM, CART URL renders EASM, the 'Explorer launch' press release renders the 2023 funding announcement), indicating fast/imperfectly-QA'd site maintenance.",
+          "source": "[COMPETITOR] firecompass/pages/page-https-firecompass-com-penetration-testin.md; page-https-firecompass-com-continuous-automat.md; page-https-firecompass-com-press-release-fire.md",
+          "confidence": "HIGH"
+        }
+      ],
+      "gaps_vs_abhedi": [
+        "Standing continuous/trigger-driven cadence: FireCompass fires tests on new-asset / deployment / new-CVE / release triggers with Day-1 CVE validation and one-click fix-revalidation as a persistent service; Abhedi runs per-submitted-scan and (per CLAUDE.md) treats cross-scan/scheduling as plan items, not an always-on trigger engine. [INFER from CLAUDE.md context]",
+        "Org-wide attack-surface discovery 'from the name alone': passive+active recon building a searchable org entity graph (subdomains, shadow apps, third-party hosting, cloud buckets, exposed pre-prod) as a first-class EASM product; Abhedi scans a defined in-scope target rather than discovering an entire org's external footprint from just a company name. [INFER from CLAUDE.md context]",
+        "Credential-leak + deep/dark-web monitoring pipeline (leaked secrets/source-code scanning and dark-web forum/marketplace monitoring wired as a standing alert feed) — not present in Abhedi's per-scan model. [INFER from CLAUDE.md context]",
+        "Network / infrastructure / cloud pentesting and app-to-identity/Active-Directory lateral movement as a shipped product line; Abhedi's chaining is web/app/network-web-oriented (executed-chain writer, SSRF cloud-exfil) but has no AD/identity lateral-movement or dedicated infra-PT line. [INFER from CLAUDE.md context]",
+        "Per-task-class multi-model routing via a benchmarked model registry (hypothesis vs chain-construction vs exploit-code vs context routed to different models); Abhedi is model-agnostic via per-entry api_base/proxy but routes a whole scan to one orchestrator model rather than per-task-class. [INFER from CLAUDE.md context]",
+        "Purpose-built small language models for high-volume triage/classification economics; Abhedi relies on frontier/Haiku models + prompt cache and has no bespoke small models. [INFER from CLAUDE.md context]",
+        "Live, watch-during-run MITRE ATT&CK-aligned attack-path graph as a buyer-facing artifact; Abhedi writes executed chains + template-reachability labels but has no live attack-path graph visualization surfaced to a buyer. [INFER from CLAUDE.md context]",
+        "Compliance-framework-mapped forensic reporting packaged as buyer non-repudiation evidence (append-only, cryptographically timestamped, mapped to PCI DSS 4.0 / SOC 2 Type II / DORA / ISO 27001, plus OWASP-APTS-mapped safety); Abhedi has proof capsules + evidence objects + an append-only ledger but not a compliance-mapped audit-trail deliverable. [INFER from CLAUDE.md context]",
+        "Human-in-the-loop PTaaS path producing human-signed (e.g. CREST-certified) compliance attestation on top of autonomous findings; Abhedi is fully autonomous with no human-attestation report path. [INFER from CLAUDE.md context]",
+        "Productized self-serve credit-metered freemium entry (Explorer / Enterprise Pilot) with unlimited report generation; Abhedi has GUI scan submission but no credit-metered freemium/self-serve trial tier. [INFER from CLAUDE.md context]",
+        "Published buyer-facing proof instruments: a disclosed-protocol XBEN benchmark whitepaper (first-attempt vs bounded-retry scoring, single fixed model, OWASP-APTS mapping) and a live open HackerOne experiment write-up. Abhedi HAS the underlying benchmark track (XBEN/VAmPI adapters, FLAG scorer, regression comparator) but has not published it as a buyer-proof report — a go-to-market gap more than a capability gap. [INFER from CLAUDE.md context]",
+        "Cross-program / cross-organization finding correlation to surface recurring insecure habits (the 'same org appears twice' pattern in the client-side-secrets study); Abhedi dedups within a scan and has cross-scan memory as a plan item but not a habit-correlation report across engagements. [INFER from CLAUDE.md context]"
+      ],
+      "buyer_proof_standards": [
+        "Working proof-of-exploit attached to EVERY reported finding under a 'no exploit, no alert' gate — the buyer never sees an unvalidated maybe.",
+        "Steps to reproduce plus ready-to-run PoC code (explicitly 'ready-to-run Python') so the buyer's engineers can replay the exploit.",
+        "Literal request/response pairs captured at the execution layer as the raw evidence behind each finding.",
+        "Mapping of each finding to OWASP Top 10:2025 with business impact and severity, from one data model that serves both executive and engineering readers.",
+        "Multi-stage attack path / true blast-radius shown instead of isolated findings, including a live MITRE ATT&CK-aligned attack-path graph the buyer can watch during the run.",
+        "Sub-2% false-positive rate presented as the headline trust metric, positioned against 40–70% for scanners.",
+        "Append-only, cryptographically-timestamped forensic audit trail (every command/request/response) for non-repudiation, mapped to PCI DSS 4.0 / SOC 2 Type II / DORA / ISO 27001 evidence needs.",
+        "Benchmark transparency as proof: first-attempt scored separately from bounded-retry results, a single fixed model disclosed, black-box conditions, and safety/governance mapped to the OWASP Autonomous Penetration Testing Standard (APTS).",
+        "Live, in-the-open external validation (HackerOne experiment) published with full methodology AND stated limitations, not just a headline ranking.",
+        "Fortune-500 before/after operational proof (cost-per-app, lead time, coverage %, false-positive %) as the CISO/procurement-facing ROI narrative.",
+        "Governance-as-proof: demonstrable scope enforcement, per-host rate limiting, environment-tagged credentials, safe-payload (no Modify/Update/Delete) defaults and an operator kill switch, positioned as what makes autonomous testing safe to run in production."
+      ]
+    }
+  },
+  {
+    "label": "WS3:escape",
+    "agentId": "ab90678cf58f189f3",
+    "result": {
+      "role": "WS-3 Escape competitor reader (Source B)",
+      "competitor": "Escape (Escape Technologies SAS) — \"Cascade\" AI pentesting + Business-Logic-Aware DAST + ASM",
+      "summary": "Escape is a Paris/YC-W23, ~$23-24M, ~29-person offensive-security vendor built out of a GraphQL/API-DAST heritage. Its architectural moat is business-logic + authorization testing (BOLA/IDOR / multi-tenant), which it frames as the class generic injection/XSS scanners and even peer AI-pentesters treat as secondary. Read across all 20 first-party pages + dossier/facts/COMPARISON, Escape's machinery clusters into: (1) a feedback-driven graph-exploration DAST (\"BLST\" with \"Sourcing Inference\" + \"Strong Typing Inference\") that constructs context-valid requests instead of brute-fuzzing; (2) native GraphQL testing (introspection->type-aware payloads->resolver/aliasing/batching->field-authz); (3) simultaneous multi-identity sessions as the authorization oracle; (4) a \"Cascade\" orchestrator-swarm (dynamic on-demand specialist agents loading modular skills, a shared topic-seeded message bus + knowledge store, a discovery/coverage agent pair, and an ISOLATED independent Reporter agent that re-reproduces every candidate before filing); (5) deterministic buyer-proof reporting — exact request sequence + user scopes + working exploit + full orchestrator reasoning logs + request-by-request attack chain + framework-specific fixes, with proven findings persisting as CI/CD regression tests. Against Abhedi (code-verified): Abhedi already has strong PARITY on the hard parts — graphql_authz.py (introspection/BOLA/BOPLA/depth-batching), a two-identity+anon access-diff oracle, deterministic oracle/response-diff/proof-capsule validation (functionally equal to Escape's Reporter agent), a ledger \"blackboard handoff\", cross-scan regression diff, and per-finding retest. Genuine gaps are the surrounding PROGRAM machinery, not the core exploitation: an agentless org-scale ASM discovery layer (subdomain/OSINT/repo + shadow-API + LLM+AST spec synthesis), vision-AI CAPTCHA/MFA auth, findings-become-a-CI-regression-test that auto-re-runs in the customer pipeline, incremental PR-triggered scanning + native CI plugins/CLI, a business-context (off-CVSS) severity funnel with code-owner routing, cross-engagement semantic business-context memory (Abhedi's pgvector MemoryStore is dead code per CLAUDE.md), a live pub/sub swarm bus (vs Abhedi's sequential ledger blackboard), a white-box/source-access mode, and framework-specific code-fix generation + Jira/Wiz(CNAPP) integrations. CAVEAT (COMPARISON.md): nearly every Escape headline number is vendor-self-reported; only the Doyensec Fider/Photoview comparison is third-party-adjacent, and its independence is not fully documented.",
+      "mechanisms": [
+        {
+          "capability": "multi-identity-authorization-testing (BOLA/IDOR)",
+          "mechanism": "Holds several authenticated user identities simultaneously, each pinned to its OWN isolated browser session, then cross-fires the same object/endpoint from each identity so the differential response across sessions is itself the authorization oracle ('can user A read user B's order?'). Single-identity scanners structurally cannot pose the question; a second seeded account is claimed to unlock 30-50% more findings.",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-blog-introducing-casca.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "feedback-driven-graph-exploration (BLST)",
+          "mechanism": "Proprietary 'Business Logic Security Testing' algorithm builds/refines requests adaptively using 'Sourcing Inference' (reuse values observed in prior responses to source valid parameters) and 'Strong Typing Inference' (derive parameter types/shapes to construct context-valid requests) instead of brute-force fuzzing, letting it reach deeper stateful business-logic states, especially in GraphQL and SPA architectures.",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-blog-escape-vs-invicti.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "native-graphql-testing",
+          "mechanism": "Treats GraphQL as a graph not 'another HTTP API': introspection-driven schema modeling -> type-aware payload generation -> resolver testing -> aliasing/batching (query-multiplication) abuse -> field-level access-control checks. Claims 100+ GraphQL-specific tests and code-fix suggestions across Apollo/Yoga/Envelop engines; feedback-driven graph traversal learns the business logic behind the schema.",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-blog-escape-vs-invicti.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "business-logic-abuse-proof (BASELINE->PERTURB->CONTROL->INVARIANT_VIOLATION)",
+          "mechanism": "Reasons about server-side calculation invariants rather than payload signatures: establishes a normal baseline value, submits an out-of-domain input the docs never show, observes the server applies it in the normal calculation path, then runs an explicit CONTROL (attempt a forbidden field, confirm it is rejected) to prove the flaw is a genuine logic failure and not merely an accepted parameter. The negative control is part of the proof.",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-blog-introducing-casca.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "deterministic-validation (isolated independent reporter agent)",
+          "mechanism": "A dedicated Reporter agent receives candidate findings from exploitation agents and INDEPENDENTLY re-reproduces each on the live target, collecting its own evidence before an issue is filed. It is deliberately walled off from the exploitation agents' message bus so its verification stays de-biased. Yields a claimed <=4% DAST false-positive rate.",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-blog-introducing-casca.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "orchestrator-swarm (dynamic specialist agents + modular skills)",
+          "mechanism": "Multi-agent harness with a central Orchestrator that plans, decomposes into tasks, spawns specialist exploitation agents ON DEMAND (e.g. 'SQLi discovery on reporting API', 'auth testing across tenants') rather than a fixed XSS/SQLi/IDOR agent list; agents load small modular 'skill' playbooks scoped to the task instead of one giant prompt; exploitation agents run in parallel and stop consuming budget once a task returns; the Orchestrator decides when the engagement is complete within scope/users/context/time budget.",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-blog-introducing-casca.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "shared-signal-bus (live swarm coordination)",
+          "mechanism": "Exploitation agents coordinate through a shared message bus seeded with topics (recon, xss, sqli, idor, ssrf, auth, rce) plus a shared knowledge store, so signal discovered by one agent propagates to the whole swarm; context flows back through the Orchestrator after every step so one agent's discovery shapes what the next agent tries.",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-blog-introducing-casca.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "discovery-first-coverage (discovery + coverage agent pair)",
+          "mechanism": "A dedicated discovery agent systematically maps the ENTIRE scope before exploitation begins; a separate Coverage agent acts as an advisory auditor (no exploitation tools of its own) that proposes follow-up work from coverage gaps; gaps are monitored and closed in real time during exploitation; every endpoint/page/asset discovered is surfaced in results as auditable coverage.",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-blog-introducing-casca.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "compounding-context-memory (cross-engagement)",
+          "mechanism": "Cascade sits on top of ASM+DAST so every engagement STARTS from the platform's existing surface model (every API/SPA/host + tech-stack fingerprint e.g. Next.js behind Cloudflare on AWS using Auth0) and RETAINS business-context memory across engagements (e.g. 'healthcare with admin/doctor/patient roles', 'one service handles payments'), so depth compounds run-over-run instead of starting from zero.",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-blog-introducing-casca.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "findings-to-regression-test (compounding proof)",
+          "mechanism": "Every PROVEN finding flows from Cascade back into the ASM asset record and becomes a permanent DAST regression test that re-runs on every CI/CD build/release. Proof is a persistent re-executing test, not a one-off report artifact — the deliverable is 'a program, not a report'.",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-product-ai-pentesting.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "agentless-asm-discovery (shadow-API + LLM+AST spec synthesis)",
+          "mechanism": "Agentless discovery (no proxy/agent/appliance — 'add a domain to scope') combining subdomain enumeration + AI-powered fingerprinting + OSINT + repo integration (GitHub/GitLab) + headless-browser crawl/route enumeration + static JS/HTML analysis + API discovery via documented routes AND brute-forced common paths. For undocumented endpoints, LLM + Abstract-Syntax-Tree parsing auto-generates missing OpenAPI-style specs (4,547 specs synthesized in the Fortune-1000 study). A read-only 'Visage' frontend-artifact scanner harvests secrets/routes non-destructively and feeds the ASM inventory + the API-focused BLST scanner.",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-blog-methodology-how-w.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "vision-ai-authentication",
+          "mechanism": "A research track uses vision-capable AI to drive login flows: an AI agent auto-detects and fills login fields, handles OAuth2/SAML/JWT/TOTP-MFA/AWS-Cognito/Playwright custom flows, and navigates CAPTCHA/MFA-gated logins WITHOUT brittle recorded-login scripts; it pinpoints the exact location of an auth failure for debugging and offers a pre-scan 'Test Configuration' validation step before a full run.",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-research.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "business-context-severity-funnel",
+          "mechanism": "Deliberately moved off pure CVSS (Aug 2024) to an 'Escape Severity' funnel that combines vulnerability type + exploitability + CVSS + data sensitivity + asset exposure, surfacing business-critical (exposed AND exploitable) findings first, and attaches the responsible code owner to each finding — an exploitability/business-context ranking + routing layer, not a static CVSS score.",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-blog-escape-vs-invicti.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "report-narrative (attack-chain + reasoning log)",
+          "mechanism": "Every finding ships a 'proof, not assertion' package: exact request sequence, the user scopes involved, a working exploit, the Orchestrator's full chain-of-thought reasoning logs, and an attack chain that lays out the reproducible path request-by-request ('here is exactly how user A read user B's order'), plus framework-specific remediation; DAST findings additionally carry screenshots + execution logs proving the crawler reached the sink.",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-blog-introducing-casca.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "dual-mode (black-box + white-box/source-access)",
+          "mechanism": "Same engine runs black-box (no source — for third-party/regulatory/supplier boundaries) and white-box (source-access — unlocks code-path-dependent bugs); white-box materially lifts yield on some architectures (Photoview 12->28 findings). Mode is labeled per finding so a buyer knows the evidence basis.",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-blog-introducing-casca.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "incremental-ci-scanning + programmatic launch",
+          "mechanism": "Scans only CHANGED endpoints on a pull request; native pipeline plugins (GitHub Actions, GitLab CI, Jenkins, Azure DevOps, Bitbucket, CircleCI); open-source single-binary CLI manages configs/integrations/scan locations; public API (v3) + MCP interface trigger engagements from pipelines; accepts OpenAPI/Postman/HAR/Burp exports/prior pentest reports as engagement context.",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-blog-escape-vs-invicti.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "remediation-codegen (framework-specific, Jira-ready, code-to-cloud)",
+          "mechanism": "Generates ready-to-merge framework-specific code fixes (not generic advice), shareable into Jira with pre-filled remediation steps, claiming <1-min snippet generation; a 'code-to-cloud' research track links the runtime vulnerability back to the source code path to produce the fix and route it to the owning team.",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-research.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "capability": "ai-agent-red-teaming (GUARDRAIL_PROBE->SEMANTIC_REFRAME->CONFIG_DISCLOSURE)",
+          "mechanism": "Design-level: red-teams a production LLM agent by reasoning about the target's intent classifier rather than string payloads — reframes a blocked request into a different pretext frame the guardrail does not flag, achieving disclosure that a keyword-matching guardrail missed. Recommends intent-based (semantic) input classification + output-side disclosure filtering + least-privilege system prompts as the defense.",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-blog-how-cascade-explo.md",
+          "confidence": "MEDIUM"
+        }
+      ],
+      "evidence": [
+        {
+          "claim": "Cascade benchmark vs a raw frontier model on OWASP Juice Shop: black-box 36 findings vs Claude Code 22; white-box 49 (2x+). Vendor-self-reported.",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-blog-introducing-casca.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "Head-to-head on Fider/Photoview reusing a Doyensec comparative study vs Aikido/Xbow/Claude Code; Cascade tops Photoview white-box (28) and leads Fider (20-27). The Doyensec-adjacent comparison is the closest to third-party validation of the three peers, but its methodology/independence is not fully documented.",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-blog-introducing-casca.md ; competitor-research/COMPARISON.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "DAST proof claims: <=4% false-positive rate and +63% more complex true positives vs legacy DAST.",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-product-dast.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "'3-4x more true positives than a bare frontier model on apps with no public writeups'; 5 in-house research tracks; 'zero third-party engines'.",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-research.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "Real-world CVE credit: Keycloak PII disclosure CVE-2026-17059 = broken object-level authorization (CWE-639, CVSS 6.5) on GET /admin/realms/{realm}/roles/{role}/users — a live BOLA find that reinforces the authorization-testing moat.",
+          "source": "[COMPETITOR] competitor-research/escape/dossier.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "Fortune-1000 study machinery: 4,547 OpenAPI specs auto-generated via LLM+AST for undocumented endpoints; 30,784 exposed APIs and 1,800+ exposed API secrets discovered across 158,079 subdomains.",
+          "source": "[COMPETITOR] competitor-research/escape/dossier.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "Validation pipeline (vibe-coding study): passive/non-destructive DAST mode, pattern-based filtering of placeholder vs genuine credentials, safe live token validation against non-destructive requests, replay-based validation of auth weaknesses, then manual spot-checks; only high-confidence findings retained.",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-blog-methodology-how-w.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "Multi-user leverage: 'a second account typically uncovers 30-50% more issues by unlocking multi-user testing that finds IDORs and BOLAs.'",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-blog-introducing-casca.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "Scale/credibility: ~$23-24M raised, ~29 employees, GraphQL/API-DAST heritage, 2,000+ security teams, G2 5.0 (small sample); investor/advisor bench includes Datadog/Tenable/Qualys founders.",
+          "source": "[COMPETITOR] competitor-research/escape/dossier.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "Escape vs Invicti: Escape is 'API-native' (auto-discovers backend APIs when scanning front-ends), supports REST/GraphQL natively and SOAP/gRPC via ASM; contrasts Invicti's reactive, doc-dependent multi-layer discovery requiring per-source config + a Kubernetes network-traffic analyzer.",
+          "source": "[COMPETITOR] competitor-research/escape/pages/page-https-escape-tech-blog-escape-vs-invicti.md",
+          "confidence": "MEDIUM"
+        },
+        {
+          "claim": "FALSIFICATION / caveat: across all three peer dossiers, nearly every headline claim (benchmark scores, FP rates, leaderboard) is vendor-self-reported; press coverage usually republishes vendor releases rather than independently re-testing. Only the Doyensec comparison is third-party-adjacent.",
+          "source": "[COMPETITOR] competitor-research/COMPARISON.md",
+          "confidence": "HIGH"
+        },
+        {
+          "claim": "Internal inconsistencies flagged (treat metrics with care): GraphQL test count stated as '100+' on-site vs '140+' by AppSecSanta; benchmark baseline stated as Claude Opus 4.7 (Cascade post) vs Opus 4.8 (Research page); vibe-coding corpus 1.4K vs 5,600 apps.",
+          "source": "[COMPETITOR] competitor-research/escape/dossier.md",
+          "confidence": "MEDIUM"
+        }
+      ],
+      "gaps_vs_abhedi": [
+        "Agentless ORG-SCALE ASM discovery layer (subdomain enumeration + AI fingerprinting + OSINT + GitHub/GitLab repo integration + headless-crawl + shadow/internal-API discovery) feeding a persistent asset inventory. Abhedi is a per-target, scope-gated scan engine ([CODE] hooks/scope.py in_scope gate); no subdomain/OSINT org-discovery module was found in src/.",
+        "LLM+AST synthesis of OpenAPI specs for UNDOCUMENTED endpoints (Escape generated 4,547). [QUERY] grep -rni 'ast_parse|synthesize.*spec|reconstruct.*api' src/ returned no matches — Abhedi normalizes discovered API surface (api_normalizer.py) but does not appear to auto-fabricate specs for shadow endpoints.",
+        "Vision-AI authentication that navigates CAPTCHA/MFA-gated logins without recorded scripts, auto-detects+fills login fields, and pinpoints the exact auth-failure location. Abhedi has cred-based auth_bootstrap.py; [CODE] the 'captcha' hits are taxonomy/vuln-class strings (taxonomy.py, enrichment.py), not a vision-driven login solver.",
+        "Findings-become-a-permanent-CI/CD-regression-test that auto-re-runs on EVERY build inside the customer's pipeline (Escape's compounding loop). Abhedi has a report-time cross-scan regression DIFF ([CODE] reporting/regression.py: NEW/FIXED/STILL_VULNERABLE/NOT_RETESTED) and on-demand per-finding replay ([CODE] api/retest.py), but no pipeline-embedded test that re-executes autonomously per release.",
+        "Incremental PR-triggered scanning ('scan only changed endpoints') + native CI plugins (GitHub Actions/GitLab CI/Jenkins/Azure DevOps/Bitbucket/CircleCI) + open-source single-binary CLI + MCP launch. Abhedi is a hosted multi-tenant scan API; [CODE] the 'incremental' matches (finalize.py, ledger/applicability.py) are coverage-internal, not PR-diff/pipeline-plugin machinery.",
+        "Business-context severity FUNNEL off pure CVSS (exploitability + data sensitivity + asset exposure) with code-owner attribution/routing. [QUERY] grep -rni 'business_context|severity_funnel|exploitability_score' src/ returned nothing — Abhedi appears to rank by class/CVSS, not a business-context exploitability funnel.",
+        "Cross-engagement semantic business-context memory ('becomes an expert in your business' — remembers roles like admin/doctor/patient, which service handles payments, run-over-run). Abhedi's pgvector MemoryStore (context_memory.py) is DEAD CODE with zero callers per CLAUDE.md Known Issues — no live cross-scan semantic memory exists.",
+        "Live pub/sub SWARM message-bus with seeded topics (recon/xss/sqli/idor/ssrf/auth/rce) propagating signal across PARALLEL exploitation agents in real time. Abhedi coordinates via a SEQUENTIAL ledger 'blackboard handoff' — a re-claimed cell carries what prior workers tried ([CODE] father.py:360, ledger/service.py:1430) — not a live cross-agent bus.",
+        "White-box / source-access analysis mode (Escape offers black-box AND white-box in one engine; white-box lifted Photoview 12->28). Abhedi is black/gray-box (creds) only; no source-code-path analysis mode was found in src/.",
+        "Framework-specific, ready-to-merge CODE-FIX generation + Jira pre-filled-remediation push + code-to-cloud (runtime->source) correlation. Abhedi emits remediation guidance in reports (reporting/) but no evidence of automated framework-specific code-fix codegen or a Jira integration.",
+        "CNAPP/Wiz-class integration that shares prioritized inventory/vulnerabilities/config with a cloud-risk platform (Escape's Wiz WIN-award integration). No equivalent cloud-risk-platform bridge exists in Abhedi.",
+        "N-identity simultaneous isolated-session authorization testing. Abhedi's access-diff oracle replays exactly anon + user_a + user_b ([CODE] exploit_floor.py:2270 _identities), i.e. two authenticated identities; Escape frames 'several' concurrent isolated browser sessions and per-identity GraphQL field-authz — a breadth (not concept) gap, since Abhedi already ships graphql_authz.py BOLA/BOPLA. NOTE: Abhedi has PARITY on the deterministic-validation core (oracle-first confirm / detached_verify.py / response_diff / proof-capsule ~= Escape's isolated Reporter agent), so that is NOT a gap — only the dedicated role-isolation framing differs."
+      ],
+      "buyer_proof_standards": [
+        "'Proof, not assertion': every finding carries the exact request sequence + the user scopes involved + a working exploit as a reproducible request-by-request attack chain ('here is exactly how user A read user B's order'), never a theoretical flag. [COMPETITOR] page-https-escape-tech-blog-introducing-casca.md",
+        "Independent, isolated Reporter agent re-reproduces each candidate on the LIVE target and collects its own evidence before an issue is filed (de-biased verification), backing a claimed <=4% false-positive rate. [COMPETITOR] page-https-escape-tech-blog-introducing-casca.md",
+        "Full Orchestrator chain-of-thought REASONING LOGS attached to each finding as an auditable decision trail. [COMPETITOR] page-https-escape-tech-blog-introducing-casca.md",
+        "Negative CONTROL shown in the proof: the report includes the rejected/forbidden attempt alongside the successful one (e.g. arbitrary price field rejected while negative quantity accepted) to prove a genuine logic flaw, not an accepted parameter. [COMPETITOR] page-https-escape-tech-blog-introducing-casca.md",
+        "DAST findings include screenshots + execution logs proving the crawler actually reached the sink. [COMPETITOR] page-https-escape-tech-blog-escape-vs-invicti.md",
+        "Fully auditable COVERAGE: every endpoint/page/asset discovered is surfaced in results so the buyer sees exactly what was and was not assessed. [COMPETITOR] page-https-escape-tech-blog-introducing-casca.md",
+        "Business-context severity + code-owner attribution so the buyer sees exploitable-AND-exposed criticals first, routed to the owning team. [COMPETITOR] page-https-escape-tech-blog-escape-vs-invicti.md",
+        "Framework-specific, ready-to-merge remediation (Jira-pushable pre-filled steps), so engineers — not just security — can act on the report. [COMPETITOR] page-https-escape-tech-product-dast.md",
+        "Proven findings persist as regression tests that re-run on every release — durable, re-verifiable proof rather than a static PDF. [COMPETITOR] page-https-escape-tech-product-ai-pentesting.md",
+        "Per-finding evidence basis labeled black-box vs white-box (source-assisted) so the buyer knows how deep the assessment went. [COMPETITOR] page-https-escape-tech-blog-introducing-casca.md",
+        "Compliance mapping to 20+ frameworks (PCI-DSS/HIPAA/CRA/SOC2/ISO 27001) with sub-1-min report generation; SOC 2 Type II pentest evidence delivered 'in hours' (Amp case study). [COMPETITOR] escape/dossier.md",
+        "Transparent published head-to-head benchmarks against NAMED rivals (Claude Code/Opus, Aikido, Xbow) plus one third-party-adjacent (Doyensec) comparison — external detection-rate proof, though buyer should note the numbers are largely vendor-self-reported. [COMPETITOR] page-https-escape-tech-blog-introducing-casca.md ; competitor-research/COMPARISON.md"
+      ]
+    }
+  }
+]

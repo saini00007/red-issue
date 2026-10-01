@@ -1,0 +1,8 @@
+# command: cd "$WORK_PATH"; curl -s -o /tmp/as.out -w "%{http_code} %{size_download}\n" -X POST https://www.infinitycapital.bh/api/send -H 'User-Agent: Mozilla/5.0' --data 'fname=aa&lname=bb&areacode=1&tel=2&cname=cc&subject=dd&msg=ee&check=1&targets=test'; head -c 500 /tmp/as.out; echo
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-30T11:59:09.454949+00:00
+# ---
+
+200 194
+{"data":null,"error":{"message":"Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format.","name":"validation_error","statusCode":422}}

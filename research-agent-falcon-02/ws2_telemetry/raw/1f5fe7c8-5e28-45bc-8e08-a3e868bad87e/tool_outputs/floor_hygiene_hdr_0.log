@@ -1,0 +1,13 @@
+# command: timeout 15 curl -s -m 13 -o /dev/null -D - https://www.infinitycapital.bh
+# exit_code: 0
+# ---
+
+HTTP/2 429 
+cache-control: private, no-store, max-age=0
+content-type: text/plain; charset=utf-8
+server: Vercel
+x-vercel-id: bom1::ct2nm-1790746212745-cf7a6a03ddd9
+x-vercel-mitigated: deny
+content-length: 75
+date: Wed, 30 Sep 2026 05:30:12 GMT
+

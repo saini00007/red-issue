@@ -1,0 +1,20 @@
+baseline_home 403 33977 text/html; charset=utf-8 | challenge
+    b'<!DOCTYPE html><html lang="en" data-astro-cid-4wdtffzm><head><meta charset="utf-8"><meta name="viewport" content="width='
+img_real_640 200 23178 image/avif | Vercel
+    b'\x00\x00\x00\x1cftypavif\x00\x00\x00\x00mif1avifmiaf\x00\x00\x00\xd6meta\x00\x00\x00\x00\x00\x00\x00!hdlr\x00\x00\x00\x00\x00\x00\x00\x00pict\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"iloc\x00\x00\x00\x00D@\x00\x01\x00\x01\x00\x00\x00\x00\x00\xfa\x00\x01\x00\x00\x00\x00\x00\x00Y\x90\x00\x00\x00#iinf\x00\x00\x00\x00\x00'
+img_real_640b 403 33971 text/html; charset=utf-8 | challenge
+    b'<!DOCTYPE html><html lang="en" data-astro-cid-4wdtffzm><head><meta charset="utf-8"><meta name="viewport" content="width='
+oob_png 403 33976 text/html; charset=utf-8 | challenge
+    b'<!DOCTYPE html><html lang="en" data-astro-cid-4wdtffzm><head><meta charset="utf-8"><meta name="viewport" content="width='
+oob_jpg 403 33993 text/html; charset=utf-8 | challenge
+    b'<!DOCTYPE html><html lang="en" data-astro-cid-4wdtffzm><head><meta charset="utf-8"><meta name="viewport" content="width='
+oob_https 403 33970 text/html; charset=utf-8 | challenge
+    b'<!DOCTYPE html><html lang="en" data-astro-cid-4wdtffzm><head><meta charset="utf-8"><meta name="viewport" content="width='
+internal_meta 403 33976 text/html; charset=utf-8 | challenge
+    b'<!DOCTYPE html><html lang="en" data-astro-cid-4wdtffzm><head><meta charset="utf-8"><meta name="viewport" content="width='
+internal_localhost 400 84 text/plain; charset=utf-8 | Vercel
+    b'Bad request\n\nINVALID_IMAGE_OPTIMIZE_REQUEST\n\nbom1::8c5jg-1790762058976-80913a15fd72\n'
+oob_dotpng_local 403 33976 text/html; charset=utf-8 | challenge
+    b'<!DOCTYPE html><html lang="en" data-astro-cid-4wdtffzm><head><meta charset="utf-8"><meta name="viewport" content="width='
+redirect_test 400 84 text/plain; charset=utf-8 | Vercel
+    b'Bad request\n\nINVALID_IMAGE_OPTIMIZE_REQUEST\n\nbom1::pznxj-1790762065469-15b81715e506\n'

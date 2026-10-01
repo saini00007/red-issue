@@ -1,0 +1,230 @@
+        ___
+       __H__
+ ___ ___[,]_____ ___ ___  {1.10.8#stable}
+|_ -| . [)]     | .'| . |
+|___|_  [)]_|_|_|__,|  _|
+      |_|V...       |_|   https://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 10:21:42 /2026-09-30/
+
+[10:21:42] [DEBUG] cleaning up configuration parameters
+[10:21:42] [WARNING] using '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sm_contact3' as the output directory
+[10:21:42] [DEBUG] setting the HTTP timeout
+[10:21:42] [DEBUG] setting extra HTTP headers
+[10:21:42] [DEBUG] setting the HTTP User-Agent header
+[10:21:42] [DEBUG] creating HTTP requests opener object
+[10:21:42] [DEBUG] initializing the knowledge base
+[10:21:42] [DEBUG] setting the HTTP Referer header to the target URL
+[10:21:42] [DEBUG] setting the HTTP Host header to the target URL
+[1/1] URL:
+GET https://www.infinitycapital.bh/contact?cb=1&q=test&x=1
+do you want to test this URL? [Y/n/q]
+> Y
+[10:21:42] [DEBUG] used the default behavior, running in batch mode
+[10:21:42] [INFO] testing URL 'https://www.infinitycapital.bh/contact?cb=1&q=test&x=1'
+[10:21:42] [INFO] using '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sm_contact3/results-09302026_1021am.csv' as the CSV results file in multiple targets mode
+[10:21:42] [DEBUG] resolving hostname 'www.infinitycapital.bh'
+[10:21:42] [INFO] testing connection to the target URL
+[10:21:42] [DEBUG] declared web page charset 'utf-8'
+[10:21:42] [INFO] checking if the target is protected by some kind of WAF/IPS
+[10:21:42] [WARNING] target appears to be rate-limiting requests; sqlmap is backing off and throttling accordingly (consider raising '--delay' or lowering '--threads')
+[10:21:42] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 0.5 second(s)
+[10:21:43] [WARNING] if the problem persists please try to lower the number of used threads (option '--threads')
+[10:21:44] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 1.0 second(s)
+[10:21:46] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 1.5 second(s)
+[10:21:48] [DEBUG] target kept rate-limiting after 3 retries (429)
+[10:21:49] [CRITICAL] heuristics detected that the target is protected by some kind of WAF/IPS
+are you sure that you want to continue with further target testing? [Y/n] Y
+[10:21:49] [DEBUG] used the default behavior, running in batch mode
+do you want sqlmap to try to automatically bypass the WAF/IPS during the run (e.g. by using a non-scanner User-Agent and tamper script(s))? [Y/n] Y
+[10:21:49] [DEBUG] used the default behavior, running in batch mode
+[10:21:49] [DEBUG] loading random HTTP User-Agent header(s) from file '/usr/share/sqlmap/data/txt/user-agents.txt'
+[10:21:49] [INFO] using a random (non-scanner) User-Agent and browser-like headers to bypass the WAF/IPS
+[10:21:49] [INFO] testing if the target URL content is stable
+[10:21:50] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 2.0 second(s)
+[10:21:53] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 2.5 second(s)
+[10:22:00] [INFO] target URL content is stable
+[10:22:00] [INFO] testing if GET parameter 'cb' is dynamic
+[10:22:02] [WARNING] GET parameter 'cb' does not appear to be dynamic
+[10:22:05] [WARNING] heuristic (basic) test shows that GET parameter 'cb' might not be injectable
+[10:22:08] [INFO] heuristic (SSTI) test shows that GET parameter 'cb' might be vulnerable to server-side template injection (rerun with switch '--ssti')
+[10:22:08] [INFO] testing for SQL injection on GET parameter 'cb'
+[10:22:08] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[10:22:44] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 3.0 second(s)
+[10:22:48] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 3.5 second(s)
+[10:22:53] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 4.0 second(s)
+[10:23:51] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 4.5 second(s)
+[10:23:57] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 5.0 second(s)
+[10:24:40] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 5.5 second(s)
+[10:24:46] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 6.0 second(s)
+[10:24:53] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 6.5 second(s)
+[10:25:54] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 7.0 second(s)
+[10:26:59] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 7.5 second(s)
+[10:27:45] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 8.0 second(s)
+[10:27:54] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 8.5 second(s)
+[10:28:12] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 9.0 second(s)
+[10:28:22] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 9.5 second(s)
+[10:28:33] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 10.0 second(s)
+[10:28:44] [DEBUG] target kept rate-limiting after 3 retries (429)
+[10:28:54] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 10.5 second(s)
+[10:29:16] [INFO] GET parameter 'cb' appears to be 'AND boolean-based blind - WHERE or HAVING clause' injectable (with --string="P.O. Box 61000")
+[10:29:48] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 11.0 second(s)
+[10:30:00] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 11.5 second(s)
+[10:30:59] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 12.0 second(s)
+[10:32:01] [DEBUG] rate-limited (HTTP 429); sleeping 1.0 second(s), inter-request delay now 12.5 second(s)
+[10:34:20] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:34:33] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:34:46] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:34:58] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:35:11] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:35:24] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:35:36] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:35:49] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:36:01] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:36:14] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:36:27] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:36:39] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:36:52] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:37:05] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:37:17] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:37:30] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:37:42] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:37:55] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:38:08] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:38:20] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:38:33] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:38:33] [DEBUG] skipping test 'OR boolean-based blind - WHERE or HAVING clause' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'OR boolean-based blind - WHERE or HAVING clause (NOT)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'AND boolean-based blind - WHERE or HAVING clause (subquery - comment)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'OR boolean-based blind - WHERE or HAVING clause (subquery - comment)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'AND boolean-based blind - WHERE or HAVING clause (comment)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'OR boolean-based blind - WHERE or HAVING clause (comment)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'OR boolean-based blind - WHERE or HAVING clause (NOT - comment)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'AND boolean-based blind - WHERE or HAVING clause (MySQL comment)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'OR boolean-based blind - WHERE or HAVING clause (MySQL comment)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'OR boolean-based blind - WHERE or HAVING clause (NOT - MySQL comment)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'AND boolean-based blind - WHERE or HAVING clause (Microsoft Access comment)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'OR boolean-based blind - WHERE or HAVING clause (Microsoft Access comment)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'MySQL RLIKE boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (MAKE_SET)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'MySQL OR boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (MAKE_SET)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (ELT)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'MySQL OR boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (ELT)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'MySQL OR boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'PostgreSQL AND boolean-based blind - WHERE or HAVING clause (CAST)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'PostgreSQL OR boolean-based blind - WHERE or HAVING clause (CAST)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Oracle AND boolean-based blind - WHERE or HAVING clause (CTXSYS.DRITHSX.SN)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Oracle OR boolean-based blind - WHERE or HAVING clause (CTXSYS.DRITHSX.SN)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'SQLite AND boolean-based blind - WHERE or HAVING clause (JSON)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'SQLite OR boolean-based blind - WHERE or HAVING clause (JSON)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Boolean-based blind - Parameter replace (original value)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'MySQL boolean-based blind - Parameter replace (MAKE_SET)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'MySQL boolean-based blind - Parameter replace (MAKE_SET - original value)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'MySQL boolean-based blind - Parameter replace (ELT)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'MySQL boolean-based blind - Parameter replace (ELT - original value)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'MySQL boolean-based blind - Parameter replace (bool*int)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'MySQL boolean-based blind - Parameter replace (bool*int - original value)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'PostgreSQL boolean-based blind - Parameter replace' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'PostgreSQL boolean-based blind - Parameter replace (original value)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'PostgreSQL boolean-based blind - Parameter replace (GENERATE_SERIES)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'PostgreSQL boolean-based blind - Parameter replace (GENERATE_SERIES - original value)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Microsoft SQL Server/Sybase boolean-based blind - Parameter replace' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Microsoft SQL Server/Sybase boolean-based blind - Parameter replace (original value)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Oracle boolean-based blind - Parameter replace' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Oracle boolean-based blind - Parameter replace (original value)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Informix boolean-based blind - Parameter replace' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Informix boolean-based blind - Parameter replace (original value)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Microsoft Access boolean-based blind - Parameter replace' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Microsoft Access boolean-based blind - Parameter replace (original value)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Boolean-based blind - Parameter replace (DUAL)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Boolean-based blind - Parameter replace (DUAL - original value)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Boolean-based blind - Parameter replace (CASE)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Boolean-based blind - Parameter replace (CASE - original value)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'MySQL >= 5.0 boolean-based blind - ORDER BY, GROUP BY clause' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'MySQL >= 5.0 boolean-based blind - ORDER BY, GROUP BY clause (original value)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'PostgreSQL boolean-based blind - ORDER BY, GROUP BY clause' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'PostgreSQL boolean-based blind - ORDER BY clause (original value)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'PostgreSQL boolean-based blind - ORDER BY clause (GENERATE_SERIES)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Microsoft SQL Server/Sybase boolean-based blind - ORDER BY clause' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Microsoft SQL Server/Sybase boolean-based blind - ORDER BY clause (original value)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Oracle boolean-based blind - ORDER BY, GROUP BY clause' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Oracle boolean-based blind - ORDER BY, GROUP BY clause (original value)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Microsoft Access boolean-based blind - ORDER BY, GROUP BY clause' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Microsoft Access boolean-based blind - ORDER BY, GROUP BY clause (original value)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'SAP MaxDB boolean-based blind - ORDER BY, GROUP BY clause' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'SAP MaxDB boolean-based blind - ORDER BY, GROUP BY clause (original value)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'IBM DB2 boolean-based blind - ORDER BY clause' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'IBM DB2 boolean-based blind - ORDER BY clause (original value)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'HAVING boolean-based blind - WHERE, GROUP BY clause' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'MySQL >= 5.0 boolean-based blind - Stacked queries' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'PostgreSQL boolean-based blind - Stacked queries' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'PostgreSQL boolean-based blind - Stacked queries (GENERATE_SERIES)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Microsoft SQL Server/Sybase boolean-based blind - Stacked queries (IF)' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Microsoft SQL Server/Sybase boolean-based blind - Stacked queries' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Oracle boolean-based blind - Stacked queries' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'Microsoft Access boolean-based blind - Stacked queries' because the payload for boolean-based blind has already been identified
+[10:38:33] [DEBUG] skipping test 'SAP MaxDB boolean-based blind - Stacked queries' because the payload for boolean-based blind has already been identified
+[10:38:33] [INFO] testing 'MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)'
+[10:38:45] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:38:45] [INFO] testing 'MySQL >= 5.6 OR error-based - WHERE or HAVING clause (GTID_SUBSET)'
+[10:38:58] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:38:58] [INFO] testing 'MySQL >= 8.0 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (UUID_TO_BIN)'
+[10:39:11] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:39:11] [INFO] testing 'MySQL >= 8.0 OR error-based - WHERE or HAVING clause (UUID_TO_BIN)'
+[10:39:23] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:39:23] [INFO] testing 'MySQL >= 5.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)'
+[10:39:36] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:39:36] [INFO] testing 'MySQL >= 5.1 OR error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)'
+[10:39:48] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:39:48] [INFO] testing 'MySQL >= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (BIGINT UNSIGNED)'
+[10:40:01] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:40:01] [INFO] testing 'MySQL >= 5.5 OR error-based - WHERE or HAVING clause (BIGINT UNSIGNED)'
+[10:40:13] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:40:13] [INFO] testing 'MySQL >= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXP)'
+[10:40:26] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:40:26] [INFO] testing 'MySQL >= 5.5 OR error-based - WHERE or HAVING clause (EXP)'
+[10:40:39] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:40:39] [INFO] testing 'MySQL >= 5.7.8 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (JSON_KEYS)'
+[10:40:51] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:40:51] [INFO] testing 'MySQL >= 5.7.8 OR error-based - WHERE or HAVING clause (JSON_KEYS)'
+[10:41:04] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:41:04] [INFO] testing 'MySQL >= 5.0 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)'
+[10:41:16] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:41:16] [INFO] testing 'MySQL >= 5.0 OR error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)'
+[10:41:29] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:41:29] [DEBUG] skipping test 'MySQL >= 5.0 (inline) error-based - Table name clause (FLOOR)' because the clauses differ from the clause already identified
+[10:41:29] [INFO] testing 'MySQL >= 5.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (UPDATEXML)'
+[10:41:42] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:41:42] [INFO] testing 'MySQL >= 5.1 OR error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (UPDATEXML)'
+[10:41:54] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:41:54] [INFO] testing 'MySQL >= 4.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)'
+[10:42:07] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:42:07] [INFO] testing 'MySQL >= 4.1 OR error-based - WHERE or HAVING clause (FLOOR)'
+[10:42:20] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:42:20] [INFO] testing 'MySQL OR error-based - WHERE or HAVING clause (FLOOR)'
+[10:42:32] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:42:45] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:42:45] [INFO] testing 'PostgreSQL AND error-based - WHERE or HAVING clause'
+[10:42:57] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:42:57] [INFO] testing 'PostgreSQL OR error-based - WHERE or HAVING clause'
+[10:43:10] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:43:10] [INFO] testing 'Microsoft SQL Server/Sybase AND error-based - WHERE or HAVING clause (IN)'
+[10:43:23] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:43:23] [INFO] testing 'Microsoft SQL Server/Sybase OR error-based - WHERE or HAVING clause (IN)'
+[10:43:35] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:43:35] [INFO] testing 'Microsoft SQL Server/Sybase AND error-based - WHERE or HAVING clause (CONVERT)'
+[10:43:48] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:43:48] [INFO] testing 'Microsoft SQL Server/Sybase OR error-based - WHERE or HAVING clause (CONVERT)'
+[10:44:01] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:44:01] [INFO] testing 'Microsoft SQL Server/Sybase AND error-based - WHERE or HAVING clause (CONCAT)'
+[10:44:13] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:44:13] [INFO] testing 'Microsoft SQL Server/Sybase OR error-based - WHERE or HAVING clause (CONCAT)'
+[10:44:26] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:44:26] [INFO] testing 'Oracle AND error-based - WHERE or HAVING clause (XMLType)'
+[10:44:39] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:44:39] [INFO] testing 'Oracle OR error-based - WHERE or HAVING clause (XMLType)'
+[10:44:52] [DEBUG] got HTTP error code: 403 ('Forbidden')
+[10:44:52] [INFO] testing 'Oracle AND error-based - WHERE or HAVING clause (UTL_INADDR.GET_HOST_ADDRESS)'

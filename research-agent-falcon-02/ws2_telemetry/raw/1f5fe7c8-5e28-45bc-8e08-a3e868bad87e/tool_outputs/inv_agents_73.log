@@ -1,0 +1,20 @@
+# command: cd /work/evidence && grep -o 'href="[^"]*"' home.html | sort -u | head -60
+# tool: grep
+# exit_code: 0
+# ts: 2026-09-30T12:08:15.945867+00:00
+# ---
+
+href="/"
+href="/_next/static/chunks/webpack-e401313d27ef7f61.js"
+href="/_next/static/css/32a0546faf171957.css"
+href="/_next/static/css/5bee594772e48779.css"
+href="/_next/static/css/66b15c2e1f2f1845.css"
+href="/_next/static/css/ce01342cea288296.css"
+href="/investment-portfolio"
+href="/privacy-terms"
+href="about"
+href="contact"
+href="https://interstateteam.com/"
+href="https://use.typekit.net/ljs3ifr.css"
+href="investment-philosophy"
+href="investment-portfolio"

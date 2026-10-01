@@ -1,0 +1,10 @@
+POST /api/send HTTP/1.1
+Host: www.infinitycapital.bh
+User-Agent: sqlmap-probe
+Accept: application/json, text/plain, */*
+Content-Type: application/x-www-form-urlencoded
+Origin: https://www.infinitycapital.bh
+Referer: https://www.infinitycapital.bh/contact
+Connection: close
+
+fname=VaptQA&lname=Tester&areacode=%2B973&tel=3600000&cname=vapt-qa&subject=Inquiry&msg=Authorized+security+test+message&check=on&targets=%5B%22info%40infinitycapital.bh%22%5D&fuzz=FUZZ

@@ -1,0 +1,7 @@
+# command: timeout 20 curl -s -m 18 -o /dev/null -w '\nHTTP_STATUS:%{http_code}\nTIME_TOTAL:%{time_total}' https://www.infinitycapital.bh/contact
+# exit_code: 0
+# ---
+
+
+HTTP_STATUS:429
+TIME_TOTAL:0.177861

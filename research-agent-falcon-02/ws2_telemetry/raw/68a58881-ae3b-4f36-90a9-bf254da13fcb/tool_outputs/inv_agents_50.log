@@ -1,0 +1,6 @@
+# command: curl -s -X POST https://duck-store.escape.tech/graphql -H "Content-Type: application/json" -d '{"query": "{ __typename }"}'
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:26:49.750981+00:00
+# ---
+

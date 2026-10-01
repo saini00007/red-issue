@@ -1,0 +1,10 @@
+# command: cd /work && tail -25 tool_outputs/sqlmap_get/www.infinitycapital.bh/log | cut -c1-200; echo ===CSV; cat tool_outputs/sqlmap_get/*.csv
+# tool: tail
+# exit_code: 0
+# ts: 2026-09-30T12:01:51.817050+00:00
+# ---
+
+===CSV
+Target URL,Place,Parameter,Technique(s),Note(s)
+Target URL,Place,Parameter,Technique(s),Note(s)
+Target URL,Place,Parameter,Technique(s),Note(s)

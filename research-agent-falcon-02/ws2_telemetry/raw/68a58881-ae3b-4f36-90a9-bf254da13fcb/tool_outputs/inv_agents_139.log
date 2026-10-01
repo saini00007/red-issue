@@ -1,0 +1,9 @@
+# command: curl -X GET "https://duck-store.escape.tech/api/v1/products" --max-time 15 2>&1
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:10:33.391474+00:00
+# ---
+
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+  0      0   0      0   0      0      0      0                              0  0      0   0      0   0      0      0      0                              0  0      0   0      0   0      0      0      0                              0  0      0   0      0   0      0      0      0                              0

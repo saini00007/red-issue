@@ -1,0 +1,49 @@
+# command: cd /work && mkdir -p tool_outputs && UA='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36'
+for u in "https://www.infinitycapital.bh/" "https://www.infinitycapital.bh/api/send" "https://www.infinitycapital.bh/?page=2" "https://www.infinitycapital.bh/api/?id=1" "https://www.infinitycapital.bh/contact" "https://www.infinitycapital.bh/_next/image?url=x&w=1080&q=75"; do
+echo "=== $u"; curl -sk -o /dev/null -w 'code=%{http_code} size=%{size_download}\n' -A "$UA" "$u"; curl -skI -A "$UA" "$u" | egrep -i 'x-vercel|^location|content-type|^HTTP'; done 2>&1 | tee tool_outputs/p2_base.txt
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-30T11:36:34.463146+00:00
+# ---
+
+=== https://www.infinitycapital.bh/
+code=200 size=27355
+HTTP/2 200 
+content-type: text/html; charset=utf-8
+x-content-type-options: nosniff
+x-vercel-cache: HIT
+x-vercel-id: bom1::bnhqr-1790768192155-ac0169344a8f
+=== https://www.infinitycapital.bh/api/send
+code=405 size=0
+HTTP/2 405 
+x-content-type-options: nosniff
+x-vercel-cache: MISS
+x-vercel-id: bom1::iad1::gg9fp-1790768192764-46bf948c9794
+=== https://www.infinitycapital.bh/?page=2
+code=200 size=27355
+HTTP/2 200 
+content-type: text/html; charset=utf-8
+x-content-type-options: nosniff
+x-vercel-cache: HIT
+x-vercel-id: bom1::ssbqz-1790768193361-8ef49e683c9d
+=== https://www.infinitycapital.bh/api/?id=1
+code=308 size=15
+HTTP/2 308 
+content-type: text/plain
+location: /api?id=1
+x-vercel-id: bom1::zh57c-1790768193729-3c996bd3d2e6
+=== https://www.infinitycapital.bh/contact
+code=200 size=41185
+HTTP/2 200 
+content-type: text/html; charset=utf-8
+x-content-type-options: nosniff
+x-vercel-cache: HIT
+x-vercel-id: bom1::pwpzs-1790768194072-eb0e51fe15a9
+=== https://www.infinitycapital.bh/_next/image?url=x&w=1080&q=75
+code=307 size=18236
+HTTP/2 307 
+content-type: text/html; charset=utf-8
+location: /404
+x-content-type-options: nosniff
+x-vercel-cache: HIT
+x-vercel-id: bom1::iad1::6fjnc-1790768194458-95cc6bd4c9ff

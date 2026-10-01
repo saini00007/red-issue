@@ -1,0 +1,6 @@
+GET | /api/contact | 429 | text/plain; charset=utf-8 | 75 |  | Too Many Requests  Too Many Requests bom1::xhmb7-1790746105965-90ff052195a0
+POST | /api/contact | 429 | text/plain; charset=utf-8 | 75 |  | Too Many Requests  Too Many Requests bom1::d8qj8-1790746110072-36706f26d502
+POST | /api/contact/ | ERR | HTTPSConnectionPool(host='www.infinitycapital.bh', port=443): Read timed out. (r
+POST | /api/contact?format=json | 404 | text/html; charset=utf-8 | 0 |  | 
+OPTIONS | /api/contact | 404 | text/html; charset=utf-8 | 0 |  | 
+POST | /api/contact | 429 | text/plain; charset=utf-8 | 75 |  | Too Many Requests  Too Many Requests bom1::tklmv-1790746146682-c8777c50b497

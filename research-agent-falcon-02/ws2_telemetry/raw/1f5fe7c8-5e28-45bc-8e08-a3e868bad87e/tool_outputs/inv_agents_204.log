@@ -1,0 +1,22 @@
+# command: cd $WORK_PATH 2>/dev/null || cd .; head -c 1500 tool_outputs/p1.html; echo; echo "=== grep hrefs"; grep -o 'href="[^"]*"' tool_outputs/p1.html | sort -u | head -40
+# tool: head
+# exit_code: 0
+# ts: 2026-09-30T12:09:15.191073+00:00
+# ---
+
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/><link rel="stylesheet" href="/_next/static/css/ce01342cea288296.css" data-precedence="next"/><link rel="stylesheet" href="/_next/static/css/32a0546faf171957.css" data-precedence="next"/><link rel="stylesheet" href="/_next/static/css/5bee594772e48779.css" data-precedence="next"/><link rel="stylesheet" href="/_next/static/css/66b15c2e1f2f1845.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/webpack-e401313d27ef7f61.js"/><script src="/_next/static/chunks/fd9d1056-3902e23722a6b2db.js" async=""></script><script src="/_next/static/chunks/117-4ba60eb06d2ce296.js" async=""></script><script src="/_next/static/chunks/main-app-2dcde4753ea0d175.js" async=""></script><script src="/_next/static/chunks/341-553bcb827a52d4aa.js" async=""></script><script src="/_next/static/chunks/71-fbecd7aa70f9e321.js" async=""></script><script src="/_next/static/chunks/743-7f9d0b5cebfd0486.js" async=""></script><script src="/_next/static/chunks/711-90c81a42d9859d8d.js" async=""></script><script src="/_next/static/chunks/app/layout-2aac163e3ced1001.js" async=""></script><script src="/_next/static/chunks/489-c3a66469350d58bd.js" async=""></script><script src="/_next/static/chunks/275-ea7b562607231006.js" async=""></script><script src="/_next/static/chunks/app/page-85182612bc0d92d0.js" async
+=== grep hrefs
+href="/"
+href="/_next/static/chunks/webpack-e401313d27ef7f61.js"
+href="/_next/static/css/32a0546faf171957.css"
+href="/_next/static/css/5bee594772e48779.css"
+href="/_next/static/css/66b15c2e1f2f1845.css"
+href="/_next/static/css/ce01342cea288296.css"
+href="/investment-portfolio"
+href="/privacy-terms"
+href="about"
+href="contact"
+href="https://interstateteam.com/"
+href="https://use.typekit.net/ljs3ifr.css"
+href="investment-philosophy"
+href="investment-portfolio"

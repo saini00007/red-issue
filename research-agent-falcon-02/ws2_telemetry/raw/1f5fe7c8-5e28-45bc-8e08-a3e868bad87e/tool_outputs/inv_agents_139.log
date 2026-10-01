@@ -1,0 +1,19 @@
+# command: cd "$WORK_PATH"; tail -c 1200 tool_outputs/sqlmap_root.log
+# tool: tail
+# exit_code: 0
+# ts: 2026-09-30T12:08:49.226740+00:00
+# ---
+
+PS
+[12:07:14] [INFO] testing if the target URL content is stable
+[12:07:14] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+how do you want to proceed? [(C)ontinue/(s)tring/(r)egex/(q)uit] C
+[12:07:14] [INFO] searching for dynamic content
+[12:07:15] [CRITICAL] target URL content appears to be heavily dynamic. sqlmap is going to retry the request(s)
+[12:07:17] [WARNING] target URL content appears to be too dynamic. Switching to '--text-only' 
+[12:07:17] [INFO] testing if GET parameter 'id' is dynamic
+[12:07:17] [INFO] GET parameter 'id' appears to be dynamic
+[12:07:17] [INFO] testing for SQL injection on GET parameter 'id'
+[12:07:17] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[12:07:22] [WARNING] target appears to be rate-limiting requests; sqlmap is backing off and throttling accordingly (consider raising '--delay' or lowering '--threads')
+[12:07:23] [WARNING] if the problem persists please try to lower the number of used threads (option '--threads')

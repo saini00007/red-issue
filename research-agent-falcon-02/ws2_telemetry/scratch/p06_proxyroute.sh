@@ -1,0 +1,15 @@
+set -u
+q() { docker exec scanner-postgres psql -U scanner -d scanner -X -A -F' | ' -t -c "$1" 2>&1; }
+echo "=== D1 scans whose roster routes via logging-proxy (true proxy coverage) ==="
+q "select (engine_models ilike '%logging-proxy%') as via_proxy, count(*), min(started_at)::date, max(started_at)::date from tenant_xbow.scans where started_at is not null group by 1 order by 1;"
+echo "=== D2 which scans use logging-proxy (list) ==="
+q "select left(scan_id::text,8), coalesce(status,''), to_char(started_at,'MM-DD HH24:MI'), to_char(completed_at,'MM-DD HH24:MI') from tenant_xbow.scans where engine_models ilike '%logging-proxy%' order by started_at;"
+echo "=== D3 distinct api_base values across all scans ==="
+q "select distinct substring(engine_models from 'api_base\"[ ]*:[ ]*\"([^\"]+)\"') from tenant_xbow.scans where engine_models ilike '%api_base%';"
+echo "=== D4 api_base counts ==="
+q "select substring(engine_models from 'api_base\"[ ]*:[ ]*\"([^\"]+)\"') ab, count(*) from tenant_xbow.scans where engine_models ilike '%api_base%' group by 1 order by 2 desc;"
+echo "=== D5 model strings used (distinct) ==="
+q "select substring(engine_models from '\"model\":\"([^\"]+)\"') m, count(*) from tenant_xbow.scans where engine_models ilike '%\"model\"%' group by 1 order by 2 desc;"
+echo "=== D6 completed/partial scans: proxy vs not ==="
+q "select case when engine_models ilike '%logging-proxy%' then 'VIA_PROXY' else 'BYPASSED' end, count(*) from tenant_xbow.scans where status in ('completed','partial') group by 1;"
+q "select case when engine_models ilike '%logging-proxy%' then 'VIA_PROXY' else 'BYPASSED' end, count(*) from tenant_xbow.scans where status in ('cancelled','failed','running') group by 1;"

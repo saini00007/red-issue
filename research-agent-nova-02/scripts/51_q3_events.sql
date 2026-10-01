@@ -1,0 +1,1 @@
+select event_type, count(*) from tenant_xbow.scan_events group by 1 order by 2 desc limit 25;

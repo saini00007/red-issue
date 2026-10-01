@@ -1,0 +1,12 @@
+/_next/routes.json
+/_next/server/app-paths-manifest.json
+/_next/server/pages-manifest.json
+/_next/server/middleware-manifest.json
+/_next/server/functions-config-manifest.json
+/next.config.js
+/vercel.json
+/sitemap.xml
+/.env
+/.git/config
+/_next/static/h8L2LlI5LSORU50iQ3wJq/_buildManifest.js
+/_next/static/h8L2LlI5LSORU50iQ3wJq/_ssgManifest.js

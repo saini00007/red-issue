@@ -1,0 +1,34 @@
+# command: cd /work && python3 -c "
+import base64
+import json
+
+token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZDg3NTIxMzYtNTEwMS00NmY5LWJhODktZDI4NTA3MTM5NmRhIiwidXNlcm5hbWUiOiJ0ZXN0dXNlcl9uZXciLCJyb2xlIjoidXNlciIsImV4cCI6MTc5MDcwMTA5OH0.CjwiHT4Pzn4mYKbCR3xOo89e-g6mZpAQlz8TCcKBfLI'
+parts = token.split('.')
+for i, part in enumerate(parts):
+    print(f'Part {i}:')
+    if i < 2:
+        padded = part + '=' * (-len(part) % 4)
+        decoded = base64.urlsafe_b64decode(padded)
+        print(json.dumps(json.loads(decoded), indent=2))
+    else:
+        print(part[:20] + '...')
+"
+# tool: python3
+# exit_code: 0
+# ts: 2026-09-29T16:35:26.337674+00:00
+# ---
+
+Part 0:
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+Part 1:
+{
+  "user_id": "d8752136-5101-46f9-ba89-d285071396da",
+  "username": "testuser_new",
+  "role": "user",
+  "exp": 1790701098
+}
+Part 2:
+CjwiHT4Pzn4mYKbCR3xO...

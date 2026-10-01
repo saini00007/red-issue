@@ -1,0 +1,29 @@
+# command: cd "$WORK_PATH"; tail -c 1800 tool_outputs/sqlmap_send.log
+# tool: tail
+# exit_code: 0
+# ts: 2026-09-30T12:10:13.263804+00:00
+# ---
+
+mper module 'space2comment'
+[12:10:05] [INFO] loading tamper module 'between'
+it appears that you might have mixed the order of tamper scripts. Do you want to auto resolve this? [Y/n/q] Y
+[12:10:05] [INFO] loading tamper module 'randomcase'
+[1/1] URL:
+GET https://www.infinitycapital.bh/api/send
+POST data: fname=aa&lname=bb&areacode=973&tel=5551234&cname=cc&subject=Hello&msg=Body&check=on&targets=zz
+do you want to test this URL? [Y/n/q]
+> Y
+[12:10:05] [INFO] testing URL 'https://www.infinitycapital.bh/api/send'
+[12:10:05] [INFO] using '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sm_send/results-09302026_1210pm.csv' as the CSV results file in multiple targets mode
+[12:10:05] [INFO] testing connection to the target URL
+[12:10:06] [WARNING] target appears to be rate-limiting requests; sqlmap is backing off and throttling accordingly (consider raising '--delay' or lowering '--threads')
+[12:10:07] [WARNING] if the problem persists please check that the provided target URL is reachable. In case that it is, you can try to rerun with switch '--random-agent' and/or proxy switches ('--proxy', '--proxy-file'...)
+[12:10:11] [ERROR] detected invalid data for declared content encoding 'br' ('BrotliError: invalid Brotli prefix code')
+[12:10:11] [WARNING] turning off page compression
+[12:10:11] [ERROR] unable to connect to the target URL, skipping to the next target
+[12:10:11] [WARNING] HTTP error codes detected during run:
+429 (Too Many Requests) - 2 times
+[12:10:11] [INFO] you can find results of scanning in multiple targets mode inside the CSV file '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sm_send/results-09302026_1210pm.csv'
+
+[*] ending @ 12:10:11 /2026-09-30/
+

@@ -1,0 +1,19 @@
+# command: timeout 15 curl -s -m 13 -o - -D - -w '\nHTTP_STATUS:%{http_code}\nCTYPE:%{content_type}' -X POST -H 'Content-Type: application/x-www-form-urlencoded' -d url=http%3A%2F%2Fs5r654e20a6.example.net%2Fs5r https://www.infinitycapital.bh/_next/image
+# exit_code: 0
+# ---
+
+HTTP/2 429 
+cache-control: private, no-store, max-age=0
+content-type: text/plain; charset=utf-8
+server: Vercel
+x-vercel-id: bom1::bbc55-1790749391611-4086de035523
+x-vercel-mitigated: deny
+content-length: 75
+date: Wed, 30 Sep 2026 06:23:11 GMT
+
+Too Many Requests
+
+Too Many Requests
+bom1::bbc55-1790749391611-4086de035523
+HTTP_STATUS:429
+CTYPE:text/plain; charset=utf-8

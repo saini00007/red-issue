@@ -1,0 +1,18 @@
+# command: curl -s -I "https://duck-store.escape.tech/api/v1/admin/users"
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:34:40.970636+00:00
+# ---
+
+HTTP/2 405 
+allow: GET
+alt-svc: h3=":443"; ma=2592000
+content-type: application/json
+date: Tue, 29 Sep 2026 16:34:40 GMT
+server: uvicorn
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+via: 1.1 Caddy
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+content-length: 31
+

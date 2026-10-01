@@ -1,0 +1,10 @@
+### baseline empty
+[empty] 500 len=0 md5=d41d8cd98f | 
+### shape probe
+[str] 500 len=0 md5=d41d8cd98f | 
+[sqli] 500 len=0 md5=d41d8cd98f | 
+[sqli2] 500 len=0 md5=d41d8cd98f | 
+[ssti] 500 len=0 md5=d41d8cd98f | 
+[cmdi] 500 len=0 md5=d41d8cd98f | 
+[nosqli] 500 len=0 md5=d41d8cd98f | 
+[form] 500 len=0 md5=d41d8cd98f | 

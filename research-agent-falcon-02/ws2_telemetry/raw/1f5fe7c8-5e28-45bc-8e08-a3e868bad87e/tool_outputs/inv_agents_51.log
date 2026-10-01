@@ -1,0 +1,8 @@
+# command: cd /work && curl -s --max-time 30 -A "Mozilla/5.0 (compatible; SecVerifier/2.0)" "https://www.infinitycapital.bh/_next/static/chunks/275-ea7b562607231006.js" -o /work/evidence/LIVE_275.js && wc -c /work/evidence/LIVE_275.js && echo "=== does live JS send client-controlled targets? ===" && grep -oE '.{80}api/send.{260}' /work/evidence/LIVE_275.js | head -2
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-30T12:07:24.216823+00:00
+# ---
+
+75 /work/evidence/LIVE_275.js
+=== does live JS send client-controlled targets? ===

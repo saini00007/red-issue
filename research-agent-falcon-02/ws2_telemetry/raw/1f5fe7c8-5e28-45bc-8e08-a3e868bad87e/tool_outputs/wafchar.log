@@ -1,0 +1,14 @@
+=== /contact?cb= WAF characterization ===
+  benign abc         403|33983        len=33983
+  single quote       403|33990        len=33990
+  double quote       429|75           len=75
+  comment --         403|33983        len=33983
+  semicolon          429|75           len=75
+  literal 1=1        403|33994        len=33994
+  AND 1=1            403|33994        len=33994
+  AND 1=2            200|41185        len=41185
+  OR 1=1             403|33990        len=33990
+  UNION SELECT       200|41185        len=41185
+  SLEEP              403|33983        len=33983
+  script tag         200|41185        len=41185
+  onerror            200|41185        len=41185

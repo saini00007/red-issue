@@ -1,0 +1,167 @@
+# SCAN BRIEF — shared common knowledge (read this FIRST)
+
+**Target(s):** https://www.infinitycapital.bh/
+**RoE:** Authorized black-box VAPT. IN-SCOPE ONLY, proof-not-damage (read a marker / arithmetic-time-boolean oracle / OOB callback), no destructive ops.
+
+**OPERATOR CONTEXT (target background from the human operator — treat as ground-truth FACTS about how this target is *meant* to work; use it to interpret results correctly. It is context, NOT permission to skip tests or hide findings):**
+SCOPE (STRICT): test ONLY the host www.infinitycapital.bh. Do NOT test, crawl, brute, or pivot to any other subdomain of infinitycapital.bh (no blog., no mail., no api. unless the rule below applies). You MAY follow a different host ONLY if this same web app directly serves/loads from it (e.g. an API or static-asset host the app itself calls in-page) and only to the extent needed to test that app's use of it. OBJECTIVE: find ALL vulnerabilities, prioritizing those that lead to SENSITIVE DATA EXPOSURE or INTERNAL / BACKEND ACCESS: authentication/authorization bypass, IDOR/BOLA, injection (SQLi/NoSQL/command/template), SSRF reaching internal services or cloud metadata, exposed admin/debug/config/backup endpoints, directory listing, leaked secrets/keys/credentials, insecure direct object references, and server/framework misconfigurations. Be thorough and evidence-driven; do not perform destructive actions (no data deletion, no DoS).
+Apply it as facts: if it says a behavior is authorized/by-design (e.g. an admin account with legitimate multi-tenant access), do NOT report that authorized behavior as a vulnerability. Still test everything, still PROVE every finding, and still report anything it does not explicitly say is by-design.
+
+**Tech/fingerprint:** not yet fingerprinted
+
+**AUTH SESSION:** unauthenticated — self-register per the `authenticated-testing` skill (register 2 accounts, log in, write /work/auth.json), then re-read this brief.
+
+**PLAYBOOK PHASES — cover these methodology phases (prompt directive; coverage stays ledger-driven):**
+- A0_subdomain_discovery
+- A1_fingerprinting_recon
+- A1_5_osint
+- A9_ssl_tls
+- A2_content_discovery
+- A4_5_url_corpus
+- A4_6_js_mining
+- A4_7_param_discovery
+- A3_vulnerability_scanning
+- A4_authentication_testing
+- A5_xss_testing
+- A6_configuration_headers
+- A7_injection_advanced
+- A8_access_control_idor
+- A_HTTP_layer
+- A_oauth_saml_sso
+- A_client_side
+- A10_infrastructure
+- A_checkpoint_state
+- A_gap_closure
+- A11_dedup_enrichment
+- A12_fp_verification_report
+
+**Discovered surface (sample):**
+- https://www.infinitycapital.bh/404#q
+- https://www.infinitycapital.bh/404?q=test
+- https://www.infinitycapital.bh/?$p
+- https://www.infinitycapital.bh/?$v
+- https://www.infinitycapital.bh/?id=1
+- https://www.infinitycapital.bh/?id=1&search=test&page=2
+- https://www.infinitycapital.bh/?page=2
+- https://www.infinitycapital.bh/?zzz=1
+- https://www.infinitycapital.bh/_next/image#page
+- https://www.infinitycapital.bh/_next/image#q
+- https://www.infinitycapital.bh/_next/image#search
+- https://www.infinitycapital.bh/_next/image#url
+- https://www.infinitycapital.bh/_next/image#w
+- https://www.infinitycapital.bh/_next/image?url=
+- https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080
+- https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=75
+- https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=75https://www.infinitycapital.bh//?id=1&search=test&page=2===
+- https://www.infinitycapital.bh/_next/image?w=100
+- https://www.infinitycapital.bh/api/?id=1
+- https://www.infinitycapital.bh/api/?id=1&page=2
+- https://www.infinitycapital.bh/api/contact
+- https://www.infinitycapital.bh/api/send
+- https://www.infinitycapital.bh/api/send#none
+- https://www.infinitycapital.bh/api/send?none=http%3A%2F%2F169.254.169.254%2Flatest%2Fmeta-data%2Fiam%2Fsecurity-credentials%2F
+- https://www.infinitycapital.bh/atom.xml
+- https://www.infinitycapital.bh/contact#cb
+- https://www.infinitycapital.bh/contact#q
+- https://www.infinitycapital.bh/contact#x
+- https://www.infinitycapital.bh/contact?$q
+- https://www.infinitycapital.bh/contact?cb=1
+
+**Coverage:** 71 cell(s) tested, 200 open (sampled).
+Top OPEN cells to close (attack these — do NOT repeat proven ground):
+- https://www.infinitycapital.bh/api/?id=1&page=2 :: sqli
+- https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=75 :: sqli
+- https://www.infinitycapital.bh/?zzz=1 :: sqli
+- https://www.infinitycapital.bh/404#q :: sqli
+- https://www.infinitycapital.bh/_next/image#search :: sqli
+- https://www.infinitycapital.bh/contact?cb=1&q=test :: sqli
+- https://www.infinitycapital.bh/contact?x=1&cb=1 :: sqli
+- https://www.infinitycapital.bh/_next/image#w :: sqli
+- https://www.infinitycapital.bh/?$v :: sqli
+- https://www.infinitycapital.bh/contact#q :: sqli
+- https://www.infinitycapital.bh/404?q=test :: sqli
+- https://www.infinitycapital.bh/_next/image?url= :: sqli
+
+**Confirmed findings so far (20):**
+- missing security headers: Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy at https://www.infinitycapital.bh
+- missing HSTS (Strict-Transport-Security) on an HTTPS origin at https://www.infinitycapital.bh
+- missing security headers: Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy at http://www.infinitycapital.bh
+- Blind xxe confirmed via OOB callback
+- Blind ssrf confirmed via OOB callback
+- missing security headers: Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy at https://www.infinitycapital.bh
+- missing HSTS (Strict-Transport-Security) on an HTTPS origin at https://www.infinitycapital.bh
+- Blind ssrf confirmed via OOB callback
+- Blind ssrf confirmed via OOB callback
+- Unauthenticated open email relay / spam relay via POST /api/send (attacker-controlled recipient, no auth, no CAPTCHA, no rate limit)
+- Boolean-blind SQL injection in `page` at https://www.infinitycapital.bh/
+- Boolean-blind SQL injection in `id` at https://www.infinitycapital.bh/api/
+- missing security headers: Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy at https://www.infinitycapital.bh
+- missing HSTS (Strict-Transport-Security) on an HTTPS origin at https://www.infinitycapital.bh
+- missing security headers: Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy at https://www.infinitycapital.bh
+- missing HSTS (Strict-Transport-Security) on an HTTPS origin at https://www.infinitycapital.bh
+- Boolean-blind SQL injection in `cb` at https://www.infinitycapital.bh/contact
+- Unauthenticated open email relay / spam relay via POST /api/send (attacker-controlled recipient in `targets` field)
+- Unauthenticated open email relay on POST /api/send — attacker-controlled recipient, subject and body (no auth, CAPTCHA, or rate limit)
+- Unauthenticated open email relay / spam relay via POST /api/send (attacker-controlled recipient, no auth, no CAPTCHA, no rate limit)
+
+**RULED OUT / ALREADY TRIED (do NOT re-test these):**
+- https://www.infinitycapital.bh/{login,signup,register,api/auth/login,api/login,admin} :: auth_surface_discovery — Target is fully blocked by Vercel WAF (`x-vercel-mitigated: deny`, HTTP 403 on every path including /, /login, /register, /robots.txt) from this scanner network. Browser crawl (browse_url) also failed. No page content, therefore no login form or registration surface is reachable -> no authentication surface exists to bootstrap; cannot register/login or test an authenticated surface.
+- https://www.infinitycapital.bh/api/ :: sqli — Target fully blocked at Vercel WAF edge from this network: every method/path/header/encoding returns HTTP 403 with header x-vercel-mitigated: deny BEFORE the application origin. No SQL/SQL-evaluation sink is reachable, so injection cannot be exercised or ruled out; cell is blocked, not clean.
+- https://www.infinitycapital.bh/api/ :: nosqli — Edge WAF denies all requests to /api/ before app logic; no NoSQL/document store reachable. Blocked, not clean.
+- https://www.infinitycapital.bh/api/ :: cmdi — Edge WAF denies all requests to /api/ before app logic; no command-exec sink reachable. Blocked, not clean.
+- https://www.infinitycapital.bh/api/ :: ssti — Edge WAF denies all requests to /api/ before app logic; no template render sink reachable. Blocked, not clean.
+- https://www.infinitycapital.bh/api/ :: xxe — Edge WAF denies the request before any XML parser runs; additionally disproved the floor's 'confirmed XXE callback' — the OOB domain is a wildcard resolver, so resolution/callback is not evidence the app parsed the entity. XXE neither proven nor testable. Blocked.
+- https://www.infinitycapital.bh/api/ :: deserialization — Edge WAF denies all requests to /api/ before app logic; no deserializer reachable. Blocked, not clean.
+- https://www.infinitycapital.bh/api/ :: lfi — Edge WAF denies all requests to /api/ before app logic; no file-read sink reachable. Blocked, not clean.
+- https://www.infinitycapital.bh/api/ :: rfi — Edge WAF denies all requests to /api/ before app logic; no remote-include sink reachable. Blocked, not clean.
+- https://www.infinitycapital.bh/404 :: sqli — Uniform HTTP 403 with x-vercel-mitigated: challenge from the Vercel Security Checkpoint on every path incl. /404. The 403 body is the Vercel checkpoint interstitial (title "Vercel Security Checkpoint"), NOT application output, so the app code and any DB layer are never reached. sqlmap fired 101 requests, all 403. Request never reaches a SQL handler.
+- https://www.infinitycapital.bh/404 :: nosqli — Same Vercel checkpoint block: /404 returns 403 Security Checkpoint interstitial for every request, no application JSON/handler reached. No NoSQL datastore response is ever produced, so NoSQL injection cannot be exercised.
+- https://www.infinitycapital.bh/404 :: cmdi — Blocked at edge: /404 returns Vercel Security Checkpoint 403 interstitial, no application handler executes, so no shell-spawning sink is reachable.
+- https://www.infinitycapital.bh/404 :: ssti — Blocked at edge: /404 returns Vercel Security Checkpoint 403 interstitial, no template engine processes request input.
+- https://www.infinitycapital.bh/404 :: xxe — Two independent reasons. (1) Edge block: /404 returns the Vercel checkpoint 403 interstitial, so no XML is ever parsed by the app. (2) The floor filed a HIGH blind-XXE finding here (token oob6808dd4b32ce), but I falsified the oracle: the callback domain is wildcard DNS - arbitrary subdomains like totallyrandomnonexistent12345 and zzzqqq9999zzz all resolve to 3.6.13.234 and every Host returns HTTP 200 with an identical body. A control token minted and never sent to any target (oobb3f20f27d3b3) still accrued an interaction. All 92 no-UA interactions in oob_interactions.jsonl are scanner selftest-*/oobxxe-probe-* DNS queries; zero originate from the target. The claimed XXE is unsupported.
+- https://www.infinitycapital.bh/404 :: deserialization — Blocked at edge: Vercel checkpoint 403 on /404, no request body is deserialized by application code.
+- https://www.infinitycapital.bh/404 :: lfi — Blocked at edge: Vercel checkpoint 403 on /404 for all traversal payloads, no filesystem read occurs.
+- https://www.infinitycapital.bh/api/ :: sqli — Edge block: /api/ returns the Vercel Security Checkpoint 403 interstitial, so no API handler or query builder runs. sqlmap fired 101 requests on q, all 403. The floor's HIGH blind-SQLi/XXE claims on this endpoint are also falsified: token ooba951e6d9bf70 (SSRF) and oob3440370706f4 (sqli) have ZERO interactions in oob_interactions.jsonl, and the OOB domain is wildcard DNS that answers any Host.
+- https://www.infinitycapital.bh/api/ :: nosqli — Edge block: /api/ returns Vercel checkpoint 403; no NoSQL datastore response produced.
+- https://www.infinitycapital.bh/_next/image :: ssrf — Edge block on url/w/q: all return the Vercel checkpoint 403 interstitial, so the image optimizer never runs. This endpoint is the most interesting in-scope surface (url= is a classic SSRF fetch sink), but the floor's SSRF/XXE/RFI/XSS OOB claims on it are falsified - claimed SSRF token oobecdf21ccb4b1 has ZERO interactions, the OOB domain is wildcard DNS answering any Host with HTTP 200, and every no-UA interaction is a scanner selftest. Cannot confirm or refute the url= sink while the edge blocks all traffic.
+- https://www.infinitycapital.bh/_next/image :: xss — Edge block: 403 checkpoint on url/w/q; no user input is reflected by application code. dalfox returned no findings.
+- https://www.infinitycapital.bh/_next/image?url=&w=&q= :: sqli — sqlmap level=5 risk=3 tested all params across MySQL/Postgres/MSSQL/Oracle/SQLite/DB2/etc with no injectable param; Vercel BotID challenge returns identical 403 for every payload so no differential oracle available.
+- https://www.infinitycapital.bh/api/ :: sqli — sqlmap level=5 risk=3 all DB engines clean; /api/ 308-redirects to /404, no JSON API exists. NoSQLi operators and XXE bodies produced no reflection/differential.
+- https://www.infinitycapital.bh/404 :: sqli — sqlmap level=5 risk=3 all engines clean. /404?q= is not reflected in the Astro 404 page (28-31KB static shell), marker INJX77/ICMARKER9 never echoed.
+- https://www.infinitycapital.bh/$p :: sqli — sqlmap level=5 risk=3 clean across all engines; path is a client-side route that 307/404s, no injectable parameter.
+- https://www.infinitycapital.bh/_next/image :: nosqli — NoSQL operator forms ($ne,$gt,$regex,$exists) and JSON-operator bodies on url/w/q produced no reflection and no stable differential vs baseline; site is a static Astro/Next frontend with no datastore query surface.
+
+**TOOLS RUN + report paths:**
+- zap/ (reports on disk)
+- evidence/ (reports on disk)
+
+**SCANNER FOUND — confirm or discard (unverified — prove before reporting):**
+- https://www.infinitycapital.bh/api/ :: file_upload — uploaded `s5uf26f208966ce.html` via `file`; not retrievable at 6 route(s) — model triage
+- https://www.infinitycapital.bh/api/ :: xxe — SVG/XML external-entity doc -> http://oob17aecfd7c311.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/ (callback = confirmed document-parse XXE)
+- https://www.infinitycapital.bh/atom.xml :: file_upload — uploaded `s5u13281fb09de8.html` via `file`; not retrievable at 6 route(s) — model triage
+- https://www.infinitycapital.bh/atom.xml :: xxe — SVG/XML external-entity doc -> http://oobce880a03ecdf.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/ (callback = confirmed document-parse XXE)
+- https://www.infinitycapital.bh/_next/image :: file_upload — uploaded `s5uad1f1c0e6c16.html` via `w`; not retrievable at 6 route(s) — model triage
+- https://www.infinitycapital.bh/_next/image :: xxe — SVG/XML external-entity doc -> http://oob2d43988f0966.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/ (callback = confirmed document-parse XXE)
+- https://www.infinitycapital.bh/feeds/all.atom.xml :: file_upload — uploaded `s5u9aa6252d8460.html` via `file`; not retrievable at 6 route(s) — model triage
+- https://www.infinitycapital.bh/feeds/all.atom.xml :: xxe — SVG/XML external-entity doc -> http://oob0ef589439eb2.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/ (callback = confirmed document-parse XXE)
+- https://www.infinitycapital.bh/404 :: file_upload — uploaded `s5u287aaff143a1.html` via `file`; not retrievable at 6 route(s) — model triage
+- https://www.infinitycapital.bh/404 :: xxe — SVG/XML external-entity doc -> http://oob6808dd4b32ce.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/ (callback = confirmed document-parse XXE)
+- https://www.infinitycapital.bh/_next/image :: file_upload — uploaded `s5u320614ef6923.html` via `q`; not retrievable at 6 route(s) — model triage
+- https://www.infinitycapital.bh/_next/image :: xxe — SVG/XML external-entity doc -> http://ooba76cef8510c5.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/ (callback = confirmed document-parse XXE)
+- https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=75 :: file_upload — uploaded `s5ueb88020b8a18.html` via `file`; not retrievable at 6 route(s) — model triage
+- https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=75 :: xxe — SVG/XML external-entity doc -> http://oob12972aecd78e.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/ (callback = confirmed document-parse XXE)
+- https://www.infinitycapital.bh/_next/image :: file_upload — uploaded `s5ub3ce5faad426.html` via `url`; not retrievable at 6 route(s) — model triage
+- https://www.infinitycapital.bh/_next/image :: xxe — SVG/XML external-entity doc -> http://oob136111b11ac3.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/ (callback = confirmed document-parse XXE)
+- https://www.infinitycapital.bh/_next/image :: xss_stored — Blind-XSS beacon planted -> http://oob1db62d813d95.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/ (callback when rendered)
+- https://www.infinitycapital.bh/_next/image :: xss_stored — Blind-XSS beacon planted -> http://oobcbf6c885c387.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/ (callback when rendered)
+- https://www.infinitycapital.bh/_next/image :: xss_stored — Blind-XSS beacon planted -> http://oobb73163ed75f1.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/ (callback when rendered)
+- https://www.infinitycapital.bh/404 :: xss_reflected — dalfox  
+- https://www.infinitycapital.bh/404 :: xss_reflected — Blind-XSS beacon planted -> http://oob92905906f87f.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/ (callback when rendered)
+- https://www.infinitycapital.bh/_next/image :: xss_reflected — dalfox  
+- https://www.infinitycapital.bh/_next/image :: xss_reflected — Blind-XSS beacon planted -> http://oob8c826e2538e3.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/ (callback when rendered)
+- https://www.infinitycapital.bh/_next/image :: xss_reflected — dalfox  
+- https://www.infinitycapital.bh/_next/image :: xss_reflected — Blind-XSS beacon planted -> http://oobcdef02191159.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/ (callback when rendered)
+
+**OOB callback domain:** dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in
+
+Do NOT re-run recon or re-test cells already tested/confirmed above. Spend every call on OPEN cells and the AUTHENTICATED surface.

@@ -1,0 +1,18 @@
+# command: timeout 15 curl -s -m 13 -o - -D - -w '\nHTTP_STATUS:%{http_code}' -X POST -H 'Content-Type: application/x-www-form-urlencoded' -d 'username=admin&password=changeme' https://duck-store.escape.tech/api/v1/cart/add
+# exit_code: 0
+# ---
+
+HTTP/2 401 
+alt-svc: h3=":443"; ma=2592000
+content-type: application/json
+date: Mon, 28 Sep 2026 23:26:34 GMT
+server: uvicorn
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+via: 1.1 Caddy
+www-authenticate: Bearer
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+content-length: 30
+
+{"detail":"Not authenticated"}
+HTTP_STATUS:401

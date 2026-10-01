@@ -1,0 +1,16 @@
+# command: cd "$WORK_PATH"; tail -6 tool_outputs/sqlmap_send.log; echo "--- injectable? ---"; grep -iE "injectable|payload|CRITICAL|parameter .* seems" tool_outputs/sqlmap_send.log | tail -20
+# tool: tail
+# exit_code: 0
+# ts: 2026-09-30T11:25:18.216790+00:00
+# ---
+
+[11:21:43] [INFO] testing 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (MAKE_SET)'
+[11:22:00] [INFO] testing 'MySQL OR boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (MAKE_SET)'
+[11:22:13] [INFO] testing 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (ELT)'
+[11:22:54] [INFO] testing 'MySQL OR boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (ELT)'
+[11:23:24] [INFO] testing 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)'
+[11:24:44] [INFO] testing 'MySQL OR boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)'
+--- injectable? ---
+[11:18:51] [CRITICAL] previous heuristics detected that the target is protected by some kind of WAF/IPS
+[11:18:51] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+[11:18:51] [WARNING] heuristic (basic) test shows that POST parameter 'fname' might not be injectable

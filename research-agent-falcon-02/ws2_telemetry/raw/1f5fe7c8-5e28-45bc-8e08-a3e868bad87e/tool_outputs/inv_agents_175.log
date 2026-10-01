@@ -1,0 +1,8 @@
+# command: cd /work && which sqlmap && sqlmap --version | head -3
+# tool: which
+# exit_code: 0
+# ts: 2026-09-30T11:38:39.965613+00:00
+# ---
+
+/usr/bin/sqlmap
+1.10.8#stable

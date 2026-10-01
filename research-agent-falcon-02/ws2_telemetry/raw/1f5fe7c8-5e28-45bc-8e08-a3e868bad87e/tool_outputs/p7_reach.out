@@ -1,0 +1,16 @@
+/                                             200 27355 text/html; charset=utf-8
+/contact                                      200 41185 text/html; charset=utf-8
+/404                                          404 28986 text/html; charset=utf-8
+/api/                                         308 118 text/html
+/api/send                                     405 0 
+/api/?id=1                                    308 123 text/html
+/?id=1&search=test&page=2                     200 27355 text/html; charset=utf-8
+/?page=2                                      200 27355 text/html; charset=utf-8
+/contact?cb=1                                 200 41185 text/html; charset=utf-8
+/atom.xml                                     307 18264 text/html; charset=utf-8
+/feeds/all.atom.xml                           404 28986 text/html; charset=utf-8
+/robots.txt                                   200 103 text/plain
+/sitemap.xml                                  200 1340 application/xml
+--- image optimizer ---
+400 84 text/plain; charset=utf-8
+200 24881 image/avif

@@ -1,0 +1,29 @@
+# command: cd /work && python3 - <<'EOF'
+import re,glob
+for f in glob.glob('tool_outputs/js/*.js')+glob.glob('wjs/*.js')+glob.glob('js10/*.js'):
+    s=open(f,errors='ignore').read()
+    for m in re.finditer(r'targets',s):
+        print(f, s[max(0,m.start()-120):m.start()+200].replace('\n',' '))
+        print('---')
+EOF
+# tool: python3
+# exit_code: 0
+# ts: 2026-09-30T11:37:28.874453+00:00
+# ---
+
+tool_outputs/js/275-ea7b562607231006.js lname",s),l.set("areacode",d),l.set("tel",c),l.set("cname",m),l.set("subject",n),l.set("msg",r),l.set("check",z),l.set("targets",a.targets);try{let D=await fetch("/api/send",{method:"POST",body:l}).then(l=>l.json());null!==D.data?k("success"):k("fail")}catch(l){k("fail")}},b=l=>{x(ll().sanitize(l.target.value)),A.curre
+---
+tool_outputs/js/275-ea7b562607231006.js .set("areacode",d),l.set("tel",c),l.set("cname",m),l.set("subject",n),l.set("msg",r),l.set("check",z),l.set("targets",a.targets);try{let D=await fetch("/api/send",{method:"POST",body:l}).then(l=>l.json());null!==D.data?k("success"):k("fail")}catch(l){k("fail")}},b=l=>{x(ll().sanitize(l.target.value)),A.current.style.he
+---
+tool_outputs/js/_next_static_chunks_275-ea7b562607231006.js lname",s),l.set("areacode",d),l.set("tel",c),l.set("cname",m),l.set("subject",n),l.set("msg",r),l.set("check",z),l.set("targets",a.targets);try{let D=await fetch("/api/send",{method:"POST",body:l}).then(l=>l.json());null!==D.data?k("success"):k("fail")}catch(l){k("fail")}},b=l=>{x(ll().sanitize(l.target.value)),A.curre
+---
+tool_outputs/js/_next_static_chunks_275-ea7b562607231006.js .set("areacode",d),l.set("tel",c),l.set("cname",m),l.set("subject",n),l.set("msg",r),l.set("check",z),l.set("targets",a.targets);try{let D=await fetch("/api/send",{method:"POST",body:l}).then(l=>l.json());null!==D.data?k("success"):k("fail")}catch(l){k("fail")}},b=l=>{x(ll().sanitize(l.target.value)),A.current.style.he
+---
+wjs/__next_static_chunks_275-ea7b562607231006.js lname",s),l.set("areacode",d),l.set("tel",c),l.set("cname",m),l.set("subject",n),l.set("msg",r),l.set("check",z),l.set("targets",a.targets);try{let D=await fetch("/api/send",{method:"POST",body:l}).then(l=>l.json());null!==D.data?k("success"):k("fail")}catch(l){k("fail")}},b=l=>{x(ll().sanitize(l.target.value)),A.curre
+---
+wjs/__next_static_chunks_275-ea7b562607231006.js .set("areacode",d),l.set("tel",c),l.set("cname",m),l.set("subject",n),l.set("msg",r),l.set("check",z),l.set("targets",a.targets);try{let D=await fetch("/api/send",{method:"POST",body:l}).then(l=>l.json());null!==D.data?k("success"):k("fail")}catch(l){k("fail")}},b=l=>{x(ll().sanitize(l.target.value)),A.current.style.he
+---
+js10/275-ea7b562607231006.js lname",s),l.set("areacode",d),l.set("tel",c),l.set("cname",m),l.set("subject",n),l.set("msg",r),l.set("check",z),l.set("targets",a.targets);try{let D=await fetch("/api/send",{method:"POST",body:l}).then(l=>l.json());null!==D.data?k("success"):k("fail")}catch(l){k("fail")}},b=l=>{x(ll().sanitize(l.target.value)),A.curre
+---
+js10/275-ea7b562607231006.js .set("areacode",d),l.set("tel",c),l.set("cname",m),l.set("subject",n),l.set("msg",r),l.set("check",z),l.set("targets",a.targets);try{let D=await fetch("/api/send",{method:"POST",body:l}).then(l=>l.json());null!==D.data?k("success"):k("fail")}catch(l){k("fail")}},b=l=>{x(ll().sanitize(l.target.value)),A.current.style.he
+---

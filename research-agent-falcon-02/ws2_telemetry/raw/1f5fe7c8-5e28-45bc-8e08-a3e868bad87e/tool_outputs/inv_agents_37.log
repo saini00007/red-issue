@@ -1,0 +1,20 @@
+# command: cd /work/evidence && echo "### T5: malformed target (validation probe)" && curl -sS -o t5.out -w "HTTP=%{http_code}\n" -X POST https://www.infinitycapital.bh/api/send -F "fname=Verify" -F "lname=Test" -F "areacode=973" -F "tel=0000000" -F "cname=Independent Verifier" -F "subject=authz probe D" -F "msg=probe D body" -F "check=x" --form-string "targets=not-an-email-at-all"; echo "body:"; cat t5.out; echo; echo "### T6: no Origin / no Referer / no cookies (pure unauthenticated)" && curl -sS -o t6.out -w "HTTP=%{http_code}\n" -X POST https://www.infinitycapital.bh/api/send -H "Origin:" -H "Referer:" -H "Cookie:" -F "fname=Verify" -F "lname=Test" -F "areacode=973" -F "tel=0000000" -F "cname=Independent Verifier" -F "subject=authz probe E" -F "msg=probe E body" -F "check=x" --form-string "targets=probe-relay-verify-02@guardrailcheck.invalid"; echo "body:"; cat t6.out; echo
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-30T12:06:06.778402+00:00
+# ---
+
+### T5: malformed target (validation probe)
+HTTP=429
+body:
+Too Many Requests
+
+Too Many Requests
+bom1::zdmbh-1790769966602-c58e3860b880
+### T6: no Origin / no Referer / no cookies (pure unauthenticated)
+HTTP=429
+body:
+Too Many Requests
+
+Too Many Requests
+bom1::kndt6-1790769966782-3f65b109341b

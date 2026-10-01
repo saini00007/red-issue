@@ -1,0 +1,10 @@
+[01] http://images.ctfassets.net@oob2b7f8deff78a.dau2p4ghgqag02k5emggc5xu6h -> code=400 size=84 | Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::m4gcf-179
+[02] http://oob2b7f8deff78a.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.c -> code=429 size=75 | Too Many RequestsToo Many Requestsbom1::rs4p6-17907290255
+[03] http://images.ctfassets.net.oob2b7f8deff78a.dau2p4ghgqag02k5emggc5xu6h -> code=400 size=84 | Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::xd8wl-179
+[04] http://IMAGES.CTFASSETS.NET@oob2b7f8deff78a.dau2p4ghgqag02k5emggc5xu6h -> code=400 size=84 | Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::9rpcx-179
+[05] http://images.ctfassets.net:80@oob2b7f8deff78a.dau2p4ghgqag02k5emggc5x -> code=400 size=84 | Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::t8qrm-179
+[06] http://oob2b7f8deff78a.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.c -> code=400 size=84 | Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::qbncp-179
+[07] http://xn--imgs-cfassets-netc/x                                        -> code=400 size=84 | Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::6l2fw-179
+[08] http://images.ctfassets.net\@oob2b7f8deff78a.dau2p4ghgqag02k5emggc5xu6 -> code=400 size=84 | Bad requestINVALID_IMAGE_OPTIMIZE_REQUESTbom1::nbqfk-179
+[09] http://127.0.0.1.nip.io/a                                              -> code=429 size=75 | Too Many RequestsToo Many Requestsbom1::s45gv-17907290314
+[10] http://169.254.169.254.nip.io/latest/meta-data/                        -> code=429 size=75 | Too Many RequestsToo Many Requestsbom1::ch492-17907290316

@@ -1,0 +1,76 @@
+# command: cd $WORK_PATH 2>/dev/null || cd .; ls tool_outputs | head -50; ls -la /work 2>/dev/null | head -20
+# tool: ls
+# exit_code: 0
+# ts: 2026-09-30T12:09:48.631875+00:00
+# ---
+
+117-4ba60eb06d2ce296.js
+275-ea7b562607231006.js
+341-553bcb827a52d4aa.js
+489-c3a66469350d58bd.js
+71-fbecd7aa70f9e321.js
+711-90c81a42d9859d8d.js
+743-7f9d0b5cebfd0486.js
+IVC_browser.log
+SQLMAP_MASTER.log
+__pycache__
+api_enum.log
+api_send_probe.log
+api_send_shape.log
+auth_probe.txt
+block_matrix.txt
+botid.log
+botid.py
+bt.hdr
+bypass_inject.json
+bypass_inject.out
+bypass_inject.py
+c275.js
+c711.js
+c743.js
+canary_host.txt
+ch_about.html
+ch_api.html
+ch_body.html
+ch_root.html
+chain_file_0.log
+chain_file_1.log
+chain_file_2.log
+chain_file_3.log
+chain_file_4.log
+chain_file_5.log
+chain_file_6.log
+chain_file_7.log
+chain_internal.log
+chain_meta_0.log
+chain_meta_1.log
+chain_meta_2.log
+chkp.log
+chromedrive.py
+chunks
+chunks.txt
+cmd_send_sqlmap.sh
+contact.html
+contact_body.html
+cors.log
+ctl_ctf1
+total 62368
+drwxr-xr-x  1 kali kali    24576 Sep 30 11:44 .
+drwxr-xr-x  1 root root     4096 Sep 29 21:24 ..
+-rw-r--r--  1 kali kali        0 Sep 30 10:30 .wtest
+-rw-r--r--  1 kali kali       75 Sep 30 08:47 C.html
+-rw-r--r--  1 kali kali      288 Sep 30 11:36 ICV2_contact.hdr
+-rw-r--r--  1 kali kali       15 Sep 30 11:36 ICV2_contact.html
+-rw-r--r--  1 kali kali     1269 Sep 30 11:36 ICV3_contact.hdr
+-rw-r--r--  1 kali kali    41185 Sep 30 11:36 ICV3_contact.html
+-rw-r--r--  1 kali kali     1102 Sep 30 11:36 ICV_api_get.hdr
+-rw-r--r--  1 kali kali     1301 Sep 30 11:37 ICV_empty.hdr
+-rw-r--r--  1 kali kali      541 Sep 30 10:39 ICV_home.hdr
+-rw-r--r--  1 kali kali    33979 Sep 30 10:39 ICV_home.html
+-rw-r--r--  1 kali kali     1269 Sep 30 11:44 ICV_me_contact.hdr
+-rw-r--r--  1 kali kali    41185 Sep 30 11:44 ICV_me_contact.html
+-rw-r--r--  1 kali kali      328 Sep 30 11:37 ICV_nocheck.hdr
+-rw-r--r--  1 kali kali     1301 Sep 30 11:37 ICV_noorig.hdr
+-rw-r--r--  1 kali kali     1301 Sep 30 11:37 ICV_shape.hdr
+-rw-r--r--  1 kali kali     1269 Sep 30 10:50 IC_contact.hdr
+-rw-r--r--  1 kali kali    41185 Sep 30 09:41 IC_contact.html

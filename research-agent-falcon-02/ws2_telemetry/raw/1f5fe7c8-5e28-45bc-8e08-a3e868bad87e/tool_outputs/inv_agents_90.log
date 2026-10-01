@@ -1,0 +1,20 @@
+# command: cd /work && python3 - <<'PY'
+import urllib.request,random,string
+D="dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in"
+tok="ctrl"+''.join(random.choices(string.ascii_lowercase,k=12))
+for host in [tok+"."+D, "totallyrandomnonexistent12345."+D, D]:
+    try:
+        r=urllib.request.urlopen("http://"+host+"/probe",timeout=10)
+        b=r.read()
+        print(r.status,len(b),host[:50],b[:80])
+    except Exception as e:
+        print("ERR",host[:50],e)
+PY
+# tool: python3
+# exit_code: 0
+# ts: 2026-09-30T11:11:43.519942+00:00
+# ---
+
+200 72 ctrlwtajizhxdaid.dau2p4ghgqag02k5emggc5xu6hph3m973 b'<html><head></head><body>379m3hph6ux5cggme5k20gaqghg4p2uad</body></html>'
+200 72 totallyrandomnonexistent12345.dau2p4ghgqag02k5emgg b'<html><head></head><body>379m3hph6ux5cggme5k20gaqghg4p2uad</body></html>'
+200 72 dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.i b'<html><head></head><body>379m3hph6ux5cggme5k20gaqghg4p2uad</body></html>'

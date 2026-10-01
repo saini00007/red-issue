@@ -1,0 +1,85 @@
+# command: cd "$WORK_PATH"; echo "=== api_enum ==="; cat tool_outputs/api_enum.log; echo "=== api_send_shape ==="; cat tool_outputs/api_send_shape.log
+# tool: cat
+# exit_code: 0
+# ts: 2026-09-30T11:32:21.299250+00:00
+# ---
+
+=== api_enum ===
+api/send           500                                          0
+
+api/contact        404 content-type: text/html; charset=utf-8   0
+api/email          404 content-type: text/html; charset=utf-8   0
+api/newsletter     404 content-type: text/html; charset=utf-8   0
+api/subscribe      404 content-type: text/html; charset=utf-8   0
+api/quote          404 content-type: text/html; charset=utf-8   0
+api/apply          429 content-type: text/html; charset=utf-8   101
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::cwlql-1790753871868-ed2f87eed255"}}
+
+api/portfolio      404 content-type: application/json           0
+api/investment     429 content-type: application/json           101
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::qtk7s-1790753872413-bd2f0c14a07c"}}
+
+api/auth           429 content-type: text/html; charset=utf-8   101
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::4qz9c-1790753872772-458ed5a4ee0d"}}
+
+api/login          404 content-type: text/html; charset=utf-8   0
+api/user           404 content-type: application/json           0
+api/users          404 content-type: application/json           0
+api/admin          429 content-type: application/json           101
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::j9qhf-1790753873943-ef55c2b27d83"}}
+
+api/data           404 content-type: application/json           0
+api/graphql        429 content-type: text/html; charset=utf-8   101
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::jrjr8-1790753874522-9cedf9d976b0"}}
+
+api/webhook        404 content-type: application/json           0
+api/upload         404 content-type: application/json           0
+api/pdf            429 content-type: application/json           101
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::5sw56-1790753875384-5b0caae088d4"}}
+
+api/news           429 content-type: text/html; charset=utf-8   101
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::jx2lh-1790753875687-a76379a39261"}}
+
+api/posts          429 content-type: application/json           101
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::68fk7-1790753875949-72aad39af2e2"}}
+
+api/og             429 content-type: application/json           101
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::rfhg8-1790753876229-d9d5564da884"}}
+
+api/calculate      404 content-type: text/html; charset=utf-8   0
+api/valuation      404 content-type: application/json           0
+api/risk           429 content-type: application/json           101
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::z7rmh-1790753877085-b73fb5fbd102"}}
+
+api/callback       429 content-type: text/html; charset=utf-8   101
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::nh5l2-1790753877346-bb9bc4d0779a"}}
+
+api/health         404 content-type: application/json           0
+api/status         404 content-type: application/json           0
+api/test           429 content-type: application/json           101
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::slmm8-1790753878168-494cd3ac72bc"}}
+
+=== api_send_shape ===
+=== form action / endpoint referenced by /contact ===
+=== script chunks on contact (JS = real logic) ===
+/_next/static/chunks/117-4ba60eb06d2ce296.js
+/_next/static/chunks/275-ea7b562607231006.js
+/_next/static/chunks/341-553bcb827a52d4aa.js
+/_next/static/chunks/489-c3a66469350d58bd.js
+/_next/static/chunks/71-fbecd7aa70f9e321.js
+/_next/static/chunks/711-90c81a42d9859d8d.js
+/_next/static/chunks/743-7f9d0b5cebfd0486.js
+/_next/static/chunks/app/%5Bslug%5D/page-b4cf0ec49dd0c737.js
+/_next/static/chunks/app/%5Bslug%5D/template-0dafb77d99dbfc0f.js
+/_next/static/chunks/app/layout-2aac163e3ced1001.js
+
+=== try /api/send with plausible JSON field names (shape discovery) ===
+{"fname":"D10","lname":"Probe","email":"                                                   HTTP=403 sz=33983
+<!DOCTYPE html><html lang="en" data-astro-cid-4wdtffzm><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#000"><title>Ve
+{"name":"D10","email":"probe@example.org                                                   HTTP=403 sz=33991
+<!DOCTYPE html><html lang="en" data-astro-cid-4wdtffzm><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#000"><title>Ve
+
+=== form-encoded POST ===
+HTTP=500 sz=0
+
+DONE

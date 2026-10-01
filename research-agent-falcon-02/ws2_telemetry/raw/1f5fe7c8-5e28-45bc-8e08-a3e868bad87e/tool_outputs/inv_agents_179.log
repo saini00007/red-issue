@@ -1,0 +1,13 @@
+# command: cd /work && ls -la tool_outputs/ | grep p2 ; find / -name "p2_sm1.py" -not -path "*/proc/*" 2>/dev/null | head
+# tool: ls
+# exit_code: 0
+# ts: 2026-09-30T11:39:05.298626+00:00
+# ---
+
+drwxr-xr-x  2 kali kali    4096 Sep 29 22:54 dfp2
+-rw-r--r--  1 kali kali   27355 Sep 29 23:04 p2.html
+-rw-r--r--  1 kali kali    1291 Sep 30 11:36 p2_base.txt
+-rw-r--r--  1 kali kali     686 Sep 30 11:38 p2_send.py
+-rw-r--r--  1 kali kali    1352 Sep 30 11:38 p2_send_base.log
+-rw-r--r--  1 kali kali      93 Sep 30 11:39 p2_sm1.log
+/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/p2_sm1.py

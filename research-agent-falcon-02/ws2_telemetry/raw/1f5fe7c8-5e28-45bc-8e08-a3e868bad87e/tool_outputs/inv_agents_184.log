@@ -1,0 +1,10 @@
+# command: cd /work && nohup python3 tool_outputs/p2_sm1.py > tool_outputs/p2_sm1.log 2>&1 & echo "started pid $!"
+# tool: python3
+# exit_code: 124
+# ts: 2026-09-30T11:49:54.203782+00:00
+# ---
+
+
+[exec timeout after 300s]
+
+[exit=124]

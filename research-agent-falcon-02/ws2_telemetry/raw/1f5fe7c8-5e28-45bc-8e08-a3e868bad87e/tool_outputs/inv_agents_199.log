@@ -1,0 +1,8 @@
+# command: cd $WORK_PATH 2>/dev/null || cd .; pkill -f sqlmap; UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/126"; for i in 1 2; do curl -sk -A "$UA" "https://www.infinitycapital.bh/?id=1&search=test&page=2" -o /tmp/p$i.html; done; wc -c /tmp/p1.html /tmp/p2.html; diff <(sed 's/[a-f0-9]\{16,\}//g' /tmp/p1.html) <(sed 's/[a-f0-9]\{16,\}//g' /tmp/p2.html) | head -20
+# tool: pkill
+# exit_code: -15
+# ts: 2026-09-30T12:08:44.671277+00:00
+# ---
+
+
+[exit=-15]

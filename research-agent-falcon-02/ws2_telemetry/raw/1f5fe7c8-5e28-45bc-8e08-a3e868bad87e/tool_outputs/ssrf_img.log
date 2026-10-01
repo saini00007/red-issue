@@ -1,0 +1,6 @@
+TGT: http://oob7ad8f3c10d11.dau2p4ghgqag02k5emggc5xu6hph3973.oast.abhedi.co.in/s => CODE=400 SZ=84 CT=text/plain; charset=utf-8
+TGT: file:///etc/passwd => CODE=400 SZ=84 CT=text/plain; charset=utf-8
+TGT: http://2852039166/latest/meta-data/ => CODE=400 SZ=84 CT=text/plain; charset=utf-8
+BASE/favicon.ico CODE=400 SZ=84 CT=text/plain; charset=utf-8
+BASE/icon.svg CODE=400 SZ=84 CT=text/plain; charset=utf-8
+BASE/favicon.svg CODE=400 SZ=84 CT=text/plain; charset=utf-8

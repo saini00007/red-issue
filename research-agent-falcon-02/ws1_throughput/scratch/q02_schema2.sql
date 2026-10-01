@@ -1,0 +1,2 @@
+\pset pager off
+select table_name||'.'||column_name||' '||data_type from information_schema.columns where table_schema='tenant_xbow' and table_name in ('worker_runs','scan_phases','scan_events','scans') order by table_name, ordinal_position;

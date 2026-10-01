@@ -1,0 +1,5 @@
+quote_only   code=200 len=67 t=0.47  b'{"data":{"id":"01a0f151-5936-75ad-afbe-bbaed74f33bb"},"error":null}'
+quote_msg    code=200 len=67 t=0.44  b'{"data":{"id":"01a0f151-7255-77b8-a248-dabe7860539a"},"error":null}'
+sqli_and     code=200 len=67 t=0.53  b'{"data":{"id":"01a0f151-8bca-730a-8e2b-c1630e20db60"},"error":null}'
+plain        code=200 len=67 t=0.42  b'{"data":{"id":"01a0f151-a4f8-7276-bacd-3aea3fcaad09"},"error":null}'
+sleep        code=200 len=67 t=0.57  b'{"data":{"id":"01a0f151-bea2-73a9-ae16-3ecbbcdff39b"},"error":null}'

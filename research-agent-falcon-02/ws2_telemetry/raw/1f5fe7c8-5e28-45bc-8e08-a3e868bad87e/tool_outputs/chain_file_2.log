@@ -1,0 +1,9 @@
+# command: timeout 15 curl -s -m 13 -o - -w '\nHTTP_STATUS:%{http_code}' 'https://www.infinitycapital.bh/api/?id=config.php'
+# exit_code: 0
+# ---
+
+Too Many Requests
+
+Too Many Requests
+bom1::kzrt6-1790721418897-e87e189e6ddf
+HTTP_STATUS:429

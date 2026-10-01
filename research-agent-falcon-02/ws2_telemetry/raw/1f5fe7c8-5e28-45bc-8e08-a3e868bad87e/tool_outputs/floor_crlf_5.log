@@ -1,0 +1,13 @@
+# command: timeout 15 curl -s -m 13 -o /dev/null -D - 'https://www.infinitycapital.bh/_next/image?search=crlf66831d89da19%0D%0AX-Crlf-Probe%3A+crlf66831d89da19'
+# exit_code: 0
+# ---
+
+HTTP/2 403 
+cache-control: private, no-store, max-age=0
+content-type: text/html; charset=utf-8
+server: Vercel
+x-vercel-challenge-token: 2.1790742201.60.NTI1YWRjODVjNDg3ZDc4MWRjNDFiMzNiODBhZWI5ZDg7ZDYxYjdkOTM7YTBjNjRjODU4N2I1ODMzNjkzOTEzZGQzNmRjM2Y1YTZhMGFhZmYxYjszO1D8iwAAqdoKdcptcaFUI8LHHRrfrquQ3/gUAeqUS6JQlb8yhn3oe1Uqb7cOBC0t6mg9RNdOJCJwScGTIdlau5uY1HazNYYl6wmOeJK4+g==.e25361c3c386101d01429288c963eed3
+x-vercel-id: bom1::1790742201-Bwbe1fiB4raTkO37jBNMZaTbtvL3v9nI
+x-vercel-mitigated: challenge
+date: Wed, 30 Sep 2026 04:23:21 GMT
+

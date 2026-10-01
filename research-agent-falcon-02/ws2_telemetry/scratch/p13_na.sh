@@ -1,0 +1,16 @@
+set -u
+q() { docker exec scanner-postgres psql -U scanner -d scanner -X -A -F' | ' -t -c "$1" 2>&1; }
+echo "=== R1 worker_runs.findings_count distribution ==="
+q "select findings_count, count(*) from tenant_xbow.worker_runs group by 1 order by 1 desc nulls last limit 15;"
+echo "=== R2 resolved_count census ==="
+q "select coalesce(resolved_count,0), count(*) from tenant_xbow.worker_runs group by 1 order by 2 desc limit 10;"
+echo "=== R3 na cells: which scan / claimed_by ==="
+q "select coalesce(claimed_by,'<NULL>'), count(*) from tenant_xbow.ledger_cell where state='na' group by 1 order by 2 desc limit 10;"
+echo "=== R4 all states x claimed_by ==="
+q "select state, coalesce(claimed_by,'<NULL>'), count(*) from tenant_xbow.ledger_cell group by 1,2 order by 3 desc limit 25;"
+echo "=== R5 na_reason census ==="
+q "select left(coalesce(na_reason,'<NULL>'),44), count(*) from tenant_xbow.ledger_cell where state='na' group by 1 order by 2 desc limit 12;"
+echo "=== R6 applicable flag ==="
+q "select applicable, count(*) from tenant_xbow.ledger_cell group by 1;"
+echo "=== R7 na cells per scan (top) ==="
+q "select left(scan_id::text,8), sum(case when state='na' then 1 else 0 end) na, count(*) tot from tenant_xbow.ledger_cell group by 1 order by 2 desc limit 12;"

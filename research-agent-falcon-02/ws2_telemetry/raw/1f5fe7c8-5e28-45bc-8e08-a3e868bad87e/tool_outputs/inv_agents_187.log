@@ -1,0 +1,8 @@
+# command: cd /work && pgrep -f p2_sm1 >/dev/null && echo RUNNING || echo NOTRUNNING; ls -la tool_outputs/p2_sm1.log
+# tool: pgrep
+# exit_code: 0
+# ts: 2026-09-30T11:56:55.180212+00:00
+# ---
+
+RUNNING
+-rw-r--r-- 1 kali kali 87 Sep 30 11:49 tool_outputs/p2_sm1.log

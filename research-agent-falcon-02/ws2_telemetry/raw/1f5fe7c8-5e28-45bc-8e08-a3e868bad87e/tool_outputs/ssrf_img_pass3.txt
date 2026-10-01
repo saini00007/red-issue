@@ -1,0 +1,14 @@
+ssrf.png         code=400 size=84 ct=text/plain; charset=utf-8
+ssrf.jpg         code=400 size=84 ct=text/plain; charset=utf-8
+ssrf             code=400 size=84 ct=text/plain; charset=utf-8
+a/b.png?x=1      code=400 size=84 ct=text/plain; charset=utf-8
+--- control: unresolvable external host
+code=400 size=84 ct=text/plain; charset=utf-8
+--- empty url
+Bad request
+
+INVALID_IMAGE_OPTIMIZE_REQUEST
+
+bom1::7bbss-1790722816077-e14d04a4ba97
+
+code=400

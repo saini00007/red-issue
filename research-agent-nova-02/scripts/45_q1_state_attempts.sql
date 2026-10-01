@@ -1,0 +1,1 @@
+select state, count(*), sum(case when attempts>=3 then 1 else 0 end) from tenant_xbow.ledger_cell where applicable group by 1 order by 2 desc;

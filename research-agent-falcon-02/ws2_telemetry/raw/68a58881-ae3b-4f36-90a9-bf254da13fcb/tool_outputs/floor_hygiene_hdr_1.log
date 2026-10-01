@@ -1,0 +1,6 @@
+# command: timeout 15 curl -s -m 13 -o /dev/null -D - http://duck-store.escape.tech:443
+# exit_code: 0
+# ---
+
+HTTP/1.0 400 Bad Request
+

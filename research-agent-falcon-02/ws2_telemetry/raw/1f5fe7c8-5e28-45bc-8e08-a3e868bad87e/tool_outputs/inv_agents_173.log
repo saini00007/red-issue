@@ -1,0 +1,13 @@
+# command: cd /work && grep -oh '[A-Za-z0-9._%+-]*@infinitycapital\.bh' IC_contact.html tool_outputs/*.html 2>/dev/null | sort | uniq -c | head; echo ===; grep -oh '.\{80\}@infinitycapital\.bh' IC_contact.html | head -5
+# tool: grep
+# exit_code: 0
+# ts: 2026-09-30T11:37:33.101129+00:00
+# ---
+
+     33 info@infinitycapital.bh
+===
+10 0004">+973 1710 0004</a></p><a class="Contact_email__saj6M" href="mailto:info@infinitycapital.bh
+710 0004">+973 1710 0004</a></p><a class="Footer_email__1bSh_" href="mailto:info@infinitycapital.bh
+3 1710 0005\",\"tel2Label\":\"F: \",\"tel2\":\"+973 1710 0004\",\"email\":\"info@infinitycapital.bh
+3 1710 0005\",\"tel2Label\":\"F: \",\"tel2\":\"+973 1710 0004\",\"email\":\"info@infinitycapital.bh
+,\"Partnership Inquiries\",\"Media \u0026 Press Relations\"],\"targets\":[\"info@infinitycapital.bh

@@ -1,0 +1,619 @@
+# command: pwd; ls -la; ls tool_outputs 2>/dev/null | head -50; echo ---; ls evidence zap 2>/dev/null | head -30; echo ---; wc -l findings.jsonl ledger_updates.jsonl 2>/dev/null; echo ---; cat findings.jsonl 2>/dev/null | python3 -c "import sys,json;[print(json.loads(l).get('title'),'|',json.loads(l).get('severity'),'|',json.loads(l).get('verified')) for l in sys.stdin if l.strip()]"
+# tool: pwd
+# exit_code: 0
+# ts: 2026-09-30T11:13:09.980667+00:00
+# ---
+
+/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e
+total 4904
+drwxr-xr-x  3 1001 1001    4096 Sep 30 07:06 $WORK_PATH
+drwxr-xr-x 62 1001 1001   20480 Sep 30 10:59 .
+drwxr-xr-x  3 root root    4096 Sep 29 21:24 ..
+drwxr-xr-x  2 1001 1001    4096 Sep 29 21:24 .claude
+drwxr-xr-x  2 1001 1001    4096 Sep 30 11:07 AT
+drwxr-xr-x  2 1001 1001    4096 Sep 30 09:07 IND_VRF_0913
+-rw-r--r--  1 1001 1001    1816 Sep 30 10:47 IVC2_browser.py
+-rw-r--r--  1 1001 1001    1896 Sep 30 10:47 IVC_browser.py
+drwxr-xr-x  2 1001 1001    4096 Sep 30 09:44 IVP_INDEP3
+drwxr-xr-x  2 1001 1001    4096 Sep 30 09:28 IVRELAY_V3
+drwxr-xr-x  2 1001 1001    4096 Sep 30 09:32 IVRELAY_V4
+drwxr-xr-x  2 1001 1001    4096 Sep 30 09:42 IVRFN
+-rw-r--r--  1 1001 1001    2830 Sep 30 09:49 IVRF_probe.py
+-rw-r--r--  1 1001 1001    2381 Sep 30 10:39 IVR_browser.py
+drwxr-xr-x  2 1001 1001    4096 Sep 30 06:42 IV_INDEP
+drwxr-xr-x  2 1001 1001    4096 Sep 30 07:22 IV_INDEP_relay
+drwxr-xr-x  2 1001 1001    4096 Sep 30 09:07 IV_VERIFY2
+-rw-r--r--  1 1001 1001    1416 Sep 30 04:19 R.py
+-rw-r--r--  1 1001 1001    1352 Sep 30 09:44 allowlist.py
+-rw-r--r--  1 1001 1001    1005 Sep 30 07:37 api_enum.sh
+-rw-r--r--  1 1001 1001     846 Sep 29 22:07 api_probe.sh
+-rw-r--r--  1 1001 1001     407 Sep 30 08:22 api_send.req
+-rw-r--r--  1 1001 1001    1123 Sep 29 23:40 api_send_probe.sh
+-rw-r--r--  1 1001 1001    1350 Sep 29 23:40 api_send_shape.sh
+-rw-r--r--  1 1001 1001    2002 Sep 30 06:24 atk2.py
+-rw-r--r--  1 1001 1001    3735 Sep 30 06:27 atk3.py
+-rw-r--r--  1 1001 1001    3230 Sep 30 06:30 atk4.py
+-rw-r--r--  1 1001 1001    3644 Sep 30 06:31 atk5.py
+-rw-r--r--  1 1001 1001    3702 Sep 30 06:32 atk6.py
+-rw-r--r--  1 1001 1001    1490 Sep 30 06:24 atk_send.py
+-rw-r--r--  1 1001 1001       2 Sep 29 21:29 auth.json
+-rw-r--r--  1 1001 1001    1114 Sep 30 03:31 authprobe.py
+-rw-r--r--  1 1001 1001    1590 Sep 30 05:39 base_t.py
+-rw-r--r--  1 1001 1001     839 Sep 30 04:19 basetest.py
+-rw-r--r--  1 1001 1001     270 Sep 30 05:45 bl.py
+-rw-r--r--  1 1001 1001     431 Sep 30 05:47 bl2.py
+drwxrwxrwx  4 1001 1001   24576 Sep 30 06:20 browser
+-rw-r--r--  1 1001 1001     350 Sep 30 05:58 budget.py
+-rw-r--r--  1 1001 1001    1427 Sep 29 21:32 bypass.py
+-rw-r--r--  1 1001 1001    1249 Sep 29 21:57 chal.py
+-rw-r--r--  1 1001 1001     410 Sep 30 05:22 chk.py
+-rw-r--r--  1 1001 1001     343 Sep 30 00:20 chk403.py
+-rw-r--r--  1 1001 1001    1009 Sep 30 10:45 chkp.py
+-rw-r--r--  1 1001 1001     318 Sep 30 05:55 ci.conf
+-rw-r--r--  1 1001 1001    1061 Sep 30 05:23 ci.py
+-rw-r--r--  1 1001 1001    1663 Sep 30 08:25 cors.py
+-rw-r--r--  1 1001 1001     964 Sep 30 01:03 cors.sh
+-rw-r--r--  1 1001 1001     377 Sep 30 10:39 curlhdr.txt
+drwxr-xr-x  2 1001 1001    4096 Sep 30 01:20 d10x
+drwxr-xr-x  2 1001 1001    4096 Sep 30 00:43 d11
+-rw-r--r--  1 1001 1001    1963 Sep 30 04:19 d11_js.py
+-rw-r--r--  1 1001 1001    1413 Sep 30 04:18 d11_map.py
+-rw-r--r--  1 1001 1001    1382 Sep 30 04:18 d11_map2.py
+-rw-r--r--  1 1001 1001    1245 Sep 30 04:19 d11_map3.py
+-rw-r--r--  1 1001 1001    1396 Sep 30 04:22 d12_fp_oracle.py
+-rw-r--r--  1 1001 1001    1113 Sep 30 04:22 d12_reach.sh
+drwxr-xr-x  2 1001 1001    4096 Sep 30 01:40 d13
+-rw-r--r--  1 1001 1001    2590 Sep 30 04:48 d13.py
+-rw-r--r--  1 1001 1001    3723 Sep 30 05:05 d13_deser.py
+drwxr-xr-x  2 1001 1001    4096 Sep 30 10:30 d14
+-rw-r--r--  1 1001 1001    1267 Sep 30 10:35 d14_allow.py
+-rw-r--r--  1 1001 1001     502 Sep 30 09:01 d14_cmdi_oob.sh
+-rw-r--r--  1 1001 1001    1135 Sep 30 10:34 d14_img.py
+-rw-r--r--  1 1001 1001     169 Sep 30 10:34 d14_img_ssrf.cfg
+-rw-r--r--  1 1001 1001    1849 Sep 30 10:36 d14_inj.py
+-rw-r--r--  1 1001 1001    1356 Sep 30 10:35 d14_js.py
+-rw-r--r--  1 1001 1001    1324 Sep 30 10:36 d14_pace.py
+-rw-r--r--  1 1001 1001    2169 Sep 30 05:31 d14_pass.py
+-rw-r--r--  1 1001 1001    1235 Sep 30 10:35 d14_relay.py
+-rw-r--r--  1 1001 1001    1393 Sep 30 10:35 d14_send.py
+-rw-r--r--  1 1001 1001    1744 Sep 30 10:35 d14_send2.py
+drwxr-xr-x  2 1001 1001    4096 Sep 30 08:03 d17
+-rw-r--r--  1 1001 1001    7330 Sep 30 11:13 decisions.log
+drwxr-xr-x  2 1001 1001    4096 Sep 29 23:20 deep9
+-rw-r--r--  1 1001 1001    1550 Sep 29 21:32 depth_inj.sh
+-rw-r--r--  1 1001 1001    2709 Sep 29 21:32 depth_oob.py
+-rw-r--r--  1 1001 1001    1082 Sep 30 08:24 determinism.py
+-rw-r--r--  1 1001 1001    1132 Sep 30 04:20 diag.py
+-rw-r--r--  1 1001 1001    1020 Sep 30 10:16 diag_sqlmap.py
+-rw-r--r--  1 1001 1001    1405 Sep 30 00:21 diff_fields.py
+-rw-r--r--  1 1001 1001    1210 Sep 30 00:59 discover.sh
+-rw-r--r--  1 1001 1001     807 Sep 30 08:11 dlchunks.py
+-rw-r--r--  1 1001 1001     441 Sep 30 05:08 dp12_paths.sh
+-rw-r--r--  1 1001 1001    1134 Sep 30 05:03 dp13.py
+-rw-r--r--  1 1001 1001     967 Sep 30 04:53 dp_img.py
+-rw-r--r--  1 1001 1001    1341 Sep 30 04:51 dp_lib.py
+-rw-r--r--  1 1001 1001     767 Sep 30 04:51 dp_p1.py
+-rw-r--r--  1 1001 1001     818 Sep 30 04:50 dp_reach.py
+-rw-r--r--  1 1001 1001    2261 Sep 30 04:54 dp_send.py
+-rw-r--r--  1 1001 1001    1503 Sep 30 08:38 err500.py
+drwxr-xr-x 27 1001 1001    4096 Sep 30 11:09 evidence
+-rw-r--r--  1 1001 1001  372138 Sep 30 06:23 exploit_floor_signals.jsonl
+-rw-r--r--  1 1001 1001    2451 Sep 30 05:41 falsify_oob.py
+-rw-r--r--  1 1001 1001    1504 Sep 30 02:38 fetch.py
+-rw-r--r--  1 1001 1001     466 Sep 30 07:21 fetch.sh
+-rw-r--r--  1 1001 1001     460 Sep 30 00:08 fetch_js.py
+-rw-r--r--  1 1001 1001     293 Sep 30 03:07 fetch_js.sh
+-rw-r--r--  1 1001 1001     457 Sep 30 00:08 fetch_pages.py
+-rw-r--r--  1 1001 1001     598 Sep 30 03:26 fetchjs.py
+-rw-r--r--  1 1001 1001     484 Sep 29 23:22 fetchjs.sh
+-rw-r--r--  1 1001 1001     459 Sep 29 23:23 fetchjs2.sh
+-rw-r--r--  1 1001 1001  108836 Sep 30 10:34 findings.jsonl
+-rw-r--r--  1 1001 1001     569 Sep 30 05:49 fire.sh
+-rw-r--r--  1 1001 1001    2858 Sep 29 21:58 fire_ssrf.py
+-rw-r--r--  1 1001 1001    1206 Sep 30 03:30 forge.py
+-rw-r--r--  1 1001 1001    1339 Sep 30 03:30 forge2.py
+-rw-r--r--  1 1001 1001     473 Sep 30 00:16 form_map.py
+-rw-r--r--  1 1001 1001     903 Sep 29 21:39 forms.py
+-rw-r--r--  1 1001 1001    1898 Sep 30 00:58 fpcheck.sh
+-rw-r--r--  1 1001 1001      99 Sep 29 23:24 g.sh
+-rw-r--r--  1 1001 1001     729 Sep 30 00:18 gate.sh
+-rw-r--r--  1 1001 1001    1119 Sep 29 23:10 get.sh
+-rw-r--r--  1 1001 1001     899 Sep 30 00:16 getchunk.py
+-rw-r--r--  1 1001 1001     584 Sep 29 23:21 getcontact.sh
+-rw-r--r--  1 1001 1001     764 Sep 30 00:13 getjs.py
+-rw-r--r--  1 1001 1001     553 Sep 30 00:13 grab.py
+-rw-r--r--  1 1001 1001     337 Sep 30 08:47 grab_js.sh
+drwxr-xr-x  2 1001 1001    4096 Sep 29 21:28 guard
+-rw-r--r--  1 1001 1001    2138 Sep 30 06:54 h.py
+-rw-r--r--  1 1001 1001     833 Sep 29 23:18 h11.sh
+-rw-r--r--  1 1001 1001    1048 Sep 29 23:18 h11b.sh
+-rw-r--r--  1 1001 1001    1584 Sep 29 23:18 h11c.sh
+-rw-r--r--  1 1001 1001    1103 Sep 30 01:02 hdr.sh
+-rw-r--r--  1 1001 1001    1412 Sep 30 07:07 hdrprobe.py
+-rw-r--r--  1 1001 1001    1850 Sep 30 07:34 hunt_bypass.py
+-rw-r--r--  1 1001 1001    1816 Sep 30 00:07 ic.py
+-rw-r--r--  1 1001 1001     561 Sep 30 04:36 ic.sh
+drwxr-xr-x  2 1001 1001    4096 Sep 30 09:17 ic15
+-rw-r--r--  1 1001 1001    1710 Sep 29 23:22 ic9.py
+-rw-r--r--  1 1001 1001     291 Sep 30 09:43 ic_ctx.sh
+-rw-r--r--  1 1001 1001     634 Sep 30 09:43 ic_ctx2.sh
+-rw-r--r--  1 1001 1001    1032 Sep 30 09:37 ic_diff.sh
+-rw-r--r--  1 1001 1001     455 Sep 30 09:36 ic_js.sh
+-rw-r--r--  1 1001 1001     859 Sep 30 09:36 ic_js2.sh
+-rw-r--r--  1 1001 1001     114 Sep 30 09:36 ic_js3.sh
+-rw-r--r--  1 1001 1001     988 Sep 30 09:37 ic_secret.sh
+-rw-r--r--  1 1001 1001    1282 Sep 30 09:37 ic_send.sh
+-rw-r--r--  1 1001 1001    1721 Sep 30 09:42 ic_send2.sh
+-rw-r--r--  1 1001 1001     722 Sep 30 09:37 ic_sqli.sh
+-rw-r--r--  1 1001 1001    1030 Sep 30 09:42 ic_sqli_all.sh
+-rw-r--r--  1 1001 1001    1192 Sep 30 09:36 ic_ssrf.sh
+-rw-r--r--  1 1001 1001    1392 Sep 30 09:36 ic_ssrf2.sh
+-rw-r--r--  1 1001 1001    2568 Sep 30 00:08 icp.py
+drwxr-xr-x  2 1001 1001    4096 Sep 30 06:22 icx
+-rw-r--r--  1 1001 1001     664 Sep 29 22:54 imagetest.sh
+-rw-r--r--  1 1001 1001     995 Sep 30 05:54 img0.py
+-rw-r--r--  1 1001 1001    1462 Sep 29 23:32 imgtest.py
+-rw-r--r--  1 1001 1001     800 Sep 30 10:09 imgw.py
+drwxr-xr-x  2 1001 1001    4096 Sep 30 07:35 ind_verify
+drwxr-xr-x  2 1001 1001    4096 Sep 30 06:33 indep
+-rw-r--r--  1 1001 1001    1164 Sep 30 05:21 indep_send.sh
+drwxr-xr-x  2 1001 1001    4096 Sep 30 10:57 inj
+-rw-r--r--  1 1001 1001    1350 Sep 30 08:58 inj_test.sh
+drwxr-xr-x  2 1001 1001    4096 Sep 30 01:47 iv
+drwxr-xr-x  2 1001 1001    4096 Sep 30 08:26 iv2
+-rw-r--r--  1 1001 1001    5296 Sep 30 07:03 iv2.py
+-rw-r--r--  1 1001 1001    1318 Sep 30 10:26 iv_blind_sqli.py
+-rw-r--r--  1 1001 1001     759 Sep 30 00:08 iv_get.cfg
+-rw-r--r--  1 1001 1001     803 Sep 30 04:57 iv_get_options.sh
+-rw-r--r--  1 1001 1001    1875 Sep 30 10:27 iv_inj_probe.py
+-rw-r--r--  1 1001 1001     896 Sep 30 04:57 iv_pass.sh
+-rw-r--r--  1 1001 1001    1338 Sep 30 08:31 iv_relay_test.sh
+-rw-r--r--  1 1001 1001    1250 Sep 30 10:27 iv_send_deep.py
+-rw-r--r--  1 1001 1001    1361 Sep 30 10:27 iv_send_shape.py
+-rw-r--r--  1 1001 1001    3291 Sep 30 04:57 iv_shape.py
+-rw-r--r--  1 1001 1001    2176 Sep 30 10:27 iv_ssrf_xxe.py
+drwxr-xr-x  2 1001 1001    4096 Sep 30 01:40 iv_verify
+-rw-r--r--  1 1001 1001    3439 Sep 30 07:03 iv_verify.py
+-rw-r--r--  1 1001 1001    1207 Sep 30 03:31 js_enum.py
+-rw-r--r--  1 1001 1001    1059 Sep 30 02:35 jsmine.sh
+-rw-r--r--  1 1001 1001    3785 Sep 30 03:32 jwtauth.py
+-rw-r--r--  1 1001 1001  513954 Sep 30 10:57 ledger_updates.jsonl
+-rw-r--r--  1 1001 1001    1515 Sep 30 08:12 maps.py
+-rw-r--r--  1 1001 1001    1085 Sep 30 09:45 massassign.py
+drwxr-xr-x  2 1001 1001    4096 Sep 29 22:59 mine
+-rw-r--r--  1 1001 1001     960 Sep 30 03:34 mkjwt.py
+-rw-r--r--  1 1001 1001     757 Sep 30 10:10 mktargets.py
+-rw-r--r--  1 1001 1001     235 Sep 30 02:42 mkurl.py
+-rw-r--r--  1 1001 1001    1359 Sep 30 04:17 net.py
+-rw-r--r--  1 1001 1001    1567 Sep 30 00:16 net2.py
+-rw-r--r--  1 1001 1001    1206 Sep 30 08:11 nextman.py
+-rw-r--r--  1 1001 1001     646 Sep 30 02:07 nj_probe.sh
+-rw-r--r--  1 1001 1001    1399 Sep 30 03:33 nonealg_control.py
+-rw-r--r--  1 1001 1001    1646 Sep 29 22:06 nosqli_probe.sh
+-rw-r--r--  1 1001 1001    2143 Sep 29 22:06 oob_fire.sh
+-rw-r--r--  1 1001 1001     173 Sep 29 21:24 oob_health.json
+-rw-r--r--  1 1001 1001      68 Sep 29 22:41 oob_host.txt
+-rw-r--r--  1 1001 1001 1214547 Sep 30 11:13 oob_interactions.jsonl
+-rw-r--r--  1 1001 1001  300531 Sep 30 10:49 oob_registry.jsonl
+-rw-r--r--  1 1001 1001    1838 Sep 30 08:22 oobtest.py
+-rw-r--r--  1 1001 1001    1393 Sep 30 06:17 p1.py
+-rw-r--r--  1 1001 1001     860 Sep 30 08:50 p1.sh
+drwxr-xr-x  2 1001 1001    4096 Sep 30 01:20 p10
+-rw-r--r--  1 1001 1001    1419 Sep 30 00:43 p10_bypass.sh
+-rw-r--r--  1 1001 1001     616 Sep 30 00:44 p10_js.sh
+-rw-r--r--  1 1001 1001    1186 Sep 30 00:44 p10_send.sh
+-rw-r--r--  1 1001 1001    1457 Sep 30 00:43 p10_surf.sh
+drwxr-xr-x  2 1001 1001    4096 Sep 30 05:06 p12
+-rw-r--r--  1 1001 1001     467 Sep 30 05:08 p12_paths.sh
+-rw-r--r--  1 1001 1001     945 Sep 30 04:49 p12_probe.py
+-rw-r--r--  1 1001 1001     477 Sep 30 05:09 p12b.sh
+-rw-r--r--  1 1001 1001     334 Sep 30 05:09 p12c.sh
+drwxr-xr-x  2 1001 1001    4096 Sep 30 05:30 p13
+-rw-r--r--  1 1001 1001     705 Sep 30 05:30 p13_probe.py
+drwxr-xr-x  2 1001 1001    4096 Sep 30 09:13 p14
+-rw-r--r--  1 1001 1001    1326 Sep 30 07:03 p14_bypass.sh
+-rw-r--r--  1 1001 1001    2050 Sep 30 07:05 p14_contact_cells.sh
+-rw-r--r--  1 1001 1001    1284 Sep 30 06:58 p14_img.sh
+-rw-r--r--  1 1001 1001     531 Sep 30 06:57 p14_probe.sh
+-rw-r--r--  1 1001 1001    2909 Sep 30 07:04 p14_sqli_verify.sh
+-rw-r--r--  1 1001 1001     578 Sep 30 08:09 p15_diff.sh
+-rw-r--r--  1 1001 1001    1002 Sep 30 08:10 p15_err.sh
+-rw-r--r--  1 1001 1001    1186 Sep 30 08:08 p15_inj.sh
+-rw-r--r--  1 1001 1001    1129 Sep 30 08:09 p15_leak.sh
+-rw-r--r--  1 1001 1001     723 Sep 30 08:07 p15_map.sh
+-rw-r--r--  1 1001 1001     380 Sep 30 08:09 p15_routes.sh
+-rw-r--r--  1 1001 1001     657 Sep 30 08:09 p15_routes2.sh
+-rw-r--r--  1 1001 1001    1322 Sep 30 08:10 p15_send_deep.sh
+-rw-r--r--  1 1001 1001    2245 Sep 30 08:08 p15_ssrf.sh
+-rw-r--r--  1 1001 1001    1893 Sep 30 06:41 p16_oob.py
+-rw-r--r--  1 1001 1001    1446 Sep 30 06:28 p16_probe.py
+-rw-r--r--  1 1001 1001    1648 Sep 30 06:29 p16_ssrf.py
+-rw-r--r--  1 1001 1001    2202 Sep 30 06:29 p16b.py
+-rw-r--r--  1 1001 1001    2209 Sep 30 06:30 p16c.py
+-rw-r--r--  1 1001 1001    1777 Sep 30 01:00 p1_api_send.py
+-rw-r--r--  1 1001 1001    1454 Sep 30 00:58 p2.sh
+-rw-r--r--  1 1001 1001    2166 Sep 29 22:57 p2_img.sh
+-rw-r--r--  1 1001 1001    1557 Sep 29 22:56 p2_ssrf.sh
+-rw-r--r--  1 1001 1001     852 Sep 30 09:14 p_mass.sh
+-rw-r--r--  1 1001 1001     430 Sep 30 08:52 p_routes.sh
+-rw-r--r--  1 1001 1001    3233 Sep 30 09:00 p_send_oracles.sh
+-rw-r--r--  1 1001 1001    2418 Sep 30 09:11 p_so1.sh
+-rw-r--r--  1 1001 1001    2382 Sep 30 09:12 p_so2.sh
+-rw-r--r--  1 1001 1001     893 Sep 30 08:54 p_sqlmap.sh
+-rw-r--r--  1 1001 1001     404 Sep 30 08:54 p_sqlmap2.sh
+-rw-r--r--  1 1001 1001     518 Sep 30 09:13 p_sqlmap3.sh
+-rw-r--r--  1 1001 1001    1472 Sep 30 08:51 p_ssrf.sh
+-rw-r--r--  1 1001 1001    1169 Sep 30 09:45 pace.py
+-rw-r--r--  1 1001 1001    1182 Sep 30 05:56 pacer.py
+-rw-r--r--  1 1001 1001    1431 Sep 30 02:11 pass_a.sh
+-rw-r--r--  1 1001 1001    2214 Sep 30 02:11 pass_b.sh
+-rw-r--r--  1 1001 1001     342 Sep 29 23:28 paths9.txt
+-rw-r--r--  1 1001 1001    2813 Sep 29 21:28 policy.md
+-rw-r--r--  1 1001 1001     839 Sep 30 10:47 postchk.py
+-rw-r--r--  1 1001 1001    1163 Sep 30 10:09 probe.py
+-rw-r--r--  1 1001 1001     372 Sep 30 05:41 probe.sh
+-rw-r--r--  1 1001 1001     835 Sep 30 05:45 probe1.py
+-rw-r--r--  1 1001 1001     474 Sep 30 10:45 probe1.sh
+-rw-r--r--  1 1001 1001    1213 Sep 30 00:19 probe2.py
+-rw-r--r--  1 1001 1001     670 Sep 30 06:20 probe2.sh
+-rw-r--r--  1 1001 1001    2123 Sep 29 22:28 probe200.py
+-rw-r--r--  1 1001 1001     738 Sep 30 00:19 probe3.py
+-rw-r--r--  1 1001 1001     690 Sep 29 23:20 probe9.sh
+-rw-r--r--  1 1001 1001     563 Sep 30 00:17 probe_base.py
+-rw-r--r--  1 1001 1001    1072 Sep 29 23:18 probe_bypass.sh
+-rw-r--r--  1 1001 1001     935 Sep 29 23:39 probe_img.sh
+-rw-r--r--  1 1001 1001     839 Sep 30 00:07 probe_ua.py
+-rw-r--r--  1 1001 1001    1114 Sep 30 09:44 probesend.py
+drwxr-xr-x  2 1001 1001    4096 Sep 30 07:32 pw
+-rw-r--r--  1 1001 1001    1299 Sep 30 02:36 pw3.py
+-rw-r--r--  1 1001 1001    1236 Sep 30 00:20 pw_pass.py
+-rw-r--r--  1 1001 1001    2234 Sep 30 01:46 pw_solve.js
+-rw-r--r--  1 1001 1001    1669 Sep 30 02:37 pw_solve.py
+-rw-r--r--  1 1001 1001    1179 Sep 29 22:43 pwfetch.py
+-rw-r--r--  1 1001 1001    2611 Sep 30 01:22 pwsolve.py
+-rw-r--r--  1 1001 1001    1059 Sep 30 09:45 quota.py
+-rw-r--r--  1 1001 1001     925 Sep 30 08:38 quota_scope.py
+-rw-r--r--  1 1001 1001     766 Sep 29 23:20 r9.sh
+-rw-r--r--  1 1001 1001     237 Sep 30 00:20 rate_limit.py
+-rw-r--r--  1 1001 1001      30 Sep 30 01:27 rcpt.txt
+-rw-r--r--  1 1001 1001    1176 Sep 30 05:40 reach.py
+-rw-r--r--  1 1001 1001     698 Sep 29 22:42 reach.sh
+-rw-r--r--  1 1001 1001    1221 Sep 30 00:18 recipes.py
+-rw-r--r--  1 1001 1001   22959 Sep 30 06:10 recon.json
+-rw-r--r--  1 1001 1001    1040 Sep 30 05:23 relay.py
+-rw-r--r--  1 1001 1001    1490 Sep 30 00:59 relay.sh
+-rw-r--r--  1 1001 1001     914 Sep 30 01:00 relay2.sh
+-rw-r--r--  1 1001 1001     845 Sep 30 01:00 relay3.py
+-rw-r--r--  1 1001 1001    1700 Sep 30 08:12 relay_test.py
+-rw-r--r--  1 1001 1001    1660 Sep 30 04:12 relay_verify.py
+-rw-r--r--  1 1001 1001    1449 Sep 30 04:11 relayproof.py
+-rw-r--r--  1 1001 1001    1413 Sep 30 04:12 relayproof2.py
+-rw-r--r--  1 1001 1001   21296 Sep 29 23:59 report.html
+-rw-r--r--  1 1001 1001  235984 Sep 29 23:59 report.json
+-rw-r--r--  1 1001 1001   73376 Sep 29 23:59 report.md
+-rw-r--r--  1 1001 1001    2755 Sep 30 01:24 repro_browser.py
+-rw-r--r--  1 1001 1001    3077 Sep 30 07:38 repro_relay.py
+-rw-r--r--  1 1001 1001     996 Sep 30 04:34 req.py
+-rw-r--r--  1 1001 1001     330 Sep 30 10:10 req_contact.txt
+-rw-r--r--  1 1001 1001    4324 Sep 30 08:36 retry_proxy.py
+-rw-r--r--  1 1001 1001     910 Sep 30 07:09 rl_probe.py
+-rw-r--r--  1 1001 1001     591 Sep 29 21:37 rq.sh
+-rw-r--r--  1 1001 1001    2371 Sep 30 08:18 run_sqlmap.sh
+-rw-r--r--  1 1001 1001    1440 Sep 30 01:01 run_sqlmap2.sh
+-rw-r--r--  1 1001 1001    1555 Sep 30 01:17 run_sqlmap3.sh
+-rw-r--r--  1 1001 1001     644 Sep 30 08:36 run_sqlmap_send.sh
+-rw-r--r--  1 1001 1001     883 Sep 30 02:27 runner1.sh
+-rw-r--r--  1 1001 1001     427 Sep 30 02:10 runsq2.sh
+-rw-r--r--  1 1001 1001    1534 Sep 30 05:22 s.py
+-rw-r--r--  1 1001 1001     618 Sep 29 22:54 s1_reach.sh
+-rw-r--r--  1 1001 1001   19157 Sep 30 06:10 scan_brief.md
+-rw-r--r--  1 1001 1001    1966 Sep 30 03:34 secrets.py
+-rw-r--r--  1 1001 1001    1142 Sep 30 00:14 send.py
+-rw-r--r--  1 1001 1001     384 Sep 30 01:21 send.req
+-rw-r--r--  1 1001 1001    1274 Sep 30 02:09 send1.sh
+-rw-r--r--  1 1001 1001    1797 Sep 30 02:10 send2.sh
+-rw-r--r--  1 1001 1001     122 Sep 30 09:39 send_data.txt
+-rw-r--r--  1 1001 1001     142 Sep 30 09:48 send_data2.txt
+-rw-r--r--  1 1001 1001     999 Sep 29 23:00 send_fields.sh
+-rw-r--r--  1 1001 1001    3255 Sep 30 10:16 send_inject.py
+-rw-r--r--  1 1001 1001    1199 Sep 29 23:41 send_inject.sh
+-rw-r--r--  1 1001 1001    1509 Sep 30 00:18 send_lib.py
+-rw-r--r--  1 1001 1001    2179 Sep 29 23:41 send_massassign.sh
+-rw-r--r--  1 1001 1001    3409 Sep 30 07:38 send_matrix.sh
+-rw-r--r--  1 1001 1001    1355 Sep 30 08:11 send_probe.py
+-rw-r--r--  1 1001 1001    1171 Sep 29 23:00 send_probe.sh
+-rw-r--r--  1 1001 1001     614 Sep 30 08:12 send_raw.py
+-rw-r--r--  1 1001 1001     370 Sep 30 09:48 send_sqli.req
+-rw-r--r--  1 1001 1001     382 Sep 29 22:06 send_sqlmap.sh
+-rw-r--r--  1 1001 1001    2014 Sep 30 08:12 send_to.py
+-rw-r--r--  1 1001 1001    2573 Sep 30 06:43 send_v2.py
+-rw-r--r--  1 1001 1001    1464 Sep 30 06:44 send_v3.py
+-rw-r--r--  1 1001 1001    1725 Sep 30 06:44 send_v4.py
+-rw-r--r--  1 1001 1001    2357 Sep 30 06:46 send_v5.py
+-rw-r--r--  1 1001 1001    2404 Sep 30 07:38 send_verify.sh
+-rw-r--r--  1 1001 1001    1053 Sep 30 07:38 send_verify2.sh
+-rw-r--r--  1 1001 1001    1204 Sep 30 10:47 sendmatrix.py
+-rw-r--r--  1 1001 1001    1796 Sep 30 00:24 sendp.py
+-rw-r--r--  1 1001 1001    1317 Sep 30 04:11 sendprobe.py
+-rw-r--r--  1 1001 1001    1666 Sep 30 01:21 shape.sh
+-rw-r--r--  1 1001 1001    1110 Sep 30 07:22 sig_probe.py
+-rw-r--r--  1 1001 1001    1880 Sep 30 08:22 slow.py
+-rw-r--r--  1 1001 1001    1046 Sep 30 06:19 sol2.py
+-rw-r--r--  1 1001 1001    1474 Sep 29 21:49 solve.js
+-rw-r--r--  1 1001 1001    1639 Sep 30 01:45 solve_chal.py
+-rw-r--r--  1 1001 1001    1346 Sep 30 07:06 solve_now.py
+-rw-r--r--  1 1001 1001     315 Sep 30 00:14 sq_send.ini
+-rw-r--r--  1 1001 1001     459 Sep 30 08:28 sq_send.txt
+-rw-r--r--  1 1001 1001     283 Sep 30 00:20 sq_send2.ini
+drwxr-xr-x  2 1001 1001    4096 Sep 30 03:23 sqli
+-rw-r--r--  1 1001 1001    2063 Sep 30 05:45 sqli_diff.py
+-rw-r--r--  1 1001 1001    1537 Sep 30 02:10 sqli_verify.sh
+drwxr-xr-x  2 1001 1001    4096 Sep 30 10:44 sqliw
+-rw-r--r--  1 1001 1001     396 Sep 30 08:28 sqlmap_args_send.txt
+-rw-r--r--  1 1001 1001     777 Sep 30 04:20 sqlmap_send.sh
+-rw-r--r--  1 1001 1001     756 Sep 30 00:19 sqlo_batch1.sh
+-rw-r--r--  1 1001 1001     728 Sep 30 10:16 sqlqueue.sh
+-rw-r--r--  1 1001 1001    2033 Sep 30 10:15 sqlqueue_setup.py
+-rw-r--r--  1 1001 1001    1026 Sep 30 10:10 sqlsweep.sh
+drwxr-xr-x  2 1001 1001    4096 Sep 30 01:18 sqm
+-rw-r--r--  1 1001 1001    1424 Sep 29 21:34 ssrf.py
+-rw-r--r--  1 1001 1001     818 Sep 30 08:11 ssrf1.py
+-rw-r--r--  1 1001 1001    2271 Sep 30 02:08 ssrf1.sh
+-rw-r--r--  1 1001 1001     950 Sep 30 02:08 ssrf2.sh
+-rw-r--r--  1 1001 1001    1523 Sep 29 23:39 ssrf_allowlist.sh
+-rw-r--r--  1 1001 1001    1409 Sep 29 23:00 ssrf_bypass.sh
+-rw-r--r--  1 1001 1001    1668 Sep 30 00:09 ssrf_image.py
+-rw-r--r--  1 1001 1001    1320 Sep 30 00:11 ssrf_image2.py
+-rw-r--r--  1 1001 1001    1193 Sep 30 03:44 ssrf_img.py
+-rw-r--r--  1 1001 1001     884 Sep 29 23:00 ssrf_img.sh
+-rw-r--r--  1 1001 1001    1100 Sep 29 23:00 ssrf_img2.sh
+-rw-r--r--  1 1001 1001     975 Sep 29 23:39 ssrf_img_d10.sh
+-rw-r--r--  1 1001 1001    1278 Sep 29 23:40 ssrf_paced.sh
+-rw-r--r--  1 1001 1001    1554 Sep 30 07:37 ssrf_probe.py
+-rw-r--r--  1 1001 1001     662 Sep 29 22:53 ssrf_probe.sh
+-rw-r--r--  1 1001 1001    1615 Sep 29 23:03 ssrf_refire.py
+-rw-r--r--  1 1001 1001    1578 Sep 29 23:39 ssrf_verify.sh
+-rw-r--r--  1 1001 1001     714 Sep 30 10:46 static_probe.py
+-rw-r--r--  1 1001 1001     756 Sep 29 23:18 sweep.py
+-rw-r--r--  1 1001 1001     441 Sep 29 23:08 sweep1.sh
+-rw-r--r--  1 1001 1001     653 Sep 30 00:14 t1.py
+-rw-r--r--  1 1001 1001    1212 Sep 29 22:55 t1.sh
+-rw-r--r--  1 1001 1001     699 Sep 30 00:14 t2.py
+-rw-r--r--  1 1001 1001     837 Sep 29 23:23 t3.py
+-rw-r--r--  1 1001 1001    1775 Sep 29 21:39 t_api_send.py
+-rw-r--r--  1 1001 1001     759 Sep 30 04:18 t_err.py
+-rw-r--r--  1 1001 1001    2211 Sep 30 04:18 t_img.py
+-rw-r--r--  1 1001 1001     755 Sep 29 23:31 t_img.sh
+-rw-r--r--  1 1001 1001    1333 Sep 30 06:26 tg.py
+-rw-r--r--  1 1001 1001    1429 Sep 29 21:39 tlib.py
+drwxr-xr-x  2 1001 1001    4096 Sep 30 09:02 tmpx
+drwxrwxrwx 80 1001 1001   90112 Sep 30 10:53 tool_outputs
+-rw-r--r--  1 1001 1001     375 Sep 30 08:29 tp.py
+-rw-r--r--  1 1001 1001    1047 Sep 29 21:33 triage.py
+-rw-r--r--  1 1001 1001     652 Sep 30 04:43 u12.py
+-rw-r--r--  1 1001 1001     243 Sep 29 23:12 ua.cfg
+-rw-r--r--  1 1001 1001     165 Sep 29 23:24 ua.sh
+-rw-r--r--  1 1001 1001     101 Sep 30 10:30 ua14.txt
+-rw-r--r--  1 1001 1001     118 Sep 29 23:45 ua_real.txt
+-rw-r--r--  1 1001 1001     878 Sep 30 05:56 uamap.py
+-rw-r--r--  1 1001 1001     472 Sep 30 08:36 uatest.sh
+-rw-r--r--  1 1001 1001     752 Sep 30 00:41 urls.txt
+-rw-r--r--  1 1001 1001    3399 Sep 29 23:25 v1_relay.py
+-rw-r--r--  1 1001 1001     701 Sep 30 04:57 v_multi.py
+-rw-r--r--  1 1001 1001    3041 Sep 30 08:18 v_probe.py
+-rw-r--r--  1 1001 1001     704 Sep 30 01:14 v_probe.sh
+-rw-r--r--  1 1001 1001    1964 Sep 30 08:59 v_recon.py
+-rw-r--r--  1 1001 1001     952 Sep 29 23:42 v_send2.sh
+-rw-r--r--  1 1001 1001    1441 Sep 29 23:42 v_send_test1.sh
+-rw-r--r--  1 1001 1001    1248 Sep 30 07:12 ver_browser.py
+-rw-r--r--  1 1001 1001    1028 Sep 30 00:20 ver_relay.sh
+drwxr-xr-x  2 1001 1001    4096 Sep 30 07:25 verif
+drwxr-xr-x  2 1001 1001    4096 Sep 30 08:01 verify
+drwxr-xr-x  2 1001 1001    4096 Sep 30 09:07 verify2
+drwxr-xr-x  2 1001 1001    4096 Sep 30 04:37 verify3
+-rw-r--r--  1 1001 1001    1923 Sep 30 01:44 verify_browser.js
+-rw-r--r--  1 1001 1001    1551 Sep 30 01:44 verify_browser.py
+drwxr-xr-x  2 1001 1001    4096 Sep 30 01:30 verify_ind
+drwxr-xr-x  2 1001 1001    4096 Sep 30 05:40 verify_me
+-rw-r--r--  1 1001 1001     657 Sep 30 00:19 verify_relay.py
+-rw-r--r--  1 1001 1001    4493 Sep 30 08:02 verify_relay2.py
+-rw-r--r--  1 1001 1001    4198 Sep 30 04:37 verify_relay_pw.py
+-rw-r--r--  1 1001 1001    3684 Sep 30 10:40 verify_send.py
+-rw-r--r--  1 1001 1001    2135 Sep 30 00:54 vf.py
+-rw-r--r--  1 1001 1001     603 Sep 29 23:35 vfetch_chunks.sh
+drwxr-xr-x  2 1001 1001    4096 Sep 30 10:07 vfy
+-rw-r--r--  1 1001 1001    1540 Sep 30 03:11 vfy_boundary.sh
+-rw-r--r--  1 1001 1001    1449 Sep 30 03:10 vfy_relay.sh
+-rw-r--r--  1 1001 1001    3331 Sep 30 09:15 vfy_send.py
+-rw-r--r--  1 1001 1001    1028 Sep 30 05:45 vlib.py
+drwxr-xr-x  2 1001 1001    4096 Sep 30 08:26 vrelay
+-rw-r--r--  1 1001 1001    3905 Sep 30 08:02 vrelay.py
+-rw-r--r--  1 1001 1001    3866 Sep 30 08:02 vrelay2.py
+drwxr-xr-x  2 1001 1001    4096 Sep 30 02:41 vrelay_verify
+drwxr-xr-x  2 1001 1001    4096 Sep 30 04:51 vrf
+-rw-r--r--  1 1001 1001    1416 Sep 30 01:01 vs_probe.sh
+drwxr-xr-x  2 1001 1001    4096 Sep 30 06:13 vsend
+-rw-r--r--  1 1001 1001     899 Sep 30 05:55 vtest.py
+drwxr-xr-x  2 1001 1001    4096 Sep 30 03:02 w1
+-rw-r--r--  1 1001 1001     575 Sep 30 06:20 w1.sh
+-rw-r--r--  1 1001 1001     855 Sep 30 01:21 w10c2.sh
+-rw-r--r--  1 1001 1001    1611 Sep 30 01:21 w10p.sh
+drwxr-xr-x  2 1001 1001    4096 Sep 30 05:39 w13
+-rw-r--r--  1 1001 1001    1274 Sep 30 05:32 w13_bypass.sh
+-rw-r--r--  1 1001 1001    1318 Sep 30 05:34 w13_matrix.sh
+-rw-r--r--  1 1001 1001     623 Sep 30 05:35 w13_one.sh
+drwxr-xr-x  2 1001 1001    4096 Sep 30 05:40 w13_out
+-rw-r--r--  1 1001 1001     840 Sep 30 05:34 w13_pace.sh
+-rw-r--r--  1 1001 1001     469 Sep 30 05:31 w13_probe.sh
+-rw-r--r--  1 1001 1001    1027 Sep 30 05:35 w13_reflect.sh
+-rw-r--r--  1 1001 1001    1760 Sep 30 05:37 w13_req.py
+-rw-r--r--  1 1001 1001    1197 Sep 30 05:39 w13_sqli.py
+-rw-r--r--  1 1001 1001     548 Sep 30 05:34 w13_which.sh
+drwxr-xr-x  2 1001 1001    4096 Sep 30 06:54 w15
+-rw-r--r--  1 1001 1001    1914 Sep 30 06:12 w15.py
+-rw-r--r--  1 1001 1001    1890 Sep 30 06:15 w15verify.py
+-rw-r--r--  1 1001 1001    2301 Sep 30 10:23 w19_difftest.py
+-rw-r--r--  1 1001 1001    2921 Sep 30 10:24 w19b_oracle.py
+-rw-r--r--  1 1001 1001    2692 Sep 30 10:24 w19c_time.py
+-rw-r--r--  1 1001 1001    3939 Sep 30 10:25 w19d_oob_ssrf.py
+-rw-r--r--  1 1001 1001    2806 Sep 30 10:26 w19e_allowlist.py
+-rw-r--r--  1 1001 1001    3160 Sep 30 10:27 w19f_api.py
+-rw-r--r--  1 1001 1001    2083 Sep 30 10:28 w19g_js.py
+-rw-r--r--  1 1001 1001    4731 Sep 30 10:28 w19h_send.py
+-rw-r--r--  1 1001 1001    3583 Sep 30 10:30 w19i_relay.py
+-rw-r--r--  1 1001 1001    2404 Sep 30 10:31 w19j_verify.py
+-rw-r--r--  1 1001 1001    4602 Sep 30 10:32 w19k_oracle_control.py
+-rw-r--r--  1 1001 1001    1356 Sep 30 00:17 w1_send.py
+drwxr-xr-x  2 1001 1001    4096 Sep 30 03:19 w2
+drwxr-xr-x  2 1001 1001    4096 Sep 30 09:53 w45
+-rw-r--r--  1 1001 1001    1531 Sep 30 09:52 w46.py
+-rw-r--r--  1 1001 1001    1875 Sep 30 09:53 w47.py
+-rw-r--r--  1 1001 1001    1650 Sep 30 09:54 w48.py
+-rw-r--r--  1 1001 1001     524 Sep 30 09:57 w49.py
+-rw-r--r--  1 1001 1001    1390 Sep 30 09:58 w50.py
+-rw-r--r--  1 1001 1001    1069 Sep 30 10:02 w51.py
+-rw-r--r--  1 1001 1001    1127 Sep 30 10:03 w52.py
+-rw-r--r--  1 1001 1001     645 Sep 30 10:07 w53.py
+-rw-r--r--  1 1001 1001    1126 Sep 30 10:07 w54.py
+-rw-r--r--  1 1001 1001    1020 Sep 30 10:07 w55.py
+-rw-r--r--  1 1001 1001     989 Sep 30 10:07 w56.py
+-rw-r--r--  1 1001 1001    1445 Sep 30 10:09 w57.py
+-rw-r--r--  1 1001 1001    1798 Sep 29 23:21 waf.py
+-rw-r--r--  1 1001 1001    1471 Sep 30 08:23 wafchar.py
+-rw-r--r--  1 1001 1001    1059 Sep 30 07:07 wafprobe.py
+-rw-r--r--  1 1001 1001    2191 Sep 30 06:14 wc.py
+-rw-r--r--  1 1001 1001      57 Sep 30 05:54 wf_test.sh
+-rw-r--r--  1 1001 1001     176 Sep 30 03:30 whereami.py
+drwxr-xr-x  2 1001 1001    4096 Sep 30 04:14 work
+-rw-r--r--  1 1001 1001     278 Sep 30 08:22 work_h.txt
+drwxr-xr-x  2 1001 1001    4096 Sep 30 10:31 work_ic
+drwxr-xr-x  2 1001 1001    4096 Sep 30 06:17 work_scripts
+-rw-r--r--  1 1001 1001    1219 Sep 29 21:49 work_solve.py
+-rw-r--r--  1 1001 1001    3238 Sep 30 06:13 wv.py
+-rw-r--r--  1 1001 1001    2978 Sep 30 00:21 wx_send.sh
+drwxrwxrwx  2 1001 1001    4096 Sep 29 21:32 zap
+117-4ba60eb06d2ce296.js
+275-ea7b562607231006.js
+341-553bcb827a52d4aa.js
+489-c3a66469350d58bd.js
+71-fbecd7aa70f9e321.js
+711-90c81a42d9859d8d.js
+743-7f9d0b5cebfd0486.js
+IVC_browser.log
+SQLMAP_MASTER.log
+__pycache__
+api_enum.log
+api_send_probe.log
+api_send_shape.log
+auth_probe.txt
+block_matrix.txt
+botid.log
+botid.py
+bt.hdr
+bypass_inject.json
+bypass_inject.out
+bypass_inject.py
+c275.js
+c711.js
+c743.js
+canary_host.txt
+ch_about.html
+ch_api.html
+ch_body.html
+ch_root.html
+chain_file_0.log
+chain_file_1.log
+chain_file_2.log
+chain_file_3.log
+chain_file_4.log
+chain_file_5.log
+chain_file_6.log
+chain_file_7.log
+chain_internal.log
+chain_meta_0.log
+chain_meta_1.log
+chain_meta_2.log
+chkp.log
+chromedrive.py
+chunks
+chunks.txt
+cmd_send_sqlmap.sh
+contact.html
+contact_body.html
+cors.log
+ctl_ctf1
+---
+evidence:
+IVFY_RELAY_INDEP
+IVFY_pw.py
+IVIND_rate.sh
+IVME_RL
+IVRELAY
+IVRELAY3_ctrl.sh
+IVRELAY_INDEP
+IVRELAY_V4
+IVRELAY_poll.sh
+IVREPRO_ME
+IVRL_RATE
+IVX3
+IVZ
+IV_INDEP
+IV_INDEP2
+IV_RELAY_REVERIFY
+IV_probe.py
+IV_verify_rate
+MY_send.sh
+MY_url.cfg
+PROBE_WRITE_TEST.txt
+PROOF.md
+V_relay_test.py
+baseline1.sh
+bfetch.py
+body_hp_empty.txt
+body_hp_filled.txt
+browse.py
+curlhdr.txt
+---
+    39 findings.jsonl
+  2026 ledger_updates.jsonl
+  2065 total
+---
+missing security headers: Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy at https://www.infinitycapital.bh | low | True
+missing HSTS (Strict-Transport-Security) on an HTTPS origin at https://www.infinitycapital.bh | low | True
+missing security headers: Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy at http://www.infinitycapital.bh | low | True
+Blind xxe confirmed via OOB callback | high | True
+Blind ssrf confirmed via OOB callback | high | True
+missing security headers: Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy at https://www.infinitycapital.bh | low | True
+missing HSTS (Strict-Transport-Security) on an HTTPS origin at https://www.infinitycapital.bh | low | True
+Blind ssrf confirmed via OOB callback | high | True
+Blind ssrf confirmed via OOB callback | high | True
+Unauthenticated open email relay / spam relay via POST /api/send (attacker-controlled recipient, no auth, no CAPTCHA, no rate limit) | high | True
+Boolean-blind SQL injection in `page` at https://www.infinitycapital.bh/ | high | True
+Boolean-blind SQL injection in `id` at https://www.infinitycapital.bh/api/ | high | True
+missing security headers: Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy at https://www.infinitycapital.bh | low | True
+missing HSTS (Strict-Transport-Security) on an HTTPS origin at https://www.infinitycapital.bh | low | True
+missing security headers: Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy at https://www.infinitycapital.bh | low | True
+missing HSTS (Strict-Transport-Security) on an HTTPS origin at https://www.infinitycapital.bh | low | True
+Boolean-blind SQL injection in `cb` at https://www.infinitycapital.bh/contact | high | True
+Unauthenticated open email relay / spam relay via POST /api/send (attacker-controlled recipient in `targets` field) | high | True
+Unauthenticated open email relay on POST /api/send — attacker-controlled recipient, subject and body (no auth, CAPTCHA, or rate limit) | high | True
+Unauthenticated open email relay / spam relay via POST /api/send (attacker-controlled recipient, no auth, no CAPTCHA, no rate limit) | high | True
+Unauthenticated attacker-controlled email relay via POST /api/send `targets` field (spam/phishing pivot on the corporate domain) | medium | True
+Blind ssrf confirmed via OOB callback | high | True
+Unauthenticated open email relay / spam relay via POST /api/send (attacker-controlled recipient) | high | True
+Unauthenticated attacker-controlled email relay on POST /api/send (spam/phishing pivot on the corporate domain) | high | True
+Unauthenticated open email relay in /api/send — attacker controls `targets` (recipients) | high | False
+missing security headers: Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy at https://www.infinitycapital.bh | low | True
+missing HSTS (Strict-Transport-Security) on an HTTPS origin at https://www.infinitycapital.bh | low | True
+Blind ssrf confirmed via OOB callback | high | True
+Blind ssrf confirmed via OOB callback | high | True
+missing security headers: Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy at https://www.infinitycapital.bh | low | True
+missing HSTS (Strict-Transport-Security) on an HTTPS origin at https://www.infinitycapital.bh | low | True
+Unauthenticated Open Email Relay / Spam Relay via POST /api/send (attacker-controlled recipients and content) | high | True
+No Anti-Automation Protection on Public Contact Form Endpoint (CWE-799: missing rate limit / CAPTCHA on POST /api/send) | medium | True
+Unauthenticated open email relay / spam-relay abuse via /api/send (attacker-controlled recipient) | high | True
+Unauthenticated open email relay via /api/send — attacker-controlled SMTP `to` field (no allow-list) | high | True
+Unauthenticated arbitrary-recipient email relay via client-controlled `targets` field in /api/send | high | True
+Unauthenticated open email relay on POST /api/send — client-controlled `targets` reaches the mail provider as the `to` recipient | high | False
+Internal mail-provider account state (plan + quota) leaked to unauthenticated callers via POST /api/send error passthrough | medium | True
+Unauthenticated attacker-controlled recipient field in /api/send enables open email relay from the corporate Resend domain | high | True

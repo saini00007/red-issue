@@ -1,0 +1,12 @@
+=== NUCLEI (severity all, rate-limit 10) ===
+=== NUCLEI on known paths ===
+--- /api/
+--- /_next/image
+--- /404
+--- /login
+--- /admin
+--- /.env
+--- /sitemap.xml
+--- /api/news
+--- /api/posts
+NUCLEI_DONE

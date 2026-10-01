@@ -1,0 +1,1 @@
+{"name":"Verification Probe","email":"probe@example.org","targets":"recipient@relay-check.example.org","message":"verification probe","check":""}

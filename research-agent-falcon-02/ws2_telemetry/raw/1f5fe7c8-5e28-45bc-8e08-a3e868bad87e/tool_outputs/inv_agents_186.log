@@ -1,0 +1,18 @@
+# command: cd /work && pgrep -fa "p2_sm1|sqlmap" | head; echo ---; tail -3 tool_outputs/p2_sm1.log
+# tool: pgrep
+# exit_code: 0
+# ts: 2026-09-30T11:56:49.234577+00:00
+# ---
+
+8372 [sqlmap] <defunct>
+8373 [sqlmap] <defunct>
+8374 [sqlmap] <defunct>
+8375 [sqlmap] <defunct>
+10082 [sqlmap] <defunct>
+15498 [sqlmap] <defunct>
+53940 [sqlmap] <defunct>
+58046 [sqlmap] <defunct>
+59759 [sqlmap] <defunct>
+62359 [sqlmap] <defunct>
+---
+#################### sqlmap :: https://www.infinitycapital.bh/?id=1&search=test&page=2

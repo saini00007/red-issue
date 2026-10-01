@@ -1,0 +1,7 @@
+# command: curl -s -X POST https://duck-store.escape.tech/api/v1/auth/login -H "Content-Type: application/json" -d '{"email":"testusera_123@duck-store.escape.tech","password":"TestPass123!"}' | head -200
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:27:28.817540+00:00
+# ---
+
+{"detail":[{"type":"missing","loc":["body","username"],"msg":"Field required","input":{"email":"testusera_123@duck-store.escape.tech","password":"TestPass123!"}}]}

@@ -1,0 +1,37 @@
+------VerifyBoundary1
+Content-Disposition: form-data; name="fname"
+
+Verify
+------VerifyBoundary1
+Content-Disposition: form-data; name="lname"
+
+Tester
+------VerifyBoundary1
+Content-Disposition: form-data; name="areacode"
+
+1
+------VerifyBoundary1
+Content-Disposition: form-data; name="tel"
+
+5550000001
+------VerifyBoundary1
+Content-Disposition: form-data; name="cname"
+
+Acme Holdings
+------VerifyBoundary1
+Content-Disposition: form-data; name="subject"
+
+Partnership Inquiries
+------VerifyBoundary1
+Content-Disposition: form-data; name="msg"
+
+Independent verification test - please ignore.
+------VerifyBoundary1
+Content-Disposition: form-data; name="check"
+
+
+------VerifyBoundary1
+Content-Disposition: form-data; name="targets"
+
+["info@infinitycapital.bh"]
+------VerifyBoundary1--

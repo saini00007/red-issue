@@ -1,0 +1,9 @@
+# command: timeout 15 curl -s -m 13 -o - -w '\nHTTP_STATUS:%{http_code}' https://www.infinitycapital.bh/contact
+# exit_code: 0
+# ---
+
+Too Many Requests
+
+Too Many Requests
+bom1::wl8wd-1790747174863-2d02575831e9
+HTTP_STATUS:429

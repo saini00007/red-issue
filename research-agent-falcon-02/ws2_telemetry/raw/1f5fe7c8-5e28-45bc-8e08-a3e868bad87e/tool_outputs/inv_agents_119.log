@@ -1,0 +1,10 @@
+# command: cd "$WORK_PATH"; setsid nohup bash run_sqlmap.sh > /dev/null 2>&1 < /dev/null & echo launched; sleep 2; pgrep -af sqm_contact | grep -v defunct | head -1
+# tool: setsid
+# exit_code: 124
+# ts: 2026-09-30T11:40:37.219049+00:00
+# ---
+
+
+[exec timeout after 300s]
+
+[exit=124]

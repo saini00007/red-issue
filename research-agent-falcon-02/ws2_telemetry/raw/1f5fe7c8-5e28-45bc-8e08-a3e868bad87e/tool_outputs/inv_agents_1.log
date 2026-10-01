@@ -1,0 +1,8 @@
+# command: cd /work/evidence 2>/dev/null || mkdir -p /work/evidence; curl -s -X POST https://www.infinitycapital.bh/api/send -H "Content-Type: application/json" -d '{}' -w "\nHTTP %{http_code}\n" | head -50
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-30T12:00:19.255997+00:00
+# ---
+
+
+HTTP 500

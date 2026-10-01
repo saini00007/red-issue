@@ -1,0 +1,7 @@
+# command: kill -9 72223 72229 72230 2>/dev/null; echo killed-others
+# tool: kill
+# exit_code: 0
+# ts: 2026-09-30T00:35:34.596724+00:00
+# ---
+
+killed-others

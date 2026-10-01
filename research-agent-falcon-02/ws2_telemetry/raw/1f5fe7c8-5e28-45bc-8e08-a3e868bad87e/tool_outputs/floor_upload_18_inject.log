@@ -1,0 +1,7 @@
+# command: timeout 15 sh -c 'printf '"'"'%s'"'"' '"'"'<html><!--s5uea2443f5fc44--></html>'"'"' > /tmp/up_$$.html; curl -s -m 13 -o - -w '"'"'\nHTTP_STATUS:%{http_code}\nCTYPE:%{content_type}'"'"' -F '"'"'none=@/tmp/up_$$.html;type=text/html;filename=s5uea2443f5fc44.html'"'"' https://www.infinitycapital.bh/api/send'
+# exit_code: 26
+# ---
+
+
+HTTP_STATUS:000
+CTYPE:

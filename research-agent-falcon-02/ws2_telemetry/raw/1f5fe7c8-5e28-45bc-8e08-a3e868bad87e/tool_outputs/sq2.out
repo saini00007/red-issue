@@ -1,0 +1,28 @@
+        ___
+       __H__
+ ___ ___[(]_____ ___ ___  {1.10.8#stable}
+|_ -| . [,]     | .'| . |
+|___|_  [']_|_|_|__,|  _|
+      |_|V...       |_|   https://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 09:48:09 /2026-09-30/
+
+[09:48:09] [WARNING] using '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sq2' as the output directory
+[09:48:09] [INFO] fetched random HTTP User-Agent header value 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 OPR/120.0.0.0 (Edition std-2)' from file '/usr/share/sqlmap/data/txt/user-agents.txt'
+[1/1] URL:
+GET https://www.infinitycapital.bh/api/send
+POST data: %40send_data2.txt
+do you want to test this URL? [Y/n/q]
+> Y
+[09:48:09] [INFO] testing URL 'https://www.infinitycapital.bh/api/send'
+[09:48:09] [INFO] using '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sq2/results-09302026_0948am.csv' as the CSV results file in multiple targets mode
+[09:48:09] [INFO] testing connection to the target URL
+[09:48:10] [ERROR] unable to retrieve page content, skipping to the next target
+[09:48:10] [WARNING] HTTP error codes detected during run:
+500 (Internal Server Error) - 1 times
+[09:48:10] [INFO] you can find results of scanning in multiple targets mode inside the CSV file '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sq2/results-09302026_0948am.csv'
+
+[*] ending @ 09:48:10 /2026-09-30/
+

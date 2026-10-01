@@ -1,0 +1,6 @@
+# command: timeout 15 curl -s -m 13 -o - -w '\nHTTP_STATUS:%{http_code}' https://duck-store.escape.tech/api/v1/reviews/product/1
+# exit_code: 0
+# ---
+
+[{"id":2,"product_id":1,"user_id":"6ba7b814-9dad-11d1-80b4-00c04fd430c8","user":{"id":"6ba7b814-9dad-11d1-80b4-00c04fd430c8","username":"patricia_a","first_name":"Patricia","last_name":"Anderson","avatar_url":"/static/avatars/patricia.png"},"rating":5,"title":"A must-have for any collection","content":"Every collection needs the classic. This one is beautifully made.","image_url":null,"created_at":"2026-09-21T01:39:10.333212"},{"id":1,"product_id":1,"user_id":"6ba7b810-9dad-11d1-80b4-00c04fd430c8","user":{"id":"6ba7b810-9dad-11d1-80b4-00c04fd430c8","username":"sarah_j","first_name":"Sarah","last_name":"Johnson","avatar_url":"/static/avatars/sarah.png"},"rating":5,"title":"Perfect classic duck!","content":"This is exactly what a rubber duck should be. Great quality and the perfect shade of yellow!","image_url":null,"created_at":"2026-09-01T01:39:10.333212"}]
+HTTP_STATUS:200

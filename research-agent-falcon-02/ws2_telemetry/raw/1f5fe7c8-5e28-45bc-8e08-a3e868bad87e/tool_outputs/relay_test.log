@@ -1,0 +1,12 @@
+ARBITRARY EXTERNAL RECIPIENT -> 200 {"data":null,"error":{"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded","statusCode":429}}
+
+CRLF HEADER INJ in fname -> 200 {"data":null,"error":{"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded","statusCode":429}}
+
+CRLF in subject -> 200 {"data":null,"error":{"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded","statusCode":429}}
+
+CRLF in targets -> 200 {"data":null,"error":{"statusCode":422,"name":"validation_error","message":"Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format."}}
+
+SSTI msg {{7*7}} -> 200 {"data":null,"error":{"statusCode":429,"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded"}}
+
+CMDi msg -> 200 {"data":null,"error":{"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded","statusCode":429}}
+

@@ -1,0 +1,1 @@
+https://www.infinitycapital.bh/404?q=test (GET)  # /usr/bin/sqlmap -u https://www.infinitycapital.bh/404?q=test --batch --level=5 --risk=3 --dbs --threads=4 --timeout=15 --retries=1 --output-dir=tool_outputs/sqlmap/ef84775e

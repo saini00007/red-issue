@@ -1,0 +1,6 @@
+# command: timeout 15 curl -s -m 13 -o - -w '\nHTTP_STATUS:%{http_code}' http://duck-store.escape.tech
+# exit_code: 0
+# ---
+
+
+HTTP_STATUS:301

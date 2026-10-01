@@ -1,0 +1,6 @@
+GET /_next/image?url=https%3A%2F%2Fwww.infinitycapital.bh%2Fatom.xml&w=1080&q=75 HTTP/1.1
+Host: www.infinitycapital.bh
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,*/*
+Accept-Language: en-US,en;q=0.9
+Connection: close

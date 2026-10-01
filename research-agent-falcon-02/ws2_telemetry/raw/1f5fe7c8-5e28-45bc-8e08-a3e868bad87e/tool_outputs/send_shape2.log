@@ -1,0 +1,49 @@
+empty body                                                 curl: (2) no URL specified
+curl: try 'curl --help' or 'curl --manual' for more information
+{"data":{"id":"01a0ef85-1a10-7046-8c95-cdd725e2ff06"},"error":null}
+only fname                                                 curl: (2) no URL specified
+curl: try 'curl --help' or 'curl --manual' for more information
+{"data":{"id":"01a0ef85-1a10-7046-8c95-cdd725e2ff06"},"error":null}
+fname+lname                                                curl: (2) no URL specified
+curl: try 'curl --help' or 'curl --manual' for more information
+{"data":{"id":"01a0ef85-1a10-7046-8c95-cdd725e2ff06"},"error":null}
+form+areacode+tel                                          curl: (2) no URL specified
+curl: try 'curl --help' or 'curl --manual' for more information
+{"data":{"id":"01a0ef85-1a10-7046-8c95-cdd725e2ff06"},"error":null}
+form+telInput                                              curl: (2) no URL specified
+curl: try 'curl --help' or 'curl --manual' for more information
+{"data":{"id":"01a0ef85-1a10-7046-8c95-cdd725e2ff06"},"error":null}
+form+subject+targets                                       curl: (2) no URL specified
+curl: try 'curl --help' or 'curl --manual' for more information
+{"data":{"id":"01a0ef85-1a10-7046-8c95-cdd725e2ff06"},"error":null}
+form+msgTxt                                                curl: (2) no URL specified
+curl: try 'curl --help' or 'curl --manual' for more information
+{"data":{"id":"01a0ef85-1a10-7046-8c95-cdd725e2ff06"},"error":null}
+form+cname+msgTxt                                          curl: (2) no URL specified
+curl: try 'curl --help' or 'curl --manual' for more information
+{"data":{"id":"01a0ef85-1a10-7046-8c95-cdd725e2ff06"},"error":null}
+FULL all fields                                            curl: (2) no URL specified
+curl: try 'curl --help' or 'curl --manual' for more information
+{"data":{"id":"01a0ef85-1a10-7046-8c95-cdd725e2ff06"},"error":null}
+FULL + email                                               curl: (2) no URL specified
+curl: try 'curl --help' or 'curl --manual' for more information
+{"data":{"id":"01a0ef85-1a10-7046-8c95-cdd725e2ff06"},"error":null}
+multipart                                                  curl: (2) no URL specified
+curl: try 'curl --help' or 'curl --manual' for more information
+{"data":{"id":"01a0ef85-1a10-7046-8c95-cdd725e2ff06"},"error":null}
+json full                                                  curl: (2) no URL specified
+curl: try 'curl --help' or 'curl --manual' for more information
+{"data":{"id":"01a0ef85-1a10-7046-8c95-cdd725e2ff06"},"error":null}
+no content-type raw                                        curl: (2) no URL specified
+curl: try 'curl --help' or 'curl --manual' for more information
+{"data":{"id":"01a0ef85-1a10-7046-8c95-cdd725e2ff06"},"error":null}
+--- error detail with verbose
+HTTP/2 429 
+cache-control: private, no-store, max-age=0
+content-type: text/plain; charset=utf-8
+server: Vercel
+x-vercel-id: bom1::gr8fx-1790741934819-23387bb09f49
+x-vercel-mitigated: deny
+content-length: 75
+date: Wed, 30 Sep 2026 04:18:54 GMT
+

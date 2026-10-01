@@ -1,0 +1,7 @@
+# command: timeout 15 curl -s -m 13 -o - -w '\nHTTP_STATUS:%{http_code}\nCTYPE:%{content_type}' https://duck-store.escape.tech/api/v1/users/cb4dbfeb-fjda-49a2-b0d9-ac0e15635d5d
+# exit_code: 0
+# ---
+
+{"detail":"Invalid UUID format"}
+HTTP_STATUS:400
+CTYPE:application/json

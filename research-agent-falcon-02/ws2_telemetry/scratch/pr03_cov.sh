@@ -1,0 +1,17 @@
+set -u
+DB=/home/admin/research/2026-09-29-deepdive/proxy/data/proxy_log.db
+R="sqlite3 -readonly -separator ' | ' $DB"
+echo "=== A1 ts range ==="
+$R "select min(ts), max(ts), count(*) from calls;"
+echo "=== A2 endpoint distribution ==="
+$R "select endpoint, count(*) from calls group by 1 order by 2 desc;"
+echo "=== A3 model_req distribution (top 30) ==="
+$R "select coalesce(model_req,'<NULL>'), coalesce(model_fwd,'<NULL>'), count(*) from calls group by 1,2 order by 3 desc limit 30;"
+echo "=== A4 distinct model_req count ==="
+$R "select count(distinct model_req), count(distinct model_fwd) from calls;"
+echo "=== A5 status distribution ==="
+$R "select status, count(*) from calls group by 1 order by 2 desc;"
+echo "=== A6 error classes (top 20, truncated) ==="
+$R "select substr(coalesce(error,''),1,90), count(*) from calls where error is not null and error<>'' group by 1 order by 2 desc limit 20;"
+echo "=== A7 null-empty bodies ==="
+$R "select sum(case when request_json is null or request_json='' then 1 else 0 end), sum(case when response_json is null or response_json='' then 1 else 0 end), sum(case when model_req is null then 1 else 0 end), sum(case when prompt_tokens is null then 1 else 0 end) from calls;"

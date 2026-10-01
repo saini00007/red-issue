@@ -1,0 +1,31 @@
+[baseline] 500@@0 :: 
+[sqli_subject_or] 500@@0 :: 
+[sqli_subject_and] 500@@0 :: 
+[nosqli_msg_json] 500@@0 :: 
+[nosqli_cname_obj] 500@@0 :: 
+[ssti_subject] 500@@0 :: 
+[cmdi_subject] 500@@0 :: 
+[xss_subject] 500@@0 :: 
+[header_crlf] 500@@0 :: 
+Traceback (most recent call last):
+  File "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/send_inject.py", line 35, in <module>
+    meta, body = send(**kw)
+                 ~~~~^^^^^^
+  File "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/send_inject.py", line 14, in send
+    p = subprocess.run(args, capture_output=True)
+  File "/usr/lib/python3.14/subprocess.py", line 555, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 1039, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        pass_fds, cwd, env,
+                        ^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+                        gid, gids, uid, umask,
+                        ^^^^^^^^^^^^^^^^^^^^^^
+                        start_new_session, process_group)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 1990, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+OSError: [Errno 7] Argument list too long: 'curl'

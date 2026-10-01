@@ -1,0 +1,10 @@
+# command: cd "$WORK_PATH"; nohup setsid bash run_sqlmap.sh >/tmp/rs.log 2>&1 & echo launched-$!; cat run_sqlmap.sh | head -6
+# tool: setsid
+# exit_code: 124
+# ts: 2026-09-30T11:57:05.847820+00:00
+# ---
+
+
+[exec timeout after 300s]
+
+[exit=124]

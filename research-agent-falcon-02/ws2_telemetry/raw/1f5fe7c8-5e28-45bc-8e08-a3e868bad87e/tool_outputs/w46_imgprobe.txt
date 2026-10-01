@@ -1,0 +1,20 @@
+real_1080 403 33981 text/html; charset=utf-8 {}
+   body: b'<!DOCTYPE html><html lang="en" data-astro-cid-4wdtffzm><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" cont'
+real_640 200 23442 image/jpeg {}
+   body: b'\xff\xd8\xff\xdb\x00C\x00\x14\x14\x14\x14\x15\x14\x17\x19\x19\x17\x1f"\x1e"\x1f.+\'\'+.F26262FjBNBBNBj^r]V]r^\xa9\x85vv\x85\xa9\xc3\xa4\x9b\xa4\xc3\xec\xd3\xd3\xec\xff\xff\xff\xff\xff\xff\xff\xdb\x00C\x01\x14\x14\x14\x14\x15\x14\x17\x19\x19\x17\x1f"\x1e"\x1f.+\'\'+.F26262FjBNBBNBj^r]V]r^\xa9\x85vv\x85\xa9\xc3\xa4\x9b\xa4\xc3\xec\xd3\xd3\xec\xff\xff\xff\xff\xff\xff\xff\xc2\x00\x11\x08\x02\x91\x02\x80\x03\x01"\x00\x02\x11\x01\x03\x11\x01\xff\xc4\x00\x1b\x00\x00\x02\x03\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+real_3840 403 33988 text/html; charset=utf-8 {}
+   body: b'<!DOCTYPE html><html lang="en" data-astro-cid-4wdtffzm><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" cont'
+bogus_host 403 33985 text/html; charset=utf-8 {}
+   body: b'<!DOCTYPE html><html lang="en" data-astro-cid-4wdtffzm><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" cont'
+metadata 400 84 text/plain; charset=utf-8 {}
+   body: b'Bad request\n\nINVALID_IMAGE_OPTIMIZE_REQUEST\n\nbom1::p2tkr-1790761982927-bb3b30200bfb\n'
+local 400 84 text/plain; charset=utf-8 {}
+   body: b'Bad request\n\nINVALID_IMAGE_OPTIMIZE_REQUEST\n\nbom1::6w8ns-1790761988610-c2810bc1d043\n'
+file_etc 403 33988 text/html; charset=utf-8 {}
+   body: b'<!DOCTYPE html><html lang="en" data-astro-cid-4wdtffzm><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" cont'
+noext 400 84 text/plain; charset=utf-8 {}
+   body: b'Bad request\n\nINVALID_IMAGE_OPTIMIZE_REQUEST\n\nbom1::x6xwt-1790761998006-fc907717c776\n'
+onlyurl 400 84 text/plain; charset=utf-8 {}
+   body: b'Bad request\n\nINVALID_IMAGE_OPTIMIZE_REQUEST\n\nbom1::6nrjh-1790761998372-cf9dd76fdeb4\n'
+now 400 84 text/plain; charset=utf-8 {}
+   body: b'Bad request\n\nINVALID_IMAGE_OPTIMIZE_REQUEST\n\nbom1::rfhg8-1790761998527-22ba9e6e7969\n'

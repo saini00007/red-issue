@@ -1,0 +1,23 @@
+# command: cd "$WORK_PATH"; cat api_send.req; echo "=== baseline ==="; curl -sk -o /dev/null -w "%{http_code} %{size_download}\n" https://www.infinitycapital.bh/; which sqlmap; sqlmap --version 2>&1 | tail -1; ls /usr/share/wordlists 2>/dev/null | head
+# tool: cat
+# exit_code: 0
+# ts: 2026-09-30T11:13:25.898678+00:00
+# ---
+
+POST https://www.infinitycapital.bh/api/send HTTP/1.1
+Host: www.infinitycapital.bh
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36
+Content-Type: application/x-www-form-urlencoded
+Accept: */*
+Connection: close
+
+fname=sqlmapProbe&lname=Security&areacode=973&tel=5551234&cname=QATester&subject=Hello&msg=TestBody&check=on&targets=probe%40example.com
+=== baseline ===
+200 27355
+/usr/bin/sqlmap
+1.10.8#stable
+dirb
+nmap.lst
+rockyou.txt.gz
+seclists
+wfuzz

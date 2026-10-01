@@ -1,0 +1,5 @@
+home|https://www.infinitycapital.bh/
+send_base|https://www.infinitycapital.bh/api/send
+img_q|https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=75
+img_meta|https://www.infinitycapital.bh/_next/image?url=http%3A%2F%2F169.254.169.254%2Flatest%2Fmeta-data%2F&w=640&q=75
+contact|https://www.infinitycapital.bh/contact

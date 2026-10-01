@@ -1,0 +1,20 @@
+URL: http://ooba1bc24dfe60d.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/ssrf1
+  -> 400|84
+  body: b'Bad request\n\nINVALID_IMAGE_OPTIMIZE_REQUEST\n\nbom1::5xhl2-1790755873162-f13792ed9a7a\n'
+
+URL: http://ooba1bc24dfe60d.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/ssrf2.png
+  -> 400|84
+  body: b'Bad request\n\nINVALID_IMAGE_OPTIMIZE_REQUEST\n\nbom1::bvvmt-1790755873286-c3b9d23c8b49\n'
+
+URL: https://ooba1bc24dfe60d.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/ssrf3.png
+  -> 400|84
+  body: b'Bad request\n\nINVALID_IMAGE_OPTIMIZE_REQUEST\n\nbom1::fmhs8-1790755873423-3991cbb7c890\n'
+
+URL: http://ooba1bc24dfe60d.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in:8080/ssrf4
+  -> 400|84
+  body: b'Bad request\n\nINVALID_IMAGE_OPTIMIZE_REQUEST\n\nbom1::z89wq-1790755873548-978239952902\n'
+
+URL: http://ooba1bc24dfe60d.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/a/b/c.png?x=1
+  -> 400|84
+  body: b'Bad request\n\nINVALID_IMAGE_OPTIMIZE_REQUEST\n\nbom1::76mk4-1790755873685-14d79211f688\n'
+

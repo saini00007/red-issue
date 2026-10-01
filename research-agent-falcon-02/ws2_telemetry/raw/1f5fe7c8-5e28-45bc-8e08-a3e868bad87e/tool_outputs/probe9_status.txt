@@ -1,0 +1,12 @@
+403:33993  /
+200:41185  /contact
+403:33992  /404
+405:0  /api/send
+403:33983  /api/
+403:33991  /atom.xml
+403:33997  /feeds/all.atom.xml
+200:103  /robots.txt
+200:1340  /sitemap.xml
+200:24881  /_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=75
+200:27355  /?page=2
+403:33997  /contact?cb=1

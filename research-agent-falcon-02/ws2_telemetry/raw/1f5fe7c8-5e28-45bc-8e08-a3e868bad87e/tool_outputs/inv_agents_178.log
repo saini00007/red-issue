@@ -1,0 +1,7 @@
+# command: cd /work && timeout 3000 python3 tool_outputs/p2_sm1.py 2>&1 | tee tool_outputs/p2_sm1.log | tail -100
+# tool: python3
+# exit_code: 0
+# ts: 2026-09-30T11:39:03.513317+00:00
+# ---
+
+python3: can't open file '/work/tool_outputs/p2_sm1.py': [Errno 2] No such file or directory

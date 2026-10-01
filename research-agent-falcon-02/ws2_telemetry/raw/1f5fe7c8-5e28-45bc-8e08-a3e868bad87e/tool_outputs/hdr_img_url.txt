@@ -1,0 +1,21 @@
+HTTP/2 307 
+age: 0
+cache-control: public, max-age=0, must-revalidate
+content-security-policy: script-src 'none'; frame-src 'none'; sandbox;
+content-type: text/html; charset=utf-8
+date: Tue, 29 Sep 2026 21:51:43 GMT
+etag: "jf8lktp28ae14"
+location: /404
+referrer-policy: strict-origin-when-cross-origin
+server: Vercel
+strict-transport-security: max-age=63072000
+vary: RSC, Next-Router-State-Tree, Next-Router-Prefetch
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-matched-path: /[slug]
+x-powered-by: Next.js
+x-vercel-cache: MISS
+x-vercel-id: bom1::iad1::7jdhp-1790718702711-095b6bf0ef88
+x-xss-protection: 1; mode=block
+content-length: 18201
+

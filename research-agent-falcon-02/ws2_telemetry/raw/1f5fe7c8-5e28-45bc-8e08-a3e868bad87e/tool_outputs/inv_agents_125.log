@@ -1,0 +1,24 @@
+# command: cd "$WORK_PATH"; for f in tool_outputs/sqlmap_contact.log tool_outputs/sqlmap_root.log tool_outputs/sqlmap_send.log tool_outputs/sqm_contact.log; do echo "=== $f"; [ -f "$f" ] && tail -4 "$f"; done
+# tool: tail
+# exit_code: 1
+# ts: 2026-09-30T11:51:46.229588+00:00
+# ---
+
+=== tool_outputs/sqlmap_contact.log
+[11:26:33] [WARNING] target appears to be rate-limiting requests; sqlmap is backing off and throttling accordingly (consider raising '--delay' or lowering '--threads')
+[11:26:34] [WARNING] if the problem persists please try to lower the number of used threads (option '--threads')
+[11:35:21] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause'
+[11:46:00] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (NOT)'
+=== tool_outputs/sqlmap_root.log
+[11:26:34] [WARNING] if the problem persists please try to lower the number of used threads (option '--threads')
+[11:32:00] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause'
+[11:39:55] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (NOT)'
+[11:46:00] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (subquery - comment)'
+=== tool_outputs/sqlmap_send.log
+[11:22:13] [INFO] testing 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (ELT)'
+[11:22:54] [INFO] testing 'MySQL OR boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (ELT)'
+[11:23:24] [INFO] testing 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)'
+[11:24:44] [INFO] testing 'MySQL OR boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)'
+=== tool_outputs/sqm_contact.log
+
+[exit=1]

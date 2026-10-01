@@ -1,0 +1,6 @@
+# command: timeout 300 dalfox url 'https://www.infinitycapital.bh/contact?x=1&cb=1' --silence --format json --no-color --skip-bav
+# exit_code: 0
+# ---
+
+[
+{}]

@@ -1,0 +1,14 @@
+### A) SAME url x8 -> size/md5 spread (is the 403 body constant?)
+sizes: [33993, 34002, 33992, 33993, 33982, 33987, 33997, 33997] distinct md5: 8 stdev=5.8
+
+### B) claimed SQLi oracle on /?page=  TRUE vs FALSE vs baseline x6 each
+baseline   sizes=[33990, 33994, 33992, 33993, 33993, 34004] md5s={'0c68d4ab', 'fd5dffc1', '490a6eab', '5870a76f', 'd54672d3', '2e31270b'}
+AND 1=1    sizes=[33993, 33989, 33993, 34000, 33994, 33994] md5s={'641dbb6c', '5df7629e', '7ddfd0e7', '39be3cd4', '067ab6f6', '57048d80'}
+AND 1=2    sizes=[33982, 33993, 33990, 33994, 33982, 33989] md5s={'416a46e3', '339e9d7e', '048575b9', 'ffb90ac1', 'c7260936', '7466c3ee'}
+
+### C) does any response differ from the checkpoint interstitial?
+2 (33982, True, False)
+2 AND 1=1 (34004, True, False)
+2' AND '1'='1 (33993, True, False)
+2;SELECT 1 (33993, True, False)
+2 UNION SELECT 1,2,3 (33994, True, False)

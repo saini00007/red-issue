@@ -1,0 +1,11 @@
+{
+  "seed": "https://duck-store.escape.tech/",
+  "routes": [],
+  "xhr": [],
+  "forms": [],
+  "js_endpoints": [],
+  "js_secrets": [],
+  "screenshots": [],
+  "har": "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/68a58881-ae3b-4f36-90a9-bf254da13fcb/browser/duck-store.escape.tech_1790653122.har.gz",
+  "pages_crawled": 0
+}

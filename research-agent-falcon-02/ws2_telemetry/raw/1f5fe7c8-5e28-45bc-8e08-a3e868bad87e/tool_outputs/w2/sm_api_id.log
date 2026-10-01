@@ -1,0 +1,31 @@
+        ___
+       __H__
+ ___ ___[)]_____ ___ ___  {1.10.8#stable}
+|_ -| . [)]     | .'| . |
+|___|_  [.]_|_|_|__,|  _|
+      |_|V...       |_|   https://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 00:15:24 /2026-09-30/
+
+[00:15:24] [WARNING] using '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/w2/sm_api_id' as the output directory
+[1/1] URL:
+GET https://www.infinitycapital.bh/api/?id=1
+do you want to test this URL? [Y/n/q]
+> Y
+[00:15:24] [INFO] testing URL 'https://www.infinitycapital.bh/api/?id=1'
+[00:15:24] [INFO] using '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/w2/sm_api_id/results-09302026_1215am.csv' as the CSV results file in multiple targets mode
+[00:15:24] [INFO] testing connection to the target URL
+got a 308 redirect to 'https://www.infinitycapital.bh/api?id=1'. Do you want to follow? [Y/n] Y
+[00:15:25] [ERROR] detected invalid data for declared content encoding 'br' ('BrotliError: truncated Brotli stream')
+[00:15:25] [WARNING] turning off page compression
+[00:15:25] [WARNING] if the problem persists please check that the provided target URL is reachable. In case that it is, you can try to rerun with switch '--random-agent' and/or proxy switches ('--proxy', '--proxy-file'...)
+[00:15:25] [INFO] testing if the target URL content is stable
+[00:15:25] [WARNING] GET parameter 'id' does not appear to be dynamic
+[00:15:25] [WARNING] heuristic (basic) test shows that GET parameter 'id' might not be injectable
+[00:15:26] [INFO] heuristic (SSTI) test shows that GET parameter 'id' might be vulnerable to server-side template injection (rerun with switch '--ssti')
+[00:15:26] [INFO] testing for SQL injection on GET parameter 'id'
+[00:15:26] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[00:15:29] [WARNING] target appears to be rate-limiting requests; sqlmap is backing off and throttling accordingly (consider raising '--delay' or lowering '--threads')
+[00:15:30] [WARNING] if the problem persists please try to lower the number of used threads (option '--threads')

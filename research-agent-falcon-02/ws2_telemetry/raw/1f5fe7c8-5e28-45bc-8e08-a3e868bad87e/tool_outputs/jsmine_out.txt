@@ -1,0 +1,60 @@
+  https://www.infinitycapital.bh/_next/static/chunks/275-ea7b56260723100 328197 bytes
+  https://www.infinitycapital.bh/_next/static/chunks/341-553bcb827a52d4a 115295 bytes
+  https://www.infinitycapital.bh/_next/static/chunks/489-c3a66469350d58b 125646 bytes
+  https://www.infinitycapital.bh/_next/static/chunks/71-fbecd7aa70f9e321 38805 bytes
+  https://www.infinitycapital.bh/_next/static/chunks/711-90c81a42d9859d8 43522 bytes
+  https://www.infinitycapital.bh/_next/static/chunks/743-7f9d0b5cebfd048 50426 bytes
+  https://www.infinitycapital.bh/_next/static/chunks/app/layout-2aac163e 9990 bytes
+  https://www.infinitycapital.bh/_next/static/chunks/app/page-85182612bc 173 bytes
+  https://www.infinitycapital.bh/_next/static/chunks/fd9d1056-3902e23722 172834 bytes
+  https://www.infinitycapital.bh/_next/static/chunks/main-app-2dcde4753e 461 bytes
+  https://www.infinitycapital.bh/_next/static/chunks/polyfills-42372ed13 112594 bytes
+  https://www.infinitycapital.bh/_next/static/chunks/webpack-e401313d27e 4252 bytes
+TOTAL 1126504
+
+contentful_space         hits=14
+     contextWindow,"pointermove"
+     contextWindow,"pointercancel"
+     transformPerspective:"perspective"
+     SUPERSCRIPT="superscript"
+     marginRight:"marginBottom"
+     rtlTranslate="horizontal"
+     rtlTranslate:"horizontal"
+     displayName="SwiperSlide"
+     middleware:"middleware"
+     instrument:"instrument"
+     displayName="LoadableComponent"
+     MozPrintableKey:"Unidentified"
+
+cf_delivery_token        hits=0
+
+contentful_token_generic hits=0
+
+resend_key               hits=0
+
+aws_key                  hits=0
+
+jwt                      hits=0
+
+bearer                   hits=0
+
+api_key_long             hits=30
+     getDeploymentIdQueryOrEmptyString
+     clearCacheNodeDataForSegmentPath
+     invalidateCacheBelowFlightSegmentPath
+     hasInterceptionRouteInCurrentTree
+     prepareFlightRouterStateForRequest
+     BAILOUT_TO_CLIENT_SIDE_RENDERING
+     AccordionItem_accordianItem__izn1U
+     Contact_custom--dropdown-container__hwiSN
+     CursorProvider_cursor-auto__smVST
+     CursorProvider_cursor-over__Ya_OV
+     ImageCarousel_carouselFull__3iHeP
+     ImageCarousel_carouselHalf__JWnHN
+
+supabase                 hits=0
+
+firebase                 hits=0
+
+### in HTML inline scripts
+  ... ntent="Infinity Capital"/><meta property="og:locale" content="ar_BH"/><meta property="og:image" content="https://images.ctfassets.net/yts1dx0j7jj5/yRvqRHKqEsbLvrma0OXqV/4b64635f8f18ab2e546275054c0f0230/infinity-capital-sharing-card.jpg"/><meta property="og:ima

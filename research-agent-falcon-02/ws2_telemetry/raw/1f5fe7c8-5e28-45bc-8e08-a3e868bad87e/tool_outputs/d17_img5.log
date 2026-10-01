@@ -1,0 +1,18 @@
+### CMDi payloads on /_next/image
+ semicolon                404 len=79 The page could not be found  NOT_FOUND  bom1::lpv7k-1790755334304-a3d5bd316c9f 
+ pipe                     429 len=75 Too Many Requests  Too Many Requests bom1::4n4dm-1790755334738-2e958e751a27
+ dollar-paren             429 len=75 Too Many Requests  Too Many Requests bom1::pt249-1790755334862-927727ae6576
+ backtick-q               429 len=75 Too Many Requests  Too Many Requests bom1::jzkhr-1790755334977-13a7f2e69162
+ newline                  429 len=75 Too Many Requests  Too Many Requests bom1::z7rmh-1790755335164-b5256c0e9f25
+ w-cmdi                   400 len=84 Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::lzf58-1790755335349-b5ce0ca6db55 
+ q-cmdi                   429 len=75 Too Many Requests  Too Many Requests bom1::p4xvl-1790755335469-160bb78ef802
+
+### SSTI payloads on /_next/image
+ jinja w                  400 len=84 Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::z44lj-1790755335588-22ec1321a9b8 
+ jinja url                404 len=79 The page could not be found  NOT_FOUND  bom1::nh5l2-1790755335725-89789a625174 
+ ejs w                    429 len=75 Too Many Requests  Too Many Requests bom1::lzf58-1790755336213-6491f01092ba
+ ejs q                    400 len=84 Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::5sw56-1790755336330-cafd529990ad 
+ nunjucks                 429 len=75 Too Many Requests  Too Many Requests bom1::6nx58-1790755336443-83955a15c897
+ freemarker               429 len=75 Too Many Requests  Too Many Requests bom1::6w8ns-1790755336537-85081decaf02
+ jinja url 2              429 len=75 Too Many Requests  Too Many Requests bom1::tzjjs-1790755336658-9f8511453726
+ jinja url 3              429 len=75 Too Many Requests  Too Many Requests bom1::jb6gj-1790755336774-86707a2764ed

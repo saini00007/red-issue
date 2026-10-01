@@ -1,0 +1,17 @@
+PROBE   http://oob361eaf6c87e2.dau2p4ghgqag02k5emggc5xu6hph3m973.o -> 403|33988|text/html; charset=utf-8
+PROBE   https://oob361eaf6c87e2.dau2p4ghgqag02k5emggc5xu6hph3m973. -> 403|33990|text/html; charset=utf-8
+PROBE   http://oob361eaf6c87e2.dau2p4ghgqag02k5emggc5xu6hph3m973.o -> 403|34009|text/html; charset=utf-8
+PROBE   http://oob361eaf6c87e2.dau2p4ghgqag02k5emggc5xu6hph3m973.o -> 403|33987|text/html; charset=utf-8
+PROBE   http://169.254.169.254/latest/meta-data/                   -> 403|33990|text/html; charset=utf-8
+PROBE   http://169.254.169.254/                                    -> 403|33990|text/html; charset=utf-8
+PROBE   http://127.0.0.1:3000/                                     -> 403|33998|text/html; charset=utf-8
+PROBE   http://127.0.0.1:8080/                                     -> 403|33988|text/html; charset=utf-8
+PROBE   http://localhost:3000/                                     -> 403|33987|text/html; charset=utf-8
+PROBE   http://[::1]:3000/                                         -> 403|33987|text/html; charset=utf-8
+PROBE   http://0.0.0.0:3000/                                       -> 403|33988|text/html; charset=utf-8
+PROBE   file:///etc/passwd                                         -> 403|33992|text/html; charset=utf-8
+PROBE   gopher://127.0.0.1:25/                                     -> 403|33998|text/html; charset=utf-8
+PROBE   dict://127.0.0.1:11211/                                    -> 403|34006|text/html; charset=utf-8
+CONTROL https://images.ctfassets.net/yts1dx0j7jj5/1GCT0vyjqmOwm2OL -> 403|33992|text/html; charset=utf-8
+
+done

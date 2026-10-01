@@ -1,0 +1,15 @@
+# command: cd "$WORK_PATH"; tail -40 tool_outputs/SQLMAP_MASTER.log 2>/dev/null; echo ---; cat api_send.req
+# tool: tail
+# exit_code: 0
+# ts: 2026-09-30T11:57:58.835056+00:00
+# ---
+
+---
+POST https://www.infinitycapital.bh/api/send HTTP/1.1
+Host: www.infinitycapital.bh
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36
+Content-Type: application/x-www-form-urlencoded
+Accept: */*
+Connection: close
+
+fname=sqlmapProbe&lname=Security&areacode=973&tel=5551234&cname=QATester&subject=Hello&msg=TestBody&check=on&targets=probe%40example.com

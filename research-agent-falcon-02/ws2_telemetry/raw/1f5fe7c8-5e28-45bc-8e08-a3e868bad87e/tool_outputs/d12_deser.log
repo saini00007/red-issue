@@ -1,0 +1,7 @@
+A_baseline | 429 | text/plain; charset=utf-8 | Too Many Requests  Too Many Requests bom1::glptz-1790745861687-9afbed2558e9
+B_json_ct | 429 | application/json | {"error":{"code":"429","message":"Too Many Requests","id":"bom1::rxv6k-1790745931844-67247ade0e18"}} 
+C_to_array | ERR | ReadTimeout | HTTPSConnectionPool(host='www.infinitycapital.bh', port=443): Read timed out. (read timeou
+D_to_object | 429 | text/plain; charset=utf-8 | Too Many Requests  Too Many Requests bom1::p4xvl-1790746102244-7d6d35d6c364
+E_proto | ERR | ReadTimeout | HTTPSConnectionPool(host='www.infinitycapital.bh', port=443): Read timed out. (read timeou
+F_body_object | 429 | text/plain; charset=utf-8 | Too Many Requests  Too Many Requests bom1::vqwhg-1790746272726-92e5cd2099a6
+G_yaml | 429 | text/plain; charset=utf-8 | Too Many Requests  Too Many Requests bom1::nxjwx-1790746342831-bcc927daef19

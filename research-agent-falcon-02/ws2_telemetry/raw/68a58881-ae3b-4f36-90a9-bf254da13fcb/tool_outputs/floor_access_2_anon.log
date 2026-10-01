@@ -1,0 +1,6 @@
+# command: timeout 15 curl -s -m 13 -o - -w '\nHTTP_STATUS:%{http_code}' https://duck-store.escape.tech/api/v1/reviews/product/2
+# exit_code: 0
+# ---
+
+[{"id":3,"product_id":2,"user_id":"6ba7b812-9dad-11d1-80b4-00c04fd430c8","user":{"id":"6ba7b812-9dad-11d1-80b4-00c04fd430c8","username":"emma_n","first_name":"Emma","last_name":"Nakamura","avatar_url":"/static/avatars/emma.png"},"rating":5,"title":"My daughter loves it!","content":"The sparkly horn is so cute! Bath time is now magical.","image_url":null,"created_at":"2026-09-11T11:39:27.920139"}]
+HTTP_STATUS:200

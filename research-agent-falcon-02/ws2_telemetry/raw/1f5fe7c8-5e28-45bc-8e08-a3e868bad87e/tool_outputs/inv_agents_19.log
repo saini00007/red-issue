@@ -1,0 +1,8 @@
+# command: cd /work/evidence && for f in chunk_*.js; do if grep -q 'subjects' "$f"; then echo "== $f"; fi; done; echo "---"; grep -o '.\{300\}subjects.\{500\}' chunk_489-c3a66469350d58bd.js 2>/dev/null | head -3
+# tool: grep
+# exit_code: 0
+# ts: 2026-09-30T12:01:57.800981+00:00
+# ---
+
+== chunk_275-ea7b562607231006.js
+---

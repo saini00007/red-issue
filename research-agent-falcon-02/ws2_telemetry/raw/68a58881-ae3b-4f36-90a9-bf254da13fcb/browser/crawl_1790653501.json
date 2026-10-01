@@ -1,0 +1,376 @@
+{
+  "seed": "https://duck-store.escape.tech/",
+  "routes": [
+    "https://duck-store.escape.tech/",
+    "https://duck-store.escape.tech/products",
+    "https://duck-store.escape.tech/story",
+    "https://duck-store.escape.tech/testimonials",
+    "https://duck-store.escape.tech/cart",
+    "https://duck-store.escape.tech/login",
+    "https://duck-store.escape.tech/signup",
+    "https://duck-store.escape.tech/products/1",
+    "https://duck-store.escape.tech/products/2",
+    "https://duck-store.escape.tech/products/3",
+    "https://duck-store.escape.tech/openapi.json",
+    "https://duck-store.escape.tech/products/4",
+    "https://duck-store.escape.tech/products/5",
+    "https://duck-store.escape.tech/products/6",
+    "https://duck-store.escape.tech/products/7",
+    "https://duck-store.escape.tech/products/8",
+    "https://duck-store.escape.tech/products/9",
+    "https://duck-store.escape.tech/products/10"
+  ],
+  "xhr": [
+    {
+      "url": "https://duck-store.escape.tech/api/v1/products/?skip=0&limit=3",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/1/stats",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/2/stats",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/3/stats",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/products/?skip=0&limit=100",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/1/stats",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/2/stats",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/3/stats",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/4/stats",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/5/stats",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/6/stats",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/7/stats",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/8/stats",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/9/stats",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/10/stats",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/testimonials/?skip=0&limit=50&featured_only=false",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/products/1",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/1/stats",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/1?skip=0&limit=20",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/products/?skip=0&limit=100",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/products/2",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/2/stats",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/2?skip=0&limit=20",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/products/?skip=0&limit=100",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/products/3",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/3/stats",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/3?skip=0&limit=20",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/products/?skip=0&limit=100",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/products/4",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/4/stats",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/4?skip=0&limit=20",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/products/?skip=0&limit=100",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/products/5",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/5/stats",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/5?skip=0&limit=20",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/products/?skip=0&limit=100",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/products/6",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/6/stats",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/6?skip=0&limit=20",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/products/?skip=0&limit=100",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/products/7",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/7/stats",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/7?skip=0&limit=20",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/products/?skip=0&limit=100",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/products/8",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/8/stats",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/8?skip=0&limit=20",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/products/?skip=0&limit=100",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/products/9",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/9/stats",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/9?skip=0&limit=20",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/products/?skip=0&limit=100",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/products/10",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/10/stats",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/reviews/product/10?skip=0&limit=20",
+      "method": "GET",
+      "post_data": null
+    },
+    {
+      "url": "https://duck-store.escape.tech/api/v1/products/?skip=0&limit=100",
+      "method": "GET",
+      "post_data": null
+    }
+  ],
+  "forms": [
+    {
+      "method": "GET",
+      "url": "https://duck-store.escape.tech/login",
+      "params": [
+        "username",
+        "password"
+      ]
+    },
+    {
+      "method": "GET",
+      "url": "https://duck-store.escape.tech/signup",
+      "params": []
+    }
+  ],
+  "js_endpoints": [
+    "https://duck-store.escape.tech/api/v1",
+    "https://duck-store.escape.tech/static",
+    "https://duck-store.escape.tech/auth/register",
+    "https://duck-store.escape.tech/auth/login",
+    "https://duck-store.escape.tech/auth/me",
+    "https://duck-store.escape.tech/users/me/profile",
+    "https://duck-store.escape.tech/products/",
+    "https://duck-store.escape.tech/products/search/",
+    "https://duck-store.escape.tech/cart",
+    "https://duck-store.escape.tech/cart/add",
+    "https://duck-store.escape.tech/orders",
+    "https://duck-store.escape.tech/orders/checkout",
+    "https://duck-store.escape.tech/orders/coupons/validate",
+    "https://duck-store.escape.tech/orders/coupons",
+    "https://duck-store.escape.tech/testimonials/",
+    "https://duck-store.escape.tech/admin/stats",
+    "https://duck-store.escape.tech/admin/recent-orders",
+    "https://duck-store.escape.tech/admin/users",
+    "https://duck-store.escape.tech/admin/products",
+    "https://duck-store.escape.tech/uploads/product",
+    "https://duck-store.escape.tech/uploads/avatar",
+    "https://duck-store.escape.tech/uploads/general",
+    "https://duck-store.escape.tech/totp/setup",
+    "https://duck-store.escape.tech/totp/enable",
+    "https://duck-store.escape.tech/totp/disable",
+    "https://duck-store.escape.tech/totp/status",
+    "https://duck-store.escape.tech/totp/verify",
+    "https://duck-store.escape.tech/auth/login/totp",
+    "https://duck-store.escape.tech/products",
+    "https://duck-store.escape.tech/story",
+    "https://duck-store.escape.tech/testimonials",
+    "https://duck-store.escape.tech/admin",
+    "https://duck-store.escape.tech/account",
+    "https://duck-store.escape.tech/login",
+    "https://duck-store.escape.tech/signup",
+    "https://duck-store.escape.tech/openapi.json",
+    "https://duck-store.escape.tech/checkout",
+    "https://duck-store.escape.tech/admin/orders",
+    "https://duck-store.escape.tech/api/v1/admin/orders",
+    "https://duck-store.escape.tech/vulnerabilities"
+  ],
+  "js_secrets": [],
+  "screenshots": [
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/68a58881-ae3b-4f36-90a9-bf254da13fcb/browser/shots/0.png",
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/68a58881-ae3b-4f36-90a9-bf254da13fcb/browser/shots/1.png",
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/68a58881-ae3b-4f36-90a9-bf254da13fcb/browser/shots/2.png",
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/68a58881-ae3b-4f36-90a9-bf254da13fcb/browser/shots/3.png",
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/68a58881-ae3b-4f36-90a9-bf254da13fcb/browser/shots/4.png",
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/68a58881-ae3b-4f36-90a9-bf254da13fcb/browser/shots/5.png",
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/68a58881-ae3b-4f36-90a9-bf254da13fcb/browser/shots/6.png",
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/68a58881-ae3b-4f36-90a9-bf254da13fcb/browser/shots/7.png",
+    "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/68a58881-ae3b-4f36-90a9-bf254da13fcb/browser/shots/8.png"
+  ],
+  "har": "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/68a58881-ae3b-4f36-90a9-bf254da13fcb/browser/duck-store.escape.tech_1790653501.har.gz",
+  "pages_crawled": 18
+}

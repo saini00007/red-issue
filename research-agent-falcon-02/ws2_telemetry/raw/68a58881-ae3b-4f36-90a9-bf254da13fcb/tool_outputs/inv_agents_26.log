@@ -1,0 +1,8 @@
+# command: curl -s -X POST https://duck-store.escape.tech/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username":"test","password":"test"}'
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:34:53.926603+00:00
+# ---
+

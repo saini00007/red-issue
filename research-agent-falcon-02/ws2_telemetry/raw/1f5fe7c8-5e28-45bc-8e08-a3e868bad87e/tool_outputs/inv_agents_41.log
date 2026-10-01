@@ -1,0 +1,21 @@
+# command: grep -o 'api/send[^"'"'"']*' /work/ICV3_contact.html | head -20; echo "=== form fields ==="; grep -oE 'name="[^"]+"' /work/ICV3_contact.html | sort -u | head -40
+# tool: grep
+# exit_code: 0
+# ts: 2026-09-30T12:06:12.081062+00:00
+# ---
+
+=== form fields ===
+name="check"
+name="cname"
+name="description"
+name="fname"
+name="lname"
+name="msgTxt"
+name="tel"
+name="telInput"
+name="twitter:card"
+name="twitter:description"
+name="twitter:image"
+name="twitter:image:width"
+name="twitter:title"
+name="viewport"

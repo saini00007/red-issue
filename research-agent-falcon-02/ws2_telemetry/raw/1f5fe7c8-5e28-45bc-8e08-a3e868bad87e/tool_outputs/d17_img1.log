@@ -1,0 +1,8 @@
+=== A. baseline /_next/image params ===
+baseline w=1080 q=75                       200 len=48055    0.16s image/jpeg
+q=75'                                      400 len=84       0.17s Bad request  INVALID_IMAGE_OPTIMIZE_REQUEST  bom1::68l59-1790755169150-7960a6d94338 
+Traceback (most recent call last):
+  File "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/d17/img1.py", line 22, in <module>
+    g("/_next/image?url=%s&w=1080'%20OR%201=1--&q=75" % urllib.parse.quote(GOOD, safe=''), "w=1080' OR 1=1--")
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TypeError: not enough arguments for format string

@@ -1,0 +1,6 @@
+# command: cd $WORK_PATH/tool_outputs && timeout 200 python3 manual_oracle.py 2>&1 | tail -50
+# tool: python3
+# exit_code: 0
+# ts: 2026-09-30T00:39:12.259144+00:00
+# ---
+

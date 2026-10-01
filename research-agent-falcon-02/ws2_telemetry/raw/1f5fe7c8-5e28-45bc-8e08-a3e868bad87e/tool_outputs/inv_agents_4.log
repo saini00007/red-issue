@@ -1,0 +1,7 @@
+# command: mkdir -p /work/evidence && cd /work/evidence && curl -s -o contact.html -w "HTTP %{http_code} size=%{size_download}\n" https://www.infinitycapital.bh/
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-30T12:00:19.887376+00:00
+# ---
+
+HTTP 200 size=27355

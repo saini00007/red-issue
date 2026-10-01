@@ -1,0 +1,7 @@
+# command: cd /work && tail -30 tool_outputs/p2_sm1.log
+# tool: tail
+# exit_code: 0
+# ts: 2026-09-30T12:01:47.981065+00:00
+# ---
+
+#################### sqlmap :: https://www.infinitycapital.bh/?id=1&search=test&page=2

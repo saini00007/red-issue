@@ -1,0 +1,24 @@
+# command: cd /work; UA="Mozilla/5.0 (X11; Linux x86_64) Firefox/128.0"
+curl -s -o /tmp/big.txt -w "HTTP=%{http_code} sz=$(stat -c%s /tmp/big.txt) ct=%{content_type}\n" -X POST "https://www.infinitycapital.bh/api/send" -H "User-Agent: $UA" -F "fname=A" -F "lname=B" -F "areacode=388" -F "tel=1" -F "cname=c" -F "subject=s" -F 'msg=m`id`' -F "check=1" -F "targets=vapt@www.infinitycapital.bh"
+echo "=== first 300 ==="; head -c 300 /tmp/big.txt; echo; echo "=== where does JSON end? ==="; python3 -c "
+d=open('/tmp/big.txt',errors='replace').read()
+print('total',len(d))
+i=d.find('</script>')
+print('script end at',i)
+print(repr(d[60:400]))
+"
+# tool: head
+# exit_code: 0
+# ts: 2026-09-30T11:36:10.335461+00:00
+# ---
+
+HTTP=200 sz= ct=application/json
+=== first 300 ===
+{"data":{"id":"01a0f219-c49d-735d-8246-fe21adefe79b"},"error":null}
+=== where does JSON end? ===
+total 67
+script end at -1
+'":null}'
+
+[exit=0]
+stat: cannot statx '/tmp/big.txt': No such file or directory

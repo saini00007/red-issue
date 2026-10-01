@@ -1,0 +1,7 @@
+# command: cd /work/evidence && grep -o 'targets.\{0,300\}' contact.html | head -5
+# tool: grep
+# exit_code: 0
+# ts: 2026-09-30T12:02:25.846101+00:00
+# ---
+
+targets\":[\"info@infinitycapital.bh\"]}}]},\"sub\":\"true\"}]\n"])</script><script>self.__next_f.push([1,"d:[[\"$\",\"meta\",\"0\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no\"}],[\"$\",\"meta\",\"1\",{\"charSet\":\"utf-8\"}],[\"$\",\"title\"

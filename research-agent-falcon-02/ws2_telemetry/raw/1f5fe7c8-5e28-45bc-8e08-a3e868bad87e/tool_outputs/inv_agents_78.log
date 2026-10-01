@@ -1,0 +1,21 @@
+# command: cd /work/evidence && for f in 117-4ba60eb06d2ce296 275-ea7b562607231006 341-553bcb827a52d4aa 489-c3a66469350d58bd 71-fbecd7aa70f9e321 711-90c81a42d9859d8d 743-7f9d0b5cebfd0486 fd9d1056-3902e23722a6b2db; do curl -s "https://www.infinitycapital.bh/_next/static/chunks/$f.js" --max-time 30 -o "js_$f.js"; done; curl -s "https://www.infinitycapital.bh/_next/static/chunks/app/%5Bslug%5D/template-0dafb77d99dbfc0f.js" --max-time 30 -o js_template.js; curl -s "https://www.infinitycapital.bh/_next/static/chunks/app/%5Bslug%5D/page-b4cf0ec49dd0c737.js" --max-time 30 -o js_page.js; ls -la js_*.js
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-30T12:08:29.253322+00:00
+# ---
+
+-rw-r--r-- 1 kali kali 124362 Sep 30 12:08 js_117-4ba60eb06d2ce296.js
+-rw-r--r-- 1 kali kali 328197 Sep 30 12:08 js_275-ea7b562607231006.js
+-rw-r--r-- 1 kali kali 115295 Sep 30 12:08 js_341-553bcb827a52d4aa.js
+-rw-r--r-- 1 kali kali 125646 Sep 30 12:08 js_489-c3a66469350d58bd.js
+-rw-r--r-- 1 kali kali  38805 Sep 30 12:08 js_71-fbecd7aa70f9e321.js
+-rw-r--r-- 1 kali kali  43522 Sep 30 12:08 js_711-90c81a42d9859d8d.js
+-rw-r--r-- 1 kali kali  50426 Sep 30 12:08 js_743-7f9d0b5cebfd0486.js
+-rw-r--r-- 1 kali kali 172834 Sep 30 12:08 js_fd9d1056-3902e23722a6b2db.js
+-rw-r--r-- 1 kali kali   9990 Sep 30 10:50 js_layout-2aac163e3ced1001.js
+-rw-r--r-- 1 kali kali   9990 Sep 30 07:44 js_layout.js
+-rw-r--r-- 1 kali kali    461 Sep 30 10:50 js_main-app-2dcde4753ea0d175.js
+-rw-r--r-- 1 kali kali    172 Sep 30 12:08 js_page.js
+-rw-r--r-- 1 kali kali 112594 Sep 30 10:50 js_polyfills-42372ed130431b0a.js
+-rw-r--r-- 1 kali kali    497 Sep 30 12:08 js_template.js
+-rw-r--r-- 1 kali kali   4252 Sep 30 10:50 js_webpack-e401313d27ef7f61.js

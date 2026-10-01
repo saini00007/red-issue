@@ -1,0 +1,6 @@
+[["IMG-127","/_next/image?url=http%3A%2F%2F127.0.0.1%2F&w=1080&q=75"],
+ ["IMG-empty","/_next/image?url=&w=1080&q=75"],
+ ["IMG-nowidth","/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg"],
+ ["API-send-GET","/api/send"],
+ ["API-root","/api/?id=1"],
+ ["404q","/404?q=test"]]

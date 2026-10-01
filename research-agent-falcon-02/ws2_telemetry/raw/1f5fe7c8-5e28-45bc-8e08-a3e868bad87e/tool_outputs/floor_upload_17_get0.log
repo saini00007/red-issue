@@ -1,0 +1,10 @@
+# command: timeout 15 curl -s -m 13 -o - -w '\nHTTP_STATUS:%{http_code}\nCTYPE:%{content_type}' https://www.infinitycapital.bh/feeds/all.atom.xml
+# exit_code: 0
+# ---
+
+Too Many Requests
+
+Too Many Requests
+bom1::gn9ps-1790748671780-c7b3c6ecdd02
+HTTP_STATUS:429
+CTYPE:text/plain; charset=utf-8

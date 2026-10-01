@@ -1,0 +1,12 @@
+# command: cd $WORK_PATH && nohup bash sqlo_batch1.sh > sqlo_batch1.log 2>&1 &
+echo started $!; sleep 5; tail -3 sqlo_batch1.log
+# tool: sleep
+# exit_code: 1
+# ts: 2026-09-30T00:24:21.512610+00:00
+# ---
+
+started 71082
+
+[exit=1]
+bash: line 1: sqlo_batch1.log: Permission denied
+tail: cannot open 'sqlo_batch1.log' for reading: No such file or directory

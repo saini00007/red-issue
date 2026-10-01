@@ -1,0 +1,6 @@
+GET /api -> 404 https://www.infinitycapital.bh/404 28986 text/html; charset=utf-8
+Traceback (most recent call last):
+  File "/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/w55.py", line 8, in <module>
+    for hk,hv in r.history: print("     hist",hk.status_code,hk.headers.get('location'))
+        ^^^^^
+ValueError: too many values to unpack (expected 2)

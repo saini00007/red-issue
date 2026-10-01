@@ -1,0 +1,7 @@
+# command: curl -X GET "https://duck-store.escape.tech/api/v1/openapi.json" 2>&1 | python3 -m json.tool 2>&1 | head -200
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:08:44.421865+00:00
+# ---
+
+Expecting value: line 1 column 3 (char 2)

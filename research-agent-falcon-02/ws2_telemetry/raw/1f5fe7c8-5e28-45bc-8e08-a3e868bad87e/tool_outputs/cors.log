@@ -1,0 +1,67 @@
+--- POST /api/send Origin:evil -> 403
+      HTTP/2 403 
+      x-vercel-challenge-token: 2.1790756761.60.YmRhNmM3MTI2NDBmNGM4Zjk3ZjgwNTJjNjZjM2Y3ZmE7MmI0NDM0YjA7N2RjMzkyM2MyZmZjMGNlNzA4MTBlODVlNWQ5MjExZDI5NzIwMmQ1MDszO4EnZsm+EA4Bp2jic9yMPEYWGbCBctTNVeg2tCS/RzzVVJPXFwQXl8YSWiCvf+SyVL9CkBCu+ZrV9U7pHibwSGHr7NoUXo/3eHqzmbCX9A==.ad8fae96a77af6829f09f8e25b5cf277
+      x-vercel-id: bom1::1790756761-WDWMj7uZNE49rAb7jDpdcUE3xk5sp52I
+      x-vercel-mitigated: challenge
+
+--- OPTIONS preflight -> 403
+      HTTP/2 403 
+      x-vercel-challenge-token: 2.1790756761.60.YmRhNmM3MTI2NDBmNGM4Zjk3ZjgwNTJjNjZjM2Y3ZmE7MGMwMWY2NmU7ODQzNTg2N2NhOTk5YzcxNjg1NDY3NDdjM2Q3MmI3YmY2Mzg3MzUzMDszO+v7tKWBBl6RvslxFNaDRrZXnw7JYHEhY6B2m8OjUlQXFwndRwBYJkW6LgFsYHfd6om7q81a25qCTrMhukZvLlhnSzTBSb7mkMB6CZSr3w==.ed58784f8e60594673fe47488cce24a9
+      x-vercel-id: bom1::1790756761-bHM8GmjGMcYQ2G7LuJ2w77ohuHd5ZRZy
+      x-vercel-mitigated: challenge
+
+--- GET /api/send Origin:evil -> 405
+      HTTP/2 405 
+      vary: RSC, Next-Router-State-Tree, Next-Router-Prefetch
+      x-content-type-options: nosniff
+      x-frame-options: SAMEORIGIN
+      x-matched-path: /api/send
+      x-vercel-cache: MISS
+      x-vercel-id: bom1::iad1::p76zp-1790756761807-0d65192ea173
+      x-xss-protection: 1; mode=block
+
+--- Host header injection -> 403
+      HTTP/2 403 
+      x-vercel-challenge-token: 2.1790756762.60.YmRhNmM3MTI2NDBmNGM4Zjk3ZjgwNTJjNjZjM2Y3ZmE7YWZkY2Y4OTU7OWQ3MzcyMWU0N2NjMmYwNGRhOWQ5NWEwMWUxYWMxZTAwMjlmMjU5ODszO0pKKMqnRvGlOpCDF1u7YZl3Z0xRsA3N6KN+2cW2DRvHS00OjdCQNdvYLqr7Zau+3i/7mk0u6KjqBQzxHk0MYId86CeP0NstOe/wAEWXaA==.fe1bb6daa10b778d2440d487ee444fb8
+      x-vercel-id: bom1::1790756762-dWbfwxd79kWQB3hgcZpZc95UzvxwbGrS
+      x-vercel-mitigated: challenge
+
+--- XFH override -> 200
+      HTTP/2 200 
+      access-control-allow-origin: *
+      vary: RSC, Next-Router-State-Tree, Next-Router-Prefetch
+      x-content-type-options: nosniff
+      x-frame-options: SAMEORIGIN
+      x-matched-path: /
+      x-vercel-cache: HIT
+      x-vercel-id: bom1::vvc6s-1790756762355-2462856e3eab
+      x-xss-protection: 1; mode=block
+
+--- X-Original-URL -> 200
+      HTTP/2 200 
+      access-control-allow-origin: *
+      vary: RSC, Next-Router-State-Tree, Next-Router-Prefetch
+      x-content-type-options: nosniff
+      x-frame-options: SAMEORIGIN
+      x-matched-path: /
+      x-vercel-cache: HIT
+      x-vercel-id: bom1::l7wzm-1790756762687-7bafb9bc6859
+      x-xss-protection: 1; mode=block
+
+--- open redirect probe -> 403
+      HTTP/2 403 
+      x-vercel-challenge-token: 2.1790756762.60.YmRhNmM3MTI2NDBmNGM4Zjk3ZjgwNTJjNjZjM2Y3ZmE7YWY1NjgzMjE7MGY2YmMyYzAxZGI4N2JhOWU0MzhmNTExYTg1NjE3N2UxOTVhNGI4ZTszO5at3COWWI4B7MT/VK0VWFuNyzqsEDUMs28Ww7g8wVnH5ksjMM58muDbnkMSt0870WQX82A36YCFGJJ8ImUdefzmXYf7SDJIYgA2IDI0nA==.c7280696c4b9687a0fb9a4ab8e891c7b
+      x-vercel-id: bom1::1790756762-Pz0FmhiPM9K5BvQGRFAs8DGgNFRzaCbR
+      x-vercel-mitigated: challenge
+
+--- referer probe -> 200
+      HTTP/2 200 
+      access-control-allow-origin: *
+      vary: RSC, Next-Router-State-Tree, Next-Router-Prefetch
+      x-content-type-options: nosniff
+      x-frame-options: SAMEORIGIN
+      x-matched-path: /contact
+      x-vercel-cache: HIT
+      x-vercel-id: bom1::wc4m5-1790756762981-c1464a5352d3
+      x-xss-protection: 1; mode=block
+

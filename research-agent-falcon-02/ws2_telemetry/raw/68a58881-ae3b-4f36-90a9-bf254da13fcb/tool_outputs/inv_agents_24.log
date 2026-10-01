@@ -1,0 +1,36 @@
+# command: curl -s https://duck-store.escape.tech/assets/index.CkGp-KSH.js | grep -oE '"[^"]*(api|graphql|login|auth)[^"]*"' | sort -u | head -50
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:34:35.115491+00:00
+# ---
+
+"),r(null)}};x.useEffect(()=>{(async()=>{await u(),c(!1)})()},[]);const f=async(v,N)=>{try{const S=await Se.login(v,N);if(S.requires_totp)throw ie.info("
+"):t}function W1(t,a,r){let o=!$5(a);return t&&(o||r==!1)?V5(t,a):a}const a0=t=>t instanceof on?{...t}:t;function Js(t,a){a=a||{};const r={};function o(p,y,v,N){return I.isPlainObject(p)&&I.isPlainObject(y)?I.merge.call({caseless:N},p,y):I.isPlainObject(y)?I.merge({},y):I.isArray(y)?y.slice():y}function c(p,y,v,N){if(I.isUndefined(y)){if(!I.isUndefined(p))return o(void 0,p,v,N)}else return o(p,y,v,N)}function u(p,y){if(!I.isUndefined(y))return o(void 0,y)}function f(p,y){if(I.isUndefined(y)){if(!I.isUndefined(p))return o(void 0,p)}else return o(void 0,y)}function m(p,y,v){if(v in a)return o(p,y);if(v in t)return o(void 0,p)}const g={url:u,method:u,data:u,baseURL:f,transformRequest:f,transformResponse:f,paramsSerializer:f,timeout:f,timeoutMessage:f,withCredentials:f,withXSRFToken:f,adapter:f,responseType:f,xsrfCookieName:f,xsrfHeaderName:f,onUploadProgress:f,onDownloadProgress:f,decompress:f,maxContentLength:f,maxBodyLength:f,beforeRedirect:f,transport:f,httpAgent:f,httpsAgent:f,cancelToken:f,socketPath:f,responseEncoding:f,validateStatus:m,headers:(p,y,v)=>c(a0(p),a0(y),v,!0)};return I.forEach(Object.keys({...t,...a}),function(y){const v=g[y]||c,N=v(t[y],a[y],y);I.isUndefined(N)&&v!==m||(r[y]=N)}),r}const ew=t=>{const a=Js({},t);let{data:r,withXSRFToken:o,xsrfHeaderName:c,xsrfCookieName:u,headers:f,auth:m}=a;if(a.headers=f=on.from(f),a.url=Q1(W1(a.baseURL,a.url,a.allowAbsoluteUrls),t.params,t.paramsSerializer),m&&f.set("
+");let r;this.promise=new Promise(function(u){r=u});const o=this;this.promise.then(c=>{if(!o._listeners)return;let u=o._listeners.length;for(;u-- >0;)o._listeners[u](c);o._listeners=null}),this.promise.then=c=>{let u;const f=new Promise(m=>{o.subscribe(m),u=m}).then(c);return f.cancel=function(){o.unsubscribe(u)},f},a(function(u,f,m){o.reason||(o.reason=new pl(u,f,m),r(o.reason))})}throwIfRequested(){if(this.reason)throw this.reason}subscribe(a){if(this.reason){a(this.reason);return}this._listeners?this._listeners.push(a):this._listeners=[a]}unsubscribe(a){if(!this._listeners)return;const r=this._listeners.indexOf(a);r!==-1&&this._listeners.splice(r,1)}toAbortSignal(){const a=new AbortController,r=o=>{a.abort(o)};return this.subscribe(r),a.signal.unsubscribe=()=>this.unsubscribe(r),a.signal}static source(){let a;return{token:new sw(function(c){a=c}),cancel:a}}};function s3(t){return function(r){return t.apply(null,r)}}function r3(t){return I.isObject(t)&&t.isAxiosError===!0}const Hm={Continue:100,SwitchingProtocols:101,Processing:102,EarlyHints:103,Ok:200,Created:201,Accepted:202,NonAuthoritativeInformation:203,NoContent:204,ResetContent:205,PartialContent:206,MultiStatus:207,AlreadyReported:208,ImUsed:226,MultipleChoices:300,MovedPermanently:301,Found:302,SeeOther:303,NotModified:304,UseProxy:305,Unused:306,TemporaryRedirect:307,PermanentRedirect:308,BadRequest:400,Unauthorized:401,PaymentRequired:402,Forbidden:403,NotFound:404,MethodNotAllowed:405,NotAcceptable:406,ProxyAuthenticationRequired:407,RequestTimeout:408,Conflict:409,Gone:410,LengthRequired:411,PreconditionFailed:412,PayloadTooLarge:413,UriTooLong:414,UnsupportedMediaType:415,RangeNotSatisfiable:416,ExpectationFailed:417,ImATeapot:418,MisdirectedRequest:421,UnprocessableEntity:422,Locked:423,FailedDependency:424,TooEarly:425,UpgradeRequired:426,PreconditionRequired:428,TooManyRequests:429,RequestHeaderFieldsTooLarge:431,UnavailableForLegalReasons:451,InternalServerError:500,NotImplemented:501,BadGateway:502,ServiceUnavailable:503,GatewayTimeout:504,HttpVersionNotSupported:505,VariantAlsoNegotiates:506,InsufficientStorage:507,LoopDetected:508,NotExtended:510,NetworkAuthenticationRequired:511,WebServerIsDown:521,ConnectionTimedOut:522,OriginIsUnreachable:523,TimeoutOccurred:524,SslHandshakeFailed:525,InvalidSslCertificate:526};Object.entries(Hm).forEach(([t,a])=>{Hm[a]=t});function rw(t){const a=new Qs(t),r=L1(Qs.prototype.request,a);return I.extend(r,Qs.prototype,a,{allOwnKeys:!0}),I.extend(r,a,null,{allOwnKeys:!0}),r.create=function(c){return rw(Js(t,c))},r}const gt=rw(Uo);gt.Axios=Qs;gt.CanceledError=pl;gt.CancelToken=a3;gt.isCancel=Z1;gt.VERSION=aw;gt.toFormData=lu;gt.AxiosError=Ae;gt.Cancel=gt.CanceledError;gt.all=function(a){return Promise.all(a)};gt.spread=s3;gt.isAxiosError=r3;gt.mergeConfig=Js;gt.AxiosHeaders=on;gt.formToJSON=t=>X1(I.isHTMLForm(t)?new FormData(t):t);gt.getAdapter=nw.getAdapter;gt.HttpStatusCode=Hm;gt.default=gt;const{Axios:sk,AxiosError:rk,CanceledError:lk,isCancel:ok,CancelToken:ik,VERSION:ck,all:uk,Cancel:dk,isAxiosError:fk,spread:mk,toFormData:hk,AxiosHeaders:pk,HttpStatusCode:gk,formToJSON:xk,getAdapter:vk,mergeConfig:yk}=gt,l3=()=>"
+");return}p(!0);try{const z=await Se.loginWithTOTP(N,E);j.current=!0,await r(z.access_token),ie.success("
+",replace:!0});const T=async R=>{R.preventDefault(),p(!0);try{const z=await Se.login(c,f);z.requires_totp&&z.temp_token?(v(!0),S(z.temp_token),ie.info("
+",{token:a});return r}async loginWithTOTP(a,r){const{data:o}=await this.client.post("
+"/api/v1/admin/orders"
+"/auth/login"
+"/auth/me"
+"/auth/register"
+"/login"
+"/openapi.json"
+";throw ie.error(E),S}},m=async(v,N,S,E)=>{try{await Se.register(v,N,S,E);const w=await Se.login(v,S);w.access_token&&(await y(w.access_token),ie.success("
+"Adding rubber ducks to your security day-to-day has become an essential practice. When you're deep in threat modeling, analyzing authentication flows, or reviewing complex security architectures, explaining your business logic to a rubber duck forces you to slow down and think critically."
+"Enter the 6-digit code from your authenticator app"
+"Failed to authenticate"
+"Please login to add items to cart"
+"Please login to add items to your cart"
+"Please login to write a review"
+"Please login to write a testimonial"
+"Scan the QR code with your authenticator app"
+"Two-factor authentication adds an extra layer of security by requiring a code from your phone when logging in."
+"Two-factor authentication disabled"
+"Two-factor authentication enabled!"
+"Two-factor authentication is currently enabled on your account"
+"Use an authenticator app like Google Authenticator, Authy, or Microsoft Authenticator"
+"authorization"
+"capitalize"
+"font-medium capitalize"
+"proxy-authorization"

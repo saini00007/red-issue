@@ -1,0 +1,17 @@
+# command: timeout 15 curl -s -m 13 -o - -D - -w '\nHTTP_STATUS:%{http_code}\nCTYPE:%{content_type}' -X POST -H 'Content-Type: application/json' -d '{"search": "http://s5r46f7a17b.example.net/s5r"}' https://www.infinitycapital.bh/_next/image
+# exit_code: 0
+# ---
+
+HTTP/2 429 
+cache-control: private, no-store, max-age=0
+content-type: application/json
+server: Vercel
+x-vercel-id: bom1::7xjbb-1790749394776-59bc8ff865ed
+x-vercel-mitigated: deny
+content-length: 101
+date: Wed, 30 Sep 2026 06:23:14 GMT
+
+{"error":{"code":"429","message":"Too Many Requests","id":"bom1::7xjbb-1790749394776-59bc8ff865ed"}}
+
+HTTP_STATUS:429
+CTYPE:application/json

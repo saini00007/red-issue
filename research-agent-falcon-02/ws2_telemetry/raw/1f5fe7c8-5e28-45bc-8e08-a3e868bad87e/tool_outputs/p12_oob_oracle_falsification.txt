@@ -1,0 +1,74 @@
+CONTROL TOKENS REGISTERED BUT NEVER SENT TO ANY TARGET - YET THEY FIRED
+========================================================================
+selftest-1fae6e53446d.dau2p4ghgqag02k5emggc5xu6hph3m973
+GET /healthz HTTP/1.1
+Host: selftest-1fae6e53446d.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in
+Accept: */*
+User-Agent: curl/8.21.0
+
+
+---
+ooba89a6d6e888f.dau2p4ghgqag02k5emggc5xu6hph3m973
+GET /probe HTTP/1.1
+Host: ooba89a6d6e888f.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in
+Accept: */*
+User-Agent: curl/8.21.0
+
+
+---
+oob9a1fc44d5d96.dau2p4ghgqag02k5emggc5xu6hph3m973
+GET /probe HTTP/1.1
+Host: oob9a1fc44d5d96.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in
+Accept: */*
+User-Agent: curl/8.21.0
+
+
+---
+triagectrl111aaa222bbb.dau2p4ghgqag02k5emggc5xu6hph3m973
+GET / HTTP/1.1
+Host: triagectrl111aaa222bbb.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in
+Accept: */*
+User-Agent: curl/8.21.0
+
+
+---
+triagectrl333ccc444ddd.dau2p4ghgqag02k5emggc5xu6hph3m973
+GET / HTTP/1.1
+Host: triagectrl333ccc444ddd.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in
+Accept: */*
+User-Agent: curl/8.21.0
+
+
+---
+zztotallyrandom9x.dau2p4ghgqag02k5emggc5xu6hph3m973
+GET / HTTP/1.1
+Host: zztotallyrandom9x.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in
+Accept-Encoding: identity
+Connection: close
+User-Agent: Python-urllib/3.14
+
+
+---
+controlneverregistered12345.dau2p4ghgqag02k5emggc5xu6hph3m973
+GET / HTTP/1.1
+Host: controlneverregistered12345.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in
+Accept-Encoding: identity
+Connection: close
+User-Agent: Python-urllib/3.14
+
+
+---
+anotherfake99.dau2p4ghgqag02k5emggc5xu6hph3m973
+GET / HTTP/1.1
+Host: anotherfake99.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in
+Accept-Encoding: identity
+Connection: close
+User-Agent: Python-urllib/3.14
+
+
+---
+
+None of these payloads was ever delivered to the in-scope host
+(all requests from this network return 403 x-vercel-mitigated:challenge).
+=> The OOB DNS/HTTP oracle is self-triggering and CANNOT evidence
+   SSRF, XXE, blind SQLi or blind XSS on this target.

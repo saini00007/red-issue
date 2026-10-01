@@ -1,0 +1,36 @@
+[
+  ["BASELINE", {}],
+  ["urlenc_BASELINE", {}],
+
+  ["fname_sq", {"fname": "1'"}],
+  ["fname_dq", {"fname": "1\""}],
+  ["fname_paren", {"fname": "1)"}],
+  ["fname_bool_t", {"fname": "1' AND '1'='1"}],
+  ["fname_bool_f", {"fname": "1' AND '1'='2"}],
+  ["fname_sleep", {"fname": "1' AND SLEEP(5)-- -"}],
+
+  ["lname_sq", {"lname": "1'"}],
+  ["cname_sq", {"cname": "1'"}],
+  ["cname_bool_t", {"cname": "1' AND '1'='1"}],
+  ["cname_bool_f", {"cname": "1' AND '1'='2"}],
+
+  ["subject_sq", {"subject": "1'"}],
+  ["subject_bool_t", {"subject": "1' AND '1'='1"}],
+  ["subject_bool_f", {"subject": "1' AND '1'='2"}],
+  ["subject_sleep", {"subject": "1' AND SLEEP(5)-- -"}],
+
+  ["msg_sq", {"msg": "1'"}],
+  ["msg_bool_t", {"msg": "1' AND '1'='1"}],
+  ["msg_bool_f", {"msg": "1' AND '1'='2"}],
+  ["msg_union", {"msg": "' UNION SELECT null-- -"}],
+
+  ["tel_sq", {"tel": "1'"}],
+  ["tel_bool_t", {"tel": "1' AND '1'='1"}],
+  ["tel_bool_f", {"tel": "1' AND '1'='2"}],
+  ["areacode_sq", {"areacode": "1'"}],
+
+  ["nosql_ne", {"cname": "{\"$ne\": \"zzz\"}"}],
+  ["nosql_gt", {"cname": "{\"$gt\": \"\"}"}],
+  ["nosql_regex", {"cname": "{\"$regex\": \".*\"}"}],
+  ["nosql_exists", {"cname": "{\"$exists\": true}"}]
+]

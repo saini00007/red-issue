@@ -1,0 +1,23 @@
+=== /api/send ===
+--- send_get: ['server: Vercel', 'x-matched-path: /api/send', 'x-vercel-cache: MISS', 'content-length: 0']
+    body: b''
+--- send_post_empty: ['server: Vercel', 'x-matched-path: /api/send', 'x-vercel-cache: MISS', 'content-length: 0']
+    body: b''
+--- send_post_json: ['server: Vercel', 'x-matched-path: /api/send', 'x-vercel-cache: MISS', 'content-length: 0']
+    body: b''
+--- send_post_form: ['server: Vercel', 'x-matched-path: /api/send', 'x-vercel-cache: MISS', 'content-length: 0']
+    body: b''
+--- send_post_ct: ['server: Vercel', 'x-matched-path: /api/send', 'x-vercel-cache: MISS', 'content-length: 0']
+    body: b''
+
+=== /_next/image (cache-busted) ===
+--- img_ctf: ['content-type: image/jpeg', 'server: Vercel', 'x-vercel-cache: HIT', 'content-length: 48055']
+    body: b'\xff\xd8\xff\xdb\x00C\x00\x08\x08\x08\x08\t\x08\t\n\n\t\r\x0e\x0c\x0e\r\x13\x11\x10\x10\x11\x13\x1c\x14\x16\x14\x16\x14\x1c+\x1b\x1f\x1b\x1b\x1f\x1b+&.%#%.&D5//5DNB>BN_UU_wqw\x9c\x9c\xd1\xff\xdb\x00C\x01\x08\x08\x08\x08\t\x08\t\n\n\t\r\x0e\x0c\x0e\r\x13\x11\x10\x10\x11\x13\x1c\x14\x16\x14\x16\x14\x1c+\x1b\x1f\x1b\x1b\x1f\x1b+&.%#%.&D5//5DNB>BN_UU_wqw\x9c\x9c\xd1\xff\xc2\x00\x11\x08\x02\xa3\x02\x92\x03\x01"\x00\x02\x11\x01\x03\x11\x01\xff\xc4\x00\x1c\x00\x00\x01\x05\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x02\x04\x05\x06\x01\x07\x08\xff\xc4\x00\x1b\x01\x00\x03\x01\x01\x01\x01'
+--- img_meta: ['content-type: text/plain; charset=utf-8', 'server: Vercel', 'content-length: 84']
+    body: b'Bad request\n\nINVALID_IMAGE_OPTIMIZE_REQUEST\n\nbom1::dxfvh-1790759834023-6a8a8f773eb4\n'
+--- img_local: ['content-type: text/html; charset=utf-8', 'location: /404', 'server: Vercel', 'x-matched-path: /[slug]', 'x-vercel-cache: HIT', 'content-length: 18217']
+    body: b'<!DOCTYPE html><html id="__next_error__"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/><link rel="preload" as="sc'
+--- img_empty: ['content-type: text/plain; charset=utf-8', 'server: Vercel', 'content-length: 84']
+    body: b'Bad request\n\nINVALID_IMAGE_OPTIMIZE_REQUEST\n\nbom1::z6vkn-1790759834329-05379a84357d\n'
+--- img_ftp: ['content-type: text/plain; charset=utf-8', 'server: Vercel', 'content-length: 84']
+    body: b'Bad request\n\nINVALID_IMAGE_OPTIMIZE_REQUEST\n\nbom1::6gtkd-1790759834465-a6715fbd6ba3\n'

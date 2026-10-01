@@ -1,0 +1,7 @@
+# command: curl -s "https://duck-store.escape.tech/api/v1/orders/checkout" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOTgwMWEyY2UtOWVkNy00YWMzLThlODYtNjE3ZmY3NzA2OTNjIiwidXNlcm5hbWUiOiJ0ZXN0c3FsbWFwMSIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzkwNjk4MzM5fQ.KDQKJco3OfXBtTCbGn01YAvlDbkXEIfUHV1jo_vGeiI" | head -500
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T15:55:19.571186+00:00
+# ---
+
+{"detail":[{"type":"int_parsing","loc":["path","order_id"],"msg":"Input should be a valid integer, unable to parse string as an integer","input":"checkout"}]}

@@ -1,0 +1,7 @@
+# command: timeout 15 sh -c 'printf '"'"'%s'"'"' '"'"'<html><!--s5ufa73ff1b2241--></html>'"'"' > /tmp/up_$$.html; curl -s -m 13 -o - -w '"'"'\nHTTP_STATUS:%{http_code}\nCTYPE:%{content_type}'"'"' -F '"'"'file=@/tmp/up_$$.html;type=text/html;filename=s5ufa73ff1b2241.html'"'"' '"'"'https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=75https://www.infinitycapital.bh//?id=1&search=test&page=2==='"'"''
+# exit_code: 26
+# ---
+
+
+HTTP_STATUS:000
+CTYPE:

@@ -1,0 +1,6 @@
+# command: timeout 15 curl -s -m 13 -o - -w '\nHTTP_STATUS:%{http_code}' https://duck-store.escape.tech/mcp/tools/list_coupons
+# exit_code: 0
+# ---
+
+{"jsonrpc":"2.0","id":"server-error","error":{"code":-32600,"message":"Not Acceptable: Client must accept text/event-stream"}}
+HTTP_STATUS:406

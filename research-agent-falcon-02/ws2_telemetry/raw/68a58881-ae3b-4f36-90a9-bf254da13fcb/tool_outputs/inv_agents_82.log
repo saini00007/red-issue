@@ -1,0 +1,12 @@
+# command: cat /work/sqlmap_req_register.txt
+# tool: cat
+# exit_code: 0
+# ts: 2026-09-29T14:03:11.425717+00:00
+# ---
+
+POST /api/v1/auth/register HTTP/2
+Host: duck-store.escape.tech
+Content-Type: application/json
+Content-Length: 75
+
+{"email":"usera@duck-store.escape.tech","password":"TestPass123!","username":"usera_test"}

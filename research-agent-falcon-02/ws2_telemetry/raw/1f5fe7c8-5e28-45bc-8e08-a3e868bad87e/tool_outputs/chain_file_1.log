@@ -1,0 +1,9 @@
+# command: timeout 15 curl -s -m 13 -o - -w '\nHTTP_STATUS:%{http_code}' 'https://www.infinitycapital.bh/api/?id=.env'
+# exit_code: 0
+# ---
+
+Too Many Requests
+
+Too Many Requests
+bom1::58xjq-1790721418738-ced754b06862
+HTTP_STATUS:429

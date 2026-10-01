@@ -1,0 +1,6 @@
+# command: timeout 15 curl -s -m 13 -o - -w '\nHTTP_STATUS:%{http_code}' 'https://duck-store.escape.tech/api/v1/reviews/product/10?skip=0&limit=20'
+# exit_code: 0
+# ---
+
+[]
+HTTP_STATUS:200

@@ -1,0 +1,33 @@
+# command: cd $WORK_PATH 2>/dev/null || cd .; for f in home contact img; do echo "--- $f"; grep -Ei "inject|parameter|not injectable|redirect|CRITICAL|WARN" tool_outputs/sqlmap_$f.log 2>/dev/null | tail -12; done
+# tool: grep
+# exit_code: 0
+# ts: 2026-09-30T12:08:37.987837+00:00
+# ---
+
+--- home
+[12:03:30] [WARNING] using '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sqlmap_home' as the output directory
+[12:04:12] [WARNING] turning off page compression
+[12:04:12] [WARNING] if the problem persists please check that the provided target URL is reachable. In case that it is, you can try to rerun with switch '--random-agent' and/or proxy switches ('--proxy', '--proxy-file'...)
+[12:04:29] [CRITICAL] heuristics detected that the target is protected by some kind of WAF/IPS
+[12:04:37] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+[12:05:25] [CRITICAL] target URL content appears to be heavily dynamic. sqlmap is going to retry the request(s)
+[12:05:48] [WARNING] target URL content appears to be too dynamic. Switching to '--text-only' 
+[12:05:48] [INFO] testing if GET parameter 'id' is dynamic
+[12:05:48] [INFO] GET parameter 'id' appears to be dynamic
+[12:05:49] [INFO] testing for SQL injection on GET parameter 'id'
+[12:06:02] [WARNING] target appears to be rate-limiting requests; sqlmap is backing off and throttling accordingly (consider raising '--delay' or lowering '--threads')
+[12:06:03] [WARNING] if the problem persists please try to lower the number of used threads (option '--threads')
+--- contact
+--- img
+[12:04:29] [CRITICAL] heuristics detected that the target is protected by some kind of WAF/IPS
+[12:04:33] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+[12:05:23] [CRITICAL] target URL content appears to be heavily dynamic. sqlmap is going to retry the request(s)
+[12:05:32] [WARNING] target URL content appears to be too dynamic. Switching to '--text-only' 
+[12:05:32] [INFO] testing if GET parameter 'url' is dynamic
+got a 307 redirect to 'https://www.infinitycapital.bh/404'. Do you want to follow? [Y/n] Y
+[12:05:46] [INFO] GET parameter 'url' appears to be dynamic
+[12:05:49] [INFO] testing for SQL injection on GET parameter 'url'
+[12:06:04] [WARNING] target appears to be rate-limiting requests; sqlmap is backing off and throttling accordingly (consider raising '--delay' or lowering '--threads')
+[12:06:05] [WARNING] if the problem persists please try to lower the number of used threads (option '--threads')
+[12:07:31] [WARNING] there is a possibility that the target (or WAF/IPS) is dropping 'suspicious' requests
+[12:07:31] [CRITICAL] connection timed out to the target URL. sqlmap is going to retry the request(s)

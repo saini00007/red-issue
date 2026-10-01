@@ -1,0 +1,14 @@
+== NoSQLi with -g (no globbing) ==
+400 ct=text/plain; charset=utf-8 sz=84 redir=
+400 ct=text/plain; charset=utf-8 sz=84 redir=
+400 ct=text/plain; charset=utf-8 sz=84 redir=
+400 ct=text/plain; charset=utf-8 sz=84 redir=
+== baseline 200 check: is the optimizer EVER reachable with a 200? ==
+200 ct=image/jpeg sz=48055 redir=
+200 ct=image/jpeg sz=48055 redir=
+== Boolean/time differential on w (q fixed) ==
+w='1080' => 200  dt=0.18s
+w='1080 AND 1=1' => 400  dt=0.17s
+w='1080 AND 1=2' => 400  dt=0.15s
+w='1080;SELECT SLEEP(4)' => 400  dt=0.15s
+DONE

@@ -1,0 +1,6 @@
+# command: cd "$WORK_PATH"; ls -la tool_outputs/sqm_* 2>/dev/null; pgrep -af "sqm_contact" | grep -v defunct | head -2
+# tool: ls
+# exit_code: 0
+# ts: 2026-09-30T11:45:57.831139+00:00
+# ---
+

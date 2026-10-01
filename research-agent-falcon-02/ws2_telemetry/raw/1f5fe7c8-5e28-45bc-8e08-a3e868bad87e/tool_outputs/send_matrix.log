@@ -1,0 +1,58 @@
+===== 1 baseline-relay
+HTTP 200 t=0.448713
+{"data":{"id":"01a0f140-1ba2-778d-a224-ea96d93a4ca8"},"error":null}
+===== 2 sqli-msg-true
+HTTP 429 t=0.172140
+Too Many Requests
+
+Too Many Requests
+bom1::ngxph-1790753905896-45339e884ee9
+===== 3 sqli-msg-false
+HTTP 429 t=0.164895
+Too Many Requests
+
+Too Many Requests
+bom1::r4f9v-1790753906092-eb5a31627722
+===== 4 sqli-time
+HTTP 200 t=0.415993
+{"data":null,"error":{"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded","statusCode":429}}
+===== 5 ssti
+HTTP 200 t=0.404284
+{"data":null,"error":{"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded","statusCode":429}}
+===== 6 cmdi
+HTTP 429 t=0.151984
+Too Many Requests
+
+Too Many Requests
+bom1::5sw56-1790753907100-33d4bb58bdc1
+===== 7 nosqli
+HTTP 429 t=0.171705
+Too Many Requests
+
+Too Many Requests
+bom1::hxptp-1790753907279-34037f15f6a3
+===== 8 xss
+HTTP 429 t=0.152292
+Too Many Requests
+
+Too Many Requests
+bom1::zkdvq-1790753907445-c69b2b738d6b
+===== 9 field-level sqli on fname
+HTTP 200 t=0.393201
+{"data":null,"error":{"statusCode":429,"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded"}}
+===== 10 sqli on areacode/tel
+HTTP 200 t=0.408454
+{"data":null,"error":{"statusCode":429,"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded"}}
+===== 11 method/verb matrix
+GET      405
+PUT      405
+DELETE   405
+PATCH    405
+OPTIONS  204
+===== 12 no-check (captcha bypass)
+HTTP 200
+{"data":null,"error":{"statusCode":429,"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded"}}
+===== 13 mass assignment / extra fields
+HTTP 200
+{"data":null,"error":{"statusCode":429,"message":"You have reached your monthly email sending quota.","name":"monthly_quota_exceeded"}}
+DONE

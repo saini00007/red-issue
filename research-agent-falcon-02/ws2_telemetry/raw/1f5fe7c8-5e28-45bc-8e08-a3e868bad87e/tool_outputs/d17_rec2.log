@@ -1,0 +1,63 @@
+### Next.js internals
+GET /_next/data/build/contact.json             404 28986    0.13s m=/404                   v=                               loc=
+GET /_next/static/BUILD_ID                     404 9        0.07s m=/_next/static/not-foun v=                               loc=
+GET /_next/static/chunks/pages/contact.js      404 9        0.07s m=/_next/static/not-foun v=                               loc=
+GET /_next/development/mask-image.svg          404 28986    0.06s m=/404                   v=                               loc=
+GET /__nextjs_original-stack-frame             307 18348    2.03s m=/[slug]                v=                               loc=/404
+GET /__nextjs_launch-editor                    307 18320    0.80s m=/[slug]                v=                               loc=/404
+GET /_next/image?url=%2F%2F&w=640&q=75         400 84       0.03s m=                       v=                               loc=
+GET /_next/image?url=%2F&w=1&q=1               400 84       0.03s m=                       v=                               loc=
+GET /_next/static/development/_buildManifest   404 9        0.06s m=/_next/static/not-foun v=                               loc=
+GET /_next/static/chunks/app/page.js           404 9        0.04s m=/_next/static/not-foun v=                               loc=
+GET /server-info                               307 18233    1.05s m=/[slug]                v=                               loc=/404
+GET /_next/routes-manifest.json                404 28986    0.04s m=/404                   v=                               loc=
+GET /api/health                                404 28986    0.05s m=/404                   v=                               loc=
+GET /api/config                                404 28986    0.07s m=/404                   v=                               loc=
+GET /api/healthz                               404 28986    0.04s m=/404                   v=                               loc=
+
+### RSC / server actions
+GET /contact RSC=1                             200 18208    0.05s m=/contact.rsc           v=                               loc=
+POST /contact (RSC action attempt)             200 28204    1.74s m=/contact.rsc           v=                               loc=
+GET / RSC=1                                    200 14734    0.04s m=/index.rsc             v=                               loc=
+
+### route / config discovery
+GET /api/send                                  405 0        0.26s m=/api/send              v=                               loc=
+GET /api/contact                               404 28986    0.06s m=/404                   v=                               loc=
+GET /api/subscribe                             404 28986    0.04s m=/404                   v=                               loc=
+GET /api/newsletter                            404 28986    0.13s m=/404                   v=                               loc=
+GET /api/webhook                               404 28986    0.05s m=/404                   v=                               loc=
+GET /api/upload                                404 28986    0.05s m=/404                   v=                               loc=
+GET /api/graphql                               404 28986    0.13s m=/404                   v=                               loc=
+GET /graphql                                   307 18217    0.42s m=/[slug]                v=                               loc=/404
+GET /api/auth                                  404 28986    0.13s m=/404                   v=                               loc=
+GET /sitemap.xml                               200 1340     0.05s m=/sitemap.xml           v=                               loc=
+GET /robots.txt                                200 103      0.07s m=/robots.txt            v=                               loc=
+GET /.well-known/security.txt                  404 28986    0.13s m=/404                   v=                               loc=
+GET /feed.xml                                  307 18221    0.07s m=/[slug]                v=                               loc=/404
+GET /feeds/all.atom.xml                        404 28986    0.04s m=/404                   v=                               loc=
+GET /atom.xml                                  307 18264    0.09s m=/[slug]                v=                               loc=/404
+GET /.env                                      307 18248    0.05s m=/[slug]                v=                               loc=/404
+GET /.git/config                               404 28986    0.05s m=/404                   v=                               loc=
+GET /next.config.js                            307 18245    0.69s m=/[slug]                v=                               loc=/404
+GET /admin                                     307 18209    0.08s m=/[slug]                v=                               loc=/404
+GET /dashboard                                 307 18225    0.06s m=/[slug]                v=                               loc=/404
+GET /api/debug                                 404 28986    0.04s m=/404                   v=                               loc=
+GET /api/status                                404 28986    0.05s m=/404                   v=                               loc=
+GET /api/v1/send                               404 28986    0.03s m=/404                   v=                               loc=
+GET /api/relay                                 404 28986    0.04s m=/404                   v=                               loc=
+GET /api/email                                 404 28986    0.03s m=/404                   v=                               loc=
+
+### static asset / backup probes
+GET /index.html.bak                            307 18245    0.93s m=/[slug]                v=                               loc=/404
+GET /package.json                              307 18237    0.36s m=/[slug]                v=                               loc=/404
+GET /BUILD_ID                                  307 18221    0.61s m=/[slug]                v=                               loc=/404
+GET /.vercel/output/static/index.html          404 28986    0.05s m=/404                   v=                               loc=
+GET /api/send.js                               404 28986    0.04s m=/404                   v=                               loc=
+GET /api/send.mjs                              404 28986    0.04s m=/404                   v=                               loc=
+GET /.DS_Store                                 307 18268    0.86s m=/[slug]                v=                               loc=/404
+GET /crossdomain.xml                           307 18249    0.82s m=/[slug]                v=                               loc=/404
+GET /swagger.json                              307 18280    0.40s m=/[slug]                v=                               loc=/404
+GET /openapi.json                              307 18237    0.05s m=/[slug]                v=                               loc=/404
+GET /api-docs                                  307 18221    0.46s m=/[slug]                v=                               loc=/404
+GET /v2/api-docs                               404 28986    0.05s m=/404                   v=                               loc=
+GET /.well-known/openid-configuration          404 28986    0.04s m=/404                   v=                               loc=

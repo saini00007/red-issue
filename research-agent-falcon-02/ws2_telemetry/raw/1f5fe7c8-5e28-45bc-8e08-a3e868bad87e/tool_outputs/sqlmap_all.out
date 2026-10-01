@@ -1,0 +1,22 @@
+== nextimage exit=124 ==
+[22:06:22] [WARNING] the web server responded with an HTTP error code (403) which could interfere with the results of the tests
+[22:06:22] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+[22:06:22] [WARNING] heuristic (basic) test shows that GET parameter 'url' might not be injectable
+it is recommended to perform only basic UNION tests if there is not at least one other (potential) technique found. Do you want to reduce the number of requests? [Y/n] Y
+[22:16:32] [WARNING] GET parameter 'url' does not seem to be injectable
+[22:16:32] [WARNING] heuristic (basic) test shows that GET parameter 'w' might not be injectable
+== apiroot exit=0 ==
+[22:21:22] [WARNING] the web server responded with an HTTP error code (403) which could interfere with the results of the tests
+[22:21:22] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+[22:21:22] [WARNING] heuristic (basic) test shows that URI parameter '#1*' might not be injectable
+it is recommended to perform only basic UNION tests if there is not at least one other (potential) technique found. Do you want to reduce the number of requests? [Y/n] Y
+[22:31:24] [WARNING] URI parameter '#1*' does not seem to be injectable
+[22:31:24] [ERROR] all tested parameters do not appear to be injectable. If you suspect that there is some kind of protection mechanism involved (e.g. WAF) maybe you could try to use option '--tamper' (e.g. '--tamper=space2comment'), skipping to the next target
+== p404 exit=0 ==
+[22:31:26] [WARNING] the web server responded with an HTTP error code (429) which could interfere with the results of the tests
+[22:31:32] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+== home exit=124 ==
+[22:41:47] [WARNING] the web server responded with an HTTP error code (403) which could interfere with the results of the tests
+[22:41:47] [WARNING] target URL content is not stable (i.e. content differs). sqlmap will base the page comparison on a sequence matcher. If no dynamic nor injectable parameters are detected, or in case of junk results, refer to user's manual paragraph 'Page comparison'
+[22:41:47] [WARNING] heuristic (basic) test shows that GET parameter 'id' might not be injectable
+=== DONE ===

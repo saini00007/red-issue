@@ -1,0 +1,14 @@
+[request]
+url = https://www.infinitycapital.bh/api/send
+resolve-and-redirect = follow
+
+[multipart-form]
+fname = Test
+lname = User
+areacode = 973
+tel = 3600000
+cname = VAPT
+subject = sqmap*
+msg = sqmap*
+check =
+targets = sqmap*

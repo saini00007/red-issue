@@ -1,0 +1,13 @@
+# command: cd "$WORK_PATH"; ls -la /work | grep -iE "oob|registry|callback" ; echo "--- any jsonl in /work ---"; ls /work/*.jsonl 2>/dev/null; echo "--- oob in workdir ---"; ls -la oob_registry.jsonl 2>/dev/null; find / -maxdepth 5 -name 'oob_registry.jsonl' 2>/dev/null | head
+# tool: ls
+# exit_code: 0
+# ts: 2026-09-30T11:32:46.734378+00:00
+# ---
+
+-rw-r--r--  1 kali kali       84 Sep 30 08:27 body_oob.bin
+-rw-r--r--  1 kali kali       67 Sep 29 22:41 oob_host.txt
+-rw-r--r--  1 kali kali       67 Sep 30 02:59 oobhost.txt
+-rw-r--r--  1 kali kali       84 Sep 30 03:27 oobimg.bin
+--- any jsonl in /work ---
+--- oob in workdir ---
+-rw-r--r-- 1 1001 1001 301398 Sep 30 11:32 oob_registry.jsonl

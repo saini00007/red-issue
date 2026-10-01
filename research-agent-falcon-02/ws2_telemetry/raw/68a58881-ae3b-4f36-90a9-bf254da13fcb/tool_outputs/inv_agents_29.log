@@ -1,0 +1,16 @@
+# command: echo 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOTdkODZhZTAtOTAxOS00ZWZmLTljODctMTRiNjc0YzFmMjZjIiwidXNlcm5hbWUiOiJhdHRhY2tlcjEyMyIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzkwNzAxMTAxfQ.C8RoUUAfGUK6OsiGlu8Kq4PwKNlhPH950bqJmKL44jk' | cut -d'.' -f1,2 | tr '.' '\n' | while read part; do echo $part | base64 -d 2>/dev/null | jq .; done
+# tool: cut
+# exit_code: 0
+# ts: 2026-09-29T16:28:43.485696+00:00
+# ---
+
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+{
+  "user_id": "97d86ae0-9019-4eff-9c87-14b674c1f26c",
+  "username": "attacker123",
+  "role": "user",
+  "exp": 1790701101
+}

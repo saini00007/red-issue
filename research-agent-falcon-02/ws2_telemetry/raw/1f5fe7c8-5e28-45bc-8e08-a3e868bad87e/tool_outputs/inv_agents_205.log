@@ -1,0 +1,15 @@
+# command: cd $WORK_PATH 2>/dev/null || cd .; UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/126"; B="https://www.infinitycapital.bh"; for p in "/api/contact" "/api/subscribe" "/api/newsletter" "/api/graphql" "/graphql" "/api/admin" "/admin" "/wp-json/" "/api/config"; do code=$(curl -sk -A "$UA" -o /dev/null -w "%{http_code}" --max-time 12 "$B$p"); echo "$p -> $code"; sleep 1; done
+# tool: sleep
+# exit_code: 0
+# ts: 2026-09-30T12:09:34.284436+00:00
+# ---
+
+/api/contact -> 404
+/api/subscribe -> 404
+/api/newsletter -> 404
+/api/graphql -> 404
+/graphql -> 307
+/api/admin -> 404
+/admin -> 307
+/wp-json/ -> 308
+/api/config -> 404

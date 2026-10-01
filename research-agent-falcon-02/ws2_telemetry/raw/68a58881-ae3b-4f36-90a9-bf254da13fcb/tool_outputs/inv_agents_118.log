@@ -1,0 +1,7 @@
+# command: curl -s "https://duck-store.escape.tech/api/v1/users/ad9bfee7-7a99-41c0-a21e-0405cee9eedd" | head -500
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:00:14.248891+00:00
+# ---
+
+{"id":"ad9bfee7-7a99-41c0-a21e-0405cee9eedd","username":"test) AND CASE WHEN 4771=4771 THEN 4771 ELSE JSON(CHAR(69,84,118,88)) END-- kHEX","email":"test@duck-store.escape.tech","first_name":null,"last_name":null,"avatar_url":null,"bio":null,"account_credit":0.0,"referral_count":0,"role":"user","created_at":"2026-09-29T15:40:43.255441","totp_enabled":false,"can_be_deleted":true}

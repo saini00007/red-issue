@@ -1,0 +1,1 @@
+https://www.infinitycapital.bh/404?q=1 (GET)  # /usr/bin/sqlmap -u https://www.infinitycapital.bh/404?q=1 --batch --level=5 --risk=3 --dbs --threads=4 --flush-session --random-agent --output-dir=/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sqlm/sq/p404 --technique=BEUSTQ

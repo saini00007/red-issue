@@ -1,0 +1,8 @@
+# command: pkill -9 -f "sqlo_batch1" ; pkill -9 -f "sqlmap -u" ; pkill -9 -f "timeout 1500"; pkill -9 -f "timeout 900"; sleep 1; pgrep -af sqlmap | grep -v defunct
+# tool: pkill
+# exit_code: -9
+# ts: 2026-09-30T00:29:50.439317+00:00
+# ---
+
+
+[exit=-9]

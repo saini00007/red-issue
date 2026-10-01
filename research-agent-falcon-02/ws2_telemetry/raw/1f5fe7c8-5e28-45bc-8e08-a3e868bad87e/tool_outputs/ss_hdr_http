@@ -1,0 +1,10 @@
+HTTP/2 400 
+cache-control: public, max-age=0, must-revalidate
+content-type: text/plain; charset=utf-8
+date: Wed, 30 Sep 2026 03:22:39 GMT
+server: Vercel
+strict-transport-security: max-age=63072000
+x-vercel-error: INVALID_IMAGE_OPTIMIZE_REQUEST
+x-vercel-id: bom1::2hmdc-1790738559450-b79a0ab8197c
+content-length: 84
+

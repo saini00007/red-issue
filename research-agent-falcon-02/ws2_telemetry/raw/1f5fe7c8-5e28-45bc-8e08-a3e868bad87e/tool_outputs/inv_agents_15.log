@@ -1,0 +1,66 @@
+# command: cd /work/evidence && mkdir -p js && curl -sS "https://www.infinitycapital.bh/_next/static/chunks/app/%5Bslug%5D/page-b4cf0ec49dd0c737.js" -o js/slugpage.js && curl -sS "https://www.infinitycapital.bh/_next/static/chunks/app/%5Bslug%5D/template-0dafb77d99dbfc0f.js" -o js/slugtemplate.js && curl -sS "https://www.infinitycapital.bh/_next/static/chunks/275-ea7b562607231006.js" -o js/c275.js && curl -sS "https://www.infinitycapital.bh/_next/static/chunks/489-c3a66469350d58bd.js" -o js/c489.js && curl -sS "https://www.infinitycapital.bh/_next/static/chunks/711-90c81a42d9859d8d.js" -o js/c711.js && ls -la js/ && grep -l 'api/send' js/*
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-30T12:01:52.494760+00:00
+# ---
+
+total 2656
+drwxr-xr-x  2 kali kali   4096 Sep 30 12:01 .
+drwxr-xr-x 68 kali kali  20480 Sep 30 12:01 ..
+-rw-r--r--  1 kali kali 124362 Sep 30 11:53 117-4ba60eb06d2ce296.js
+-rw-r--r--  1 kali kali     75 Sep 30 10:20 117.js
+-rw-r--r--  1 kali kali 328197 Sep 30 11:53 275-ea7b562607231006.js
+-rw-r--r--  1 kali kali 328197 Sep 30 11:45 275.js
+-rw-r--r--  1 kali kali 115295 Sep 30 11:53 341-553bcb827a52d4aa.js
+-rw-r--r--  1 kali kali 115295 Sep 30 10:20 341.js
+-rw-r--r--  1 kali kali 125646 Sep 30 11:53 489-c3a66469350d58bd.js
+-rw-r--r--  1 kali kali 125646 Sep 30 11:45 489.js
+-rw-r--r--  1 kali kali  38805 Sep 30 11:53 71-fbecd7aa70f9e321.js
+-rw-r--r--  1 kali kali  38805 Sep 30 10:20 71.js
+-rw-r--r--  1 kali kali      9 Sep 30 08:14 711-90c81a42d9859d8.js
+-rw-r--r--  1 kali kali     75 Sep 30 06:38 711-90c81a42d9859d8b.js
+-rw-r--r--  1 kali kali  43522 Sep 30 11:53 711-90c81a42d9859d8d.js
+-rw-r--r--  1 kali kali      9 Sep 30 07:41 711-90c81a42d9859d8s.js
+-rw-r--r--  1 kali kali  43522 Sep 30 11:45 711.js
+-rw-r--r--  1 kali kali  50426 Sep 30 11:53 743-7f9d0b5cebfd0486.js
+-rw-r--r--  1 kali kali  50426 Sep 30 11:28 743.js
+-rw-r--r--  1 kali kali     15 Sep 30 08:09 __next_static_chunks_117-4ba60eb06d2ce296.js
+-rw-r--r--  1 kali kali     15 Sep 30 08:09 __next_static_chunks_275-ea7b562607231006.js
+-rw-r--r--  1 kali kali     15 Sep 30 08:09 __next_static_chunks_341-553bcb827a52d4aa.js
+-rw-r--r--  1 kali kali     15 Sep 30 08:09 __next_static_chunks_489-c3a66469350d58bd.js
+-rw-r--r--  1 kali kali     15 Sep 30 08:09 __next_static_chunks_71-fbecd7aa70f9e321.js
+-rw-r--r--  1 kali kali     15 Sep 30 08:09 __next_static_chunks_711-90c81a42d9859d8d.js
+-rw-r--r--  1 kali kali     15 Sep 30 08:09 __next_static_chunks_743-7f9d0b5cebfd0486.js
+-rw-r--r--  1 kali kali     15 Sep 30 08:09 __next_static_chunks_app_layout-2aac163e3ced1001.js
+-rw-r--r--  1 kali kali     15 Sep 30 08:09 __next_static_chunks_app_page-85182612bc0d92d0.js
+-rw-r--r--  1 kali kali     15 Sep 30 08:09 __next_static_chunks_fd9d1056-3902e23722a6b2db.js
+-rw-r--r--  1 kali kali     15 Sep 30 08:09 __next_static_chunks_main-app-2dcde4753ea0d175.js
+-rw-r--r--  1 kali kali     15 Sep 30 08:09 __next_static_chunks_polyfills-42372ed130431b0a.js
+-rw-r--r--  1 kali kali     15 Sep 30 08:09 __next_static_chunks_webpack-e401313d27ef7f61.js
+-rw-r--r--  1 kali kali    172 Sep 30 08:57 app_%5Bslug%5D_page-b4cf0ec49dd0c737.js
+-rw-r--r--  1 kali kali    497 Sep 30 08:57 app_%5Bslug%5D_template-0dafb77d99dbfc0f.js
+-rw-r--r--  1 kali kali   9990 Sep 30 08:57 app_layout-2aac163e3ced1001.js
+-rw-r--r--  1 kali kali    172 Sep 30 06:39 c1.js
+-rw-r--r--  1 kali kali 124362 Sep 30 11:06 c117.js
+-rw-r--r--  1 kali kali 328197 Sep 30 12:01 c275.js
+-rw-r--r--  1 kali kali 125646 Sep 30 12:01 c489.js
+-rw-r--r--  1 kali kali  43522 Sep 30 12:01 c711.js
+-rw-r--r--  1 kali kali  50426 Sep 30 11:07 c743.js
+-rw-r--r--  1 kali kali      9 Sep 30 00:54 contact-*.js
+-rw-r--r--  1 kali kali 172834 Sep 30 11:53 fd9d1056-3902e23722a6b2db.js
+-rw-r--r--  1 kali kali      9 Sep 30 00:54 layout-*.js
+-rw-r--r--  1 kali kali   9990 Sep 30 11:53 layout-2aac163e3ced1001.js
+-rw-r--r--  1 kali kali     75 Sep 30 10:20 layout.js
+-rw-r--r--  1 kali kali    461 Sep 30 11:53 main-app-2dcde4753ea0d175.js
+-rw-r--r--  1 kali kali    173 Sep 30 11:53 page-85182612bc0d92d0.js
+-rw-r--r--  1 kali kali    172 Sep 30 08:14 page-b4cf0ec49dd0c737.js
+-rw-r--r--  1 kali kali    173 Sep 30 11:45 page.js
+-rw-r--r--  1 kali kali 112594 Sep 30 11:53 polyfills-42372ed130431b0a.js
+-rw-r--r--  1 kali kali    172 Sep 30 12:01 slugpage.js
+-rw-r--r--  1 kali kali    497 Sep 30 12:01 slugtemplate.js
+-rw-r--r--  1 kali kali    497 Sep 30 08:14 template-0dafb77d99dbfc0f.js
+-rw-r--r--  1 kali kali    497 Sep 30 10:34 template.js
+-rw-r--r--  1 kali kali   4252 Sep 30 11:53 webpack-e401313d27ef7f61.js
+js/275-ea7b562607231006.js
+js/275.js
+js/c275.js

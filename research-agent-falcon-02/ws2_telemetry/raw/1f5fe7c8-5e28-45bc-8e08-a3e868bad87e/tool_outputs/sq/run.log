@@ -1,0 +1,35 @@
+########## https://www.infinitycapital.bh/?id=1&search=test&page=2
+[00:02:50] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[00:03:03] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause'
+[00:03:09] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (NOT)'
+[00:03:15] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (subquery - comment)'
+[00:03:21] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (subquery - comment)'
+[00:03:26] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (comment)'
+[00:03:27] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (comment)'
+[00:03:29] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (NOT - comment)'
+[00:03:31] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (MySQL comment)'
+[00:03:34] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (MySQL comment)'
+[00:03:37] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (NOT - MySQL comment)'
+[00:03:41] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (Microsoft Access comment)'
+[00:03:44] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (Microsoft Access comment)'
+[00:03:47] [INFO] testing 'MySQL RLIKE boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause'
+[00:03:53] [INFO] testing 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (MAKE_SET)'
+[00:03:59] [INFO] testing 'MySQL OR boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (MAKE_SET)'
+[00:04:06] [INFO] testing 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (ELT)'
+[00:04:12] [INFO] testing 'MySQL OR boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (ELT)'
+[00:04:17] [INFO] testing 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)'
+[00:04:22] [INFO] testing 'MySQL OR boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)'
+[00:04:27] [INFO] testing 'PostgreSQL AND boolean-based blind - WHERE or HAVING clause (CAST)'
+[00:04:39] [INFO] testing 'PostgreSQL OR boolean-based blind - WHERE or HAVING clause (CAST)'
+[00:04:47] [INFO] testing 'Oracle AND boolean-based blind - WHERE or HAVING clause (CTXSYS.DRITHSX.SN)'
+[00:04:55] [INFO] testing 'Oracle OR boolean-based blind - WHERE or HAVING clause (CTXSYS.DRITHSX.SN)'
+[00:05:02] [INFO] testing 'SQLite AND boolean-based blind - WHERE or HAVING clause (JSON)'
+[00:05:08] [INFO] testing 'SQLite OR boolean-based blind - WHERE or HAVING clause (JSON)'
+[00:05:09] [ERROR] detected invalid data for declared content encoding 'br' ('BrotliError: truncated Brotli stream')
+[00:05:09] [WARNING] turning off page compression
+[00:05:09] [WARNING] if the problem persists please try to lower the number of used threads (option '--threads')
+[00:05:10] [WARNING] target appears to be rate-limiting requests; sqlmap is backing off and throttling accordingly (consider raising '--delay' or lowering '--threads')
+ds')
+[23:57:45] [WARNING] if the problem persists please try to lower the number of used threads (option '--threads')
+[23:58:18] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause'
+[00:03:02] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (NOT)'

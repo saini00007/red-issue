@@ -1,0 +1,31 @@
+        ___
+       __H__
+ ___ ___[(]_____ ___ ___  {1.10.8#stable}
+|_ -| . [']     | .'| . |
+|___|_  ["]_|_|_|__,|  _|
+      |_|V...       |_|   https://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 09:23:09 /2026-09-30/
+
+[09:23:09] [WARNING] using '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sqli_api' as the output directory
+[09:23:09] [INFO] fetched random HTTP User-Agent header value 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36' from file '/usr/share/sqlmap/data/txt/user-agents.txt'
+[1/1] URL:
+GET https://www.infinitycapital.bh/api/
+POST data: id=1&page=2
+do you want to test this URL? [Y/n/q]
+> Y
+[09:23:09] [INFO] testing URL 'https://www.infinitycapital.bh/api/'
+[09:23:09] [INFO] using '/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e/tool_outputs/sqli_api/results-09302026_0923am.csv' as the CSV results file in multiple targets mode
+[09:23:09] [INFO] testing connection to the target URL
+got a 308 redirect to 'https://www.infinitycapital.bh/api'. Do you want to follow? [Y/n] Y
+redirect is a result of a POST request. Do you want to resend original POST data to a new location? [Y/n] Y
+[09:23:16] [INFO] checking if the target is protected by some kind of WAF/IPS
+[09:23:19] [INFO] testing if the target URL content is stable
+[09:23:21] [WARNING] POST parameter 'id' does not appear to be dynamic
+[09:23:29] [WARNING] heuristic (basic) test shows that POST parameter 'id' might not be injectable
+[09:23:29] [INFO] testing for SQL injection on POST parameter 'id'
+[09:23:29] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[09:23:36] [WARNING] target appears to be rate-limiting requests; sqlmap is backing off and throttling accordingly (consider raising '--delay' or lowering '--threads')
+[09:23:37] [WARNING] if the problem persists please try to lower the number of used threads (option '--threads')

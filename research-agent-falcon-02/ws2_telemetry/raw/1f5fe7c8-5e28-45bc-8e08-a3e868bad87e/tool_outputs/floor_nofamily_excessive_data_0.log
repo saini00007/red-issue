@@ -1,0 +1,7 @@
+# command: timeout 15 curl -s -m 13 -o - -w '\nHTTP_STATUS:%{http_code}' 'https://www.infinitycapital.bh/api/?id=1&page=2'
+# exit_code: 0
+# ---
+
+Redirecting...
+
+HTTP_STATUS:308

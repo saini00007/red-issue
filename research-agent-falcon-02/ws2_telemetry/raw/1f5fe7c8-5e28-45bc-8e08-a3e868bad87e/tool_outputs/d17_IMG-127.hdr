@@ -1,0 +1,2 @@
+400
+{'Cache-Control': 'public, max-age=0, must-revalidate', 'Content-Length': '84', 'Content-Type': 'text/plain; charset=utf-8', 'Date': 'Wed, 30 Sep 2026 07:59:05 GMT', 'Server': 'Vercel', 'Strict-Transport-Security': 'max-age=63072000', 'X-Vercel-Error': 'INVALID_IMAGE_OPTIMIZE_REQUEST', 'X-Vercel-Id': 'bom1::dfpxw-1790755145456-22373aae8e6f'}

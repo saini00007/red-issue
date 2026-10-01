@@ -1,0 +1,19 @@
+### 1. VALID submission (real field names)
+code=200 size=194
+HTTP/2 200 
+{"data":null,"error":{"statusCode":422,"name":"validation_error","message":"Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format."}}
+### 2. SQLi in msg (boolean pair)
+sqlTrue code=200 body={"data":null,"error":{"message":"Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format.","name":"validation_error","statusCode":422}}
+sqlFalse code=200 body={"data":null,"error":{"statusCode":422,"name":"validation_error","message":"Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format."}}
+### 3. SSRF-ish / OOB in msg (email header injection candidate)
+oobMsg code=429 body=Too Many Requests
+
+Too Many Requests
+bom1::s45gv-1790729108215-de8bb95b5d53
+### 4. CRLF header injection via fname
+crlf code=200 body={"data":null,"error":{"message":"Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format.","name":"validation_error","statusCode":422}}
+### 5. template injection in msg
+ssti code=429 body=Too Many Requests
+
+Too Many Requests
+bom1::xdhxr-1790729108727-ebe0c9093303

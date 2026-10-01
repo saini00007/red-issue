@@ -1,0 +1,8 @@
+# command: curl -s -X GET "https://duck-store.escape.tech/api/v1/auth" -H "Accept: application/json" -w "\nHTTP_CODE:%{http_code}\n" --max-time 15
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:33:55.466711+00:00
+# ---
+
+{"detail":"Not Found"}
+HTTP_CODE:404

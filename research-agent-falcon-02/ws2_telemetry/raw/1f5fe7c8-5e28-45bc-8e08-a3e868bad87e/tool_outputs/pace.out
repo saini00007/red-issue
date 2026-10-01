@@ -1,0 +1,5 @@
+baseline: {"data":{"id":"01a0f1b4-e5d7-70a0-8f52-aa06fa6c12ba"},"error":null}
+from -> {"data":{"id":"01a0f1b5-0428-70a6-b700-7e6ae63e183c"},"error":null}
+reply_to -> {"data":{"id":"01a0f1b5-a1a8-785a-b9a5-4aed1a3daa07"},"error":null}
+cc -> {"data":{"id":"01a0f1b5-bae8-724b-82e3-f46c344a1478"},"error":null}
+bcc -> {"data":{"id":"01a0f1b5-d639-7525-a43a-d5f417e05607"},"error":null}

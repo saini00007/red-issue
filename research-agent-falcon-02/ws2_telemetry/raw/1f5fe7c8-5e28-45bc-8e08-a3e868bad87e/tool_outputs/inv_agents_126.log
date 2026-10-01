@@ -1,0 +1,10 @@
+# command: cd "$WORK_PATH"; ls -la tool_outputs/sqm_contact.log; wc -c tool_outputs/sqm_contact.log; pgrep -af "output-dir=tool_outputs/sq2" | grep -v defunct | head -3
+# tool: ls
+# exit_code: 0
+# ts: 2026-09-30T11:51:58.217272+00:00
+# ---
+
+
+[exit=0]
+ls: cannot access 'tool_outputs/sqm_contact.log': No such file or directory
+wc: tool_outputs/sqm_contact.log: No such file or directory

@@ -1,0 +1,9 @@
+== ID randomness (5 identical requests)
+   200 b'{"data":null,"error":{"statusCode":429,"message":"You have r'
+   200 b'{"data":null,"error":{"message":"You have reached your month'
+   200 b'{"data":null,"error":{"message":"You have reached your month'
+   200 b'{"data":null,"error":{"message":"You have reached your month'
+   200 01a0f15b-519a-72cf-8ace-0a620857ec5e
+== boolean pair test on fname
+  true   200 b'{"data":{"id":"01a0f15b-6730-7286-b528-93150e13e155"},"error":null}'
+  false  200 b'{"data":{"id":"01a0f15b-80bc-7553-9125-11e512f9266c"},"error":null}'

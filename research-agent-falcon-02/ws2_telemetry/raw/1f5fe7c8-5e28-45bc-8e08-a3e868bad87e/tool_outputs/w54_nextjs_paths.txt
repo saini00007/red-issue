@@ -1,0 +1,15 @@
+404   28986 text/html; charset=utf-8         /_next/data/h8L2LlI5LSORU50iQ3wJq/index.json
+404   28986 text/html; charset=utf-8         /_next/data/h8L2LlI5LSORU50iQ3wJq/contact.json
+404   28986 text/html; charset=utf-8         /_next/data/h8L2LlI5LSORU50iQ3wJq/404.json
+404   28986 text/html; charset=utf-8         /_next/data/h8L2LlI5LSORU50iQ3wJq/api.json
+200     224 application/javascript; charse   /_next/static/h8L2LlI5LSORU50iQ3wJq/_buildManifest.js
+      >> b'self.__BUILD_MANIFEST={__rewrites:{afterFiles:[],beforeFiles:[],fallback:[]},"/_error":["static/chunks/pages/_error-7ba65e1336b92748.js"],sortedPages:["/_app","/_error"]},self.__BUILD_MANIFEST_CB&&self.__BUILD_MANIFEST_CB();'
+200      94 application/javascript; charse   /_next/static/h8L2LlI5LSORU50iQ3wJq/_ssgManifest.js
+      >> b'self.__SSG_MANIFEST=new Set(["\\u002F[slug]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()'
+404   28986 text/html; charset=utf-8         /_next/routes-manifest.json
+404   28986 text/html; charset=utf-8         /_next/server/app-paths-manifest.json
+404   28986 text/html; charset=utf-8         /_next/server/middleware-manifest.json
+404   28986 text/html; charset=utf-8         /_next/server/pages-manifest.json
+404   28986 text/html; charset=utf-8         /_next/server/functions-config-manifest.json
+429      75 text/plain; charset=utf-8        /.next/routes-manifest.json
+404   28986 text/html; charset=utf-8         /_next/image?url=assets/img/logo.png&w=256&q=75

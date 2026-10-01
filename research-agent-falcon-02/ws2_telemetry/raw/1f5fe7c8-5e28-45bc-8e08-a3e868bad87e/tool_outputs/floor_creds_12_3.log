@@ -1,0 +1,21 @@
+# command: timeout 15 curl -s -m 13 -o - -D - -w '\nHTTP_STATUS:%{http_code}' -X POST -H 'Content-Type: application/x-www-form-urlencoded' -d 'username=administrator&password=password' 'https://www.infinitycapital.bh/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fyts1dx0j7jj5%2F1GCT0vyjqmOwm2OL1YVpD1%2F2ab55f8b5189afa153eac5cb97f7f6d4%2FAhmed_Taleb_updated-min.jpg&w=1080&q=75https://www.infinitycapital.bh//?id=1&search=test&page=2==='
+# exit_code: 0
+# ---
+
+HTTP/2 405 
+cache-control: public, max-age=0, must-revalidate
+content-type: text/plain; charset=utf-8
+date: Wed, 30 Sep 2026 04:20:20 GMT
+server: Vercel
+strict-transport-security: max-age=63072000
+x-vercel-error: INVALID_REQUEST_METHOD
+x-vercel-id: bom1::tvf46-1790742020010-7a5edde289a1
+content-length: 83
+
+Method not allowed
+
+INVALID_REQUEST_METHOD
+
+bom1::tvf46-1790742020010-7a5edde289a1
+
+HTTP_STATUS:405

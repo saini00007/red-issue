@@ -1,0 +1,7 @@
+# command: curl -s "https://duck-store.escape.tech/api/v1/admin/orders" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYjk4YjBhOTEtNzY3Zi00MDgwLWIyZWUtYzE3OGYwMDg3MjhiIiwidXNlcm5hbWUiOiJ0ZXN0dXNlckFfMTIzIiwicm9sZSI6InVzZXIiLCJleHAiOjE3OTA2OTU0Mzh9.J59tThpOLOZtutUZrAljNP6a0QpJfGmkjTTuo6CjOm8" | head -200
+# tool: curl
+# exit_code: 0
+# ts: 2026-09-29T16:11:20.915993+00:00
+# ---
+
+{"detail":"Invalid token: Signature has expired"}
